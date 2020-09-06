@@ -3,7 +3,7 @@
 
 #### directories
 ncmpcpp_directory = "~/.config/ncmpcpp"
-#lyrics_directory = "~/.config/ncmpcpp/lyrics"
+lyrics_directory = "~/.config/ncmpcpp/lyrics"
 mpd_music_dir = "~/mus"
 
 #### connection settings

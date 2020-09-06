@@ -1,12 +1,11 @@
-# .config/sxhkd/sxhkdrc
-#
-# Miika Nissi 
-
+# .config/sxhkd/sxhkdrc by Miika Nissi
+# https://github.com/Miika1806
+# https://miikanissi.com
 
 ### PROGRAM LAUNCHERS ###
 # launch programs (q,f,t,h,n,p,space,greater,less taken by bspc and cmus)
-super + {Return, w, e, g, m, s, Print}
-      {rxvt, brave-browser, thunderbird, emacs, rxvt -name ncmpcpp -e ncmpcpp, signal-desktop --no-sandbox -use-tray-icon %U, sleep 10 && ~/.local/bin/screenshot.sh}
+super + {Return, w, e, g, m, c, s, Print}
+      {rxvt, brave-browser, thunderbird, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, signal-desktop --no-sandbox -use-tray-icon %U, sleep 1 && ~/.local/bin/screenshot.sh}
 
 # launch rofi
 super + d

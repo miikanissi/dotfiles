@@ -1,21 +1,24 @@
 #!/bin/sh
-# .config/bspwm/bspwmrc
-#
-# Miika Nissi
+# .config/bspwm/bspwmrc by Miika Nissi
+# https://github.com/Miika1806
+# https://miikanissi.com
 
-# Make sure all processes are killed
+# make sure all processes are killed
 killall -q compton
 killall -q sxhkd
 killall -q dunst
 killall -q signal-desktop
+killall -q polybar
 
-# Wait until the processes have been shut down
+# wait until the processes have been shut down
 while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
 while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
 while pgrep -u $UID -x dunst >/dev/null; do sleep 1; done
+while pgrep -u $UID -x signal-desktop >/dev/null; do sleep 1; done
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
-.local/bin/launch_polybar.sh # kills/launches polybar
+polybar top &
 compton -b -c &
 sxhkd &
 dunst -config ~/.config/dunst/dunstrc &
@@ -27,7 +30,7 @@ xset r rate 300 50 &
 .local/bin/setbg.sh & # sets wallpaper
 
 ### BSPC ###
-bspc monitor -d 1 2 3 4
+bspc monitor -d 1 2 3 4 5
 
 bspc config pointer_modifier        mod4
 bspc config border_width            2
