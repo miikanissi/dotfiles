@@ -1,0 +1,82 @@
+# .config/sxhkd/sxhkdrc
+#
+# Miika Nissi 
+
+
+### PROGRAM LAUNCHERS ###
+# launch programs (q,f,t,h,n,p,space,greater,less taken by bspc and cmus)
+super + {Return, w, e, g, m, s, Print}
+      {rxvt, brave-browser, thunderbird, emacs, rxvt -name ncmpcpp -e ncmpcpp, signal-desktop --no-sandbox -use-tray-icon %U, sleep 10 && ~/.local/bin/screenshot.sh}
+
+# launch rofi
+super + d
+      rofi -show run
+
+# launch rofi emoji
+super + shift + d
+      rofi -show emoji -modi emoji
+      
+#### CMUS HOTKEYS (uncomment to use) ###
+## pause cmus
+#super + space
+#      cmus-remote --pause
+#
+## adjust volume
+#super + {greater, less}
+#      cmus-remote --volume {+2%, -2%}
+#
+## change song
+#super + {n, p}
+#      cmus-remote {--next, --prev}
+#
+
+### MPD HOTKEYS ###
+# pause mpd
+super + space
+      mpc toggle
+
+# adjust mpd volume
+super + {greater, less}
+      mpc volume {+, -}2
+
+# change song
+super + {n, p}
+      mpc {next, prev}
+      
+### BSPC HOTKEYS ###
+# restart everything (not working properly)
+super + q
+    bspc wm -r
+
+# exit bspwm
+super + shift + q
+      bspc quit
+
+# close current window
+super + shift + c
+      bspc node -c
+
+# swap the current node and the biggest node
+super + shift + Return
+	bspc node -s biggest
+
+# set the window state
+super + {t,shift + t,h,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# focus the node in the given direction, shift swaps nodes
+super + {_,shift +}{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus or send to the given desktop
+super + {_,shift +}{1-4}
+	bspc {desktop -f,node -d} '^{1-4}'
+	
+# expand a window by moving one of its side outward
+super + alt + {Left,Down,Up,Right}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + ctrl + {Left,Down,Up,Right}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+

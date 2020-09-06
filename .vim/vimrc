@@ -1,0 +1,90 @@
+" Vim Config -Miika Nissi
+" -----------------------
+
+" Load plugins with vim-plug
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-ragtag'
+Plug 'jremmen/vim-ripgrep'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-utils/vim-man'
+Plug 'lyuts/vim-rtags'
+Plug 'mbbill/undotree'
+Plug 'ap/vim-css-color'
+call plug#end()
+
+" Syntax highlighting on
+syntax on
+
+" Setters
+" Compatibility vim only
+set nocompatible
+" Uses system clipboard
+set clipboard=unnamed
+" No error bells
+set noerrorbells
+" Tabs and indentation
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+" show line numbers and no wrap
+set nu
+set wrap
+" Ignore and be smart about cases when searching
+set ignorecase
+set smartcase
+" No swapfile or backup instead save undofiles in undodir
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+" Enables incremental search
+set incsearch
+" Always shows current position
+set ruler
+" No modelines
+set modelines=0
+" Colorcolumn and background
+set colorcolumn=80
+set background=dark
+" No redrawing when executing macros
+set lazyredraw
+" Magic for regex
+set magic
+" Shows 5 lines below mouse when scrolling
+set scrolloff=5
+" Backspace problems
+set backspace=indent,eol,start
+" Highlights matching brackets, '%' to jump between them
+set matchpairs+=<:>
+" Only stores info from 100 files at a time, 9999 lot.
+set viminfo='100,<9999,s100
+
+" Disable .viminfo
+let skip_defaults_vim=1
+set viminfo=""
+
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+" Defines leader key as space
+let mapleader = " "
+let g:netrw_browse_split=21
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+let g:ctrlp_use_caching = 0
+
+" Remaps with leader key
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <leader>pv: :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <Leader>ps :Rg<SPACE>
+nnoremap <silent> <Leader>+ :vertical resize +5<CR>
+nnoremap <silent> <Leader>- :vertical resize -5<CR>
+
+nnoremap <silent> <Leader>gf :YcmCompleter GoTo<CR>
+nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>

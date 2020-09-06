@@ -1,0 +1,11 @@
+/* .config/rofi/config */
+/* Rofi config Miika Nissi */
+
+configuration {
+	modi: "window,run,ssh";
+	width: 20;
+	lines: 5;
+	font: "DejaVu Sans Mono 12";
+	location: 2;
+}
+/*	theme: "themes_base16-hopscotch.rasi";*/

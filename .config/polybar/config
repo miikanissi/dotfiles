@@ -1,0 +1,278 @@
+;; .config/polybar/config
+;;
+;; Miika Nissi
+
+[colors]
+background = ${xrdb:color0:#05060A}
+background-alt = ${xrdb:color10}
+foreground = ${xrdb:color7:#f4dfbd}
+;;${xrdb:foreground:#fff}
+foreground-alt = #555555
+primary = ${xrdb:color5}
+secondary = ${xrdb:color1}
+alert = #bd2c40
+
+[bar/top]
+monitor = ${env:MONITOR:DVI-D-0}
+monitor_fallback =
+monitor-strict = false
+monitor-exact = true
+enable-ipc = true
+
+width = 100%
+height = 32
+radius = 0.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-right = 2
+
+font-0 = DejaVuSansMono:pixelsize=10;3
+font-1 = FontAwesome:style=Regular:size=16;4
+font-2 = Symbola:size=14;2
+font-3 = Symbola:size=20;4
+
+modules-left = bspwm mpd xwindow
+modules-center = 
+modules-right = weather_icon weather cputemp pulseaudio date network powermenu
+
+wm-restack = bspwm
+override-redirect = true
+
+format-underline = {colors.secondary}
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+cursor-click = pointer
+; cursor-scroll = ns-resize
+
+[module/sep]
+type = custom/text
+content = |
+content-background = ${colors.background}
+content-foreground = ${colors.primary}
+
+[module/bspwm]
+type = internal/bspwm
+
+ws-icon-0 = "1;1"
+ws-icon-1 = "2;2"
+ws-icon-2 = "3;3"
+ws-icon-3 = "4;4"
+ws-icon-4 = "5;5"
+ws-icon-5 = "6;6"
+ws-icon-6 = "7;7"
+ws-icon-7 = "8;8"
+ws-icon-8 = "9;9"
+
+label-focused = %icon%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.secondary}
+label-focused-padding = 2
+
+label-occupied = %icon%
+label-occupied-overline = ${colors.primary}
+label-occupied-padding = 2
+
+label-urgent = %icon%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+label-empty = %icon%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 2
+
+format-padding = 0
+
+[module/xwindow]
+type = internal/xwindow
+label = " %title:0:...% "
+label-maxlen = 50
+
+[module/mpd]
+type = internal/mpd
+
+host = localhost
+port = 6600
+
+interval = 2
+
+format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <icon-random> <label-time>  <label-song>
+
+label-song = " 𝄞 %artist% - %title%"
+label-song-maxlen = 66
+label-offline = 🎜 mpd is offline
+
+icon-play = ⏵
+icon-pause = ⏸
+icon-stop = ⏹
+icon-prev = ⏮
+icon-next = ⏭
+icon-seekb = ⏪
+icon-seekf = ⏩
+icon-random = 🔀
+icon-repeat = 🔁
+icon-repeatone = 🔂
+icon-single = 🔂
+icon-consume = ✀
+
+toggle-on-foreground = #ff
+toggle-off-foreground = #55
+
+bar-progress-width = 12
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+[module/cputemp]
+type = custom/script
+exec = .local/bin/cputemp.sh
+interval = 10
+click-left = rxvt -e htop
+
+format-prefix = " "
+format-prefix-foreground = ${colors.primary}
+
+[module/weather_icon]
+type = custom/script
+exec = .local/bin/weather.sh
+interval = 60
+label-foreground = ${colors.primary}
+
+format-padding = 0
+format = <label>
+format-font = 4
+label = %output:0:1%
+click-right = .local/bin/weather_updated.sh
+
+[module/weather]
+type = custom/script
+exec = .local/bin/weather.sh | awk '{print " "$2, $3}'
+interval = 60
+
+format-padding = 0
+format = <label>
+label-padding-right = 3
+label = %output%
+
+click-left = sxiv .local/share/weather.png
+click-right = .local/bin/weather_updated.sh
+
+[module/date]
+type = internal/date
+interval = 5
+date-alt = " %Y-%m-%d"
+
+time = %I:%M%p
+time-alt = %H:%M:%S
+
+format-prefix = ""
+format-prefix-foreground = ${colors.primary}
+label = %date% %time%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_0c_00.4.analog-stereo
+
+format-volume = <label-volume>
+format-volume-prefix = " "
+format-volume-prefix-foreground = ${colors.primary}
+label-volume = %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted =  muted
+label-muted-foreground = #666
+
+click-right = pavucontrol &
+
+[module/network]
+type = custom/script
+exec = .local/bin/check_connection.sh
+interval = 1
+click-left = nm-connection-editor
+format-foreground = ${colors.primary}
+
+[module/battery]
+type = internal/battery
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT1
+poll-interval = 5
+
+time-format = %H:%M
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+; Framerate in milliseconds
+animation-charging-framerate = 750
+
+; Only applies if <animation-discharging> is used
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+; Framerate in milliseconds
+animation-discharging-framerate = 500
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open =  
+label-open-foreground = ${colors.secondary}
+label-close =  cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = reboot
+menu-0-0-exec = systemctl reboot
+menu-0-1 = power off
+menu-0-1-exec = systemctl poweroff
+menu-0-2 = suspend
+menu-0-2-exec = systemctl suspend
+
+[settings]
+screenchange-reload = true
+pseudo-transparency    = false
+format-padding = 2
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+format-underline = ${colors.primary}

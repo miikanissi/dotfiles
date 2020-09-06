@@ -1,0 +1,76 @@
+# .config/ncmpcpp/config
+#
+
+#### directories
+ncmpcpp_directory = "~/.config/ncmpcpp"
+#lyrics_directory = "~/.config/ncmpcpp/lyrics"
+mpd_music_dir = "~/mus"
+
+#### connection settings
+mpd_host = localhost
+mpd_port = 6600
+mpd_connection_timeout = 5
+
+#### visualizer
+visualizer_fifo_path = /tmp/mpd.fifo
+visualizer_output_name = my_fifo
+visualizer_in_stereo = yes
+visualizer_sync_interval = 30
+## Available values: spectrum, wave, wave_filled, ellipse.
+visualizer_type = spectrum
+visualizer_look = ●▮
+visualizer_color = blue, cyan, green, yellow, magenta, red
+
+#### format
+song_list_format = {$4%a - }{%t}|{$8%f$9}$R{$3(%l)$9}
+song_status_format = $b{{$8"%t"}} $3by {$4%a{ $3in $7%b{ (%y)}} $3}|{$8%f}
+song_library_format = {%n - }{%t}|{%f}
+alternative_header_first_line_format = $b$1$aqqu$/a$9 {%t}|{%f} $1$atqq$/a$9$/b
+alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}}|{%D}
+current_item_prefix = $(cyan)$r$b
+current_item_suffix = $/r$(end)$/b
+current_item_inactive_column_prefix = $(magenta)$r
+current_item_inactive_column_suffix = $/r$(end)
+
+message_delay_time = 5
+
+#### columns
+playlist_display_mode = columns
+browser_display_mode = classic
+progressbar_look = =>
+
+#### library
+media_library_primary_tag = album_artist
+media_library_albums_split_by_date = no
+store_lyrics_in_song_dir = yes
+
+startup_screen = "media_library"
+display_volume_level = yes
+ignore_leading_the = yes
+
+# adds album art, pretty ugly solution as it places it in a fixed position
+# execute_on_song_change = "~/.local/bin/get_album_cover.sh"
+
+#### editor
+external_editor = vim
+use_console_editor = yes
+
+mouse_support = no
+
+#### colors
+colors_enabled = yes
+empty_tag_color = cyan
+header_window_color = default
+volume_color = default
+state_line_color = default
+state_flags_color = default:b
+main_window_color = white
+progressbar_color = black:b
+progressbar_elapsed_color = blue:b
+statusbar_color = red
+statusbar_time_color = cyan:b
+player_state_color = default:b
+alternative_ui_separator_color = black:b
+window_border_color = green
+active_window_border = red
+
