@@ -5,7 +5,7 @@
 ### PROGRAM LAUNCHERS ###
 # launch programs (q,f,t,h,n,p,space,greater,less taken by bspc and cmus)
 super + {Return, w, e, g, m, c, s, Print}
-      {rxvt, brave-browser, thunderbird, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, signal-desktop --no-sandbox -use-tray-icon %U, sleep 1 && ~/.local/bin/screenshot.sh}
+      {rxvt, brave-browser, thunderbird, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, signal-desktop --no-sandbox -use-tray-icon %U, maim -s | xclip -selection clipboard -t image/png}
 
 # launch rofi
 super + d
@@ -68,8 +68,8 @@ super + {_,shift +}{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus or send to the given desktop
-super + {_,shift +}{1-4}
-	bspc {desktop -f,node -d} '^{1-4}'
+super + {_,shift +}{1-5}
+	bspc {desktop -f,node -d} '^{1-5}'
 	
 # expand a window by moving one of its side outward
 super + alt + {Left,Down,Up,Right}

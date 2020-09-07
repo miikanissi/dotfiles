@@ -45,8 +45,8 @@ bspc config focus_follows_pointer   true
 
 bspc config focused_border_color    "#c85e7c" # "#cd9868"
 
-bspc rule -a cmus desktop='^4' state=floating follow=on
-bspc rule -a URxvt:ncmpcpp desktop='^4' state=floating follow=on
+bspc rule -a cmus desktop='^5' state=floating follow=on
+bspc rule -a URxvt:ncmpcpp desktop='^5' state=floating follow=on
 bspc rule -a Gimp desktop='^3' state=floating follow=on
 bspc rule -a Screenkey manage=off
 bspc rule -a Emacs state=tiled
