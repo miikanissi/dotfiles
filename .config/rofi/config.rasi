@@ -7,5 +7,5 @@ configuration {
 	lines: 5;
 	font: "DejaVu Sans Mono 12";
 	location: 2;
+	theme: "base16-hopscotch.rasi";
 }
-/*	theme: "themes_base16-hopscotch.rasi";*/
