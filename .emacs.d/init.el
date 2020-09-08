@@ -1,6 +1,6 @@
-;; .emacs.d/init.el
-;;
-;; Emacs config by Miika Nissi
+;; .emacs.d/init.el by Miika Nissi
+;; https://github.com/Miika1806
+;; https://miikanissi.com
 
 ;; PACKAGES
 (require 'package)

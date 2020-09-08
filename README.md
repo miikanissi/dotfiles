@@ -22,11 +22,12 @@ Here are the details of my setup:
 - **Text Editor**    : [GNU Emacs](https://www.gnu.org/software/emacs/), [Vim](https://www.vim.org/) :pencil2: Programming environments
 - **Music Player**   : [MPD](https://www.musicpd.org/). [NCMPCPP](https://github.com/ncmpcpp/ncmpcpp) :musical_note: Polybar integration
 
-You can check [gallery](https://github.com/Miika1806/dotfiles/wiki/Gallery) for more details.
-
 ## :art: Colors!
-### <p align="center">[Hopscotch Color Scheme]()</p>
+### <p align="center">[Hopscotch Color Scheme](https://base16.netlify.app/previews/base16-hopscotch.html)</p>
 <p align="center"><a name="top" href="#art-colors"><img src="" alt="hopscotch-color-scheme" height="60%" width="100%"></a></p>
 
-## :purple_heart: Credits
+## :purple_heart: Links / Credits
+To stay up to date with me visit my [Blog](https://miikanissi.com/blogindex/)
+
+Credits:
 - 
