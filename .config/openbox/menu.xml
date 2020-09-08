@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openbox_menu xmlns="http://openbox.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://openbox.org/                 file:///usr/share/openbox/menu.xsd">
+	<menu id="root-menu" label="Openbox 3">
+		<item label="Terminal emulator">
+			<action name="Execute">
+				<execute>rxvt</execute>
+			</action>
+		</item>
+		<item label="Web browser">
+			<action name="Execute">
+				<execute>x-www-browser</execute>
+			</action>
+		</item>
+		<!-- This requires the presence of the 'openbox-menu' package to work -->
+		<menu execute="/usr/bin/obamenu" id="applications-menu" label="Applications"/>
+		<separator/>
+		<menu id="exi" label="Exit">
+			<item label="Logout">
+				<action name="Exit"/>
+			</item>
+			<item label="Suspend">
+				<action name="Execute">
+					<execute>systemctl suspend</execute>
+				</action>
+			</item>
+			<item label="Reboot">
+				<action name="Execute">
+					<execute>systemctl reboot</execute>
+				</action>
+			</item>
+			<item label="Shutdown">
+				<action name="Execute">
+					<execute>systemctl poweroff</execute>
+				</action>
+			</item>
+		</menu>
+	</menu>
+</openbox_menu>
