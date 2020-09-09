@@ -4,9 +4,10 @@
 
 ### PROGRAM LAUNCHERS ###
 # launch programs (q,f,t,h,n,p,space,greater,less taken by bspc and cmus)
-super + {Return, w, e, g, m, c}
-      {rxvt, brave-browser, thunderbird, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm}
+super + {Return, w, e, g, m, c, b}
+      {rxvt, brave-browser, thunderbird, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, rxvt -name newsboat -e newsboat}
 
+# print screen script with maim
 super + Print
       ~/.local/bin/screenshot.sh
 

@@ -2,18 +2,18 @@
 auto-reload yes
 
 
-bind-key j down
-bind-key k up
-bind-key j next articlelist
-bind-key k prev articlelist
+bind-key DOWN down
+bind-key UP up
+bind-key UP next articlelist
+bind-key DOWN prev articlelist
 bind-key J next-feed articlelist
 bind-key K prev-feed articlelist
 bind-key G end
 bind-key g home
 bind-key d pagedown
 bind-key u pageup
-bind-key l open
-bind-key h quit
+bind-key RIGHT open
+bind-key LEFT quit
 bind-key a toggle-article-read
 bind-key n next-unread
 bind-key N prev-unread
@@ -21,24 +21,21 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
-color listnormal cyan default
+color listnormal blue default
 color listfocus black yellow standout bold
-color listnormal_unread blue default
+color listnormal_unread cyan default
 color listfocus_unread yellow default bold
 color info red black bold
 color article white default bold
 
 macro , open-in-browser
-browser firefox
-macro t set browser "qndl" ; open-in-browser ; set browser firefox
-macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser firefox
-macro v set browser "setsid -f mpv"; open-in-browser ; set browser firefox
-macro w set browser "lynx" ; open-in-browser ; set browser linkhandler
-macro p set browser "dmenuhandler" ; open-in-browser ; set browser linkhandler
-macro c set browser "xsel -b <<<" ; open-in-browser ; set browser linkhandler
+browser brave-browser
+macro t set browser "qndl" ; open-in-browser ; set browser brave-browser
+macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser brave-browser
+macro v set browser "setsid -f mpv"; open-in-browser ; set browser brave-browser
 
 highlight all "--.*--" yellow
-highlight all "---.*---" yellow
+highlight all "---.*---" red
 highlight feedlist ".*(0/0))" black
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
 highlight article "(^Link:.*|^Date:.*)" default default

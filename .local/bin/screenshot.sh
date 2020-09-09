@@ -1,10 +1,19 @@
 #!/bin/sh
+# screenshot script by Miika Nissi
+# https://github.com/Miika1806
+# https://miikanissi.com
+# Dependencies: maim, ifne(moreutils), xclip
 
-# uncomment for scrot
-# scrot -s -e 'mv $f ~/pics/ss/'
+filename=$(date +%F_%T).png
+filepath=~/pics/ss/$filename
 
 # takes screenshot of selected region
-# pipes into tee which saves image and passes standard output onto
-# xclip for pasting
-maim -s | tee ~/pics/ss/$(date +%s).png | xclip -selection clipboard -t image/png
+# pipes into ifne which checks if output is empty
+# if not empty tee saves image and passes standard output onto
+# xclip for easy pasting
+maim -s -q | ifne tee $filepath | xclip -selection clipboard -t image/png
 
+# sends notification if saved succesfully.
+if [ -f $filepath ]; then
+    notify-send "Screenshot saved."
+fi
