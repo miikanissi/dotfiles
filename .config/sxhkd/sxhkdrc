@@ -1,11 +1,11 @@
 # .config/sxhkd/sxhkdrc by Miika Nissi
-# https://github.com/Miika1806
+# https://github.com/miikanissi
 # https://miikanissi.com
 
 ### PROGRAM LAUNCHERS ###
 # launch programs (q,f,t,h,n,p,space,greater,less taken by bspc and cmus)
 super + {Return, w, e, g, m, c, b}
-      {rxvt, brave-browser, thunderbird, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, rxvt -name newsboat -e newsboat}
+      {rxvt, brave-browser, evolution, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, rxvt -name newsboat -e newsboat}
 
 # print screen script with maim
 super + Print

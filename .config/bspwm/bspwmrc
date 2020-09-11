@@ -1,6 +1,6 @@
 #!/bin/sh
 # .config/bspwm/bspwmrc by Miika Nissi
-# https://github.com/Miika1806
+# https://github.com/miikanissi
 # https://miikanissi.com
 
 # make sure all processes are killed
@@ -23,6 +23,7 @@ compton -b -c &
 sxhkd &
 dunst -config ~/.config/dunst/dunstrc &
 signal-desktop --start-in-tray --use-tray-icon --no-sandbox %U &
+light-locker &
 
 xset r rate 300 50 &
 
