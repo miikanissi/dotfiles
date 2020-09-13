@@ -22,7 +22,7 @@ bind-key U show-urls
 macro , open-in-browser
 macro m set browser "mpv %u" ; open-in-browser ; set browser brave-browser
 macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser brave-browser
-macro v set browser "setsid -f mpv"; open-in-browser ; set browser brave-browser
+
 
 # colors
 color listnormal blue default
