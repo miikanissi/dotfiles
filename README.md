@@ -33,4 +33,4 @@ Credits:
 - [Lukewh](https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ) Helpful emacs configuration guide.
 - [owl4ce](https://github.com/owl4ce/dotfiles) README.md inspired by him.
 - [Leeren](https://github.com/leeren) Vim configurations inspired by him.
-- Wallpaper artist unknown but credits to them I suppose
+- Wallpaper artist unknown but credits to them I suppose.
