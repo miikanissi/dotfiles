@@ -30,6 +30,7 @@ Here are the details of my setup:
 To stay up to date with me visit my [Blog](https://miikanissi.com/blogindex/)
 
 Credits:
-- [Lukewh](https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ) Helpful emacs configuration guide
-- [owl4ce](https://github.com/owl4ce/dotfiles) README.md inspired by him
-- Wallpaper artist unknown
+- [Lukewh](https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ) Helpful emacs configuration guide.
+- [owl4ce](https://github.com/owl4ce/dotfiles) README.md inspired by him.
+- [Leeren](https://github.com/leeren) Vim configurations inspired by him.
+- Wallpaper artist unknown but credits to them I suppose
