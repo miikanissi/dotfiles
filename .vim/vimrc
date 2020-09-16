@@ -8,6 +8,10 @@
 filetype plugin indent on
 syntax on
 highlight ColorColumn ctermbg=0 guibg=lightgrey
+colorscheme base16-hopscotch
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ }
 
 " settings
 set backspace=indent,eol,start  " normal backspace functionality
@@ -32,13 +36,13 @@ set incsearch                   " incremental search enabled
 set ruler                       " ruler shows cur pos
 set modelines=0                 " no modelines
 set colorcolumn=80              " colorcolumn is 80
-set background=dark             " dark background
 set lazyredraw                  " no redraw
 set magic                       " magic for regex
 set scrolloff=5                 " shows 5 lines under mouse
 set matchpairs+=<:>             " highlights matching brackets, '%' to jump between them
 set viminfo='100,<9999,s100     " only stores info from 100 files at a time, 9999 lot.
-
+set laststatus=2                " allows lightline to show
+set noshowmode                  " -- INSERT -- is not shown as lightline shows it
 " Disable .viminfo
 let skip_defaults_vim=1
 set viminfo=""
@@ -46,19 +50,6 @@ set viminfo=""
 " variables
 let $RTP=split(&runtimepath, ',')[0]
 let $RC="$HOME/.vim/vimrc"
-
-" Load plugins with vim-plug
-call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-ragtag'
-Plug 'jremmen/vim-ripgrep'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-utils/vim-man'
-Plug 'lyuts/vim-rtags'
-Plug 'mbbill/undotree'
-Plug 'ap/vim-css-color'
-call plug#end()
 
 " Defines leader key as space
 let mapleader = " "
@@ -72,7 +63,6 @@ nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>u :UndotreeShow<CR>
 nnoremap <leader>pv: :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <Leader>ps :Rg<SPACE>
 nnoremap <silent> <Leader>+ :vertical resize +5<CR>

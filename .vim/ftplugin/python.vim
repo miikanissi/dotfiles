@@ -9,7 +9,7 @@ setlocal path=.,**
 setlocal wildignore=*.pyc
 
 " pia regex to include pattern for search
-set include=^\\s*\\(from\\\|import\\)\\s*\\zs\\(\\S\\+\\s\\{-}\\)*\\ze\($\\\| as\\)
+set include=^\\s*\\(from\\\|import\\)\\s*\\zs\\(\\S\\+\\s\\{-}\\)*\\ze\($\\\|\ as\\)
 " import conv.metrics (1)
 " /conv.metrics/
 " conv/metrix.py
