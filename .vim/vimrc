@@ -3,6 +3,11 @@
 " https://miikanissi.com
 
 " language specific configs at .vim/ftplugin/<language>.vim
+" or .vim/after/ftplugin/<language>.vim to not override defaults only add to
+
+" variables
+let $RTP=split(&runtimepath, ',')[0]
+let $RC="$HOME/.vim/vimrc"
 
 " basics
 filetype plugin indent on
@@ -17,6 +22,7 @@ let g:lightline = {
 set backspace=indent,eol,start  " normal backspace functionality
 set hidden                      " hides instead of unloads buffers
 set path=.,**                   " path is cur file and dir
+set wildmenu                    " tab complete shows all matching files
 set nocompatible                " compatibility vim only
 set clipboard=unnamed           " uses system clipboard
 set noerrorbells                " no error bells
@@ -30,8 +36,8 @@ set ignorecase                  " ignores case in search
 set smartcase                   " uses smartcase in search
 set noswapfile                  " no swap file
 set nobackup                    " no backup file
-set undodir=~/.vim/undodir      " undo dir
-set undofile                    " makes undofiles
+" set undodir=~/.vim/undodir      " undo dir
+" set undofile                    " makes undofiles
 set incsearch                   " incremental search enabled
 set ruler                       " ruler shows cur pos
 set modelines=0                 " no modelines
@@ -43,30 +49,26 @@ set matchpairs+=<:>             " highlights matching brackets, '%' to jump betw
 set viminfo='100,<9999,s100     " only stores info from 100 files at a time, 9999 lot.
 set laststatus=2                " allows lightline to show
 set noshowmode                  " -- INSERT -- is not shown as lightline shows it
-" Disable .viminfo
-let skip_defaults_vim=1
-set viminfo=""
+let skip_defaults_vim=1         " disable viminfo
+set viminfo=""                  " disable viminfo
+set showcmd                     " shows the typed command
 
-" variables
-let $RTP=split(&runtimepath, ',')[0]
-let $RC="$HOME/.vim/vimrc"
+" file browsing tweaks netrw-browse-maps for mappings
+let g:netrw_banner=0            " disable banner
+let g:netrw_browse_split=4      " open in prior window
+let g:netrw_altv=1              " open splits to right
+let g:netrw_liststyle=3         " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_dirhistmax=0        " no .netrwhist file
 
-" Defines leader key as space
-let mapleader = " "
-let g:netrw_browse_split=21
-let g:netrw_banner = 0
-let g:netrw_winsize = 25
-let g:ctrlp_use_caching = 0
+" defines leader key as comma
+let mapleader = ","
 
-" Remaps with leader key
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
-nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>pv: :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-nnoremap <Leader>ps :Rg<SPACE>
-nnoremap <silent> <Leader>+ :vertical resize +5<CR>
-nnoremap <silent> <Leader>- :vertical resize -5<CR>
+" snippets
+nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
+nnoremap <leader>cc :-1read $HOME/.vim/snippets/skeleton.c<CR>4ji<tab>
+nnoremap <leader>cpp :-1read $HOME/.vim/snippets/skeleton.cpp<CR>4ji<tab>
 
-nnoremap <silent> <Leader>gf :YcmCompleter GoTo<CR>
-nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>
+" terminal commands
+command! MakeTags !ctags -R .   " recursively creates ctags in directory
