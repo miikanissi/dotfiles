@@ -81,7 +81,7 @@ URxvt.keysym.Control-Down:          \033[1;5B
 URxvt.keysym.Shift-Control-Down:    \033[1;6B
 
 !!! Xft !!!
-Xft.dpi:       92
+Xft.dpi:       96
 Xft.antialias: true
 Xft.hinting:   true
 Xft.rgba:      rgb

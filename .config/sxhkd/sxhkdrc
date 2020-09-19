@@ -3,7 +3,7 @@
 # https://miikanissi.com
 
 ### PROGRAM LAUNCHERS ###
-# launch programs (q,f,t,h,n,p,space,greater,less taken by bspc and cmus)
+# launch programs (h,j,k,l,q,f,t,n,p,space,greater,less taken by bspc and cmus)
 super + {Return, w, e, g, m, c, b}
       {rxvt, brave-browser, evolution, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, rxvt -name newsboat -e newsboat}
 
@@ -63,13 +63,15 @@ super + shift + c
 super + shift + Return
 	bspc node -s biggest
 
-# set the window state
-super + {t,shift + t,h,f}
+super + {t,shift + t,shift + f,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # focus the node in the given direction, shift swaps nodes
 super + {_,shift +}{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
+
+super + {_,shift +}{h,j,k,l}
+    bspc node -{f,s} {west,south,north,east}
 
 # focus or send to the given desktop
 super + {_,shift +}{1-5}
@@ -79,7 +81,12 @@ super + {_,shift +}{1-5}
 super + alt + {Left,Down,Up,Right}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
+super + alt + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+    
 # contract a window by moving one of its side inward
 super + ctrl + {Left,Down,Up,Right}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
+super + ctrl + {h,j,k,l}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}

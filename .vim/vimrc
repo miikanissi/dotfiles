@@ -72,3 +72,4 @@ nnoremap <leader>cpp :-1read $HOME/.vim/snippets/skeleton.cpp<CR>4ji<tab>
 
 " terminal commands
 command! MakeTags !ctags -R .   " recursively creates ctags in directory
+command! Reload execute "source ~/.vim/vimrc"

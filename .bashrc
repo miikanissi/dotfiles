@@ -66,7 +66,7 @@ unset color_prompt force_color_prompt
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Aliases
-alias ll='ls --color=auto -la'
+alias ll='ls --color=auto -laF'
 alias ls='ls --color=always'
 alias la='ls --color=auto -A'
 alias grep='grep --color=auto'
