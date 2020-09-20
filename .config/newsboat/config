@@ -5,22 +5,25 @@
 # feed
 auto-reload yes
 refresh-on-startup yes
+reload-threads 50
 prepopulate-query-feeds yes
 browser brave-browser
 
 # keybinds
 bind-key , macro-prefix
-bind-key DOWN down
-bind-key UP up
-bind-key RIGHT open
-bind-key LEFT quit
+bind-key j down
+bind-key k up
+bind-key G end
+bind-key g home
+bind-key l open
+bind-key h quit
 bind-key BACKSPACE quit
 bind-key a toggle-article-read
 bind-key U show-urls
 
 # macros
 macro , open-in-browser
-macro m set browser "mpv %u" ; open-in-browser ; set browser brave-browser
+macro m set browser "mpv %u > /dev/null &" ; open-in-browser ; set browser brave-browser
 macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser brave-browser
 
 
