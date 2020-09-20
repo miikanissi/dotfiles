@@ -4,3 +4,6 @@
 [submodule ".vim/pack/plugins/start/lightline.vim"]
 	path = .vim/pack/plugins/start/lightline.vim
 	url = https://github.com/itchyny/lightline.vim
+[submodule ".vim/pack/plugins/start/vim-css-color"]
+	path = .vim/pack/plugins/start/vim-css-color
+	url = https://github.com/ap/vim-css-color.git
