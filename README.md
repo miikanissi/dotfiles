@@ -26,6 +26,12 @@ Here are the details of my setup:
 ### <p align="center">[Hopscotch Color Scheme](https://base16.netlify.app/previews/base16-hopscotch.html)</p>
 <p align="center"><a name="top" href="#art-colors"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/base16-hopscotch.png?raw=true" alt="hopscotch-color-scheme" height="60%" width="100%"></a></p>
 
+## :wrench: Installation
+Clone the repo and submodules for vim, then move the config files in the correct directories manually
+
+    git clone --recurse-submodules https://github.com/miikanissi/dotfiles.git
+    cd dotfiles
+  
 ## :purple_heart: Links / Credits
 To stay up to date with me visit my [Blog](https://miikanissi.com/blogindex/)
 
