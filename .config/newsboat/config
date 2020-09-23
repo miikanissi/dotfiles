@@ -24,6 +24,7 @@ bind-key U show-urls
 # macros
 macro , open-in-browser
 macro m set browser "mpv %u > /dev/null &" ; open-in-browser ; set browser brave-browser
+macro n set browser "mpv %u " ; open-in-browser ; set browser brave-browser
 macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser brave-browser
 
 

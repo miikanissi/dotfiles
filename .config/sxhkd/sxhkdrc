@@ -3,9 +3,9 @@
 # https://miikanissi.com
 
 ### PROGRAM LAUNCHERS ###
-# launch programs (h,j,k,l,q,f,t,n,p,space,greater,less taken by bspc and cmus)
-super + {Return, w, e, g, m, c, b}
-      {rxvt, brave-browser, evolution, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, rxvt -name newsboat -e newsboat}
+# launch programs (h,j,k,l,d,q,f,t,n,p,space,greater,less taken by bspc and cmus)
+super + {Return, w, e, g, m, c, b, s}
+      {rxvt, brave-browser, evolution, emacs, rxvt -name ncmpcpp -e ncmpcpp, pcmanfm, rxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
 
 # print screen script with maim
 super + Print

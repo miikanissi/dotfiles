@@ -52,6 +52,14 @@ set noshowmode                  " -- INSERT -- is not shown as lightline shows i
 let skip_defaults_vim=1         " disable viminfo
 set viminfo=""                  " disable viminfo
 set showcmd                     " shows the typed command
+set foldmethod=indent           " enable folding
+set foldlevel=99                " enable folding
+
+" split navigation remaps
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " file browsing tweaks netrw-browse-maps for mappings
 let g:netrw_banner=0            " disable banner
@@ -61,9 +69,13 @@ let g:netrw_liststyle=3         " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_dirhistmax=0        " no .netrwhist file
+let g:netrw_winsize=20
 
 " defines leader key as comma
 let mapleader = ","
+
+" leader remaps
+nnoremap <leader>b :buffers<CR>:buffer<Space>
 
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a

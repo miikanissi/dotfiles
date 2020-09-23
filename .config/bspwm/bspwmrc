@@ -22,7 +22,7 @@ polybar top &
 compton -b -c &
 sxhkd &
 dunst -config ~/.config/dunst/dunstrc &
-signal-desktop --start-in-tray --use-tray-icon --no-sandbox %U &
+signal-desktop --start-in-tray --use-tray-icon & # --no-sandbox if on deb
 light-locker &
 xrdb .Xresources &
 
