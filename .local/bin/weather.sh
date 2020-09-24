@@ -26,7 +26,7 @@ get_weather()
 }
 
 # checks the hour when weather_report was made, if the current hour is not the same it gets the weather_report
-[ "$(stat -c %y "$weather_report" 2>/dev/null | cut -b'12,13')" = "$(date '+%k')" ] ||
+[ "$(stat -c %y "$weather_report" 2>/dev/null | cut -b'12,13')" = "$(date '+%H')" ] ||
 	get_weather
 
 # echos content of weather_report
