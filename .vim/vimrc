@@ -24,7 +24,7 @@ set hidden                      " hides instead of unloads buffers
 set path=.,**                   " path is cur file and dir
 set wildmenu                    " tab complete shows all matching files
 set nocompatible                " compatibility vim only
-set clipboard=unnamed           " uses system clipboard
+set clipboard=unnamedplus       " uses system clipboard
 set noerrorbells                " no error bells
 set tabstop=4 softtabstop=4     " default tabs
 set shiftwidth=4                " default shift
