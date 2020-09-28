@@ -81,6 +81,7 @@ nnoremap <leader>b :buffers<CR>:buffer<Space>
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
 nnoremap <leader>cc :-1read $HOME/.vim/snippets/skeleton.c<CR>4ji<tab>
 nnoremap <leader>cpp :-1read $HOME/.vim/snippets/skeleton.cpp<CR>4ji<tab>
+nnoremap <leader>lpy :-1read $HOME/.vim/snippets/leetcode.py<CR>ji<tab>
 
 " terminal commands
 command! MakeTags !ctags -R .   " recursively creates ctags in directory
