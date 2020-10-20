@@ -1,0 +1,5 @@
+That's will be easy.
+
+1. Extract the archive (You already did it).
+2. Move the folder to ~/.icons ( /home/YourUserName/.icons ) .
+3. The theme will appear in your DE's settings manager where you can choose it.
