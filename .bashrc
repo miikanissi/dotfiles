@@ -90,12 +90,18 @@ alias em='emacs -nw'
 alias yt='youtube-dl'
 alias yta='yt --extract-audio --audio-format mp3 --audio-quality 0'
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
-
 alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# make markdown into pdf
+mdtopdf () {
+  pandoc -t beamer -o $1 $2
+}
+
+# view markdown file in terminal
+rmd () {
+  pandoc $1 | lynx -stdin
+}
+
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
