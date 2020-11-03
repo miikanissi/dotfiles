@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rsync -uvrP --delete-after --exclude '.local/share/Trash' ~/ /media/miika/backup/
+rsync -avxP --delete-after --exclude '.local/share/Trash' --exclude '.cache' ~/ /media/miika/backup/
