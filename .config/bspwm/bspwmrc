@@ -4,13 +4,13 @@
 # https://miikanissi.com
 
 # make sure all processes are killed
-killall -q compton
+killall -q picom
 killall -q sxhkd
 killall -q dunst
 killall -q polybar
 
 # wait until the processes have been shut down (just in case)
-while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
+while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
 while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
 while pgrep -u $UID -x dunst >/dev/null; do sleep 1; done
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
@@ -19,7 +19,7 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 setxkbmap -option grp:switch -option grp_led:scroll us,fi
 mpd &
 polybar top &
-compton -b -c &
+picom -b -c &
 sxhkd &
 dunst -config ~/.config/dunst/dunstrc &
 signal-desktop --start-in-tray --use-tray-icon & # --no-sandbox if on deb

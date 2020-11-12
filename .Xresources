@@ -59,10 +59,13 @@ URxvt*mouseWheelScrollPage:         false
 URxvt*cursorBlink:                  true
 URxvt*saveLines:                    20000
 URxvt.iso14755:                     false
-URxvt.letterspace:                  1
+URxvt.letterSpace:                  0
 URxvt.intensityStyles:  	        false
 URxvt.scrollBar:    		        false
-URxvt.font:         		        xft:DejaVu Sans Mono:size=10,xft:Symbola:size=12
+URxvt.font:         		        xft:DejaVu Sans Mono:size=10, \
+                                    xft:Symbola:size=12, \
+                                    xft:Noto Color Emoji:size=10, \
+                                    xft:Font Awesome 5 Free:size=10
 
 ! URxvt Extensions
 URxvt.perl-ext-common:  default,matcher

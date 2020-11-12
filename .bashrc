@@ -113,10 +113,11 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Exports
-export BROWSER=/usr/bin/brave-browser
+export BROWSER=/usr/bin/brave
 export TERMINAL=/usr/bin/urxvt
+export EDITOR=/usr/bin/vim
 export QT_QPA_PLATFORMTHEME=gtk2
-
+export PATH=/home/miika/.local/bin:$PATH
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

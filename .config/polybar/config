@@ -13,7 +13,7 @@ secondary = ${xrdb:color1}
 alert = #bd2c40
 
 [bar/top]
-monitor = ${env:MONITOR:DVI-D-0}
+monitor = ${env:MONITOR:DVI-D-1}
 monitor_fallback =
 monitor-strict = false
 monitor-exact = true
@@ -36,13 +36,15 @@ border-color = #00000000
 padding-right = 2
 
 font-0 = DejaVuSansMono:pixelsize=10;3
-font-1 = FontAwesome:style=Regular:size=16;4
-font-2 = Symbola:size=14;2
-font-3 = Symbola:size=20;4
+font-1 = FontAwesome5Free:style=Regular:size=16;4
+font-2 = FontAwesome5Free:style=Solid:size=16;4
+font-3 = FontAwesome5Brands:style=Regular:size=16;4
+font-4 = Symbola:style=Regular:size=14;2
+font-5 = Symbola:style=Regular:size=20;4
 
 modules-left = bspwm mpd
 modules-center = 
-modules-right = weather_icon weather cputemp pulseaudio date network powermenu
+modules-right = weather_icon weather pulseaudio date network powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -184,7 +186,7 @@ label-foreground = ${colors.primary}
 
 format-padding = 0
 format = <label>
-format-font = 4
+format-font = 6
 label = %output:0:1%
 click-right = .local/bin/weather_updated.sh
 
@@ -267,7 +269,7 @@ bar-capacity-width = 10
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
-animation-charging-3 = 
+animation-charging-3 =
 animation-charging-4 = 
 ; Framerate in milliseconds
 animation-charging-framerate = 750
@@ -287,8 +289,7 @@ type = custom/menu
 expand-right = true
 
 format-spacing = 1
-
-label-open =  
+label-open = 
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
@@ -304,7 +305,7 @@ menu-0-2-exec = systemctl suspend
 
 [settings]
 screenchange-reload = true
-pseudo-transparency    = false
+pseudo-transparency = false
 format-padding = 2
 
 [global/wm]
