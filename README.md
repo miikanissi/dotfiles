@@ -32,6 +32,8 @@ Clone the repo and submodules for vim, then move the config files in the correct
     git clone --recurse-submodules https://github.com/miikanissi/dotfiles.git
     cd dotfiles
   
+Alternatively you can [follow my tutorial](https://miikanissi.com/blog/managing-dotfiles-with-a-git-repository.html) to setup your own dotfiles with git and have them automatically in the correct location.
+
 ## :purple_heart: Links / Credits
 To stay up to date with me visit my [Blog](https://miikanissi.com/blogindex/)
 
