@@ -15,6 +15,10 @@ super + Print
 super + d
       rofi -show run
 
+# launch rofi ssh
+super + alt + d
+    rofi -show ssh
+
 # launch rofi emoji
 super + shift + d
       rofi -show emoji -modi emoji

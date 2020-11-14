@@ -2,10 +2,12 @@
 /* Rofi config Miika Nissi */
 
 configuration {
-	modi: "window,run,ssh";
+	modi: "window,run,ssh,emoji";
 	width: 20;
 	lines: 5;
+    columns: 1;
 	font: "DejaVu Sans Mono 12";
 	location: 2;
 	theme: "base16-hopscotch.rasi";
+    show-icons: true;
 }

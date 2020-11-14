@@ -7,3 +7,6 @@
 [submodule ".vim/pack/plugins/start/vim-css-color"]
 	path = .vim/pack/plugins/start/vim-css-color
 	url = https://github.com/ap/vim-css-color.git
+[submodule ".vim/pack/plugins/start/vim-transparent"]
+	path = .vim/pack/plugins/start/vim-transparent
+	url = https://github.com/Kjwon15/vim-transparent
