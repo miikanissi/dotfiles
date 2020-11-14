@@ -8,13 +8,13 @@
 This is my personal configuration for BSPWM window manager I grew to love as well as other useful programs.
 
 Here are the details of my setup:
-- **Distro** 	     : [Fedora 32](https://getfedora.org/) :computer: Linus Torvalds uses it, good enough for me
+- **Distro** 	     : [Arch](https://www.archlinux.org/) :computer: Currently using arch, previously Fedora & Ubuntu
 - **WM**     	     : [BSPWM](https://github.com/baskerville/bspwm) :tv: Manual tiling window manager
 - **DM**	     : [LightDM](https://github.com/canonical/lightdm)
 - **Shell**	     : [GNU Bash](https://www.gnu.org/software/bash/) :shell: Who needs more than bash
 - **Terminal**	     : [URxvt](https://wiki.archlinux.org/index.php/Rxvt-unicode) :art: Hopscotch colors
 - **Panel**	     : [Polybar](https://github.com/polybar/polybar) :black_square_button: Easy to add custom modules
-- **Compositor**     : [Compton](https://github.com/chjj/compton)
+- **Compositor**     : [Picom](https://wiki.archlinux.org/index.php/Picom)
 - **Notifications**  : [Dunst](https://wiki.archlinux.org/index.php/Dunst) :bell: Hopscotch colors
 - **Launcher**	     : [Rofi](https://github.com/davatorium/rofi)
 - **File Manager**   : [PCManFM](https://wiki.archlinux.org/index.php/PCManFM)
