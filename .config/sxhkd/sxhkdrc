@@ -67,8 +67,13 @@ super + shift + c
 super + shift + Return
 	bspc node -s biggest
 
+# state of the window
 super + {t,shift + t,shift + f,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+#rotate the tree from current nodes parent
+super + r
+    bspc node @parent --rotate 90
 
 # focus the node in the given direction, shift swaps nodes
 super + {_,shift +}{Left,Down,Up,Right}
