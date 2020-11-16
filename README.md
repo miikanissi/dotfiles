@@ -3,12 +3,12 @@
 ##
 ## :penguin: My Personal Dotfiles!
 
-<a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/desktops.png?raw=true" alt="desktop-thumbnail" align="right" width="400px"></a>
+<a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/arch_desktop.png?raw=true" alt="desktop-thumbnail" align="right" width="400px"></a>
 
 This is my personal configuration for BSPWM window manager I grew to love as well as other useful programs. I also have most of my shell scripts included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/master/.local/bin).
 
 Here are the details of my setup:
-- **Distro** 	     : [Arch](https://www.archlinux.org/) :computer: Currently using arch, previously Fedora & Ubuntu
+- **Distro** 	     : [Arch](https://www.archlinux.org/) :computer: Currently using Arch, previously Fedora & Ubuntu
 - **WM**     	     : [BSPWM](https://github.com/baskerville/bspwm) :tv: Manual tiling window manager
 - **DM**	     : [LightDM](https://github.com/canonical/lightdm)
 - **Shell**	     : [GNU Bash](https://www.gnu.org/software/bash/) :shell: Who needs more than bash
