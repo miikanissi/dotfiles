@@ -22,6 +22,7 @@ polybar top &
 picom -b -c &
 sxhkd &
 dunst -config ~/.config/dunst/dunstrc &
+transmission-daemon &
 signal-desktop --start-in-tray --use-tray-icon & # --no-sandbox if on deb
 light-locker &
 xrdb .Xresources &

@@ -38,11 +38,10 @@ padding-right = 2
 font-0 = DejaVuSansMono:pixelsize=10;3
 font-1 = FontAwesome:style=Regular:size=16;4
 font-2 = Symbola:style=Regular:size=14;2
-font-3 = Symbola:style=Regular:size=20;4
 
 modules-left = bspwm mpd
 modules-center = 
-modules-right = weather_icon weather pulseaudio date network powermenu
+modules-right = weather torrents pulseaudio date network powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -126,7 +125,7 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 format-padding = 0
-
+ 
 [module/xwindow]
 type = internal/xwindow
 label = " %title:0:...% "
@@ -142,7 +141,7 @@ interval = 2
 
 format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <icon-random> <label-time>  <label-song>
 
-label-song = " 𝄞 %artist% - %title%"
+label-song = " %{F#c85e7c}𝄞%{F-} %artist% - %title%"
 label-song-maxlen = 66
 label-offline = 🎜 mpd is offline
 
@@ -155,17 +154,31 @@ icon-seekb = ⏪
 icon-seekf = ⏩
 icon-random = 🔀
 icon-repeat = 🔁
-icon-repeatone = 🔂
-icon-single = 🔂
-icon-consume = ✀
 
-toggle-on-foreground = #ff
+icon-play-foreground = ${colors.primary}
+icon-pause-foreground = ${colors.primary}
+icon-stop-foreground = ${colors.primary}
+icon-prev-foreground = ${colors.primary}
+icon-next-foreground = ${colors.primary}
+icon-seekb-foreground = ${colors.primary}
+icon-seekf-foreground = ${colors.primary}
+
+toggle-on-foreground = ${colors.primary}
 toggle-off-foreground = #55
 
 bar-progress-width = 12
 bar-progress-indicator = |
 bar-progress-fill = ─
 bar-progress-empty = ─
+
+[module/torrents]
+type = custom/ipc
+hook-0 = .local/bin/polybar_torrents.sh
+click-left = transmission-remote-gtk &
+click-right = .local/bin/check_torrents.sh
+initial = 1
+interval = 10
+format-foreground = ${colors.primary}
 
 [module/cputemp]
 type = custom/script
@@ -186,12 +199,13 @@ format-padding = 0
 format = <label>
 format-font = 4
 
-label = %output:0:1%
+label = %output:0:24%
 click-right = .local/bin/weather_updated.sh
 
 [module/weather]
 type = custom/script
-exec = .local/bin/weather.sh | awk '{print " "$2, $3}'
+exec = .local/bin/weather.sh
+
 interval = 60
 
 format-padding = 0

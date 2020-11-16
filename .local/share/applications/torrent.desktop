@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Torrent
-Exec=/usr/bin/env transadd.sh %U
+Exec=/usr/bin/env torrent_add.sh %U

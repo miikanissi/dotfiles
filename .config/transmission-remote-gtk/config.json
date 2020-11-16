@@ -1,0 +1,118 @@
+{
+  "profiles" : [
+    {
+      "profile-name" : "miika",
+      "hostname" : "localhost",
+      "port" : 9091,
+      "rpc-url-path" : "/transmission/rpc",
+      "username" : "",
+      "password" : "",
+      "auto-connect" : true,
+      "ssl" : false,
+      "ssl-validate" : false,
+      "timeout" : 40,
+      "retries" : 3,
+      "update-active-only" : false,
+      "activeonly-fullsync-enabled" : false,
+      "activeonly-fullsync-every" : 2,
+      "update-interval" : 3,
+      "min-update-interval" : 3,
+      "session-update-interval" : 60,
+      "exec-commands" : [],
+      "destinations" : [],
+      "last-add-destination" : "/home/miika/dls/tor/fin"
+    }
+  ],
+  "profile-id" : 0,
+  "tree-views" : {
+    "TrgTorrentTreeView" : {
+      "sort-col" : -1,
+      "sort-type" : 0
+    },
+    "TrgTrackersTreeView" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        43,
+        119,
+        56,
+        115,
+        120,
+        121,
+        96,
+        99
+      ],
+      "columns" : [
+        "tier",
+        "announce-url",
+        "last-announce-peer-count",
+        "seeder-count",
+        "leecher-count",
+        "last-announce-time",
+        "last-result",
+        "scrape-url"
+      ]
+    },
+    "TrgFilesTreeView" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        99,
+        88,
+        124,
+        130,
+        113
+      ],
+      "columns" : [
+        "name",
+        "size",
+        "progress",
+        "wanted",
+        "priority"
+      ]
+    },
+    "TrgPeersTreeView" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        31,
+        49,
+        74,
+        109,
+        89,
+        83,
+        56,
+        63
+      ],
+      "columns" : [
+        "ip",
+        "host",
+        "country",
+        "down-speed",
+        "up-speed",
+        "progress",
+        "flags",
+        "client"
+      ]
+    }
+  },
+  "state-selector-last" : 10,
+  "start-paused" : false,
+  "add-options-dialog" : true,
+  "delete-local-torrent" : false,
+  "show-state-selector" : true,
+  "filter-dirs" : true,
+  "filter-trackers" : true,
+  "directories-first" : true,
+  "show-notebook" : true,
+  "system-tray" : true,
+  "system-tray-minimise" : true,
+  "add-notify" : true,
+  "complete-notify" : true,
+  "exec-commands" : [],
+  "destinations" : [],
+  "window-height" : 1028,
+  "window-width" : 558,
+  "notebook-paned-pos" : 839,
+  "states-paned-pos" : 120
+}
