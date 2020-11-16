@@ -5,7 +5,7 @@
 
 <a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/desktops.png?raw=true" alt="desktop-thumbnail" align="right" width="400px"></a>
 
-This is my personal configuration for BSPWM window manager I grew to love as well as other useful programs.
+This is my personal configuration for BSPWM window manager I grew to love as well as other useful programs. I also have most of my shell scripts included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/master/.local/bin).
 
 Here are the details of my setup:
 - **Distro** 	     : [Arch](https://www.archlinux.org/) :computer: Currently using arch, previously Fedora & Ubuntu
@@ -35,7 +35,7 @@ Clone the repo and submodules for vim, then move the config files in the correct
 Alternatively you can [follow my tutorial](https://miikanissi.com/blog/managing-dotfiles-with-a-git-repository.html) to setup your own dotfiles with git and have them automatically in the correct location.
 
 ## :purple_heart: Links / Credits
-To stay up to date with me visit my [Blog](https://miikanissi.com/blogindex/)
+To stay up to date with me visit my [blog](https://miikanissi.com/blogindex/).
 
 Credits:
 - [Lukewh](https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ) Helpful emacs configuration guide.
