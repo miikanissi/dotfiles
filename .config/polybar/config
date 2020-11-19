@@ -172,8 +172,8 @@ bar-progress-fill = ─
 bar-progress-empty = ─
 
 [module/torrents]
-type = custom/ipc
-hook-0 = .local/bin/polybar_torrents.sh
+type = custom/script
+exec = .local/bin/polybar_torrents.sh
 click-left = transmission-remote-gtk &
 click-right = .local/bin/check_torrents.sh
 initial = 1

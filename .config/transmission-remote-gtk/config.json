@@ -18,9 +18,9 @@
       "update-interval" : 3,
       "min-update-interval" : 3,
       "session-update-interval" : 60,
+      "last-add-destination" : "/home/miika/dls/tor/fin",
       "exec-commands" : [],
-      "destinations" : [],
-      "last-add-destination" : "/home/miika/dls/tor/fin"
+      "destinations" : []
     }
   ],
   "profile-id" : 0,
@@ -33,14 +33,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        43,
-        119,
-        56,
-        115,
-        120,
-        121,
-        96,
-        99
+        55,
+        131,
+        68,
+        127,
+        132,
+        133,
+        108,
+        113
       ],
       "columns" : [
         "tier",
@@ -57,11 +57,11 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        99,
-        88,
-        124,
-        130,
-        113
+        161,
+        150,
+        186,
+        192,
+        178
       ],
       "columns" : [
         "name",
@@ -75,14 +75,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        31,
-        49,
-        74,
-        109,
-        89,
-        83,
-        56,
-        63
+        70,
+        88,
+        113,
+        148,
+        128,
+        122,
+        95,
+        103
       ],
       "columns" : [
         "ip",
@@ -96,8 +96,8 @@
       ]
     }
   },
-  "state-selector-last" : 10,
-  "start-paused" : false,
+  "state-selector-last" : 6,
+  "start-paused" : true,
   "add-options-dialog" : true,
   "delete-local-torrent" : false,
   "show-state-selector" : true,
@@ -112,7 +112,7 @@
   "exec-commands" : [],
   "destinations" : [],
   "window-height" : 1028,
-  "window-width" : 558,
+  "window-width" : 871,
   "notebook-paned-pos" : 839,
   "states-paned-pos" : 120
 }
