@@ -30,3 +30,5 @@ x-scheme-handler/https=brave-browser.desktop
 
 [Added Associations]
 text/markdown=org.pwmt.zathura.desktop;
+application/x-bittorrent=torrent.desktop;
+image/png=torrent.desktop;img.desktop;

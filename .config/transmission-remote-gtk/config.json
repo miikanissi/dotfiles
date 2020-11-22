@@ -33,14 +33,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        55,
-        131,
-        68,
-        127,
-        132,
-        133,
-        108,
-        113
+        43,
+        119,
+        56,
+        115,
+        120,
+        121,
+        96,
+        99
       ],
       "columns" : [
         "tier",
@@ -57,11 +57,11 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
+        130,
+        119,
+        155,
         161,
-        150,
-        186,
-        192,
-        178
+        145
       ],
       "columns" : [
         "name",
@@ -75,14 +75,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        70,
-        88,
-        113,
-        148,
-        128,
-        122,
-        95,
-        103
+        51,
+        69,
+        94,
+        129,
+        109,
+        103,
+        76,
+        79
       ],
       "columns" : [
         "ip",
@@ -94,6 +94,72 @@
         "flags",
         "client"
       ]
+    },
+    "TrgFilesTreeView-dialog" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        717,
+        71,
+        99,
+        105,
+        88
+      ],
+      "columns" : [
+        "name",
+        "size",
+        "progress",
+        "wanted",
+        "priority"
+      ]
+    },
+    "TrgPeersTreeView-dialog" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        62,
+        81,
+        106,
+        141,
+        121,
+        115,
+        88,
+        97
+      ],
+      "columns" : [
+        "ip",
+        "host",
+        "country",
+        "down-speed",
+        "up-speed",
+        "progress",
+        "flags",
+        "client"
+      ]
+    },
+    "TrgTrackersTreeView-dialog" : {
+      "sort-col" : -2,
+      "sort-type" : 0,
+      "widths" : [
+        61,
+        563,
+        74,
+        133,
+        138,
+        142,
+        114,
+        543
+      ],
+      "columns" : [
+        "tier",
+        "announce-url",
+        "last-announce-peer-count",
+        "seeder-count",
+        "leecher-count",
+        "last-announce-time",
+        "last-result",
+        "scrape-url"
+      ]
     }
   },
   "state-selector-last" : 6,
@@ -104,15 +170,17 @@
   "filter-dirs" : true,
   "filter-trackers" : true,
   "directories-first" : true,
-  "show-notebook" : true,
+  "show-notebook" : false,
   "system-tray" : true,
   "system-tray-minimise" : true,
   "add-notify" : true,
   "complete-notify" : true,
   "exec-commands" : [],
   "destinations" : [],
-  "window-height" : 1028,
-  "window-width" : 871,
+  "window-height" : 1048,
+  "window-width" : 1920,
   "notebook-paned-pos" : 839,
-  "states-paned-pos" : 120
+  "states-paned-pos" : 120,
+  "dialog-width" : 700,
+  "dialog-height" : 600
 }
