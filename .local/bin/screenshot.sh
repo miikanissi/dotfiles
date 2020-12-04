@@ -5,7 +5,7 @@
 # Dependencies: maim, ifne(moreutils), xclip
 
 filename=$(date +%F_%T).png
-filepath=~/pics/ss/$filename
+filepath=~/Pictures/ss/$filename
 
 # takes screenshot of selected region
 # pipes into ifne which checks if output is empty
