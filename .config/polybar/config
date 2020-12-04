@@ -43,6 +43,11 @@ modules-left = bspwm mpd
 modules-center = 
 modules-right = weather torrents pulseaudio date network powermenu
 
+;; tray-position = right
+;; tray-padding = 0
+;; tray-maxsize = 24
+;; tray-scale = 1
+
 wm-restack = bspwm
 override-redirect = true
 

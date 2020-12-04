@@ -33,14 +33,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        43,
-        119,
-        56,
-        115,
-        120,
-        121,
-        96,
-        99
+        59,
+        135,
+        72,
+        131,
+        136,
+        137,
+        112,
+        120
       ],
       "columns" : [
         "tier",
@@ -57,11 +57,11 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        130,
-        119,
-        155,
-        161,
-        145
+        168,
+        157,
+        193,
+        199,
+        185
       ],
       "columns" : [
         "name",
@@ -75,14 +75,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        51,
-        69,
-        94,
-        129,
-        109,
-        103,
-        76,
-        79
+        75,
+        93,
+        118,
+        153,
+        133,
+        127,
+        100,
+        103
       ],
       "columns" : [
         "ip",
@@ -99,11 +99,11 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        717,
-        71,
-        99,
-        105,
-        88
+        536,
+        122,
+        150,
+        156,
+        142
       ],
       "columns" : [
         "name",
@@ -117,14 +117,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        62,
-        81,
-        106,
-        141,
-        121,
-        115,
-        88,
-        97
+        117,
+        136,
+        161,
+        196,
+        176,
+        170,
+        143,
+        150
       ],
       "columns" : [
         "ip",
@@ -146,7 +146,7 @@
         74,
         133,
         138,
-        142,
+        139,
         114,
         543
       ],
@@ -162,7 +162,7 @@
       ]
     }
   },
-  "state-selector-last" : 6,
+  "state-selector-last" : 0,
   "start-paused" : true,
   "add-options-dialog" : true,
   "delete-local-torrent" : false,
@@ -177,10 +177,10 @@
   "complete-notify" : true,
   "exec-commands" : [],
   "destinations" : [],
-  "window-height" : 1048,
-  "window-width" : 1920,
-  "notebook-paned-pos" : 839,
+  "window-height" : 488,
+  "window-width" : 906,
+  "notebook-paned-pos" : 319,
   "states-paned-pos" : 120,
-  "dialog-width" : 700,
-  "dialog-height" : 600
+  "dialog-width" : 1138,
+  "dialog-height" : 627
 }

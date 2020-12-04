@@ -4,7 +4,7 @@
 !
 ! Refresh config 'xrdb ~/.Xresources'.
 
-!!! Customized Base16 Hopscotch colors !!!
+!!! Base16 Hopscotch !!!
 #define base00_opaque [95]#322931
 
 #define base00 #322931
