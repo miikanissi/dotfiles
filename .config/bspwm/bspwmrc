@@ -4,16 +4,16 @@
 # https://miikanissi.com
 
 # make sure all processes are killed
-killall -q picom
-killall -q sxhkd
-killall -q dunst
-killall -q polybar
+# killall -q picom
+# killall -q sxhkd
+# killall -q dunst
+# killall -q polybar
 
 # wait until the processes have been shut down (just in case)
-while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
-while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
-while pgrep -u $UID -x dunst >/dev/null; do sleep 1; done
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+# while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
+# while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
+# while pgrep -u $UID -x dunst >/dev/null; do sleep 1; done
+# while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
 setxkbmap -option grp:switch -option grp_led:scroll us,fi
@@ -50,7 +50,6 @@ bspc config focus_follows_pointer   true
 bspc config focused_border_color    "#c85e7c"
 
 bspc rule -a net-runelite-launcher-Launcher state=pseudo_tiled private=on
-# bspc rule -a cmus desktop='^5' state=floating follow=on
 bspc rule -a URxvt:ncmpcpp desktop='^5' state=floating follow=on
 bspc rule -a Gimp desktop='^3' state=floating follow=on
 bspc rule -a Emacs state=tiled
