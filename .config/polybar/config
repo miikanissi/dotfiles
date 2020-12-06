@@ -41,7 +41,7 @@ font-2 = Symbola:style=Regular:size=14;2
 
 modules-left = bspwm mpd
 modules-center = 
-modules-right = weather torrents pulseaudio date network powermenu
+modules-right = weather torrents screensaver notifications pulseaudio date network powermenu
 
 ;; tray-position = right
 ;; tray-padding = 0
@@ -175,6 +175,20 @@ bar-progress-width = 12
 bar-progress-indicator = |
 bar-progress-fill = ─
 bar-progress-empty = ─
+
+[module/notifications]
+type = custom/script
+exec = .local/bin/check_notifications.sh
+click-left = notify-send "DUNST_COMMAND_TOGGLE"
+interval = 0
+format-foreground = ${colors.primary}
+
+[module/screensaver]
+type = custom/script
+exec = .local/bin/check_screensaver.sh
+click-left = .local/bin/toggle_screensaver.sh
+interval = 0
+format-foreground = ${colors.primary}
 
 [module/torrents]
 type = custom/script
