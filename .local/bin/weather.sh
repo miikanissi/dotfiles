@@ -1,12 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 # 
 # weather script for polybar (or any other bar, or just command line)
 # Miika Nissi
 
-LOCATION=Riihimäkii
+LOCATION=Riihimäki
 weather_report="${XDG_DATA_HOME:-$HOME/.local/share}/weather_report"
 weather_image="${XDG_DATA_HOME:-$HOME/.local/share}/weather.png"
-icon_color=#c85e7c
 
 # function to check the weather from wttr.in, checks if invalid or empty output, ie no internet
 # valid output gets sent to weather_report file
@@ -20,13 +19,13 @@ get_weather()
 	  if [ -z "$weather" ]; then
 	    return 0;
 	  else
-      weather_icon=$(echo "$weather" | awk '{ print substr($2,1,1)}')
-	    echo "$weather_icon" "$weather" "$humidity" | awk '{print "%{F#c85e7c}%{T3}"$1"%{T-}%{F-} "$4" "$5}' > "$weather_report"
+      # weather_icon=$(echo "$weather" | awk '{ print substr($2,1,1)}')
+      echo "$weather" "$humidity" | awk '{print "%{F#c85e7c}%{T2}"$2"%{T-}%{F-} "$3" "$4}' > "$weather_report"
 	    wget -q -O $weather_image wttr.in/${LOCATION}_U.png
     fi
   fi
 }
-
+get_weather
 # checks the hour when weather_report was made, if the current hour is not the same it gets the weather_report
 [ "$(stat -c %y "$weather_report" 2>/dev/null | cut -b'12,13')" = "$(date '+%H')" ] ||
 	get_weather

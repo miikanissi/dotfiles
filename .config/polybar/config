@@ -35,13 +35,14 @@ border-color = #00000000
 
 padding-right = 2
 
-font-0 = DejaVuSansMono:pixelsize=10;3
-font-1 = FontAwesome:style=Regular:size=16;4
-font-2 = Symbola:style=Regular:size=14;2
+font-0 = DejaVuSansMonoNerdFontMono:size=10;3
+font-1 = DejaVuSansMonoNerdFontMono:size=16;4
+;;font-1 = FontAwesome:style=Regular:size=16;4
+;;font-2 = Symbola:style=Regular:size=14;2
 
 modules-left = bspwm mpd
 modules-center = 
-modules-right = weather torrents screensaver notifications pulseaudio date network powermenu
+modules-right = weather torrents screensaver notifications pulseaudio date network battery powermenu
 
 ;; tray-position = right
 ;; tray-padding = 0
@@ -97,8 +98,6 @@ label-empty = %icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
-format-padding = 0
-
 [module/bspwm]
 type = internal/bspwm
 
@@ -129,8 +128,6 @@ label-empty = %icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
-format-padding = 0
- 
 [module/xwindow]
 type = internal/xwindow
 label = " %title:0:...% "
@@ -144,21 +141,21 @@ port = 6600
 
 interval = 2
 
-format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <icon-random> <label-time>  <label-song>
+format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <icon-random> <label-time> <label-song>
 
-label-song = " %{F#c85e7c}𝄞%{F-} %artist% - %title%"
+label-song = "%{T2}%{F#c85e7c}%{F-}%{T-} %artist% - %title%"
 label-song-maxlen = 66
-label-offline = 🎜 mpd is offline
+label-offline = %{T2}ﱙ%{T-} mpd is offline
 
-icon-play = ⏵
-icon-pause = ⏸
-icon-stop = ⏹
-icon-prev = ⏮
-icon-next = ⏭
-icon-seekb = ⏪
-icon-seekf = ⏩
-icon-random = 🔀
-icon-repeat = 🔁
+icon-play = %{T2}%{T-}
+icon-pause = %{T2}%{T-}
+icon-stop = %{T2}%{T-}
+icon-prev = %{T2}%{T-}
+icon-next = %{T2}%{T-}
+icon-seekb = %{T2}%{T-}
+icon-seekf = %{T2}%{T-}
+icon-random = %{T2}%{T-}
+icon-repeat = %{T2}%{T-}
 
 icon-play-foreground = ${colors.primary}
 icon-pause-foreground = ${colors.primary}
@@ -182,6 +179,7 @@ exec = .local/bin/check_notifications.sh
 click-left = notify-send "DUNST_COMMAND_TOGGLE"
 interval = 0
 format-foreground = ${colors.primary}
+format-font = 2
 
 [module/screensaver]
 type = custom/script
@@ -189,6 +187,7 @@ exec = .local/bin/check_screensaver.sh
 click-left = .local/bin/toggle_screensaver.sh
 interval = 0
 format-foreground = ${colors.primary}
+format-font = 2
 
 [module/torrents]
 type = custom/script
@@ -208,29 +207,15 @@ click-left = rxvt -e htop
 format-prefix = " "
 format-prefix-foreground = ${colors.primary}
 
-[module/weather_icon]
-type = custom/script
-exec = .local/bin/weather.sh
-interval = 60
-label-foreground = ${colors.primary}
-
-format-padding = 0
-format = <label>
-format-font = 4
-
-label = %output:0:24%
-click-right = .local/bin/weather_updated.sh
-
 [module/weather]
 type = custom/script
 exec = .local/bin/weather.sh
 
 interval = 60
 
-format-padding = 0
 format = <label>
-label-padding-right = 3
 label = %output%
+format-padding-right = 3
 
 click-left = sxiv .local/share/weather.png
 click-right = .local/bin/weather_updated.sh
@@ -243,7 +228,7 @@ date-alt = " %Y-%m-%d"
 time = %I:%M%p
 time-alt = %H:%M:%S
 
-format-prefix = ""
+format-prefix = "%{T2}%{T-}"
 format-prefix-foreground = ${colors.primary}
 label = %date% %time%
 
@@ -254,12 +239,12 @@ type = internal/pulseaudio
 sink = alsa_output.pci-0000_0c_00.4.analog-stereo
 
 format-volume = <label-volume>
-format-volume-prefix = " "
+format-volume-prefix = "%{T2}%{T-} "
 format-volume-prefix-foreground = ${colors.primary}
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted =  muted
+label-muted = %{T2}%{T-} muted
 label-muted-foreground = #666
 
 click-right = pavucontrol &
@@ -270,6 +255,7 @@ exec = .local/bin/check_connection.sh
 interval = 1
 click-left = nm-connection-editor
 format-foreground = ${colors.primary}
+format-font = 2
 
 [module/battery]
 type = internal/battery
@@ -323,7 +309,7 @@ type = custom/menu
 expand-right = true
 
 format-spacing = 1
-label-open = 
+label-open = %{T2}%{T-}
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
@@ -340,7 +326,7 @@ menu-0-2-exec = systemctl suspend
 [settings]
 screenchange-reload = true
 pseudo-transparency = false
-format-padding = 2
+format-padding = 1
 
 [global/wm]
 margin-top = 5

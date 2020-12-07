@@ -5,8 +5,6 @@
 ! Refresh config 'xrdb ~/.Xresources'.
 
 !!! Base16 Hopscotch !!!
-#define base00_opaque [95]#322931
-
 #define base00 #322931
 #define base01 #433b42
 #define base02 #5c545b
@@ -26,8 +24,6 @@
 
 *foreground:   base05
 *background:   base00
-URxvt.background:   base00_opaque
-
 *cursorColor:  base05
 
 *color0:       base00
@@ -49,36 +45,32 @@ URxvt.background:   base00_opaque
 *color15:      base07
 
 !!! Emacs colors !!!
-emacs.Background: base00
 sxiv.Background: base00
 
 !!! URXVT configs !!!
-URxvt*depth: 32
+URxvt*depth: 24
 URxvt*scrollBar:                    false
-URxvt*mouseWheelScrollPage:         false
+URxvt*mouseWheelScrollPage:         true
 URxvt*cursorBlink:                  true
-URxvt*saveLines:                    20000
+URxvt.cursorUnderline:              false
+URxvt*saveline:                     2048
 URxvt.iso14755:                     false
 URxvt.letterSpace:                  0
+URxvt.lineSpace:                    0
+URxvt.geometry:                     92x24
+URxvt.internalBorder:               4
 URxvt.intensityStyles:  	        false
 URxvt.scrollBar:    		        false
-URxvt.font:         		        xft:DejaVu Sans Mono:size=10, xft:FontAwesome:size=10, xft:Symbola:size=12, xft:Font Awesome 5 Free:style=Regular:size=10, xft:Font Awesome 5 Free:style=Solid:size=10
+! URxvt.font:         		        xft:DejaVu Sans Mono:size=10, xft:FontAwesome:size=10, xft:Symbola:size=12, xft:Font Awesome 5 Free:style=Regular:pixelsize=10, xft:Font Awesome 5 Free:style=Solid:size=10
+URxvt.font: xft:DejaVuSansMono Nerd Font Mono:size=10:style=Book
 
 ! URxvt Extensions
-URxvt.perl-ext-common:  default,matcher
-URxvt.url-launcher:     /usr/bin/xdg-open
-URxvt.matcher.button:   1
+URxvt.perl-ext-common:  font-size
 ! URxvt keybinds
 URxvt.keysym.Shift-Control-V:       eval:paste_clipboard
 URxvt.keysym.Shift-Control-C:       eval:selection_to_clipboard
-URxvt.keysym.Control-Left:          \033[1;5D
-URxvt.keysym.Shift-Control-Left:    \033[1;6D
-URxvt.keysym.Control-Right:         \033[1;5C
-URxvt.keysym.Shift-Control-Right:   \033[1;6C
-URxvt.keysym.Control-Up:            \033[1;5A
-URxvt.keysym.Shift-Control-Up:      \033[1;6A
-URxvt.keysym.Control-Down:          \033[1;5B
-URxvt.keysym.Shift-Control-Down:    \033[1;6B
+URxvt.keysym.C-j:                   perl:font-size:increase
+URxvt.keysym.C-k:                   perl:font-size:decrease
 
 !!! Xft !!!
 Xft.dpi:       96
