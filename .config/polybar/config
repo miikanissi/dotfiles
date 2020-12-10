@@ -62,42 +62,6 @@ scroll-down = bspwm-deskprev
 cursor-click = pointer
 ; cursor-scroll = ns-resize
 
-[module/sep]
-type = custom/text
-content = |
-content-background = ${colors.background}
-content-foreground = ${colors.primary}
-
-[module/i3]
-type = internal/i3
-
-ws-icon-0 = "1;1"
-ws-icon-1 = "2;2"
-ws-icon-2 = "3;3"
-ws-icon-3 = "4;4"
-ws-icon-4 = "5;5"
-ws-icon-5 = "6;6"
-ws-icon-6 = "7;7"
-ws-icon-7 = "8;8"
-ws-icon-8 = "9;9"
-
-label-focused = %icon%
-label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.secondary}
-label-focused-padding = 2
-
-label-occupied = %icon%
-label-occupied-overline = ${colors.primary}
-label-occupied-padding = 2
-
-label-urgent = %icon%!
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
-
-label-empty = %icon%
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
-
 [module/bspwm]
 type = internal/bspwm
 
