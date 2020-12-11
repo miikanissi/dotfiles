@@ -10,3 +10,9 @@
 [submodule ".vim/pack/plugins/start/vim-transparent"]
 	path = .vim/pack/plugins/start/vim-transparent
 	url = https://github.com/Kjwon15/vim-transparent
+[submodule ".vim/pack/plugins/start/nerdtree"]
+	path = .vim/pack/plugins/start/nerdtree
+	url = https://github.com/preservim/nerdtree
+[submodule ".vim/pack/plugins/start/coc.nvim"]
+	path = .vim/pack/plugins/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git

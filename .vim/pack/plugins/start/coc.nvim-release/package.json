@@ -1,0 +1,23 @@
+{
+  "name": "coc.nvim-release",
+  "private": true,
+  "version": "0.0.79",
+  "description": "LSP based intellisense engine for neovim & vim8.",
+  "main": "./lib/index.js",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neoclide/coc.nvim.git"
+  },
+  "author": "Qiming Zhao <chemzqm@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neoclide/coc.nvim/issues"
+  },
+  "homepage": "https://github.com/neoclide/coc.nvim#readme",
+  "devDependencies": {},
+  "dependencies": {}
+}

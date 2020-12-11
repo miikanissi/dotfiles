@@ -30,6 +30,7 @@ set tabstop=4 softtabstop=4     " default tabs
 set shiftwidth=4                " default shift
 set expandtab                   " default tabs
 set smartindent                 " default tabs
+set autoindent                  " indents paste
 set nu                          " line numbers
 set wrap                        " no wrap
 set ignorecase                  " ignores case in search
@@ -52,8 +53,23 @@ set noshowmode                  " -- INSERT -- is not shown as lightline shows i
 let skip_defaults_vim=1         " disable viminfo
 set viminfo=""                  " disable viminfo
 set showcmd                     " shows the typed command
+set cmdheight=2                 " more space for command
 set foldmethod=indent           " enable folding
 set foldlevel=99                " enable folding
+set updatetime=300              " default is 4000
+set shortmess+=c                " no messages to ins completion
+
+" tab for coc.nvim completion
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " split navigation remaps
 nnoremap <C-J> <C-W><C-J>
@@ -76,6 +92,7 @@ let mapleader = ","
 
 " leader remaps
 nnoremap <leader>b :buffers<CR>:buffer<Space>
+nnoremap <leader>t :NERDTreeToggle<CR>
 
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
@@ -86,3 +103,23 @@ nnoremap <leader>lpy :-1read $HOME/.vim/snippets/leetcode.py<CR>ji<tab>
 " terminal commands
 command! MakeTags !ctags -R .   " recursively creates ctags in directory
 command! Reload execute "source ~/.vim/vimrc"
+
+" automatically open nerdtree if no file specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" automatically open nerdtree if vim is started on a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+" close vim if only nerd tree is left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" automatically deletes all trailing whitespace on save.
+autocmd BufWritePre * %s/\s\+$//e
+
+" update binds when sxhkdrc is updated.
+autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+
+" run xrdb whenever Xdefaults or Xresources are updated.
+autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
