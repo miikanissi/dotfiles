@@ -2,6 +2,7 @@
 ;; https://github.com/miikanissi
 ;; https://miikanissi.com
 
+
 [colors]
 background = ${xrdb:color0:#05060A}
 background-alt = ${xrdb:color10}
@@ -11,6 +12,13 @@ foreground-alt = #555555
 primary = ${xrdb:color5}
 secondary = ${xrdb:color1}
 alert = #bd2c40
+
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = false
+format-padding = 1
+
 
 [bar/top]
 monitor = ${env:MONITOR:DVI-D-1}
@@ -33,34 +41,26 @@ line-color = #f00
 border-size = 0
 border-color = #00000000
 
-padding-right = 2
+padding-right = 1
 
 font-0 = DejaVuSansMonoNerdFontMono:size=10;3
 font-1 = DejaVuSansMonoNerdFontMono:size=16;4
-;;font-1 = FontAwesome:style=Regular:size=16;4
 ;;font-2 = Symbola:style=Regular:size=14;2
 
 modules-left = bspwm mpd
-modules-center = 
+modules-center =
 modules-right = weather torrents screensaver notifications pulseaudio date network battery powermenu
-
-;; tray-position = right
-;; tray-padding = 0
-;; tray-maxsize = 24
-;; tray-scale = 1
 
 wm-restack = bspwm
 override-redirect = true
 
 format-underline = {colors.secondary}
 
-; scroll-up = i3wm-wsnext
-; scroll-down = i3wm-wsprev
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 
 cursor-click = pointer
-; cursor-scroll = ns-resize
+
 
 [module/bspwm]
 type = internal/bspwm
@@ -92,10 +92,8 @@ label-empty = %icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
-[module/xwindow]
-type = internal/xwindow
-label = " %title:0:...% "
-label-maxlen = 50
+format-padding = 0
+
 
 [module/mpd]
 type = internal/mpd
@@ -137,6 +135,7 @@ bar-progress-indicator = |
 bar-progress-fill = ─
 bar-progress-empty = ─
 
+
 [module/notifications]
 type = custom/script
 exec = .local/bin/check_notifications.sh
@@ -145,6 +144,7 @@ interval = 0
 format-foreground = ${colors.primary}
 format-font = 2
 
+
 [module/screensaver]
 type = custom/script
 exec = .local/bin/check_screensaver.sh
@@ -152,6 +152,7 @@ click-left = .local/bin/toggle_screensaver.sh
 interval = 0
 format-foreground = ${colors.primary}
 format-font = 2
+
 
 [module/torrents]
 type = custom/script
@@ -162,14 +163,6 @@ initial = 1
 interval = 10
 format-foreground = ${colors.primary}
 
-[module/cputemp]
-type = custom/script
-exec = .local/bin/cputemp.sh
-interval = 10
-click-left = rxvt -e htop
-
-format-prefix = " "
-format-prefix-foreground = ${colors.primary}
 
 [module/weather]
 type = custom/script
@@ -184,6 +177,7 @@ format-padding-right = 3
 click-left = sxiv .local/share/weather.png
 click-right = .local/bin/weather_updated.sh
 
+
 [module/date]
 type = internal/date
 interval = 5
@@ -197,6 +191,7 @@ format-prefix-foreground = ${colors.primary}
 label = %date% %time%
 
 click-right = gsimplecal
+
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -213,6 +208,7 @@ label-muted-foreground = #666
 
 click-right = pavucontrol &
 
+
 [module/network]
 type = custom/script
 exec = .local/bin/check_connection.sh
@@ -220,6 +216,7 @@ interval = 1
 click-left = nm-connection-editor
 format-foreground = ${colors.primary}
 format-font = 2
+
 
 [module/battery]
 type = internal/battery
@@ -267,6 +264,7 @@ animation-discharging-4 = 
 ; Framerate in milliseconds
 animation-discharging-framerate = 500
 
+
 [module/powermenu]
 type = custom/menu
 
@@ -287,10 +285,6 @@ menu-0-1-exec = systemctl poweroff
 menu-0-2 = suspend
 menu-0-2-exec = systemctl suspend
 
-[settings]
-screenchange-reload = true
-pseudo-transparency = false
-format-padding = 1
 
 [global/wm]
 margin-top = 5

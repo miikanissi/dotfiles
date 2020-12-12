@@ -33,14 +33,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        59,
-        135,
-        72,
-        131,
-        136,
-        137,
-        112,
-        120
+        43,
+        119,
+        56,
+        115,
+        120,
+        121,
+        96,
+        99
       ],
       "columns" : [
         "tier",
@@ -57,11 +57,11 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        168,
-        157,
-        193,
-        199,
-        185
+        102,
+        91,
+        127,
+        133,
+        116
       ],
       "columns" : [
         "name",
@@ -75,14 +75,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        75,
-        93,
-        118,
-        153,
-        133,
-        127,
-        100,
-        103
+        33,
+        51,
+        76,
+        111,
+        91,
+        85,
+        58,
+        64
       ],
       "columns" : [
         "ip",
@@ -99,11 +99,11 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        549,
-        140,
-        140,
-        146,
-        131
+        546,
+        119,
+        148,
+        154,
+        139
       ],
       "columns" : [
         "name",
@@ -117,14 +117,14 @@
       "sort-col" : -2,
       "sort-type" : 0,
       "widths" : [
-        100,
-        118,
-        143,
-        178,
-        158,
+        169,
+        92,
+        171,
         152,
-        125,
-        132
+        132,
+        126,
+        99,
+        165
       ],
       "columns" : [
         "ip",
@@ -142,13 +142,13 @@
       "sort-type" : 0,
       "widths" : [
         43,
-        563,
+        274,
         56,
         115,
         120,
         142,
         96,
-        543
+        260
       ],
       "columns" : [
         "tier",
@@ -162,7 +162,7 @@
       ]
     }
   },
-  "state-selector-last" : 0,
+  "state-selector-last" : 3,
   "start-paused" : true,
   "add-options-dialog" : true,
   "delete-local-torrent" : false,
@@ -177,8 +177,8 @@
   "complete-notify" : true,
   "exec-commands" : [],
   "destinations" : [],
-  "window-height" : 528,
-  "window-width" : 429,
+  "window-height" : 1028,
+  "window-width" : 717,
   "notebook-paned-pos" : 319,
   "states-paned-pos" : 120,
   "dialog-width" : 1138,
