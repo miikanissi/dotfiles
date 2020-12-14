@@ -1,6 +1,10 @@
 # ~/.bashrc Miika Nissi
 # https://miikanissi.com
 
+# enable bash completion in interactive shells
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 # history size
@@ -40,6 +44,8 @@ alias yt='youtube-dl'
 alias yta='yt --extract-audio --audio-format mp3 --audio-quality 0'
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias pubip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
 # make markdown into pdf
 mdtopdf () {
