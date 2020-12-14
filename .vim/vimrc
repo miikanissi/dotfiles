@@ -19,6 +19,7 @@ let g:lightline = {
     \ }
 
 " settings
+set noeb vb t_vb=               " no error bells
 set backspace=indent,eol,start  " normal backspace functionality
 set hidden                      " hides instead of unloads buffers
 set path=.,**                   " path is cur file and dir

@@ -15,7 +15,6 @@ shopt -s checkwinsize
 shopt -s autocd
 # vim mode for bash
 set -o vi
-
 # prompt
 export PS1='\[\e[0;36m\][\[\e[0;35m\]\u\[\e[0;36m\]@\[\e[0;35m\]\h\[\e[0;36m\]:\[\e[m\] \[\e[0;31m\]\W\[\e[0;36m\]]\[\e[0;35m\]$\[\e[m\] \[\e0'
 
@@ -24,6 +23,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 # binds
 bind -x '"\C-l":clear'
+bind 'set bell-style none'
 
 # Aliases
 alias ll='ls --color=auto -laF'
