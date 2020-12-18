@@ -77,7 +77,8 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias pubip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
-alias odoo='/opt/odoo/12/server/odoo-bin -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
+alias odoo='/opt/odoo/12/server/odoo-bin'
+alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
 
 # view markdown file in terminal via lynx
 md () {
