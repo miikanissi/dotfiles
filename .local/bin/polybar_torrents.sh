@@ -1,7 +1,7 @@
 #!/bin/sh
 # display number of torrents downloading, paused and seeding
 
-if [ -z $(pidof transmission-daemon) ]; then
+if [ -z $(pidof transmission-daemon | awk '{print $1}') ]; then
   echo "%{T2}%{F#c85e7c}%{F-}%{T-} 0 %{T2}%{F#c85e7c}%{F-}%{T-} 0 %{T2}%{F#c85e7c}%{F-}%{T-} 0 %{T2}%{F#c85e7c}%{F-}%{T-} 0"
 else
   torrents=$(transmission-remote -l)
