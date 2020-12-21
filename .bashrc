@@ -91,3 +91,4 @@ export TERMINAL=/usr/bin/urxvt
 export EDITOR=/usr/bin/vim
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
+export PATH=~/go/bin:$PATH
