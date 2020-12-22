@@ -86,6 +86,10 @@ md () {
   pandoc $1 | lynx -stdin
 }
 
+search() {
+  find . -iname "*$**" | less -RSMsi;
+}
+
 # exports
 export BROWSER=/usr/bin/brave
 export TERMINAL=/usr/bin/urxvt
