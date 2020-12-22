@@ -87,7 +87,11 @@ md () {
 }
 
 search() {
-  find . -iname "*$**" | less -RSMsi;
+  find . -iname "*$**" | less -RSMrsi;
+}
+
+search_word() {
+  grep --color=always -RsiC1 . -e "$*" | less -RSMrsi;
 }
 
 # exports
