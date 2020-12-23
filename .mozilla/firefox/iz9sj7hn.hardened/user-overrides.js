@@ -4,7 +4,7 @@ user_pref("keyword.enabled", true);
 user_pref("browser.search.suggest.enabled", true);
 user_pref("browser.urlbar.suggest.searches", true);
 // 2000
-user_pref("media.autoplay.blocking_policy", 1);
+user_pref("media.autoplay.blocking_policy", 0);
 // 2800
 user_pref("privacy.sanitize.sanitizeOnShutdown", false);
 user_pref("privacy.clearOnShutdown.cache", false);
@@ -38,5 +38,6 @@ user_pref("signon.rememberSignons", false); // Ask to save passwords
 user_pref("signon.management.page.breach-alerts.enabled", false);
 user_pref("browser.urlbar.suggest.bookmark", false);
 user_pref("browser.urlbar.suggest.topsites", false);
-user_pref("media.autoplay.blocking_policy", 2);
+user_pref("media.autoplay.blocking_policy", 0);
 user_pref("media.videocontrols.picture-in-picture.video-toggle.enabled",	false);
+user_pref("browser.startup.page", 3); // Restore previous sesssion
