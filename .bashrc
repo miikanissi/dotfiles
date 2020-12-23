@@ -86,6 +86,14 @@ md () {
   pandoc $1 | lynx -stdin
 }
 
+search() {
+  find . -iname "*$**" | less -RSMrsi;
+}
+
+search_word() {
+  grep --color=always -RsiC1 . -e "$*" | less -RSMrsi;
+}
+
 # exports
 export BROWSER=/usr/bin/brave
 export TERMINAL=/usr/bin/urxvt
