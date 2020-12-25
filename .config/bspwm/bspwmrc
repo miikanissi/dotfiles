@@ -15,9 +15,9 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 setxkbmap -option grp:switch -option grp_led:scroll us,fi
 mpd &
 polybar top &
-picom -b -c &
+picom --config .config/picom/picom.conf &
 sxhkd &
-dunst -config ~/.config/dunst/dunstrc &
+dunst --config ~/.config/dunst/dunstrc &
 transmission-daemon &
 pgrep -x signal-desktop >/dev/null || signal-desktop --start-in-tray --use-tray-icon & # if already running dont restart
 xrdb .Xresources & # refresh Xresources
