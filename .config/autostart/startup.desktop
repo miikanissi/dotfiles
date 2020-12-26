@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Startup Script
-GenericName=Startup Script
-Comment=Script to be run at Gnome startup
-Exec=/home/tawnismi/.local/bin/startup_gnome.sh
-Terminal=false
-Type=Application
-X-GNOME-Autostart-enabled=true
