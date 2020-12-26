@@ -27,12 +27,18 @@ Here are the details of my setup:
 <p align="center"><a name="top" href="#art-colors"><img src="https://github.com/miikanissi/dotfiles/blob/arch/.config/gallery/base16-hopscotch.png?raw=true" alt="hopscotch-color-scheme" height="60%" width="100%"></a></p>
 
 ## :wrench: Installation
-Clone the repo and submodules for vim, then move the config files in the correct directories manually
+To install and integrate with the system you need to checkout the arch branch and initialize submodules:
+
+    git --work-tree $HOME --git-dir $HOME/dotfiles init
+    git --work-tree $HOME --git-dir $HOME/dotfiles remote add-t \* -f origin git@github.com:miikanissi/dotfiles.git
+    git --work-tree $HOME --git-dir $HOME/dotfiles checkout arch
+    git --work-tree $HOME --git-dir $HOME/dotfiles submodule update --init
+    git --work-tree $HOME --git-dir $HOME/dotfiles config --local status.showUntrackedFiles no
+
+Or you can just clone the repository normally and move files in their correct location:
 
     git clone --recurse-submodules https://github.com/miikanissi/dotfiles.git
     cd dotfiles
-  
-Alternatively you can [follow my tutorial](https://miikanissi.com/blog/managing-dotfiles-with-a-git-repository.html) to setup your own dotfiles with git and have them automatically in the correct location.
 
 ## :purple_heart: Links / Credits
 To stay up to date with me visit my [blog](https://miikanissi.com/blogindex/).
