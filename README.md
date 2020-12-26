@@ -5,7 +5,7 @@
 
 <a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/arch/.config/gallery/arch_desktop.png?raw=true" alt="desktop-thumbnail" align="right" width="400px"></a>
 
-This is my personal configuration for BSPWM window manager I grew to love as well as other useful programs. I also have most of my shell scripts included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/arch/.local/bin).
+This is my personal configuration for a custom "Desktop Environment" and other useful programs. To see a list of all my programs check [program_list_arch.csv](https://github.com/miikanissi/dotfiles/blob/arch/program_list_arch.csv).
 
 Here are the details of my setup:
 - **Distro** 	     : [Arch](https://www.archlinux.org/) :computer: Currently using Arch, previously Fedora & Ubuntu
@@ -22,9 +22,17 @@ Here are the details of my setup:
 - **Text Editor**    : [GNU Emacs](https://www.gnu.org/software/emacs/), [Vim](https://www.vim.org/) :pencil2: Programming environments
 - **Music Player**   : [MPD](https://www.musicpd.org/). [NCMPCPP](https://github.com/ncmpcpp/ncmpcpp) :musical_note: Polybar integration
 
-## :art: Colors!
+## :art: Colors
 ### <p align="center">[Hopscotch Color Scheme](https://base16.netlify.app/previews/base16-hopscotch.html)</p>
 <p align="center"><a name="top" href="#art-colors"><img src="https://github.com/miikanissi/dotfiles/blob/arch/.config/gallery/base16-hopscotch.png?raw=true" alt="hopscotch-color-scheme" height="60%" width="100%"></a></p>
+
+## :scroll: Scripts
+Most of my useful shell scripts are included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/arch/.local/bin).
+
+Here are some example scripts:
+- [weather.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/weather.sh) is a script that gets weather information from https://wttr.in/ and displays it in Polybar.
+- [polybar_torrents.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/polybar_torrents.sh) is a script that checks the status of torrents and displays it in Polybar.
+- [screenshot.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/screenshot.sh) takes a screenshot of selected region and saves it in clipboard and screenshot folder.
 
 ## :wrench: Installation
 To install and integrate with the system you need to checkout the arch branch and initialize submodules:
@@ -47,4 +55,4 @@ Credits:
 - [Lukewh](https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ) Helpful emacs configuration guide.
 - [owl4ce](https://github.com/owl4ce/dotfiles) README.md inspired by him.
 - [Leeren](https://github.com/leeren) Vim configurations inspired by him.
-- Wallpaper artist unknown but credits to them I suppose.
+- [LukeSmithxyz](https://github.com/LukeSmithxyz) introduced me to many different software I use.
