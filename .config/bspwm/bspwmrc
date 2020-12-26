@@ -12,7 +12,6 @@ while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
-setxkbmap -option grp:switch -option grp_led:scroll us,fi
 mpd &
 polybar top &
 picom --config .config/picom/picom.conf &
@@ -21,9 +20,9 @@ dunst --config ~/.config/dunst/dunstrc &
 transmission-daemon &
 pgrep -x signal-desktop >/dev/null || signal-desktop --start-in-tray --use-tray-icon & # if already running dont restart
 xrdb .Xresources & # refresh Xresources
-xset r rate 300 50 & # makes key repeat faster
 .local/bin/144.sh & # sets 144hz refresh rate
 .local/bin/setbg.sh & # sets wallpaper
+.local/bin/keyboard.sh # set keyboard conf
 
 ### BSPC ###
 bspc monitor -d 1 2 3 4 5
