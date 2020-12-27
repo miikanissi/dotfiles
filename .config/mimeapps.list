@@ -25,5 +25,9 @@ application/pdf=pdf.desktop
 text/html=browser.desktop
 x-scheme-handler/http=browser.desktop
 x-scheme-handler/https=browser.desktop
+application/xhtml+xml=browser.desktop
+application/x-shellscript=text.desktop
 
 [Added Associations]
+application/xhtml+xml=browser.desktop;
+application/x-shellscript=text.desktop;

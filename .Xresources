@@ -65,7 +65,7 @@ URxvt.scrollBar:    		        false
 URxvt.font: xft:DejaVuSansMono Nerd Font Mono:size=10:style=Book
 
 ! URxvt Extensions
-URxvt.perl-ext-common:  default, font-size
+URxvt.perl-ext-common:default,font-size
 ! URxvt keybinds
 URxvt.keysym.Shift-Control-V:       eval:paste_clipboard
 URxvt.keysym.Shift-Control-C:       eval:selection_to_clipboard
