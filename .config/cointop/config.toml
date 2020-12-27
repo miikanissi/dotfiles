@@ -3,18 +3,16 @@ default_view = "default"
 api = "coingecko"
 colorscheme = "cointop"
 refresh_rate = 60
-cache_dir = "/tmp"
 
 [shortcuts]
   "$" = "last_page"
-  "%" = "sort_column_percent_holdings"
   "/" = "open_search"
   0 = "first_page"
   1 = "sort_column_1h_change"
   2 = "sort_column_24h_change"
   7 = "sort_column_7d_change"
-  "<" = "scroll_left"
-  ">" = "scroll_right"
+  "<" = "previous_page"
+  ">" = "next_page"
   "?" = "help"
   C = "show_currency_convert_menu"
   E = "show_portfolio_edit_menu"
@@ -84,7 +82,7 @@ cache_dir = "/tmp"
   "}" = "last_chart_range"
 
 [favorites]
-  names = ["Monero", "Bitcoin", "Chainlink", "Ethereum"]
+  names = ["Chainlink", "Ethereum", "Monero", "Bitcoin"]
 
 [portfolio]
 

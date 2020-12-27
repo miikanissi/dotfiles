@@ -1,37 +1,25 @@
 #!/bin/bash
-# 
-# weather script for polybar (or any other bar, or just command line)
-# Miika Nissi
+#
+# weather script for polybar from wttr.in
+# by Miika Nissi https://miikanissi.com
 
-LOCATION=Riihimäki
+[ -z "$LOCATION" ] && LOCATION="Riihimäki"
 weather_report="${XDG_DATA_HOME:-$HOME/.local/share}/weather_report"
-weather_image="${XDG_DATA_HOME:-$HOME/.local/share}/weather.png"
+weather_oneline="${XDG_DATA_HOME:-$HOME/.local/share}/weather_oneline"
 
-# function to check the weather from wttr.in, checks if invalid or empty output, ie no internet
-# valid output gets sent to weather_report file
-get_weather()
-{
-  weather=$(curl -s "wttr.in/$LOCATION?format=3&?u")
-  humidity=$(curl -s wttr.in/$LOCATION?format=%h)
-  if [ $(echo "$weather" | grep -E "(Unknown|curl|HTML)" | wc -l) -gt 0 ]; then
-	  return 0;
-  else
-	  if [ -z "$weather" ]; then
-	    return 0;
-	  else
-      # weather_icon=$(echo "$weather" | awk '{ print substr($2,1,1)}')
-      echo "$weather" "$humidity" | awk '{print "%{F#c85e7c}%{T2}"$2"%{T-}%{F-} "$3" "$4}' > "$weather_report"
-	    wget -q -O $weather_image wttr.in/${LOCATION}_U.png
-    fi
-  fi
+get_weather() {
+  # curl wttr.in format options: %c = condition icon, %t = temperature, %h = humidity, ?u = USCS units
+  wttr=$(curl -s "v2d.wttr.in/$LOCATION?format=%c+%t+%h&?u")
+  # exit if unable to get wttr
+  [ $(echo "$wttr" | grep -E "(Unknown|curl|HTML)" | wc -l) -gt 0 ] || [ -z "$wttr" ] && return 0;
+  # awk to format polybar colors
+  echo $wttr | awk '{print "%{F#c85e7c}"$1"%{F-} "$2" "$3}' > "$weather_oneline"
+  curl -s "v2d.wttr.in/$LOCATION" > "$weather_report"
+
 }
-get_weather
-# checks the hour when weather_report was made, if the current hour is not the same it gets the weather_report
-[ "$(stat -c %y "$weather_report" 2>/dev/null | cut -b'12,13')" = "$(date '+%H')" ] ||
-	get_weather
 
-# echos content of weather_report
-echo $(sed '1q;d' "$weather_report")
-# optionally echos the date and time when report was modified
-# echo $(stat -c %y "$weather_report" 2>/dev/null | cut -b'1-16')
+# updates weather after an hour has passed
+[ $(("$(date '+%s')"-"$(stat -c %Y "$weather_oneline")")) -ge 3600 ] && get_weather
 
+# echos oneline content from file
+echo $(sed '1q;d' "$weather_oneline")

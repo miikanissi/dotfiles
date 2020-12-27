@@ -3,8 +3,11 @@
 user_pref("keyword.enabled", true);
 user_pref("browser.search.suggest.enabled", true);
 user_pref("browser.urlbar.suggest.searches", true);
+// 1000
+user_pref("browser.cache.disk.enable", true);
 // 2000
 user_pref("media.autoplay.blocking_policy", 0);
+user_pref("media.peerconnection.enabled", true);
 // 2800
 user_pref("privacy.sanitize.sanitizeOnShutdown", false);
 user_pref("privacy.clearOnShutdown.cache", false);

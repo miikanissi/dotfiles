@@ -174,9 +174,8 @@ format = <label>
 label = %output%
 format-padding-right = 3
 
-click-left = sxiv .local/share/weather.png
+click-left = urxvt -hold -e cat .local/share/weather_report
 click-right = .local/bin/weather_updated.sh
-
 
 [module/date]
 type = internal/date
@@ -191,7 +190,6 @@ format-prefix-foreground = ${colors.primary}
 label = %date% %time%
 
 click-right = gsimplecal
-
 
 [module/pulseaudio]
 type = internal/pulseaudio
