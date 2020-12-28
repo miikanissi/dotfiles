@@ -32,6 +32,7 @@ user_pref("browser.tabs.warnOnClose", true);
 user_pref("browser.download.autohideButton", true); // [FF57+]
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // [FF68+] allow userChrome/userContent
 user_pref("general.autoScroll", true); // middle-click enabling auto-scrolling
+user_pref("middlemouse.paste", false);
 user_pref("browser.tabs.closeWindowWithLastTab", false);
 user_pref("browser.toolbars.bookmarks.visibility", "always");
 user_pref("browser.backspace_action", 2); // 0=previous page, 1=scroll up, 2=do nothing

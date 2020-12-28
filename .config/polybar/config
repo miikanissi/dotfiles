@@ -49,7 +49,7 @@ font-1 = DejaVuSansMonoNerdFontMono:size=16;4
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather torrents screensaver notifications pulseaudio date network battery powermenu
+modules-right = demo weather torrents screensaver notifications pulseaudio date network battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -137,19 +137,23 @@ bar-progress-empty = ─
 
 
 [module/notifications]
-type = custom/script
-exec = .local/bin/check_notifications.sh
-click-left = notify-send "DUNST_COMMAND_TOGGLE"
-interval = 1
+type = custom/ipc
+hook-0 = .local/bin/polybar_notifications.sh --on
+hook-1 = .local/bin/polybar_notifications.sh --toggle
+initial = 1
+click-left = polybar-msg -p %pid% hook notifications 2
+
 format-foreground = ${colors.primary}
 format-font = 2
 
 
 [module/screensaver]
-type = custom/script
-exec = .local/bin/check_screensaver.sh
-click-left = .local/bin/toggle_screensaver.sh
-interval = 1
+type = custom/ipc
+hook-0 = .local/bin/polybar_screensaver.sh --off
+hook-1 = .local/bin/polybar_screensaver.sh --toggle
+initial = 1
+click-left = polybar-msg -p %pid% hook screensaver 2
+
 format-foreground = ${colors.primary}
 format-font = 2
 
@@ -166,16 +170,16 @@ format-foreground = ${colors.primary}
 
 [module/weather]
 type = custom/script
-exec = .local/bin/weather.sh
+exec = .local/bin/polybar_weather.sh
 
-interval = 60
+interval = 30
 
 format = <label>
 label = %output%
 format-padding-right = 3
 
 click-left = urxvt -hold -e cat .local/share/weather_report
-click-right = .local/bin/weather_updated.sh
+click-right = .local/bin/check_weather.sh
 
 [module/date]
 type = internal/date
@@ -209,7 +213,7 @@ click-right = pavucontrol &
 
 [module/network]
 type = custom/script
-exec = .local/bin/check_connection.sh
+exec = .local/bin/polybar_connection.sh
 interval = 1
 click-left = nm-connection-editor
 format-foreground = ${colors.primary}

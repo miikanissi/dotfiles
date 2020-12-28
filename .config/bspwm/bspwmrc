@@ -1,7 +1,5 @@
 #!/bin/sh
-# .config/bspwm/bspwmrc by Miika Nissi
-# https://github.com/miikanissi
-# https://miikanissi.com
+# by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
 # make sure all processes are killed
 killall -q picom
@@ -13,15 +11,15 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
 mpd &
-polybar top &
 picom --config .config/picom/picom.conf &
+polybar top &
 sxhkd &
 dunst --config ~/.config/dunst/dunstrc &
 transmission-daemon &
 pgrep -x signal-desktop >/dev/null || signal-desktop --start-in-tray --use-tray-icon & # if already running dont restart
 xrdb .Xresources & # refresh Xresources
-.local/bin/144.sh & # sets 144hz refresh rate
 .local/bin/setbg.sh & # sets wallpaper
+.local/bin/monitor.sh & # xrandr to set monitors
 .local/bin/keyboard.sh # set keyboard conf
 
 ### BSPC ###
