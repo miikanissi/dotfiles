@@ -49,7 +49,7 @@ font-1 = DejaVuSansMonoNerdFontMono:size=16;4
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = demo weather torrents screensaver notifications pulseaudio date network battery powermenu
+modules-right = weather torrents screensaver notifications pulseaudio date network battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -227,45 +227,30 @@ full-at = 99
 ; Use the following command to list batteries and adapters:
 ; $ ls -1 /sys/class/power_supply/
 battery = BAT1
+adapter = ADP1
 poll-interval = 5
 
 time-format = %H:%M
 
-format-charging = <animation-charging> <label-charging>
-format-discharging = <ramp-capacity> <label-discharging>
+format-charging = <animation-charging> <label>
+format-discharging = <ramp-capacity> <label>
 
-label-charging = %percentage%%
-label-discharging = %percentage%%
-label-full = %percentage%%
+label = %percentage%%
 
-; Only applies if <ramp-capacity> is used
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-; Only applies if <bar-capacity> is used
 bar-capacity-width = 10
 
-; Only applies if <animation-charging> is used
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
-animation-charging-3 =
+animation-charging-3 = 
 animation-charging-4 = 
-; Framerate in milliseconds
 animation-charging-framerate = 750
-
-; Only applies if <animation-discharging> is used
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-3 = 
-animation-discharging-4 = 
-; Framerate in milliseconds
-animation-discharging-framerate = 500
-
 
 [module/powermenu]
 type = custom/menu
