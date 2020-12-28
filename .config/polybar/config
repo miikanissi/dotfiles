@@ -140,7 +140,7 @@ bar-progress-empty = ─
 type = custom/script
 exec = .local/bin/check_notifications.sh
 click-left = notify-send "DUNST_COMMAND_TOGGLE"
-interval = 0
+interval = 1
 format-foreground = ${colors.primary}
 format-font = 2
 
@@ -149,7 +149,7 @@ format-font = 2
 type = custom/script
 exec = .local/bin/check_screensaver.sh
 click-left = .local/bin/toggle_screensaver.sh
-interval = 0
+interval = 1
 format-foreground = ${colors.primary}
 format-font = 2
 
@@ -176,13 +176,6 @@ format-padding-right = 3
 
 click-left = urxvt -hold -e cat .local/share/weather_report
 click-right = .local/bin/weather_updated.sh
-
-
-[module/notification-mattermost]
-type = custom/script
-exec = ~/polybar-scripts/notification-mattermost.sh
-interval = 60
-
 
 [module/date]
 type = internal/date
