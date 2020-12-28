@@ -18,6 +18,7 @@ get_weather() {
 
 }
 
+[ -f "$weather_oneline" ] || get_weather
 # updates weather after an hour has passed
 [ $(("$(date '+%s')"-"$(stat -c %Y "$weather_oneline")")) -ge 3600 ] && get_weather
 
