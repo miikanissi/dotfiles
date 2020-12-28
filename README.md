@@ -30,7 +30,7 @@ Here are the details of my setup:
 Most of my useful shell scripts are included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/arch/.local/bin).
 
 Here are some example scripts:
-- [weather.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/weather.sh) is a script that gets weather information from https://wttr.in/ and displays it in Polybar.
+- [polybar_weather.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/polybar_weather.sh) is a script that gets weather information from https://wttr.in/ and displays it in Polybar.
 - [polybar_torrents.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/polybar_torrents.sh) is a script that checks the status of torrents and displays it in Polybar.
 - [screenshot.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/screenshot.sh) takes a screenshot of selected region and saves it in clipboard and screenshot folder.
 
