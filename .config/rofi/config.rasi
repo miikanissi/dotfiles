@@ -2,7 +2,7 @@
 /* Rofi config Miika Nissi */
 
 configuration {
-	modi: "window,run,ssh,emoji";
+	modi: "window,run,ssh";
 	width: 20;
 	lines: 5;
     columns: 1;

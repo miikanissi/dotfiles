@@ -21,7 +21,7 @@ format-padding = 1
 
 
 [bar/top]
-monitor = ${env:MONITOR:DVI-D-1}
+monitor =
 monitor_fallback =
 monitor-strict = false
 monitor-exact = true
@@ -49,7 +49,7 @@ font-1 = DejaVuSansMonoNerdFontMono:size=16;4
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather torrents screensaver notifications pulseaudio date network battery powermenu
+modules-right = weather screensaver pulseaudio date network battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
