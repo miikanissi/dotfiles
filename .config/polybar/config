@@ -21,7 +21,7 @@ format-padding = 1
 
 
 [bar/top]
-monitor =
+monitor = ${env:MONITOR:eDP-1}
 monitor_fallback =
 monitor-strict = false
 monitor-exact = true

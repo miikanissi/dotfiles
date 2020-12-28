@@ -4,25 +4,24 @@
 # https://miikanissi.com
 
 # make sure all processes are killed
-killall -q picom
+killall -q compton
 killall -q polybar
 
 # wait until the processes have been shut down (just in case)
-while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
+while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
 mpd &
 polybar top &
-picom --config .config/picom/picom.conf &
+compton --config .config/picom/picom.conf &
 sxhkd &
 dunst --config ~/.config/dunst/dunstrc &
-transmission-daemon &
-pgrep -x signal-desktop >/dev/null || signal-desktop --start-in-tray --use-tray-icon & # if already running dont restart
 xrdb .Xresources & # refresh Xresources
-.local/bin/144.sh & # sets 144hz refresh rate
 .local/bin/setbg.sh & # sets wallpaper
 .local/bin/keyboard.sh # set keyboard conf
+xrandr --output HDMI-1 --same-as eDP-1
+.local/bin/mattermost-desktop/mattermost-desktop
 
 ### BSPC ###
 bspc monitor -d 1 2 3 4 5
@@ -41,7 +40,6 @@ bspc config focus_follows_pointer   true
 
 bspc config focused_border_color    "#c85e7c"
 
-bspc rule -a net-runelite-launcher-Launcher state=pseudo_tiled private=on
 bspc rule -a URxvt:ncmpcpp desktop='^5' state=floating follow=on
 bspc rule -a Gimp desktop='^3' state=floating follow=on
 bspc rule -a Emacs state=tiled
