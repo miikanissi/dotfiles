@@ -1,6 +1,5 @@
-;; .config/polybar/config by Miika Nissi
-;; https://github.com/miikanissi
-;; https://miikanissi.com
+;; Polybar config
+;; by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
 
 [colors]

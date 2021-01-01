@@ -1,7 +1,5 @@
-" .vimrc by Miika Nissi
-" https://github.com/miikanissi
-" https://miikanissi.com
-
+" .vimrc
+" by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 " language specific configs at .vim/ftplugin/<language>.vim
 " or .vim/after/ftplugin/<language>.vim to not override defaults only add to
 
@@ -10,6 +8,7 @@ let $RTP=split(&runtimepath, ',')[0]
 let $RC="$HOME/.vim/vimrc"
 
 " basics
+set encoding=utf-8
 filetype plugin indent on
 syntax on
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -32,7 +31,7 @@ set shiftwidth=4                " default shift
 set expandtab                   " default tabs
 set smartindent                 " default tabs
 set autoindent                  " indents paste
-set nu                          " line numbers
+set nu rnu                      " hybrid line numbers
 set wrap                        " no wrap
 set ignorecase                  " ignores case in search
 set smartcase                   " uses smartcase in search
@@ -60,6 +59,42 @@ set foldlevel=99                " enable folding
 set updatetime=300              " default is 4000
 set shortmess+=c                " no messages to ins completion
 
+" defines leader key as comma
+let mapleader = ","
+
+" leader mappings
+" show buffers
+nnoremap <leader>b :buffers<CR>:buffer<Space>
+" open nerdtree
+nnoremap <leader>t :NERDTreeToggle<CR>
+" indent file
+nnoremap <leader>i gg=G<C-o><C-o>
+
+" snippets
+nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
+nnoremap <leader>cc :-1read $HOME/.vim/snippets/skeleton.c<CR>4ji<tab>
+nnoremap <leader>cpp :-1read $HOME/.vim/snippets/skeleton.cpp<CR>4ji<tab>
+nnoremap <leader>cred :-1read $HOME/.vim/snippets/skeleton.credits<CR>I
+
+" terminal commands
+command! MakeTags !ctags -R .   " recursively creates ctags in directory
+command! Reload execute "source ~/.vim/vimrc"
+
+" autocmd
+" automatically deletes all trailing whitespace on save.
+autocmd BufWritePre * %s/\s\+$//e
+
+" update binds when sxhkdrc is updated.
+autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+
+" run xrdb whenever Xdefaults or Xresources are updated.
+autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+
+" set config file syntax highlight
+autocmd BufNewFile,BufRead config set syntax=config
+
+
+""" COC.NVIM
 " tab for coc.nvim completion
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -72,39 +107,8 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" split navigation remaps
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
-" file browsing tweaks netrw-browse-maps for mappings
-let g:netrw_banner=0            " disable banner
-let g:netrw_browse_split=4      " open in prior window
-let g:netrw_altv=1              " open splits to right
-let g:netrw_liststyle=3         " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_dirhistmax=0        " no .netrwhist file
-let g:netrw_winsize=20
-
-" defines leader key as comma
-let mapleader = ","
-
-" leader remaps
-nnoremap <leader>b :buffers<CR>:buffer<Space>
-nnoremap <leader>t :NERDTreeToggle<CR>
-
-" snippets
-nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
-nnoremap <leader>cc :-1read $HOME/.vim/snippets/skeleton.c<CR>4ji<tab>
-nnoremap <leader>cpp :-1read $HOME/.vim/snippets/skeleton.cpp<CR>4ji<tab>
-nnoremap <leader>lpy :-1read $HOME/.vim/snippets/leetcode.py<CR>ji<tab>
-
-" terminal commands
-command! MakeTags !ctags -R .   " recursively creates ctags in directory
-command! Reload execute "source ~/.vim/vimrc"
-
+""" NERDTREE
 " automatically open nerdtree if no file specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -116,11 +120,14 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " close vim if only nerd tree is left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" automatically deletes all trailing whitespace on save.
-autocmd BufWritePre * %s/\s\+$//e
 
-" update binds when sxhkdrc is updated.
-autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+""" SYNTASTIC
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-" run xrdb whenever Xdefaults or Xresources are updated.
-autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']

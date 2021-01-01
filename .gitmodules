@@ -25,3 +25,6 @@
 [submodule ".icons/vimix-icon-theme"]
 	path = .icons/vimix-icon-theme
 	url = git@github.com:vinceliuice/vimix-icon-theme.git
+[submodule ".vim/pack/plugins/start/syntastic"]
+	path = .vim/pack/plugins/start/syntastic
+	url = git@github.com:vim-syntastic/syntastic.git

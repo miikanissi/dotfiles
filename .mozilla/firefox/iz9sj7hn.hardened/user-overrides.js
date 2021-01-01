@@ -7,7 +7,6 @@ user_pref("browser.urlbar.suggest.searches", true);
 user_pref("browser.cache.disk.enable", true);
 // 2000
 user_pref("media.autoplay.blocking_policy", 0);
-user_pref("media.peerconnection.enabled", true);
 // 2400
 user_pref("dom.allow_cut_copy", true);
 // 2800
