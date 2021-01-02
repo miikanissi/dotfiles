@@ -17,6 +17,8 @@ colorscheme base16-hopscotch
 let g:lightline = {
       \ 'colorscheme': 'simpleblack',
       \ }
+let g:airline_theme='base16_hopscotch'
+let g:airline_powerline_fonts = 1
 
 " settings
 set noeb vb t_vb=               " no error bells
@@ -72,6 +74,8 @@ nnoremap <leader>t :NERDTreeToggle<CR>
 nnoremap <leader>i gg=G<C-o><C-o>
 " toggle folding
 nnoremap <space> za
+" open fzf
+nnoremap <leader>f :FZF<CR>
 
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
@@ -95,6 +99,28 @@ autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 
 " set config file syntax highlight
 autocmd BufNewFile,BufRead config set syntax=config
+
+
+""" FZF
+set rtp+=/usr/bin/fzf
+
+let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.6 } }
+let g:fzf_layout = { 'down': '40%' }
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 
 """ COC.NVIM

@@ -31,6 +31,9 @@
 [submodule ".vim/pack/plugins/start/python-syntax"]
 	path = .vim/pack/plugins/start/python-syntax
 	url = git@github.com:vim-python/python-syntax.git
-[submodule ".vim/pack/plugins/start/lightline.vim"]
-	path = .vim/pack/plugins/start/lightline.vim
-	url = git@github.com:itchyny/lightline.vim.git
+[submodule ".vim/pack/plugins/start/vim-airline"]
+	path = .vim/pack/plugins/start/vim-airline
+	url = git@github.com:vim-airline/vim-airline.git
+[submodule ".vim/pack/plugins/start/vim-airline-themes"]
+	path = .vim/pack/plugins/start/vim-airline-themes
+	url = git@github.com:vim-airline/vim-airline-themes.git

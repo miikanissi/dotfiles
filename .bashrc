@@ -102,3 +102,4 @@ export LOCATION="Riihimäki"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
 export PATH=~/go/bin:$PATH
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden' # use ripgrep for fzf
