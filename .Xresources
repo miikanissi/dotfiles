@@ -44,7 +44,13 @@
 *color14:      base0F
 *color15:      base07
 
-!!! Emacs colors !!!
+*color16:      base09
+*color17:      base0F
+*color18:      base01
+*color19:      base02
+*color20:      base04
+*color21:      base06
+
 sxiv.Background: base00
 
 !!! URXVT configs !!!

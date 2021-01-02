@@ -12,10 +12,11 @@ set encoding=utf-8
 filetype plugin indent on
 syntax on
 highlight ColorColumn ctermbg=0 guibg=lightgrey
+set t_Co=256
 colorscheme base16-hopscotch
 let g:lightline = {
-    \ 'colorscheme': 'wombat',
-    \ }
+      \ 'colorscheme': 'simpleblack',
+      \ }
 
 " settings
 set noeb vb t_vb=               " no error bells
@@ -62,13 +63,15 @@ set shortmess+=c                " no messages to ins completion
 " defines leader key as comma
 let mapleader = ","
 
-" leader mappings
+" remaps
 " show buffers
 nnoremap <leader>b :buffers<CR>:buffer<Space>
 " open nerdtree
 nnoremap <leader>t :NERDTreeToggle<CR>
 " indent file
 nnoremap <leader>i gg=G<C-o><C-o>
+" toggle folding
+nnoremap <space> za
 
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
@@ -131,3 +134,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
+
+
+""" PYTHON-SYNTAX
+let g:python_highlight_all = 1
