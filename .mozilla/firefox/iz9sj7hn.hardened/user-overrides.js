@@ -8,6 +8,7 @@ user_pref("browser.cache.disk.enable", true);
 // 2000
 user_pref("media.autoplay.blocking_policy", 0);
 // 2400
+user_pref("dom.security.https_only_mode", false); // [FF76+]
 user_pref("dom.allow_cut_copy", true);
 // 2800
 user_pref("privacy.sanitize.sanitizeOnShutdown", false);
@@ -28,6 +29,8 @@ user_pref("privacy.cpd.siteSettings", false); // Site Preferences
 user_pref("privacy.firstparty.isolate", false);
 // 4500
 user_pref("privacy.resistFingerprinting.letterboxing", false); // [HIDDEN PREF]
+// 4600
+user_pref("layout.css.font-visibility.level", 3);
 // 5000
 user_pref("browser.tabs.warnOnClose", true);
 user_pref("browser.download.autohideButton", true); // [FF57+]
