@@ -48,7 +48,7 @@ font-1 = DejaVuSansMonoNerdFontMono:size=16;4
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather torrents screensaver notifications pulseaudio date network battery powermenu
+modules-right = weather cointop torrents screensaver notifications pulseaudio date network battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -133,6 +133,15 @@ bar-progress-width = 12
 bar-progress-indicator = |
 bar-progress-fill = ─
 bar-progress-empty = ─
+
+
+[module/cointop]
+type = custom/script
+exec = .local/bin/polybar_cointop.sh
+click-left = urxvt -e cointop
+click-right = .local/bin/check_cointop.sh
+interval = 60
+format-foreground = ${colors.primary}
 
 
 [module/notifications]
