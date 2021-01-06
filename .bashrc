@@ -102,7 +102,9 @@ fd() {
 # find-in-file - usage: fif <searchTerm> | enter to edit file
 fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
-  files=$(rg --files-with-matches --ignore-case --no-ignore-vcs --no-messages --hidden "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}")
+  files=$(rg --files-with-matches --ignore-case --no-ignore-vcs --no-messages --hidden "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | \
+    rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || \
+    rg --ignore-case --pretty --context 10 '$1' {}")
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
