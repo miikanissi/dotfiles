@@ -5,15 +5,15 @@
 ### PROGRAM LAUNCHERS ###
 # launch programs (h,j,k,l,d,q,f,t,n,p,space,greater,less taken by bspc and cmus)
 super + {Return, w, e, g, m, c, b, s}
-      {urxvt, firefox, thunderbird, emacs, urxvt -name ncmpcpp -e ncmpcpp, pcmanfm, urxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
+    {urxvt, firefox, thunderbird, emacs, urxvt -name ncmpcpp -e ncmpcpp, pcmanfm, urxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
 
 # print screen script with maim
 super + Print
-      ~/.local/bin/screenshot.sh
+    ~/.local/bin/screenshot.sh
 
 # launch rofi
 super + d
-      rofi -show run
+    rofi -show run
 
 # launch rofi ssh
 super + alt + d
@@ -21,55 +21,50 @@ super + alt + d
 
 # launch rofi emoji
 super + shift + d
-      rofi -show emoji -modi emoji
+    rofi -show emoji -modi emoji
 
-#### CMUS HOTKEYS (uncomment to use) ###
-## pause cmus
-#super + space
-#      cmus-remote --pause
-#
-## adjust volume
-#super + {greater, less}
-#      cmus-remote --volume {+2%, -2%}
-#
-## change song
-#super + {n, p}
-#      cmus-remote {--next, --prev}
-#
+# launch rofi window switcher
+super + Tab
+    rofi -show window
+
+# launch rofi kill script
+super + ctrl + d
+    .local/bin/rofi_killprocess.sh
 
 ### MPD HOTKEYS ###
 # pause mpd
 super + space
-      mpc toggle
+    mpc toggle
 
 # adjust mpd volume
 super + {greater, less}
-      mpc volume {+, -}2
+    mpc volume {+, -}2
 
 # change song
 super + {n, p}
-      mpc {next, prev}
+    mpc {next, prev}
+
 
 ### BSPC HOTKEYS ###
-# restart everything (not working properly)
+# restart everything
 super + q
     bspc wm -r
 
 # exit bspwm
 super + shift + q
-      bspc quit
+    bspc quit
 
 # close current window
 super + shift + c
-      bspc node -c
+    bspc node -c
 
 # swap the current node and the biggest node
 super + shift + Return
-	bspc node -s biggest
+    bspc node -s biggest
 
 # state of the window
 super + {t,shift + t,shift + f,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 #rotate the tree from current nodes parent
 super + r
@@ -77,14 +72,14 @@ super + r
 
 # focus the node in the given direction, shift swaps nodes
 super + {_,shift +}{Left,Down,Up,Right}
-	bspc node -{f,s} {west,south,north,east}
+    bspc node -{f,s} {west,south,north,east}
 
 super + {_,shift +}{h,j,k,l}
     bspc node -{f,s} {west,south,north,east}
 
 # focus or send to the given desktop
 super + {_,shift +}{1-5}
-	bspc {desktop -f,node -d} '^{1-5}'
+    bspc {desktop -f,node -d} '^{1-5}'
 
 # cycle desktops
 super + {Next, Prior}
@@ -92,14 +87,14 @@ super + {Next, Prior}
 
 # expand a window by moving one of its side outward
 super + alt + {Left,Down,Up,Right}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
 super + ctrl + {Left,Down,Up,Right}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 super + ctrl + {h,j,k,l}
     bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}

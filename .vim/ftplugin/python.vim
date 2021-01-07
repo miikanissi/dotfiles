@@ -1,9 +1,26 @@
 " vim conf for python
-" source: https://www.youtube.com/watch?v=Gs1VDYnS-Ac by Leeren
+" by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
+" sources: https://www.youtube.com/watch?v=Gs1VDYnS-Ac
 
 " pep8 style indents and columns
-set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set expandtab
+set autoindent
+set smartindent
+set fileformat=unix
+set foldmethod=indent
+
 setlocal colorcolumn=80
+let python_highlight_all=1
+
+" Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
+" Display tabs at the beginning of a line in Python mode as bad.
+match BadWhitespace /^\t\+/
+" Make trailing whitespace be flagged as bad.
+match BadWhitespace /\s\+$/
 
 setlocal path=.,**
 setlocal wildignore=*.pyc

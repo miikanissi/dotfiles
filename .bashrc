@@ -86,12 +86,26 @@ md () {
   pandoc $1 | lynx -stdin
 }
 
-search() {
-  find . -iname "*$**" | less -RSMrsi;
+### fzf scripts
+# fe - edit file
+fe() {
+  files=($(fzf --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
-search_word() {
-  grep --color=always -RsiC1 . -e "$*" | less -RSMrsi;
+# fd - cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+# find-in-file - usage: fif <searchTerm> | enter to edit file
+fif() {
+  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+  files=$(rg --files-with-matches --ignore-case --no-ignore-vcs --no-messages --hidden "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | \
+    rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || \
+    rg --ignore-case --pretty --context 10 '$1' {}")
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
 # exports
@@ -102,3 +116,5 @@ export LOCATION="Riihimäki"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
 export PATH=~/go/bin:$PATH
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden' # use ripgrep
+export FZF_DEFAULT_OPTS="--layout=reverse --height=60% --preview-window=down:99%:follow:wrap"

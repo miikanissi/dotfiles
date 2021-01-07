@@ -1,6 +1,5 @@
-;; .config/polybar/config by Miika Nissi
-;; https://github.com/miikanissi
-;; https://miikanissi.com
+;; Polybar config
+;; by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
 
 [colors]
@@ -136,20 +135,33 @@ bar-progress-fill = ─
 bar-progress-empty = ─
 
 
-[module/notifications]
+[module/cointop]
 type = custom/script
-exec = .local/bin/check_notifications.sh
-click-left = notify-send "DUNST_COMMAND_TOGGLE"
-interval = 0
+exec = .local/bin/polybar_cointop.sh
+click-left = urxvt -e cointop
+click-right = .local/bin/check_cointop.sh
+interval = 60
+format-foreground = ${colors.primary}
+
+
+[module/notifications]
+type = custom/ipc
+hook-0 = .local/bin/polybar_notifications.sh --on
+hook-1 = .local/bin/polybar_notifications.sh --toggle
+initial = 1
+click-left = polybar-msg -p %pid% hook notifications 2
+
 format-foreground = ${colors.primary}
 format-font = 2
 
 
 [module/screensaver]
-type = custom/script
-exec = .local/bin/check_screensaver.sh
-click-left = .local/bin/toggle_screensaver.sh
-interval = 0
+type = custom/ipc
+hook-0 = .local/bin/polybar_screensaver.sh --off
+hook-1 = .local/bin/polybar_screensaver.sh --toggle
+initial = 1
+click-left = polybar-msg -p %pid% hook screensaver 2
+
 format-foreground = ${colors.primary}
 format-font = 2
 
@@ -166,23 +178,16 @@ format-foreground = ${colors.primary}
 
 [module/weather]
 type = custom/script
-exec = .local/bin/weather.sh
+exec = .local/bin/polybar_weather.sh
 
-interval = 60
+interval = 30
 
 format = <label>
 label = %output%
 format-padding-right = 3
 
 click-left = urxvt -hold -e cat .local/share/weather_report
-click-right = .local/bin/weather_updated.sh
-
-
-[module/notification-mattermost]
-type = custom/script
-exec = ~/polybar-scripts/notification-mattermost.sh
-interval = 60
-
+click-right = .local/bin/check_weather.sh
 
 [module/date]
 type = internal/date
@@ -216,7 +221,7 @@ click-right = pavucontrol &
 
 [module/network]
 type = custom/script
-exec = .local/bin/check_connection.sh
+exec = .local/bin/polybar_connection.sh
 interval = 1
 click-left = nm-connection-editor
 format-foreground = ${colors.primary}
@@ -230,45 +235,30 @@ full-at = 99
 ; Use the following command to list batteries and adapters:
 ; $ ls -1 /sys/class/power_supply/
 battery = BAT1
+adapter = ADP1
 poll-interval = 5
 
 time-format = %H:%M
 
-format-charging = <animation-charging> <label-charging>
-format-discharging = <ramp-capacity> <label-discharging>
+format-charging = <animation-charging> <label>
+format-discharging = <ramp-capacity> <label>
 
-label-charging = %percentage%%
-label-discharging = %percentage%%
-label-full = %percentage%%
+label = %percentage%%
 
-; Only applies if <ramp-capacity> is used
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-; Only applies if <bar-capacity> is used
 bar-capacity-width = 10
 
-; Only applies if <animation-charging> is used
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
-animation-charging-3 =
+animation-charging-3 = 
 animation-charging-4 = 
-; Framerate in milliseconds
 animation-charging-framerate = 750
-
-; Only applies if <animation-discharging> is used
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-3 = 
-animation-discharging-4 = 
-; Framerate in milliseconds
-animation-discharging-framerate = 500
-
 
 [module/powermenu]
 type = custom/menu

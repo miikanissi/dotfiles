@@ -1,11 +1,13 @@
 currency = "USD"
-default_view = "default"
+default_view = "portfolio"
 api = "coingecko"
 colorscheme = "cointop"
 refresh_rate = 60
+cache_dir = "/tmp"
 
 [shortcuts]
   "$" = "last_page"
+  "%" = "sort_column_percent_holdings"
   "/" = "open_search"
   0 = "first_page"
   1 = "sort_column_1h_change"
@@ -82,9 +84,13 @@ refresh_rate = 60
   "}" = "last_chart_range"
 
 [favorites]
-  names = ["Chainlink", "Ethereum", "Monero", "Bitcoin"]
+  names = ["Monero", "Bitcoin", "LCX", "Reserve Rights Token", "Chainlink", "Ethereum"]
 
 [portfolio]
+  Bitcoin = 0.00819181
+  Ethereum = 0.0482
+  LCX = 2943.7409
+  "Reserve Rights Token" = 1491.687
 
 [coinmarketcap]
   pro_api_key = ""

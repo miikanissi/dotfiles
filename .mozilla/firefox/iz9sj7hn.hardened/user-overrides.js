@@ -7,7 +7,9 @@ user_pref("browser.urlbar.suggest.searches", true);
 user_pref("browser.cache.disk.enable", true);
 // 2000
 user_pref("media.autoplay.blocking_policy", 0);
-user_pref("media.peerconnection.enabled", true);
+// 2400
+user_pref("dom.security.https_only_mode", false); // [FF76+]
+user_pref("dom.allow_cut_copy", true);
 // 2800
 user_pref("privacy.sanitize.sanitizeOnShutdown", false);
 user_pref("privacy.clearOnShutdown.cache", false);
@@ -27,11 +29,14 @@ user_pref("privacy.cpd.siteSettings", false); // Site Preferences
 user_pref("privacy.firstparty.isolate", false);
 // 4500
 user_pref("privacy.resistFingerprinting.letterboxing", false); // [HIDDEN PREF]
+// 4600
+user_pref("layout.css.font-visibility.level", 3);
 // 5000
 user_pref("browser.tabs.warnOnClose", true);
 user_pref("browser.download.autohideButton", true); // [FF57+]
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // [FF68+] allow userChrome/userContent
 user_pref("general.autoScroll", true); // middle-click enabling auto-scrolling
+user_pref("middlemouse.paste", false);
 user_pref("browser.tabs.closeWindowWithLastTab", false);
 user_pref("browser.toolbars.bookmarks.visibility", "always");
 user_pref("browser.backspace_action", 2); // 0=previous page, 1=scroll up, 2=do nothing

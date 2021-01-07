@@ -37,7 +37,7 @@
 }
 window {
     background-color: @background;
-    border:           1;
+    border:           2;
     padding:          5;
 }
 mainbox {
@@ -62,7 +62,7 @@ listview {
 }
 element {
     border:           0;
-    padding:          1px ;
+    padding:          2;
 }
 element normal.normal {
     background-color: @normal-background;
