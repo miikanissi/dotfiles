@@ -31,3 +31,4 @@ application/x-shellscript=text.desktop
 [Added Associations]
 application/xhtml+xml=browser.desktop;
 application/x-shellscript=text.desktop;
+text/csv=libreoffice-writer.desktop;libreoffice-startcenter.desktop;

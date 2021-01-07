@@ -117,4 +117,4 @@ export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
 export PATH=~/go/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden' # use ripgrep
-export FZF_DEFAULT_OPTS="--layout=reverse --height=60% --preview-window=down:99%:follow:wrap"
+export FZF_DEFAULT_OPTS="--layout=reverse --height=60% --preview-window=down:99%:wrap"
