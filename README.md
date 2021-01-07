@@ -31,7 +31,7 @@ Most of my useful shell scripts are included in [.local/bin/](https://github.com
 
 Here are some example scripts:
 - [polybar_weather.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/polybar_weather.sh) is a script that gets weather information from https://wttr.in/ and displays it in Polybar.
-- [polybar_torrents.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/polybar_torrents.sh) is a script that checks the status of torrents and displays it in Polybar.
+- [fe.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/fe.sh) is a script using fuzzy finder to find files by name, filetype and/or content.
 - [screenshot.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/screenshot.sh) takes a screenshot of selected region and saves it in clipboard and screenshot folder.
 
 ## :wrench: Installation
