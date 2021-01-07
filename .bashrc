@@ -3,7 +3,7 @@
 
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -42,16 +42,16 @@ bind 'set bell-style none'
 
 # color man pages
 man() {
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-			man "$@"
-}
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
+  }
 
 ### aliases ###
 # colors to commands
@@ -80,33 +80,20 @@ alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -E
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;'
 alias odoo='/opt/odoo/12/server/odoo-bin'
 alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
+mpg='cd /opt/odoo/12/addons/mpg-dev/'
 
 # view markdown file in terminal via lynx
 md () {
   pandoc $1 | lynx -stdin
 }
 
-### fzf scripts
-# fe - edit file
-fe() {
-  files=($(fzf --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-}
-
-# fd - cd to selected directory
+### fzf
+alias fe='.local/bin/fe.sh'
 fd() {
   local dir
   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
 
-# find-in-file - usage: fif <searchTerm> | enter to edit file
-fif() {
-  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
-  files=$(rg --files-with-matches --ignore-case --no-ignore-vcs --no-messages --hidden "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | \
-    rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || \
-    rg --ignore-case --pretty --context 10 '$1' {}")
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-}
 
 # exports
 export BROWSER=/usr/bin/brave
