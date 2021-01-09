@@ -80,7 +80,7 @@ alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -E
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;'
 alias odoo='/opt/odoo/12/server/odoo-bin'
 alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
-mpg='cd /opt/odoo/12/addons/mpg-dev/'
+alias mpg='cd /opt/odoo/12/addons/mpg-dev/'
 
 # view markdown file in terminal via lynx
 md () {
@@ -104,4 +104,4 @@ export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
 export PATH=~/go/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden' # use ripgrep
-export FZF_DEFAULT_OPTS="--layout=reverse --height=60% --preview-window=down:99%:follow:wrap"
+export FZF_DEFAULT_OPTS="--layout=reverse --height=60% --preview-window=down:99%:wrap"

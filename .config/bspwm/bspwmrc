@@ -3,15 +3,22 @@
 
 # make sure all processes are killed
 killall -q picom
+killall -q compton
 killall -q polybar
 
 # wait until the processes have been shut down (just in case)
 while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
+while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
+if [[-z which picom ]]; then
+  picom --config .config/picom/picom.conf &
+else
+  compton --config .config/picom/picom.conf &
+fi
+
 mpd &
-picom --config .config/picom/picom.conf &
 polybar top &
 sxhkd &
 dunst --config ~/.config/dunst/dunstrc &

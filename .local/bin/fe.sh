@@ -3,10 +3,10 @@
 # fzf script to search for a file by name, filetype and/or content
 
 while getopts ":s:f:h" o; do case "${o}" in
-  h) printf "Optional arguments for custom use:\\n  -t: Search term to look for in files\\n  -f: Define the filetype to look for\\n  -h: Show this message\\n" && exit 1 ;;
+  h) printf "Optional arguments for custom use:\\n  -s <PATTERN>: Search term to look for in files\\n  -f <FILETYPE>: Limit search to a given filetype\\n  -h: Show this message\\n" && exit 1 ;;
   s) searchterm=${OPTARG} ;;
   f) filetype=${OPTARG} ;;
-  *) printf "Invalid option: -%s\\n" "$OPTARG" && exit 1 ;;
+  *) printf "Invalid option: -%s\\n  -h: To show help\\n" "$OPTARG" && exit 1 ;;
 esac done
 
 # default ripgrep options to always run
