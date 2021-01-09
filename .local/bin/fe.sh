@@ -25,6 +25,6 @@ if [ ! -z "$searchterm" ]; then
 fi
 
 opts="$opts --files"
-files=$($opts | fzf --query="$1" --multi --select-1 --exit-0)
+files=$($opts | fzf --multi --select-1 --exit-0)
 
 [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
