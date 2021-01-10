@@ -81,6 +81,7 @@ alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pul
 alias odoo='/opt/odoo/12/server/odoo-bin'
 alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
 alias mpg='cd /opt/odoo/12/addons/mpg-dev/'
+alias passmenu='~/.local/bin/passmenu.sh'
 
 # view markdown file in terminal via lynx
 md () {

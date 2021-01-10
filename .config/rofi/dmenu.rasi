@@ -1,0 +1,55 @@
+#window {
+    background-color: @background;
+	width:		60%;
+	border:	0px;
+	children:	[ horibox ];
+	border-radius:	0px;
+}
+
+#horibox {
+	orientation: horizontal;
+	children:   [ prompt, entry, listview ];
+}
+
+#prompt {
+    text-color: @normal-foreground;
+    border-color: @selected-urgent-background;
+	border:	0 0 2 0;
+	padding:	8 20 0 20;
+	border-radius:	0px;
+}
+
+#textbox-prompt-colon {
+	expand:     	false;
+	padding:	8 6 0 1;
+	str:        	":";
+}
+
+#entry {
+    text-color: @normal-foreground;
+	expand:	false;
+	width:		10em;
+	padding:	8 10 0 5;
+}
+
+#listview {
+	layout: horizontal;
+	spacing:	0px;
+	lines:		10;
+}
+
+#element {
+    text-color: @normal-foreground;
+    border-color: @selected-urgent-background;
+	border:  0;
+	padding: 8 12 9 12;
+}
+
+#element alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+#element selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
