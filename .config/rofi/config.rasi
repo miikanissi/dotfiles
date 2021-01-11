@@ -1,13 +1,17 @@
 /* .config/rofi/config */
-/* Rofi config Miika Nissi */
+/* by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi */
 
 configuration {
 	modi: "window,run,ssh";
 	width: 20;
-	lines: 5;
-    columns: 1;
-	font: "DejaVu Sans Mono 12";
-	location: 2;
+	lines: 10;
+	font: "DejaVu Sans Mono Nerd Font Mono 12px";
+	location: 1;
+    yoffset: 0;
+    xoffset: 0;
 	theme: "base16-hopscotch.rasi";
-    show-icons: true;
+    hide-scrollbar: true;
+    window-format: "{w}   {c}";
 }
+
+@import "~/.config/rofi/dmenu.rasi"

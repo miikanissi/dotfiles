@@ -88,7 +88,8 @@ md () {
 }
 
 ### fzf
-alias fe='.local/bin/fe.sh'
+alias fe='~/.local/bin/fe.sh'
+alias ff='~/.local/bin/ff.sh'
 fd() {
   local dir
   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"

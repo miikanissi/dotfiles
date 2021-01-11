@@ -19,17 +19,21 @@ super + d
 super + alt + d
     rofi -show ssh
 
-# launch rofi emoji
+# launch rofimoji
 super + shift + d
-    rofi -show emoji -modi emoji
+    rofimoji -c -s light
 
 # launch rofi window switcher
 super + Tab
     rofi -show window
 
 # launch rofi kill script
-super + ctrl + d
+super + ctrl + shift + d
     .local/bin/rofi_killprocess.sh
+
+# launch passmenu
+super + ctrl + d
+    .local/bin/passmenu.sh
 
 ### MPD HOTKEYS ###
 # pause mpd

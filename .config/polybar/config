@@ -44,7 +44,7 @@ padding-right = 1
 
 font-0 = DejaVuSansMonoNerdFontMono:size=10;3
 font-1 = DejaVuSansMonoNerdFontMono:size=16;4
-;;font-2 = Symbola:style=Regular:size=14;2
+font-2 = NotoColorEmoji:scale=8;2
 
 modules-left = bspwm mpd
 modules-center =

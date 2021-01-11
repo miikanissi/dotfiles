@@ -10,6 +10,12 @@ while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
+if [[-z which picom ]]; then
+  picom --config .config/picom/picom.conf &
+else
+  compton --config .config/picom/picom.conf &
+fi
+
 mpd &
 polybar top &
 compton --config .config/picom/picom.conf &
