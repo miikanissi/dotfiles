@@ -28,12 +28,16 @@ super + Tab
     rofi -show window
 
 # launch rofi kill script
-super + ctrl + shift + d
+super + ctrl + alt + d
     .local/bin/rofi_killprocess.sh
 
 # launch passmenu
 super + ctrl + d
     .local/bin/passmenu.sh
+
+# launch passmenu_otp
+super + ctrl + shift + d
+    .local/bin/passmenu_otp.sh
 
 ### MPD HOTKEYS ###
 # pause mpd
