@@ -1,6 +1,11 @@
+/* dmenu styled rofi prompt */
+/* by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi */
+
 #window {
+    anchor: north;
+    location: north;
     background-color: @background;
-	width:		60%;
+	width:		100%;
 	border:	0px;
 	children:	[ horibox ];
 	border-radius:	0px;
@@ -14,7 +19,7 @@
 #prompt {
     text-color: @normal-foreground;
     border-color: @selected-urgent-background;
-	border:	0 0 2 0;
+	border:	0 0 3 0;
 	padding:	8 20 0 20;
 	border-radius:	0px;
 }
@@ -35,7 +40,7 @@
 #listview {
 	layout: horizontal;
 	spacing:	0px;
-	lines:		10;
+	lines:		100;
 }
 
 #element {
