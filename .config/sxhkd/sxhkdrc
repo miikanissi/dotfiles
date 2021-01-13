@@ -87,11 +87,11 @@ super + {_,shift +}{h,j,k,l}
 
 # focus or send to the given desktop
 super + {_,shift +}{1-5}
-    bspc {desktop -f,node -d} '^{1-5}'
+    bspc {desktop -f,node -d} '^{1-5}' --follow
 
-# cycle desktops
-super + {Next, Prior}
-    bspc desktop -f {next, prev}
+# focus or send to desktop up, down
+super + {_,shift +}{Next, Prior}
+    bspc {desktop -f,node -d} {next, prev} --follow
 
 # expand a window by moving one of its side outward
 super + alt + {Left,Down,Up,Right}
