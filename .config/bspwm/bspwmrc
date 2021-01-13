@@ -5,11 +5,13 @@
 killall -q picom
 killall -q compton
 killall -q polybar
+killall -q sxhkd
 
 # wait until the processes have been shut down (just in case)
 while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
 while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
 if [[-z which picom ]]; then
@@ -28,6 +30,8 @@ xrdb .Xresources & # refresh Xresources
 .local/bin/setbg.sh & # sets wallpaper
 .local/bin/monitor.sh & # xrandr to set monitors
 .local/bin/keyboard.sh # set keyboard conf
+source ~/.xprofile
+source ~/.bashrc
 
 ### BSPC ###
 bspc monitor -d 1 2 3 4 5
@@ -49,7 +53,6 @@ bspc config focused_border_color    "#c85e7c"
 bspc rule -a net-runelite-launcher-Launcher state=pseudo_tiled private=on
 bspc rule -a URxvt:ncmpcpp desktop='^5' state=floating follow=on
 bspc rule -a Gimp desktop='^3' state=floating follow=on
-bspc rule -a jetbrains-studio state=floating follow=on
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
 
