@@ -18,15 +18,13 @@ fi
 
 mpd &
 polybar top &
-compton --config .config/picom/picom.conf &
 sxhkd &
 dunst --config ~/.config/dunst/dunstrc &
 xrdb .Xresources & # refresh Xresources
 .local/bin/setbg.sh & # sets wallpaper
 .local/bin/monitor.sh & # xrandr to set monitors
 .local/bin/keyboard.sh # set keyboard conf
-xrandr --output HDMI-1 --same-as eDP-1
-.local/bin/mattermost-desktop/mattermost-desktop
+# xrandr --output HDMI-1 --same-as eDP-1
 
 ### BSPC ###
 bspc monitor -d 1 2 3 4 5
