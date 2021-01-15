@@ -155,12 +155,12 @@ format-foreground = ${colors.primary}
 format-font = 2
 
 
-[module/screensaver]
+[module/caffeine]
 type = custom/ipc
-hook-0 = .local/bin/polybar_screensaver.sh --off
-hook-1 = .local/bin/polybar_screensaver.sh --toggle
+hook-0 = .local/bin/polybar_caffeine.sh --off
+hook-1 = .local/bin/polybar_caffeine.sh --toggle
 initial = 1
-click-left = polybar-msg -p %pid% hook screensaver 2
+click-left = polybar-msg -p %pid% hook caffeine 2
 
 format-foreground = ${colors.primary}
 format-font = 2

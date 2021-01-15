@@ -7,5 +7,6 @@ if mountpoint -q -- $mount_point; then
     --exclude '.cache' \
     --exclude '.config/BraveSoftware' \
     --exclude '.config/Signal' \
+    --exclude '.mozilla' \
     /home/miika $mount_point/backup
 fi
