@@ -98,7 +98,7 @@ fd() {
 
 
 # exports
-export BROWSER=/usr/bin/brave
+export BROWSER=/usr/bin/firefox
 export TERMINAL=/usr/bin/urxvt
 export EDITOR=/usr/bin/vim
 export LOCATION="Riihimäki"

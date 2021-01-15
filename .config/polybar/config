@@ -48,7 +48,7 @@ font-2 = NotoColorEmoji:scale=8;2
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather cointop torrents screensaver notifications pulseaudio date network battery powermenu
+modules-right = weather cointop torrents caffeine notifications pulseaudio date network battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -155,12 +155,12 @@ format-foreground = ${colors.primary}
 format-font = 2
 
 
-[module/screensaver]
+[module/caffeine]
 type = custom/ipc
-hook-0 = .local/bin/polybar_screensaver.sh --off
-hook-1 = .local/bin/polybar_screensaver.sh --toggle
+hook-0 = .local/bin/polybar_caffeine.sh --off
+hook-1 = .local/bin/polybar_caffeine.sh --toggle
 initial = 1
-click-left = polybar-msg -p %pid% hook screensaver 2
+click-left = polybar-msg -p %pid% hook caffeine 2
 
 format-foreground = ${colors.primary}
 format-font = 2

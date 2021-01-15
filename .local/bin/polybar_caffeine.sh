@@ -5,21 +5,21 @@
 for arg in "$1"
 do
   if [ "$arg" == "--on" ]; then
-    xset s on -dpms
+    xset s on s blank -dpms
     echo ""
   elif [ "$arg" == "--off" ]; then
-    xset s off -dpms
+    xset s off s noblank -dpms
     echo ""
   elif [ "$arg" == "--toggle" ]; then
     timeout=$(xset q | grep timeout | awk '{print $2}')
     if [ "$timeout" = "0" ]; then
-      xset s on -dpms
+      xset s on s blank -dpms
       echo ""
     else
-      xset s off -dpms
+      xset s off s noblank -dpms
       echo ""
     fi
   else
-    printf "Usage: polybar_screensaver.sh [OPTION]\nOptions:\n--on      Turn screensaver on\n--off     Turn screensaver off\n--toggle  Toggles screensaver on/off\n"
+    printf "Usage: polybar_screensaver.sh [OPTION]\nOptions:\n--on      Turn caffeine mode on\n--off     Turn caffeine mode off\n--toggle  Toggles caffeine mode on/off\n"
   fi
 done
