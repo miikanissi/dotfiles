@@ -2,18 +2,18 @@
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
 # make sure all processes are killed
-killall -q compton
+killall -q picom
 killall -q sxhkd
 
 # wait until the processes have been shut down (just in case)
-while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
+while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
 while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
 if [[-z which picom ]]; then
-  picom --config .config/picom/picom.conf &
-else
   ~/.local/bin/picom/build/src/picom --config .config/picom/picom.conf --vsync &
+else
+  picom --config .config/picom/picom.conf &
 fi
 
 source ~/.bashrc
