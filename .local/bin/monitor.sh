@@ -73,6 +73,9 @@ monitor_remove() {
 
 if [[ $(hostname) == "arch-pc" ]]; then
   xrandr --output DVI-D-1 --mode 1920x1080 --rate 144 --primary
+  bspc monitor -d 1 2 3 4 5 6 7 8
+  bspc desktop Desktop --remove > /dev/null
+  polybar main &
 elif [[ $(hostname) == "TA-NISMI-E490" ]]; then
   if xrandr | grep -o "HDMI-1 connected" > /dev/null && [[ "$1" != "1" ]] && [[ "$(bspc query -M | wc -l)" != 2 ]]; then
     monitor_add
