@@ -11,9 +11,9 @@ while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
 if [[-z which picom ]]; then
-  picom --config .config/picom/picom.conf &
+  picom --config .config/picom/picom.conf --vsync --experimental-backends &
 else
-  compton --config .config/picom/picom.conf &
+  ~/.local/bin/picom/build/src/picom --config .config/picom/picom.conf &
 fi
 
 source ~/.bashrc
