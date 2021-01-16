@@ -37,3 +37,6 @@
 [submodule ".vim/pack/plugins/start/vim-airline-themes"]
 	path = .vim/pack/plugins/start/vim-airline-themes
 	url = git@github.com:vim-airline/vim-airline-themes.git
+[submodule ".icons/elementary-cursors"]
+	path = .icons/elementary-cursors
+	url = git@github.com:kaesetoast/elementary-cursors.git

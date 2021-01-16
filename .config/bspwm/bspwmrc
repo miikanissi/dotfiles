@@ -26,12 +26,12 @@ pgrep -x signal-desktop >/dev/null || signal-desktop --start-in-tray --use-tray-
 xrdb .Xresources & # refresh Xresources
 .local/bin/setbg.sh & # sets wallpaper
 .local/bin/keyboard.sh # set keyboard conf
-.local/bin/monitor.sh & # polybar, xrandr and bspwm to set monitors
+.local/bin/launch_desktops.sh & # polybar, xrandr and bspwm to setup desktop env
 
 ### BSPC ###
 bspc config pointer_modifier        mod4
 bspc config border_width            2
-bspc config window_gap              6
+bspc config window_gap              4
 bspc config automatic_scheme        longest_side # longest_side, alternate or spiral
 
 bspc config split_ratio             0.52

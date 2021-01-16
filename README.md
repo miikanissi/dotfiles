@@ -48,6 +48,10 @@ Or you can just clone the repository normally and move files in their correct lo
     git clone --recurse-submodules https://github.com/miikanissi/dotfiles.git
     cd dotfiles
 
+Elementary cursor theme requires the following command:
+
+    cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
+
 ## :purple_heart: Links / Credits
 To stay up to date with me visit my [blog](https://miikanissi.com/blogindex/).
 
