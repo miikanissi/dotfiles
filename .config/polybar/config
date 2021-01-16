@@ -48,7 +48,7 @@ font-2 = NotoColorEmoji:scale=8;2
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather screensaver pulseaudio date network battery powermenu
+modules-right = weather caffeine notifications pulseaudio date network battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -277,8 +277,8 @@ full-at = 99
 
 ; Use the following command to list batteries and adapters:
 ; $ ls -1 /sys/class/power_supply/
-battery = BAT1
-adapter = ADP1
+battery = BAT0
+adapter = AC
 poll-interval = 5
 
 time-format = %H:%M
