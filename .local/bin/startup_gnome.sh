@@ -2,5 +2,6 @@
 # This script is run when Gnome is started
 
 xrdb .Xresources
-setxkbmap -option grp:switch -option grp_led:scroll us,fi
-xset r rate 300 50
+.local/bin/keyboard.sh
+.local/bin/mattermost-desktop/mattermost-desktop &
+birdtray &

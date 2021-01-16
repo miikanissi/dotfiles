@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # by Miika Nissi https://miikanissi.com
 # toggles screensaver and echoes corresponding emoji for polybar
 

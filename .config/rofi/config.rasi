@@ -2,7 +2,7 @@
 /* by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi */
 
 configuration {
-	modi: "drun,window,run,ssh,emoji";
+	modi: "window,run,ssh";
 	width: 20;
 	lines: 10;
 	font: "DejaVu Sans Mono Nerd Font Mono 12px";
