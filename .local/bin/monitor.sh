@@ -2,7 +2,18 @@
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 # hotplug dual monitor setup
 
+killall -q polybar
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 pgrep bspwm > /dev/null || exit 0
+
+for desktop in $(bspc query -D --names); do
+  if [[ $desktop == "Desktop" ]]; then
+    bspc monitor -d 1 2 3 4 5 6 7 8
+    bspc desktop Desktop --remove > /dev/null
+    bspc desktop Desktop --remove > /dev/null
+    break
+  fi
+done
 
 monitor_add() {
   xrandr --output HDMI-1 \
@@ -12,33 +23,37 @@ monitor_add() {
     --primary \
     --output eDP-1 \
     --mode 1920x1080 \
-    --pos 1920x0 \
+    --pos -1920x0 \
     --rotate normal
 
-  n_d=5 # how many desktops on second monitor
+  bspc monitor eDP-1 -a Desktop > /dev/null
 
-  for desktop in $(bcpc query -D -m eDP-1 | sed "$n_d"q); do
+  for desktop in $(bspc query -D -m eDP-1 | sed "8"q); do
     bspc desktop $desktop --to-monitor HDMI-1
   done
 
   bspc desktop Desktop --remove > /dev/null
+  bspc desktop Desktop --remove > /dev/null
+
+  for desktop in $(bspc query -D -m HDMI-1 | sed "5"q); do
+    bspc desktop $desktop --to-monitor eDP-1
+  done
+
+  bspc desktop Desktop --remove > /dev/null
+  bspc desktop Desktop --remove > /dev/null
+
+  polybar main &
+  polybar secondary &
 }
 
 monitor_remove() {
   if [[ "$(bspc query -M | wc -l)" = 1 ]]; then
+    polybar main &
     exit
   fi
-
-  bspc monitor eDP-1 -a Desktop > /dev/null
-
-  for desktop in $(bspc query -D -m eDP-1); do
-    bspc desktop $desktop --to-monitor HDMI-1
-  done
-
-  # swap desktops
   bspc monitor HDMI-1 -a Desktop > /dev/null
 
-  for desktop in $(bspc query -D -m HDMI-1); do
+  for desktop in $(bspc query -D -m HDMI-1 | sed "4"q); do
     bspc desktop $desktop --to-monitor eDP-1
   done
 
@@ -51,7 +66,9 @@ monitor_remove() {
     --pos 0x0 \
     --rotate normal
 
-  bspc desktop Desktop -r
+  bspc desktop Desktop --remove > /dev/null
+
+  polybar main &
 }
 
 if [[ $(hostname) == "arch-pc" ]]; then

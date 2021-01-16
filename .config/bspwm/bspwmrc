@@ -4,12 +4,10 @@
 # make sure all processes are killed
 killall -q compton
 killall -q sxhkd
-killall -q polybar
 
 # wait until the processes have been shut down (just in case)
 while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
 while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
 if [[-z which picom ]]; then
@@ -18,28 +16,17 @@ else
   compton --config .config/picom/picom.conf &
 fi
 
+source ~/.bashrc
+source ~/.xprofile
 mpd &
 sxhkd &
 dunst --config ~/.config/dunst/dunstrc &
 xrdb .Xresources & # refresh Xresources
 .local/bin/setbg.sh & # sets wallpaper
-.local/bin/monitor.sh & # xrandr to set monitors
 .local/bin/keyboard.sh # set keyboard conf
-
-if xrandr | grep "HDMI-1 disconnected"; then
-  xrandr --output eDP-1 --auto --output HDMI-1 --off
-  polybar main &
-else
-  xrandr --output eDP-1 --auto --output HDMI-1 --auto --right-of eDP-1 --primary
-  polybar main &
-  polybar secondary &
-fi
+.local/bin/monitor.sh & # polybar, xrandr and bspwm to set monitors
 
 ### BSPC ###
-# for monitor in $(bspc query -M); do
-#   bspc monitor $monitor -d 1 2 3 4 5
-# done
-
 bspc config pointer_modifier        mod4
 bspc config border_width            2
 bspc config window_gap              6
