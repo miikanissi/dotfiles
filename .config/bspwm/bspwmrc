@@ -11,16 +11,18 @@ while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
 if [[-z which picom ]]; then
-  picom --config .config/picom/picom.conf --vsync --experimental-backends &
+  picom --config .config/picom/picom.conf &
 else
-  ~/.local/bin/picom/build/src/picom --config .config/picom/picom.conf &
+  ~/.local/bin/picom/build/src/picom --config .config/picom/picom.conf --vsync &
 fi
 
 source ~/.bashrc
 source ~/.xprofile
 mpd &
 sxhkd &
+transmission-daemon &
 dunst --config ~/.config/dunst/dunstrc &
+pgrep -x signal-desktop >/dev/null || signal-desktop --start-in-tray --use-tray-icon &
 xrdb .Xresources & # refresh Xresources
 .local/bin/setbg.sh & # sets wallpaper
 .local/bin/keyboard.sh # set keyboard conf

@@ -20,8 +20,8 @@ format-padding = 1
 
 
 [bar/main]
-monitor = ${env:MONITOR:HDMI-1}
-monitor-fallback = ${env:MONITOR:eDP-1}
+monitor = ${env:MONITOR:DVI-D-1}
+monitor-fallback =
 monitor-strict = false
 monitor-exact = true
 enable-ipc = true
@@ -48,7 +48,7 @@ font-2 = NotoColorEmoji:scale=8;2
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather caffeine notifications pulseaudio date network battery powermenu
+modules-right = weather cointop torrents caffeine notifications pulseaudio date network battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
