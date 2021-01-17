@@ -48,6 +48,8 @@ monitor_add() {
 
   polybar main-ubuntu &
   polybar secondary-ubuntu &
+
+  notify-send "Dual Monitor mode launched."
 }
 
 monitor_remove() {
@@ -73,6 +75,8 @@ monitor_remove() {
   bspc desktop Desktop --remove > /dev/null
 
   polybar main-ubuntu &
+
+  notify-send "Single Monitor mode launched."
 }
 
 # I don't want hotplug mode to run if using my desktop

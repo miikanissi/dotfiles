@@ -8,8 +8,8 @@ if mountpoint -q -- $mount_point; then
     --exclude 'Pictures' \
     --exclude 'Videos' \
     --exclude 'Downloads' \
-    --exclude 'packettracer' \
     --exclude 'go' \
     --include '.ssh' \
+    --include '.gnupg' \
     /home/miika/ $mount_point/backup
 fi
