@@ -84,7 +84,7 @@ cache_dir = "/tmp"
   "}" = "last_chart_range"
 
 [favorites]
-  names = ["Reserve Rights Token", "Chainlink", "Ethereum", "Monero", "Bitcoin", "LCX"]
+  names = ["Chainlink", "Ethereum", "Monero", "Bitcoin", "LCX", "Reserve Rights Token"]
 
 [portfolio]
   Bitcoin = 0.00819181

@@ -99,7 +99,7 @@ fd() {
 
 # exports
 export BROWSER=/usr/bin/firefox
-export TERMINAL=/usr/bin/urxvt
+export TERMINAL=/usr/bin/alacritty
 export EDITOR=/usr/bin/vim
 export LOCATION="Riihimäki"
 export QT_QPA_PLATFORMTHEME=gtk2

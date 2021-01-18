@@ -1,0 +1,95 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+# by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
+
+env:
+  # TERM variable
+  TERM: xterm-256color
+
+window:
+  padding:
+    x: 4
+    y: 4
+
+  title: Alacritty
+  class:
+    instance: Alacritty
+    general: Alacritty
+
+scrolling:
+  history: 10000
+
+font:
+  normal:
+    family: DejaVuSansMono Nerd Font
+    style: Book
+  bold:
+    family: DejaVuSansMono Nerd Font
+    style: Bold
+  italic:
+    family: DejaVuSansMono Nerd Font
+    style: Oblique
+  bold_italic:
+    family: DejaVuSansMono Nerd Font
+    style: Bold Oplique
+
+  size: 11.0
+
+  offset:
+    x: 0
+    y: 0
+
+colors:
+  # Default colors
+  primary:
+    background: '0x322931'
+    foreground: '0xb9b5b8'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x322931'
+    cursor: '0xb9b5b8'
+
+  # Normal colors
+  normal:
+    black:   '0x322931'
+    red:     '0xdd464c'
+    green:   '0x8fc13e'
+    yellow:  '0xfdcc59'
+    blue:    '0x1290bf'
+    magenta: '0xc85e7c'
+    cyan:    '0x149b93'
+    white:   '0xb9b5b8'
+
+  # Bright colors
+  bright:
+    black:   '0x797379'
+    red:     '0xfd8b19'
+    green:   '0x433b42'
+    yellow:  '0x5c545b'
+    blue:    '0x989498'
+    magenta: '0xd5d3d5'
+    cyan:    '0xb33508'
+    white:   '0xffffff'
+
+draw_bold_text_with_bright_colors: false
+background_opacity: 1.0
+
+key_bindings:
+    # (Windows, Linux, and BSD only)
+  - { key: V,        mods: Control|Shift, action: Paste            }
+  - { key: C,        mods: Control|Shift, action: Copy             }
+  - { key: Insert,   mods: Shift,         action: PasteSelection   }
+  - { key: Key0,     mods: Control,       action: ResetFontSize    }
+  - { key: Equals,   mods: Control,       action: IncreaseFontSize }
+  - { key: Plus,     mods: Control,       action: IncreaseFontSize }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+
+  - { key: Paste,                    action: Paste                            }
+  - { key: Copy,                     action: Copy                             }
+  - { key: L,         mods: Control, action: ClearLogNotice                   }
+  - { key: L,         mods: Control, chars: "\x0c"                            }
+  - { key: PageUp,    mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
+  - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
+  - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
+  - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }

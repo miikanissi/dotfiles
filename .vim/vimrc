@@ -21,6 +21,7 @@ let g:airline_theme='base16_hopscotch'
 let g:airline_powerline_fonts = 1
 
 " settings
+set mouse=a                     " enable mouse functionality
 set noeb vb t_vb=               " no error bells
 set backspace=indent,eol,start  " normal backspace functionality
 set hidden                      " hides instead of unloads buffers
@@ -97,8 +98,8 @@ autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 " run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 
-" set config file syntax highlight
-autocmd BufNewFile,BufRead config set syntax=config
+" set polybar config filetype as dosini (.ini)
+autocmd BufNewFile,BufRead config set filetype=dosini
 
 
 """ FZF
