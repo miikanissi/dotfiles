@@ -2,28 +2,28 @@
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
 # make sure all processes are killed
-killall -q picom
-killall -q sxhkd
+killall -q picom # kill compositor
+killall -q sxhkd # kill hotkeys
 
 # wait until the processes have been shut down (just in case)
 while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
 while pgrep -u $UID -x sxhkd >/dev/null; do sleep 1; done
 
 ### AUTOSTART ###
-if [[-z which picom ]]; then
-  ~/.local/bin/picom/build/src/picom --config .config/picom/picom.conf --vsync &
-else
+if [[ -z $(which picom) ]]; then
   picom --config .config/picom/picom.conf &
+else
+  ~/.local/bin/picom/build/src/picom --config .config/picom/picom.conf --vsync &
 fi
 
 source ~/.bashrc
 source ~/.xprofile
-mpd &
-sxhkd &
-transmission-daemon &
-dunst --config ~/.config/dunst/dunstrc &
-pgrep -x signal-desktop >/dev/null || signal-desktop --start-in-tray --use-tray-icon &
 xrdb .Xresources & # refresh Xresources
+sxhkd & # hotkeys
+dunst --config ~/.config/dunst/dunstrc &
+pgrep -x transmission-daemon >/dev/null || transmission-daemon &
+pgrep -x mpd >/dev/null || mpd &
+pgrep -x signal-desktop >/dev/null || signal-desktop --start-in-tray --use-tray-icon &
 .local/bin/setbg.sh & # sets wallpaper
 .local/bin/keyboard.sh # set keyboard conf
 .local/bin/launch_desktops.sh & # polybar, xrandr and bspwm to setup desktop env

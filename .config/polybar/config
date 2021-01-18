@@ -326,8 +326,8 @@ poll-interval = 5
 
 time-format = %H:%M
 
-format-charging = <animation-charging> <label>
-format-discharging = <ramp-capacity> <label>
+format-charging = %{T2}%{F#c85e7c}<animation-charging>%{T-}%{F-} <label>
+format-discharging = %{T2}%{F#c85e7c}<ramp-capacity>%{T-}%{F-} <label>
 
 label = %percentage%%
 
