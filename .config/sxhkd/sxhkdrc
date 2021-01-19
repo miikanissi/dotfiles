@@ -11,6 +11,10 @@ super + {Return, w, e, g, m, c, b, s}
 super + Print
     ~/.local/bin/screenshot.sh
 
+# print screen with flameshot
+super + shift + Print
+    flameshot gui
+
 # launch rofi
 super + d
     rofi -show run
