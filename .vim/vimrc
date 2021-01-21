@@ -1,13 +1,9 @@
 " .vimrc
 " by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 " language specific configs at .vim/ftplugin/<language>.vim
-" or .vim/after/ftplugin/<language>.vim to not override defaults only add to
+" or .vim/after/syntax/<language>.vim to not override defaults only add to
 
-" variables
-let $RTP=split(&runtimepath, ',')[0]
-let $RC="$HOME/.vim/vimrc"
-
-" basics
+""" BASICS
 set encoding=utf-8
 filetype plugin indent on
 syntax on
@@ -19,8 +15,12 @@ let g:lightline = {
       \ }
 let g:airline_theme='base16_hopscotch'
 let g:airline_powerline_fonts = 1
+" set runtimepath to current dir
+let $RTP=split(&runtimepath, ',')[0]
+let $RC="$HOME/.vim/vimrc"
 
-" settings
+
+""" SETTINGS
 set mouse=a                     " enable mouse functionality
 set noeb vb t_vb=               " no error bells
 set backspace=indent,eol,start  " normal backspace functionality
@@ -41,8 +41,6 @@ set ignorecase                  " ignores case in search
 set smartcase                   " uses smartcase in search
 set noswapfile                  " no swap file
 set nobackup                    " no backup file
-" set undodir=~/.vim/undodir      " undo dir
-" set undofile                    " makes undofiles
 set incsearch                   " incremental search enabled
 set ruler                       " ruler shows cur pos
 set modelines=0                 " no modelines
@@ -64,10 +62,10 @@ set updatetime=300              " default is 4000
 set shortmess+=c                " no messages to ins completion
 set signcolumn=yes              " always show signcolumns
 
+
+""" KEY MAPPINGS
 " defines leader key as comma
 let mapleader = ","
-
-" remaps
 " show buffers
 nnoremap <leader>b :buffers<CR>:buffer<Space>
 " open nerdtree
@@ -80,7 +78,6 @@ nnoremap <space> za
 nnoremap <leader>s :FZF<CR>
 " format file with coc-prettier
 nnoremap <leader>f :Format<CR>
-
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
 nnoremap <leader>cc :-1read $HOME/.vim/snippets/skeleton.c<CR>4ji<tab>
@@ -90,30 +87,33 @@ nnoremap <leader>tpy :-1read $HOME/.vim/snippets/skeleton_tawasta_models.py<CR>:
 nnoremap <leader>tmd :-1read $HOME/.vim/snippets/skeleton_tawasta_README.rst<CR>:6<CR>i
 nnoremap <leader>tman :-1read $HOME/.vim/snippets/skeleton_tawasta_manifest.py<CR>:22<CR>$hi
 
+
+""" COMMANDS
+" trim empty lines at the end of file on save
+function TrimEndLines()
+    let save_cursor = getpos(".")
+    silent! %s/\($\n\s*\)\+\%$//e
+    call setpos('.', save_cursor)
+endfunction
+autocmd BufWritePre * call TrimEndLines()
+" automatically deletes all trailing whitespace on save.
+autocmd BufWritePre * %s/\s\+$//e
+" update binds when sxhkdrc is updated.
+autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
+" run xrdb whenever Xdefaults or Xresources are updated.
+autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+" set polybar config filetype as dosini (.ini)
+autocmd BufNewFile,BufRead config set filetype=dosini
 " terminal commands
 command! MakeTags !ctags -R .   " recursively creates ctags in directory
 command! Reload execute "source ~/.vim/vimrc"
 
-" autocmd
-" automatically deletes all trailing whitespace on save.
-autocmd BufWritePre * %s/\s\+$//e
 
-" update binds when sxhkdrc is updated.
-autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
-
-" run xrdb whenever Xdefaults or Xresources are updated.
-autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
-
-" set polybar config filetype as dosini (.ini)
-autocmd BufNewFile,BufRead config set filetype=dosini
-
-
+""" PLUGINS
 """ FZF
 set rtp+=/usr/bin/fzf
-
 let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.6 } }
 let g:fzf_layout = { 'down': '40%' }
-
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -140,38 +140,34 @@ let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-json'
       \ ]
-
+" :Prettier runs prettier for file
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
 " tab for coc.nvim completion
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+" backspace aborts completion
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 " :Format formats current buffer
 command! -nargs=0 Format :call CocAction('format')
-
+" coc status to statusline
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
 
 """ NERDTREE
 " automatically open nerdtree if no file specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
 " automatically open nerdtree if vim is started on a directory
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-
 " close vim if only nerd tree is left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -180,7 +176,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
