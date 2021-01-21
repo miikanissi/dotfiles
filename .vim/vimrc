@@ -62,6 +62,7 @@ set foldmethod=indent           " enable folding
 set foldlevel=99                " enable folding
 set updatetime=300              " default is 4000
 set shortmess+=c                " no messages to ins completion
+set signcolumn=yes              " always show signcolumns
 
 " defines leader key as comma
 let mapleader = ","
@@ -76,7 +77,9 @@ nnoremap <leader>i gg=G<C-o><C-o>
 " toggle folding
 nnoremap <space> za
 " open fzf
-nnoremap <leader>f :FZF<CR>
+nnoremap <leader>s :FZF<CR>
+" format file with coc-prettier
+nnoremap <leader>f :Format<CR>
 
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
@@ -125,6 +128,18 @@ let g:fzf_colors =
 
 
 """ COC.NVIM
+let g:coc_global_extensions = [
+      \ 'coc-pairs',
+      \ 'coc-prettier',
+      \ 'coc-python',
+      \ 'coc-xml',
+      \ 'coc-html',
+      \ 'coc-css',
+      \ 'coc-json'
+      \ ]
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 " tab for coc.nvim completion
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -137,6 +152,13 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" :Format formats current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 """ NERDTREE
 " automatically open nerdtree if no file specified
