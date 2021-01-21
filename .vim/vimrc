@@ -71,7 +71,7 @@ let mapleader = ","
 " show buffers
 nnoremap <leader>b :buffers<CR>:buffer<Space>
 " open nerdtree
-nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
 " indent file
 nnoremap <leader>i gg=G<C-o><C-o>
 " toggle folding
@@ -85,7 +85,10 @@ nnoremap <leader>f :Format<CR>
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
 nnoremap <leader>cc :-1read $HOME/.vim/snippets/skeleton.c<CR>4ji<tab>
 nnoremap <leader>cpp :-1read $HOME/.vim/snippets/skeleton.cpp<CR>4ji<tab>
-nnoremap <leader>cred :-1read $HOME/.vim/snippets/skeleton.credits<CR>I
+nnoremap <leader>cred :-1read $HOME/.vim/snippets/skeleton_credits.txt<CR>I
+nnoremap <leader>tpy :-1read $HOME/.vim/snippets/skeleton_tawasta_models.py<CR>:35<CR>wi
+nnoremap <leader>tmd :-1read $HOME/.vim/snippets/skeleton_tawasta_README.rst<CR>:6<CR>i
+nnoremap <leader>tman :-1read $HOME/.vim/snippets/skeleton_tawasta_manifest.py<CR>:22<CR>$hi
 
 " terminal commands
 command! MakeTags !ctags -R .   " recursively creates ctags in directory
