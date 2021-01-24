@@ -11,5 +11,6 @@ if mountpoint -q -- $mount_point; then
     --exclude 'go' \
     --include '.ssh' \
     --include '.gnupg' \
+    --include '.password-store' \
     /home/miika/ $mount_point/backup
 fi
