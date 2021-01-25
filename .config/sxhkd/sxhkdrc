@@ -43,6 +43,10 @@ super + ctrl + d
 super + ctrl + shift + d
     .local/bin/passmenu_otp.sh
 
+# launch rofi_mount.sh
+super + x
+    .local/bin/rofi_mount.sh
+
 ### MPD HOTKEYS ###
 # pause mpd
 super + space
