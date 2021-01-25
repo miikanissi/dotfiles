@@ -1,9 +1,10 @@
 #!/bin/bash
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
+# rofi/dmenu prompt to manage devices
 
-prompt="$(echo -e "mount\numount\neject\nlsblk" | rofi -dmenu)"
+prompt="$(echo -e "mount\numount\neject\nlsblk" | rofi -dmenu -p "Disk Manager")"
 if [ $prompt = mount ]; then
-  dev=$(echo $(lsblk -lp | grep -E "/dev/.*part" | awk '{print $1}' | rofi -dmenu))
+  dev=$(echo $(lsblk -lp | grep -E "/dev/.*part" | awk '{print $1}' | rofi -dmenu -p "Device to mount:"))
   [ -z $dev ] && exit 0;
   devname=$(echo -n $dev | sed 's/\//\n/g' | tail -n 1)
   if [ -z $(mount | grep $dev) ]; then
@@ -34,7 +35,7 @@ if [ $prompt = mount ]; then
     exit 0;
   fi
 elif [ $prompt = umount ]; then
-  dev=$(echo $(lsblk -lp | grep -E "/dev/.*part|/dev/.*crypt" | awk '{print $1}' | rofi -dmenu))
+  dev=$(echo $(lsblk -lp | grep -E "/dev/.*part|/dev/.*crypt" | awk '{print $1}' | rofi -dmenu -p "Device to unmount:"))
   [ -z $dev ] && exit 0;
   if [ -z $(mount | grep $dev) ]; then
     notify-send "$dev is already unmounted"
@@ -53,7 +54,7 @@ elif [ $prompt = umount ]; then
     fi
   fi
 elif [ $prompt = eject ]; then
-  dev=$(echo $(lsblk -lp | grep -E "/dev/.*disk" | awk '{print $1}' | rofi -dmenu))
+  dev=$(echo $(lsblk -lp | grep -E "/dev/.*disk" | awk '{print $1}' | rofi -dmenu -p "Device to eject:"))
   [ -z $dev ] && exit 0;
   sudo eject $dev
   if [ -z $(lsblk -lp | grep $dev) ]; then
