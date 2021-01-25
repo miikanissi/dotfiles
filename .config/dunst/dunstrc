@@ -3,7 +3,7 @@
 # Src: https://github.com/vonbrownie/dotfiles/blob/master/.config/dunst/dunstrc
 [global]
     #font = Monospace 8
-    font = DejaVu Sans Mono 10
+    font = DejaVuSansMono Nerd Font 10
 
     # Allow a small subset of html markup:
     #   <b>bold</b>
