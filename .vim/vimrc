@@ -86,6 +86,7 @@ nnoremap <leader>cred :-1read $HOME/.vim/snippets/skeleton_credits.txt<CR>I
 nnoremap <leader>tpy :-1read $HOME/.vim/snippets/skeleton_tawasta_models.py<CR>:35<CR>wi
 nnoremap <leader>tmd :-1read $HOME/.vim/snippets/skeleton_tawasta_README.rst<CR>:6<CR>i
 nnoremap <leader>tman :-1read $HOME/.vim/snippets/skeleton_tawasta_manifest.py<CR>:22<CR>$hi
+nnoremap <leader>txml :-1read $HOME/.vim/snippets/skeleton_tawasta_views.xml<CR>jo
 
 
 """ COMMANDS
