@@ -36,16 +36,16 @@ super + ctrl + alt + d
     .local/bin/rofi_killprocess.sh
 
 # launch passmenu
-super + ctrl + d
-    .local/bin/passmenu.sh
+super + z
+    .local/bin/rofi_passmenu.sh
 
 # launch passmenu_otp
-super + ctrl + shift + d
-    .local/bin/passmenu_otp.sh
+super + shift + z
+    .local/bin/rofi_passmenu_otp.sh
 
 # launch rofi_mount.sh
 super + x
-    .local/bin/rofi_mount.sh
+    .local/bin/rofi_dman.sh
 
 ### MPD HOTKEYS ###
 # pause mpd

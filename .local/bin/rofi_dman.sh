@@ -1,18 +1,17 @@
 #!/bin/bash
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
-# rofi/dmenu prompt to manage devices
+# rofi/dmenu prompt to manage devices - dman
 
-prompt="$(echo -e "mount\numount\neject\nlsblk" | rofi -dmenu -p "Disk Manager")"
+prompt="$(echo -e "mount\numount\neject\nlsblk" | rofi -dmenu -p "dman")"
 if [ $prompt = mount ]; then
-  dev=$(echo $(lsblk -lp | grep -E "/dev/.*part" | awk '{print $1}' | rofi -dmenu -p "Device to mount:"))
+  dev=$(echo $(lsblk -lp | grep -E "/dev/.*part" | awk '{print $1}' | rofi -dmenu -p "mount"))
   [ -z $dev ] && exit 0;
   devname=$(echo -n $dev | sed 's/\//\n/g' | tail -n 1)
   if [ -z $(mount | grep $dev) ]; then
     if $(sudo cryptsetup isLuks $dev); then
-      pass=$(rofi -dmenu -password -p "Enter passphrase for $dev:")
-      dir=$(find /mnt/ -mindepth 1 -maxdepth 1 | rofi -dmenu -p "Mount $dev to:")
+      pass=$(rofi -dmenu -password -p "$dev passphrase")
+      dir=$(find /mnt/ -mindepth 1 -maxdepth 1 | rofi -dmenu -p "$dev mountpoint")
       [[ -z $pass || -z $dir ]] && exit 0;
-      echo hi
       echo -n $pass | sudo cryptsetup luksOpen $dev $devname -d -
       sudo mount /dev/mapper/$devname $dir
       if mountpoint -q -- $dir; then
@@ -21,7 +20,7 @@ if [ $prompt = mount ]; then
         notify-send "Mount failed"
       fi
     else
-      dir=$(find /mnt/ -mindepth 1 -maxdepth 1 | rofi -dmenu -p "Mount $dev to:")
+      dir=$(find /mnt/ -mindepth 1 -maxdepth 1 | rofi -dmenu -p "$dev mountpoint")
       [ -z $dir ] && exit 0;
       sudo mount $dev $dir
       if mountpoint -q -- $dir; then
@@ -35,7 +34,7 @@ if [ $prompt = mount ]; then
     exit 0;
   fi
 elif [ $prompt = umount ]; then
-  dev=$(echo $(lsblk -lp | grep -E "/dev/.*part|/dev/.*crypt" | awk '{print $1}' | rofi -dmenu -p "Device to unmount:"))
+  dev=$(echo $(lsblk -lp | grep -E "/dev/.*part|/dev/.*crypt" | awk '{print $1}' | rofi -dmenu -p "umount"))
   [ -z $dev ] && exit 0;
   if [ -z $(mount | grep $dev) ]; then
     notify-send "$dev is already unmounted"
@@ -54,7 +53,7 @@ elif [ $prompt = umount ]; then
     fi
   fi
 elif [ $prompt = eject ]; then
-  dev=$(echo $(lsblk -lp | grep -E "/dev/.*disk" | awk '{print $1}' | rofi -dmenu -p "Device to eject:"))
+  dev=$(echo $(lsblk -lp | grep -E "/dev/.*disk" | awk '{print $1}' | rofi -dmenu -p "eject"))
   [ -z $dev ] && exit 0;
   sudo eject $dev
   if [ -z $(lsblk -lp | grep $dev) ]; then
