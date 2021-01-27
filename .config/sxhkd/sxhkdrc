@@ -32,7 +32,7 @@ super + Tab
     rofi -show window
 
 # launch rofi kill script
-super + ctrl + alt + d
+super + shift + x
     .local/bin/rofi_killprocess.sh
 
 # launch passmenu
