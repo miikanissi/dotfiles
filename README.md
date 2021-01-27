@@ -54,7 +54,7 @@ Elementary cursor theme requires the following command:
     cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
 
 ## :purple_heart: Links / Credits
-To stay up to date with me visit my [blog](https://miikanissi.com/blogindex/).
+To stay up to date with me visit my [blog](https://miikanissi.com/blogindex).
 
 Credits:
 - [Lukewh](https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ) Helpful emacs configuration guide.
