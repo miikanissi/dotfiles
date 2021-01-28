@@ -143,7 +143,9 @@ let g:coc_global_extensions = [
       \ 'coc-xml',
       \ 'coc-html',
       \ 'coc-css',
-      \ 'coc-json'
+      \ 'coc-json',
+      \ 'coc-sh',
+      \ 'coc-vimlsp'
       \ ]
 " :Prettier runs prettier for file
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
