@@ -40,3 +40,6 @@
 [submodule ".icons/elementary-cursors"]
 	path = .icons/elementary-cursors
 	url = git@github.com:kaesetoast/elementary-cursors.git
+[submodule ".vim/pack/plugins/start/vim-lsp-cxx-highlight"]
+	path = .vim/pack/plugins/start/vim-lsp-cxx-highlight
+	url = git@github.com:jackguo380/vim-lsp-cxx-highlight.git
