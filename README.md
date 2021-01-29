@@ -53,6 +53,8 @@ Elementary cursor theme requires the following command:
 
     cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
 
+Dependencies are not automatically installed, but a comprehensive list of packages for Arch Linux can be found at [program_list_arch.csv](https://github.com/miikanissi/dotfiles/blob/arch/program_list_arch.csv).
+
 ## :purple_heart: Links / Credits
 To stay up to date with me visit my [blog](https://miikanissi.com/blogindex).
 
