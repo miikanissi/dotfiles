@@ -1,2 +1,6 @@
 BasedOnStyle: LLVM
-IndentWidth: 4
+IndentWidth: 8
+UseTab: Always
+BreakBeforeBraces: Linux
+AllowShortIfStatementsOnASingleLine: false
+IndentCaseLabels: false

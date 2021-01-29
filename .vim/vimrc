@@ -3,7 +3,29 @@
 " language specific configs at .vim/ftplugin/<language>.vim
 " or .vim/after/syntax/<language>.vim to not override defaults only add to
 
-""" BASICS
+" PLUGIN MANAGER{{{
+if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
+	echo "Downloading junegunn/vim-plug to manage plugins..."
+	silent !mkdir -p $HOME/.vim/autoload/
+	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > $HOME/.vim/autoload/plug.vim
+	autocmd VimEnter * PlugInstall
+endif
+
+call plug#begin('$HOME/.vim/plugged')
+Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ap/vim-css-color'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-syntastic/syntastic'
+Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+call plug#end()
+"}}}
+
+" BASICS{{{
 set encoding=utf-8
 filetype plugin indent on
 syntax on
@@ -18,9 +40,11 @@ let g:airline_powerline_fonts = 1
 " set runtimepath to current dir
 let $RTP=split(&runtimepath, ',')[0]
 let $RC="$HOME/.vim/vimrc"
+" marker based folding in vim files
+autocmd FileType vim setlocal foldmethod=marker
+"}}}
 
-
-""" SETTINGS
+" SETTINGS{{{
 set mouse=a                     " enable mouse functionality
 set noeb vb t_vb=               " no error bells
 set backspace=indent,eol,start  " normal backspace functionality
@@ -30,7 +54,8 @@ set wildmenu                    " tab complete shows all matching files
 set nocompatible                " compatibility vim only
 set clipboard=unnamedplus       " uses system clipboard
 set noerrorbells                " no error bells
-set tabstop=4 softtabstop=4     " default tabs
+set tabstop=4                   " tab stops at 4 spaces
+set softtabstop=4               " tab stops at 4 spaces
 set shiftwidth=4                " default shift
 set expandtab                   " default tabs
 set smartindent                 " default tabs
@@ -57,13 +82,13 @@ set viminfo=""                  " disable viminfo
 set showcmd                     " shows the typed command
 set cmdheight=2                 " more space for command
 set foldmethod=indent           " enable folding
-set foldlevel=99                " enable folding
+set foldlevel=99                " never folded
 set updatetime=300              " default is 4000
 set shortmess+=c                " no messages to ins completion
 set signcolumn=yes              " always show signcolumns
+"}}}
 
-
-""" KEY MAPPINGS
+" KEY MAPPINGS{{{
 " defines leader key as comma
 let mapleader = ","
 " show buffers
@@ -87,9 +112,9 @@ nnoremap <leader>tpy :-1read $HOME/.vim/snippets/skeleton_tawasta_models.py<CR>:
 nnoremap <leader>tmd :-1read $HOME/.vim/snippets/skeleton_tawasta_README.rst<CR>:6<CR>i
 nnoremap <leader>tman :-1read $HOME/.vim/snippets/skeleton_tawasta_manifest.py<CR>:22<CR>$hi
 nnoremap <leader>txml :-1read $HOME/.vim/snippets/skeleton_tawasta_views.xml<CR>jo
+"}}}
 
-
-""" COMMANDS
+" COMMANDS{{{
 " trim empty lines at the end of file on save
 function TrimEndLines()
   if exists('b:noStripWhiteSpace')
@@ -112,10 +137,12 @@ autocmd BufNewFile,BufRead config set filetype=dosini
 " terminal commands
 command! MakeTags !ctags -R .   " recursively creates ctags in directory
 command! Reload execute "source ~/.vim/vimrc"
+" always fold vimrc
+au BufRead vimrc normal zM
+"}}}
 
-
-""" PLUGINS
-""" FZF
+" PLUGINS{{{
+"FZF{{{
 set rtp+=/usr/bin/fzf
 let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.6 } }
 let g:fzf_layout = { 'down': '40%' }
@@ -133,9 +160,8 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
-
-
-""" COC.NVIM
+"}}}
+" COC.NVIM{{{
 let g:coc_global_extensions = [
       \ 'coc-pairs',
       \ 'coc-prettier',
@@ -144,6 +170,7 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-css',
       \ 'coc-json',
+      \ 'coc-tsserver',
       \ 'coc-sh',
       \ 'coc-vimlsp'
       \ ]
@@ -160,15 +187,42 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-" use <cr> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 " :Format formats current buffer
 command! -nargs=0 Format :call CocAction('format')
 " coc status to statusline
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-
-""" NERDTREE
+"}}}
+" NERDTREE{{{
 " automatically open nerdtree if no file specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -177,18 +231,18 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 " close vim if only nerd tree is left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-
-""" SYNTASTIC
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"}}}
+" SYNTASTIC{{{
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
-
-
-""" PYTHON-SYNTAX
+"}}}
+" PYTHON-SYNTAX{{{
 let g:python_highlight_all = 1
+"}}}
+"}}}

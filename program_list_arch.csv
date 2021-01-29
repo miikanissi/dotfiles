@@ -35,6 +35,7 @@ A,polybar,"is the status bar."
 ,rsync,"is a utility for efficient file transferring."
 ,base-devel,"is a tool used for compiling."
 ,gcc,"is a GNU compiler collection."
+,ccls,"is a c/c++ language server."
 ,flake8,"is a python3 syntax checker."
 P,jedi,"is needed for coc.nvim."
 ,fzf,"is a fast fuzzy finder."
@@ -85,4 +86,3 @@ A,brave-bin,"is an elegant browser with built-in adblocking, tor and other featu
 ,gsimplecal,"is a simple graphical calender applet."
 ,htop,"is an interactive CLI process viewer."
 G,https://github.com/miguelmota/cointop,"is a CLI cryptocurrency price tracker."
-

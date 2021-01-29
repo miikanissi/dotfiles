@@ -1,15 +1,3 @@
-[submodule ".vim/pack/plugins/start/commentary"]
-	path = .vim/pack/plugins/start/commentary
-	url = https://github.com/tpope/vim-commentary
-[submodule ".vim/pack/plugins/start/vim-css-color"]
-	path = .vim/pack/plugins/start/vim-css-color
-	url = https://github.com/ap/vim-css-color.git
-[submodule ".vim/pack/plugins/start/nerdtree"]
-	path = .vim/pack/plugins/start/nerdtree
-	url = https://github.com/preservim/nerdtree
-[submodule ".vim/pack/plugins/start/coc.nvim"]
-	path = .vim/pack/plugins/start/coc.nvim
-	url = https://github.com/neoclide/coc.nvim.git
 [submodule ".themes/Sweet"]
 	path = .themes/Sweet
 	url = git@github.com:EliverLara/Sweet.git
@@ -19,27 +7,9 @@
 [submodule ".icons/vimix-icon-theme"]
 	path = .icons/vimix-icon-theme
 	url = git@github.com:vinceliuice/vimix-icon-theme.git
-[submodule ".vim/pack/plugins/start/syntastic"]
-	path = .vim/pack/plugins/start/syntastic
-	url = git@github.com:vim-syntastic/syntastic.git
 [submodule ".vim/pack/plugins/start/semshi"]
 	path = .vim/pack/plugins/start/semshi
 	url = git@github.com:numirias/semshi.git
-[submodule ".vim/pack/plugins/start/vim-python-pep8-indent"]
-	path = .vim/pack/plugins/start/vim-python-pep8-indent
-	url = git@github.com:Vimjas/vim-python-pep8-indent.git
-[submodule ".vim/pack/plugins/start/python-syntax"]
-	path = .vim/pack/plugins/start/python-syntax
-	url = git@github.com:vim-python/python-syntax.git
-[submodule ".vim/pack/plugins/start/vim-airline"]
-	path = .vim/pack/plugins/start/vim-airline
-	url = git@github.com:vim-airline/vim-airline.git
-[submodule ".vim/pack/plugins/start/vim-airline-themes"]
-	path = .vim/pack/plugins/start/vim-airline-themes
-	url = git@github.com:vim-airline/vim-airline-themes.git
 [submodule ".icons/elementary-cursors"]
 	path = .icons/elementary-cursors
 	url = git@github.com:kaesetoast/elementary-cursors.git
-[submodule ".vim/pack/plugins/start/vim-lsp-cxx-highlight"]
-	path = .vim/pack/plugins/start/vim-lsp-cxx-highlight
-	url = git@github.com:jackguo380/vim-lsp-cxx-highlight.git
