@@ -1,7 +1,6 @@
 ;; Polybar config
 ;; by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
-
 [colors]
 background = ${xrdb:color0:#05060A}
 background-alt = ${xrdb:color10}
@@ -12,12 +11,15 @@ primary = ${xrdb:color5}
 secondary = ${xrdb:color1}
 alert = #bd2c40
 
-
 [settings]
 screenchange-reload = true
 pseudo-transparency = false
 format-padding = 1
 
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+format-underline = ${colors.primary}
 
 [bar/main-arch]
 monitor = ${env:MONITOR:DVI-D-1}
@@ -60,7 +62,6 @@ scroll-down = bspwm-deskprev
 
 cursor-click = pointer
 
-
 [bar/main-ubuntu]
 monitor = ${env:MONITOR:HDMI-1}
 monitor-fallback = ${env:MONITOR:eDP-1}
@@ -101,7 +102,6 @@ scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 
 cursor-click = pointer
-
 
 [bar/secondary-ubuntu]
 monitor = ${env:MONITOR:eDP-1}
@@ -144,7 +144,6 @@ scroll-down = bspwm-deskprev
 
 cursor-click = pointer
 
-
 [module/bspwm]
 type = internal/bspwm
 
@@ -178,7 +177,6 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 format-padding = 0
-
 
 [module/mpd]
 type = internal/mpd
@@ -220,7 +218,6 @@ bar-progress-indicator = |
 bar-progress-fill = ─
 bar-progress-empty = ─
 
-
 [module/cointop]
 type = custom/script
 exec = .local/bin/polybar_cointop.sh
@@ -228,7 +225,6 @@ click-left = urxvt -e cointop
 click-right = .local/bin/check_cointop.sh
 interval = 60
 format-foreground = ${colors.primary}
-
 
 [module/notifications]
 type = custom/ipc
@@ -240,7 +236,6 @@ click-left = polybar-msg -p %pid% hook notifications 2
 format-foreground = ${colors.primary}
 format-font = 2
 
-
 [module/caffeine]
 type = custom/ipc
 hook-0 = .local/bin/polybar_caffeine.sh --off
@@ -251,7 +246,6 @@ click-left = polybar-msg -p %pid% hook caffeine 2
 format-foreground = ${colors.primary}
 format-font = 2
 
-
 [module/torrents]
 type = custom/script
 exec = .local/bin/polybar_torrents.sh
@@ -260,7 +254,6 @@ click-right = .local/bin/check_torrents.sh
 initial = 1
 interval = 10
 format-foreground = ${colors.primary}
-
 
 [module/weather]
 type = custom/script
@@ -304,7 +297,6 @@ label-muted-foreground = #666
 
 click-right = pavucontrol &
 
-
 [module/network]
 type = custom/script
 exec = .local/bin/polybar_connection.sh
@@ -312,7 +304,6 @@ interval = 1
 click-left = nm-connection-editor
 format-foreground = ${colors.primary}
 format-font = 2
-
 
 [module/battery]
 type = internal/battery
@@ -365,9 +356,3 @@ menu-0-1 = power off
 menu-0-1-exec = systemctl poweroff
 menu-0-2 = suspend
 menu-0-2-exec = systemctl suspend
-
-
-[global/wm]
-margin-top = 5
-margin-bottom = 5
-format-underline = ${colors.primary}

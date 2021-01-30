@@ -1,7 +1,7 @@
 " .vimrc
 " by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 " language specific configs at .vim/ftplugin/<language>.vim
-" or .vim/after/syntax/<language>.vim to not override defaults only add to
+" or .vim/after/syntax/<language>.vim for syntax
 
 " PLUGIN MANAGER{{{
 if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
