@@ -112,6 +112,8 @@ nnoremap <leader>tpy :-1read $HOME/.vim/snippets/skeleton_tawasta_models.py<CR>:
 nnoremap <leader>tmd :-1read $HOME/.vim/snippets/skeleton_tawasta_README.rst<CR>:6<CR>i
 nnoremap <leader>tman :-1read $HOME/.vim/snippets/skeleton_tawasta_manifest.py<CR>:22<CR>$hi
 nnoremap <leader>txml :-1read $HOME/.vim/snippets/skeleton_tawasta_views.xml<CR>jo
+nnoremap <PageUp>   :bprevious<CR>
+nnoremap <PageDown> :bnext<CR>
 "}}}
 
 " COMMANDS{{{
@@ -143,7 +145,10 @@ au BufRead vimrc normal zM
 "}}}
 
 " PLUGINS{{{
-"FZF{{{
+"AIRLINE {{{
+let g:airline#extensions#tabline#enabled = 1
+"}}}
+"FZF {{{
 set rtp+=/usr/bin/fzf
 let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.6 } }
 let g:fzf_layout = { 'down': '40%' }
