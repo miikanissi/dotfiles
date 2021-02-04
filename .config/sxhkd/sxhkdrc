@@ -5,7 +5,7 @@
 ### PROGRAM LAUNCHERS ###
 # launch programs (h,j,k,l,d,q,f,t,n,p,space,greater,less taken by bspc and cmus)
 super + {Return, w, e, g, m, c, b, s}
-    {alacritty, firefox, geary, emacs, urxvt -name ncmpcpp -e ncmpcpp, pcmanfm, urxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
+    {alacritty, brave, geary, emacs, urxvt -name ncmpcpp -e ncmpcpp, pcmanfm, urxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
 
 # print screen script with maim
 super + Print
@@ -95,7 +95,7 @@ super + {_,shift +}{h,j,k,l}
 
 # focus or send to the given desktop
 super + {_,shift +}{1-8}
-    bspc {desktop -f,node -d} '^{1-8}' --follow
+    bspc {desktop -f,node -d} {1-8} --follow
 
 # focus or send to desktop up, down
 super + {_,shift +}{Next, Prior}

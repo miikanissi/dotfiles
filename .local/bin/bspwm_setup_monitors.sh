@@ -43,7 +43,8 @@ _move_to_single_monitor() {
 _move_to_dual_monitor(){
   primary=$1
   secondary=$2
-  for desktop in $(bspc query -D -m $secondary | sed "6"q); do
+  # move 4 desktops to main screen leaving 2 on secondary screen
+  for desktop in $(bspc query -D -m $secondary | sed "4"q); do
     bspc desktop $desktop --to-monitor $primary
   done
 }
@@ -64,34 +65,32 @@ for MONITOR in ${OUTPUTS[@]}; do
           fi
         done
       else
-        bspc monitor $MONITOR -d 1 2 3 4 5 6 7 8
+        bspc monitor $MONITOR -d 1 2 3 4 5 6
       fi
       ;;
     2)
-      if [[ ${MONITOR} != ${PRIMARY_MONITOR} ]]; then
-        bspc monitor $MONITOR -d 1 2 3 4 5 6 7 8
-
-        if [[ $(bspc query -D | wc -w) < 3 ]]; then
-          if [[ ${MONITOR} != ${PRIMARY_MONITOR} ]]; then
-            bspc monitor $PRIMARY_MONITOR -d 1 2 3 4 5 6
-            bspc monitor $MONITOR -d 7 8
-            continue
-          fi
-        elif [[ ${MONITOR} != ${PRIMARY_MONITOR} ]] && [[ $(bspc query -D -m $MONITOR | wc -w) > 3 ]]; then
-          _move_to_dual_monitor $PRIMARY_MONITOR $MONITOR
+      # if no desktops present create them
+      if [[ $(bspc query -D | wc -w) < 3 ]]; then
+        if [[ ${MONITOR} != ${PRIMARY_MONITOR} ]]; then
+          bspc monitor $PRIMARY_MONITOR -d 1 2 3 4
+          bspc monitor $MONITOR -d 5 6
           continue
         fi
+      # organize desktops for two monitors
+      elif [[ ${MONITOR} != ${PRIMARY_MONITOR} ]] && [[ $(bspc query -D -m $MONITOR | wc -w) > 3 ]]; then
+        _move_to_dual_monitor $PRIMARY_MONITOR $MONITOR
+        continue
       fi
       ;;
     *)
       if [[ ${MONITOR} == ${PRIMARY_MONITOR} ]]; then
-        bspc monitor $MONITOR -d 1 2 3 4 5 6 7 8
+        bspc monitor $MONITOR -d 1 2 3 4
       else
         bspc monitor $MONITOR -d 1 2
       fi
       ;;
   esac
-  ## reorder the desktops for each monitor
+  # reorder the desktops for each monitor
   bspc monitor $MONITOR -o $(eval _desk_order $MONITOR)
 done
 

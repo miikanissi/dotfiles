@@ -53,6 +53,10 @@ Elementary cursor theme requires the following command:
 
     cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
 
+Vimix Icon Theme needs to be installed with:
+
+    ./install.sh -a
+
 Dependencies are not automatically installed, but a comprehensive list of packages for Arch Linux can be found at [program_list_arch.csv](https://github.com/miikanissi/dotfiles/blob/arch/program_list_arch.csv).
 
 ## :purple_heart: Links / Credits
