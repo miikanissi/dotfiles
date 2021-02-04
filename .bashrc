@@ -82,7 +82,7 @@ alias odoo='/opt/odoo/12/server/odoo-bin'
 alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
 alias mpg='cd /opt/odoo/12/addons/mpg-dev/'
 alias mpg_link='/opt/odoo/12/addons/mpg-dev-linked-all'
-alias passmenu='~/.local/bin/passmenu.sh'
+alias passmenu='~/.local/bin/rofi_passmenu.sh'
 
 # view markdown file in terminal via lynx
 md () {
@@ -99,7 +99,7 @@ fd() {
 
 
 # exports
-export BROWSER=/usr/bin/firefox
+export BROWSER=/usr/bin/brave
 export TERMINAL=/usr/bin/alacritty
 export EDITOR=/usr/bin/vim
 export LOCATION="Riihimäki"
