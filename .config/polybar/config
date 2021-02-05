@@ -52,7 +52,7 @@ font-2 = NotoColorEmoji:scale=8;2
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather cointop caffeine notifications temperature cpu battery pulseaudio date network powermenu
+modules-right = weather cointop temperature cpu pulseaudio date network caffeine battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -93,7 +93,7 @@ font-2 = NotoColorEmoji:scale=8;2
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather caffeine notifications pulseaudio date network battery powermenu
+modules-right = weather pulseaudio date network caffeine battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -228,26 +228,6 @@ bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
-[module/caffeine]
-type = custom/ipc
-hook-0 = .local/bin/polybar_caffeine.sh --off
-hook-1 = .local/bin/polybar_caffeine.sh --toggle
-initial = 1
-click-left = polybar-msg -p %pid% hook caffeine 2
-
-format-foreground = ${colors.primary}
-format-font = 2
-
-[module/notifications]
-type = custom/ipc
-hook-0 = .local/bin/polybar_notifications.sh --on
-hook-1 = .local/bin/polybar_notifications.sh --toggle
-initial = 1
-click-left = polybar-msg -p %pid% hook notifications 2
-
-format-foreground = ${colors.primary}
-format-font = 2
-
 [module/temperature]
 type = internal/temperature
 ; Thermal zone to use
@@ -347,6 +327,26 @@ type = custom/script
 exec = .local/bin/polybar_connection.sh
 interval = 1
 click-left = nm-connection-editor
+format-foreground = ${colors.primary}
+format-font = 2
+
+[module/caffeine]
+type = custom/ipc
+hook-0 = .local/bin/polybar_caffeine.sh --off
+hook-1 = .local/bin/polybar_caffeine.sh --toggle
+initial = 1
+click-left = polybar-msg -p %pid% hook caffeine 2
+
+format-foreground = ${colors.primary}
+format-font = 2
+
+[module/notifications]
+type = custom/ipc
+hook-0 = .local/bin/polybar_notifications.sh --on
+hook-1 = .local/bin/polybar_notifications.sh --toggle
+initial = 1
+click-left = polybar-msg -p %pid% hook notifications 2
+
 format-foreground = ${colors.primary}
 format-font = 2
 
