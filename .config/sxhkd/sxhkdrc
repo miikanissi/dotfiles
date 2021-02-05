@@ -99,7 +99,7 @@ super + {_,shift +}{1-8}
 
 # focus or send to desktop up, down
 super + {_,shift +}{Next, Prior}
-    bspc {desktop -f,node -d} {next, prev} --follow
+    bspc {desktop -f,node -d} {prev, next} --follow
 
 # expand a window by moving one of its side outward
 super + alt + {Left,Down,Up,Right}

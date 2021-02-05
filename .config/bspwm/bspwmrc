@@ -1,6 +1,9 @@
 #!/bin/bash
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
+## Set environment path
+export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
+
 ### BSPC ###
 bspc config pointer_modifier        mod4
 bspc config border_width            2

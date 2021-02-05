@@ -147,6 +147,7 @@ au BufRead vimrc normal zM
 " PLUGINS{{{
 "AIRLINE {{{
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 "}}}
 "FZF {{{
 set rtp+=/usr/bin/fzf

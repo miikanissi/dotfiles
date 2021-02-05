@@ -52,7 +52,7 @@ font-2 = NotoColorEmoji:scale=8;2
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather torrents cointop caffeine notifications temperature cpu battery pulseaudio date network powermenu
+modules-right = weather cointop caffeine notifications temperature cpu battery pulseaudio date network powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -188,7 +188,6 @@ interval = 30
 format = <label>
 label = %output%
 format-padding-right = 3
-format-underline = ${colors.underline-normal}
 
 click-left = urxvt -hold -e cat .local/share/weather_report
 click-right = .local/bin/check_weather.sh
@@ -201,7 +200,6 @@ click-right = .local/bin/check_torrents.sh
 initial = 1
 interval = 10
 format-foreground = ${colors.primary}
-format-underline = ${colors.underline-alternate}
 
 [module/cointop]
 type = custom/script
@@ -210,7 +208,6 @@ click-left = urxvt -e cointop
 click-right = .local/bin/check_cointop.sh
 interval = 60
 format-foreground = ${colors.primary}
-format-underline = ${colors.underline-normal}
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -219,7 +216,6 @@ enable-scroll = true
 ; format = <label> <bar>
 format = <label>
 label = " %percentage%%"
-format-underline = #4bffdc
 
 bar-width = 10
 bar-indicator = |
@@ -241,7 +237,6 @@ click-left = polybar-msg -p %pid% hook caffeine 2
 
 format-foreground = ${colors.primary}
 format-font = 2
-format-underline = ${colors.underline-alternate}
 
 [module/notifications]
 type = custom/ipc
@@ -252,7 +247,6 @@ click-left = polybar-msg -p %pid% hook notifications 2
 
 format-foreground = ${colors.primary}
 format-font = 2
-format-underline = ${colors.underline-normal}
 
 [module/temperature]
 type = internal/temperature
@@ -277,13 +271,11 @@ format-warn = <label-warn>
 label = %{A1:alacritty -e "sudo watch sensors" &:}%{T2}%{F#c85e7c}%{T-}%{F-} %temperature%%{A}
 label-warn = %{A1:alacritty -e "sudo watch sensors" &:}%{T2}%{T-} %temperature%%{A}
 label-warn-foreground = ${colors.secondary}
-format-underline = ${colors.underline-alternate}
 
 [module/cpu]
 type = internal/cpu
 interval = 5
 format = %{A1:alacritty -e htop --sort-key=PERCENT_CPU &:}<label>%{A}
-format-underline = ${colors.underline-normal}
 label = %{T2}%{F#c85e7c}%{T-}%{F-} %percentage%%
 
 [module/battery]
@@ -301,9 +293,6 @@ time-format = %H:%M
 format-full = %{T2}%{F#c85e7c}%{T-}%{F-} <label-full>
 format-charging = %{T2}%{F#c85e7c}<animation-charging>%{T-}%{F-} <label-charging>
 format-discharging = %{T2}%{F#c85e7c}<ramp-capacity>%{T-}%{F-} <label-discharging>
-format-full-underline = ${colors.underline-alternate}
-format-charging-underline = ${colors.underline-alternate}
-format-discharging-underline = ${colors.underline-alternate}
 
 label-full = %percentage%%
 label-charging = %percentage%%
@@ -328,7 +317,6 @@ animation-charging-framerate = 750
 type = internal/pulseaudio
 sink = alsa_output.pci-0000_0c_00.4.analog-stereo
 
-format-volume-underline = ${colors.underline-normal}
 format-volume = <label-volume>
 format-volume-prefix = "%{T2}%{T-} "
 format-volume-prefix-foreground = ${colors.primary}
@@ -350,7 +338,6 @@ time-alt = %H:%M:%S
 
 format-prefix = "%{T2}%{T-}"
 format-prefix-foreground = ${colors.primary}
-format-underline = ${colors.underline-alternate}
 label = %date% %time%
 
 click-right = gsimplecal
@@ -362,7 +349,6 @@ interval = 1
 click-left = nm-connection-editor
 format-foreground = ${colors.primary}
 format-font = 2
-format-underline = ${colors.underline-normal}
 
 [module/powermenu]
 type = custom/menu
@@ -378,8 +364,8 @@ label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
 menu-0-0 = reboot
-menu-0-0-exec = systemctl reboot
+menu-0-0-exec = sudo systemctl reboot
 menu-0-1 = power off
-menu-0-1-exec = systemctl poweroff
+menu-0-1-exec = sudo systemctl poweroff
 menu-0-2 = suspend
-menu-0-2-exec = systemctl suspend
+menu-0-2-exec = sudo systemctl suspend
