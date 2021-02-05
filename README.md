@@ -1,11 +1,11 @@
-<p align="center"><a name="top" href="#penguin-my-personal-dotfiles"><img height="60%" width="100%" src="https://github.com/miikanissi/dotfiles/blob/arch/.config/gallery/dotfiles.png?raw=true" alt="Dotfiles Header"></a></p>
+<p align="center"><a name="top" href="#penguin-my-personal-dotfiles"><img height="60%" width="100%" src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/dotfiles.png?raw=true" alt="Dotfiles Header"></a></p>
 
 ##
 ## :penguin: My Personal Dotfiles!
 
-<a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/arch/.config/gallery/arch_desktop.png?raw=true" alt="desktop-thumbnail" align="right" width="400px"></a>
+<a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/arch_desktop.png?raw=true" alt="desktop-thumbnail" align="right" width="400px"></a>
 
-This is my personal configuration for a custom "Desktop Environment" and other useful programs. To see a list of all my programs check [program_list_arch.csv](https://github.com/miikanissi/dotfiles/blob/arch/program_list_arch.csv).
+This is my personal configuration for a custom "Desktop Environment" and other useful programs. To see a list of all my programs check [program_list_arch.csv](https://github.com/miikanissi/dotfiles/master/arch/program_list_arch.csv).
 
 Here are the details of my setup:
 - **Distro** 	     : [Arch](https://www.archlinux.org/) :computer: Currently using Arch, previously Fedora & Ubuntu
@@ -24,16 +24,16 @@ Here are the details of my setup:
 
 ## :art: Colors
 ### <p align="center">[Hopscotch Color Scheme](https://base16.netlify.app/previews/base16-hopscotch.html)</p>
-<p align="center"><a name="top" href="#art-colors"><img src="https://github.com/miikanissi/dotfiles/blob/arch/.config/gallery/base16-hopscotch.png?raw=true" alt="hopscotch-color-scheme" height="60%" width="100%"></a></p>
+<p align="center"><a name="top" href="#art-colors"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/base16-hopscotch.png?raw=true" alt="hopscotch-color-scheme" height="60%" width="100%"></a></p>
 
 ## :scroll: Scripts
-Most of my useful shell scripts are included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/arch/.local/bin).
+Most of my useful shell scripts are included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/master/.local/bin).
 
 Here are some example scripts:
-- [rofi_dman.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/rofi_dman.sh) is a script to manage devices with rofi/dmenu. Features include mounting, unmounting, ejecting and listing devices.
-- [polybar_weather.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/polybar_weather.sh) is a script that gets weather information from https://wttr.in/ and displays it in Polybar.
-- [fe.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/fe.sh) is a script using fuzzy finder to find files by name, filetype and/or content.
-- [screenshot.sh](https://github.com/miikanissi/dotfiles/blob/arch/.local/bin/screenshot.sh) takes a screenshot of selected region and saves it in clipboard and screenshot folder.
+- [rofi_dman.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/rofi_dman.sh) is a script to manage devices with rofi/dmenu. Features include mounting, unmounting, ejecting and listing devices.
+- [polybar_weather.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/polybar_weather.sh) is a script that gets weather information from https://wttr.in/ and displays it in Polybar.
+- [fe.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/fe.sh) is a script using fuzzy finder to find files by name, filetype and/or content.
+- [screenshot.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/screenshot.sh) takes a screenshot of selected region and saves it in clipboard and screenshot folder.
 
 ## :wrench: Installation
 To install and integrate with the system you need to checkout the arch branch and initialize submodules:
@@ -57,7 +57,7 @@ Vimix Icon Theme needs to be installed with:
 
     ./install.sh -a
 
-Dependencies are not automatically installed, but a comprehensive list of packages for Arch Linux can be found at [program_list_arch.csv](https://github.com/miikanissi/dotfiles/blob/arch/program_list_arch.csv).
+Dependencies are not automatically installed, but a comprehensive list of packages for Arch Linux can be found at [program_list_arch.csv](https://github.com/miikanissi/dotfiles/blob/master/program_list_arch.csv).
 
 ## :purple_heart: Links / Credits
 To stay up to date with me visit my [blog](https://miikanissi.com/blogindex).
