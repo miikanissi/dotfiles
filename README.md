@@ -33,6 +33,7 @@ Here are some example scripts:
 - [rofi_dman.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/rofi_dman.sh) is a script to manage devices with rofi/dmenu. Features include mounting, unmounting, ejecting and listing devices.
 - [polybar_weather.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/polybar_weather.sh) is a script that gets weather information from https://wttr.in/ and displays it in Polybar.
 - [fe.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/fe.sh) is a script using fuzzy finder to find files by name, filetype and/or content.
+- [bspwm_setup_monitors.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/bspwm_setup_monitors.sh) runs when autorandr detects a change in monitor setup and reorders bspwm accordingly. Allows hotplugging a laptop.
 - [screenshot.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/screenshot.sh) takes a screenshot of selected region and saves it in clipboard and screenshot folder.
 
 ## :wrench: Installation
@@ -40,7 +41,7 @@ To install and integrate with the system you need to checkout the arch branch an
 
     git --work-tree $HOME --git-dir $HOME/dotfiles init
     git --work-tree $HOME --git-dir $HOME/dotfiles remote add-t \* -f origin git@github.com:miikanissi/dotfiles.git
-    git --work-tree $HOME --git-dir $HOME/dotfiles checkout arch
+    git --work-tree $HOME --git-dir $HOME/dotfiles checkout master
     git --work-tree $HOME --git-dir $HOME/dotfiles submodule update --init
     git --work-tree $HOME --git-dir $HOME/dotfiles config --local status.showUntrackedFiles no
 
