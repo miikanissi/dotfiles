@@ -64,7 +64,8 @@ Dependencies are not automatically installed, but a comprehensive list of packag
 To stay up to date with me visit my [blog](https://miikanissi.com/blogindex).
 
 Credits:
-- [Lukewh](https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ) Helpful emacs configuration guide.
-- [owl4ce](https://github.com/owl4ce/dotfiles) README.md inspired by him.
-- [Leeren](https://github.com/leeren) Vim configurations inspired by him.
-- [LukeSmithxyz](https://github.com/LukeSmithxyz) introduced me to many different software I use.
+- [Lukewh](https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ) - Helpful emacs configuration guide.
+- [owl4ce](https://github.com/owl4ce/dotfiles) - README.md inspired by him.
+- [Leeren](https://github.com/leeren) - Vim configurations inspired by him.
+- [LukeSmithxyz](https://github.com/LukeSmithxyz) - introduced me to many different software I use.
+- [boogy](https://github.com/boogy/dotfiles) - Some bspwm configs inspired by him.
