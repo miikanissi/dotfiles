@@ -1,5 +1,5 @@
 #!/bin/bash
-mount_point=/mnt/sdb1
+mount_point=/mnt/usb
 
 if mountpoint -q -- $mount_point; then
   sudo rsync -avxPW --delete-after \
@@ -7,7 +7,7 @@ if mountpoint -q -- $mount_point; then
     --exclude 'Pictures' \
     --exclude 'Videos' \
     --exclude 'Downloads' \
-    --exclude 'go' \
+    --include '.config' \
     --include '.ssh' \
     --include '.gnupg' \
     --include '.password-store' \
