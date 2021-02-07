@@ -4,13 +4,12 @@ mount_point=/mnt/usb
 if mountpoint -q -- $mount_point; then
   sudo rsync -avxPW --delete-after \
     --exclude 'Music' \
-    --exclude 'Pictures' \
-    --exclude 'Videos' \
     --exclude 'Downloads' \
+    --exclude 'dotfiles' \
     --include '.config' \
     --include '.ssh' \
     --include '.gnupg' \
     --include '.password-store' \
     --exclude '.*' \
-    /home/miika/ $mount_point/backup
+    /home/m/ $mount_point/backup
 fi
