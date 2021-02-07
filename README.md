@@ -1,43 +1,43 @@
 <p align="center"><a name="top" href="#penguin-my-personal-dotfiles"><img height="60%" width="100%" src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/dotfiles.png?raw=true" alt="Dotfiles Header"></a></p>
 
 ##
-## :penguin: My Personal Dotfiles!
+## My Personal Dotfiles for Arch Linux :penguin: 
 
 <a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/desktop_bspwm_gruvbox_full.jpg?raw=true" alt="bspwm desktop thumbnail" align="right" width="400px"></a>
 
-This is my personal configuration for a custom "Desktop Environment" and other useful programs. To see a list of all my programs check [program_list_arch.csv](https://github.com/miikanissi/dotfiles/master/arch/program_list_arch.csv).
+This is my personal configuration for a custom "Desktop Environment" and other useful configs/scripts. To see a list of all the programs I use check [program_list_arch.csv](https://github.com/miikanissi/dotfiles/master/arch/program_list_arch.csv).
 
 Here are the details of my setup:
-- **Distro** 	     : [Arch](https://www.archlinux.org/) :computer: Currently using Arch, previously Fedora & Ubuntu
-- **WM**     	     : [BSPWM](https://github.com/baskerville/bspwm) :tv: Manual tiling window manager
-- **DM**	     : [LightDM](https://github.com/canonical/lightdm)
-- **Shell**	     : [GNU Bash](https://www.gnu.org/software/bash/) :shell: Who needs more than bash
-- **Terminal**	     : [URxvt](https://wiki.archlinux.org/index.php/Rxvt-unicode) :art: Hopscotch colors
-- **Panel**	     : [Polybar](https://github.com/polybar/polybar) :black_square_button: Easy to add custom modules
-- **Compositor**     : [Picom](https://wiki.archlinux.org/index.php/Picom)
-- **Notifications**  : [Dunst](https://wiki.archlinux.org/index.php/Dunst) :bell: Hopscotch colors
-- **Launcher**	     : [Rofi](https://github.com/davatorium/rofi)
-- **File Manager**   : [PCManFM](https://wiki.archlinux.org/index.php/PCManFM)
-- **Hotkeys**	     : [SXHKD](https://github.com/baskerville/sxhkd)
-- **Text Editor**    : [GNU Emacs](https://www.gnu.org/software/emacs/), [Vim](https://www.vim.org/) :pencil2: Programming environments
-- **Music Player**   : [MPD](https://www.musicpd.org/). [NCMPCPP](https://github.com/ncmpcpp/ncmpcpp) :musical_note: Polybar integration
+- **Distro**: [Arch](https://www.archlinux.org/) - Currently using Arch, previously Fedora & Ubuntu
+- **WM**: [BSPWM](https://github.com/baskerville/bspwm) - Manual tiling window manager
+- **DM**: [LightDM](https://github.com/canonical/lightdm) - Simple display manager, very easy to setup
+- **Shell**: [Bash](https://www.gnu.org/software/bash/) - Bash just works
+- **Terminal**: [Alacritty](https://github.com/alacritty/alacritty), [URxvt](https://wiki.archlinux.org/index.php/Rxvt-unicode) - Alacritty for main terminal, More minimal URxvt for some programs
+- **Panel**: [Polybar](https://github.com/polybar/polybar) - Easy to add own custom modules
+- **Compositor**: [Picom](https://wiki.archlinux.org/index.php/Picom) - Helps remove screen tearing and nice effects
+- **Notifications**: [Dunst](https://wiki.archlinux.org/index.php/Dunst) - Seamless integration with notify-send
+- **Launcher**: [Rofi](https://github.com/davatorium/rofi) - Used for a run prompt and dmenu replacement
+- **File Manager**: [PCManFM](https://wiki.archlinux.org/index.php/PCManFM) - Somewhat minimal graphical file manager
+- **Hotkeys**: [SXHKD](https://github.com/baskerville/sxhkd)
+- **Text Editor**: [Vim](https://www.vim.org/), [Emacs](https://www.gnu.org/software/emacs/) - Programming and text editing
+- **Music Player**: [MPD](https://www.musicpd.org/), [NCMPCPP](https://github.com/ncmpcpp/ncmpcpp) - Polybar integration
 
-## :art: Colors
+## Colors :art:
 ### <p align="center">[Gruvbox Colors](https://github.com/morhetz/gruvbox)</p>
 <p align="center"><a name="top" href="#art-colors"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/gruvbox-template.png?raw=true" alt="gruvbox color scheme" height="60%" width="100%"></a></p>
 
-## :scroll: Scripts
+## Scripts :scroll:
 Most of my useful shell scripts are included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/master/.local/bin).
 
 Here are some example scripts:
 - [rofi_dman.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/rofi_dman.sh) is a script to manage devices with rofi/dmenu. Features include mounting, unmounting, ejecting and listing devices.
 - [polybar_weather.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/polybar_weather.sh) is a script that gets weather information from https://wttr.in/ and displays it in Polybar.
 - [fe.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/fe.sh) is a script using fuzzy finder to find files by name, filetype and/or content.
-- [bspwm_setup_monitors.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/bspwm_setup_monitors.sh) runs when autorandr detects a change in monitor setup and reorders bspwm accordingly. Allows hotplugging a laptop.
+- [bspwm_setup_monitors.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/bspwm_setup_monitors.sh) runs when autorandr detects a change in monitor setup and reorders bspwm accordingly. Allows hotplugging a laptop with bspwm.
 - [screenshot.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/screenshot.sh) takes a screenshot of selected region and saves it in clipboard and screenshot folder.
 
-## :wrench: Installation
-To install and integrate with the system you need to checkout the arch branch and initialize submodules:
+## Installation :wrench:
+To install and integrate with the system you need to checkout the master branch and initialize submodules:
 
     git --work-tree $HOME --git-dir $HOME/dotfiles init
     git --work-tree $HOME --git-dir $HOME/dotfiles remote add-t \* -f origin git@github.com:miikanissi/dotfiles.git
@@ -45,10 +45,9 @@ To install and integrate with the system you need to checkout the arch branch an
     git --work-tree $HOME --git-dir $HOME/dotfiles submodule update --init
     git --work-tree $HOME --git-dir $HOME/dotfiles config --local status.showUntrackedFiles no
 
-Or you can just clone the repository normally and move files in their correct location:
+Or you can just clone the repository with submodules and move files in their correct location:
 
     git clone --recurse-submodules https://github.com/miikanissi/dotfiles.git
-    cd dotfiles
 
 Elementary cursor theme requires the following command:
 
@@ -56,11 +55,11 @@ Elementary cursor theme requires the following command:
 
 Vimix Icon Theme needs to be installed with:
 
-    ./install.sh -a
+    cd ~/.icons/vimix-icon-theme/ && ./install.sh -a
 
 Dependencies are not automatically installed, but a comprehensive list of packages for Arch Linux can be found at [program_list_arch.csv](https://github.com/miikanissi/dotfiles/blob/master/program_list_arch.csv).
 
-## :purple_heart: Links / Credits
+## Links / Credits
 To stay up to date with me visit my [blog](https://miikanissi.com/blogindex).
 
 Credits:
