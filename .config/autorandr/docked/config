@@ -20,6 +20,6 @@ rate 60.01
 output DP-2-2
 crtc 0
 mode 1920x1080
-pos 1920x0
+pos 1600x0
 primary
 rate 60.00

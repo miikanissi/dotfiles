@@ -134,7 +134,7 @@ label-urgent-background = ${colors.background-alert}
 label-urgent-padding = 2
 
 label-empty = %icon%
-label-empty-foreground = ${colors.foreground-alt}
+label-empty-foreground = ${colors.foreground}
 label-empty-padding = 2
 format-padding = 0
 
@@ -148,7 +148,7 @@ interval = 2
 
 format-online = <icon-prev> <toggle> <icon-next> <icon-repeat> <icon-random> <label-time> <label-song>
 
-label-song = "%{T2}%{F#c85e7c}%{F-}%{T-} %artist% - %title%"
+label-song = "%{T2}%{T-} %artist% - %title%"
 label-song-maxlen = 66
 label-offline = %{T2}ﱙ%{T-} mpd is offline
 
@@ -250,8 +250,8 @@ format = <label>
 format-warn = <label-warn>
 format-prefix = %{T2}%{T-}
 format-prefix-foreground = ${colors.foreground-icon}
-label = %{A1:alacritty -e "sudo watch sensors" &:} %temperature%%{A}
-label-warn = %{A1:alacritty -e "sudo watch sensors" &:}%{T2}%{T-} %temperature%%{A}
+label = %{A1:alacritty -e "sudo watch sensors" &:} %temperature-c%%{A}
+label-warn = %{A1:alacritty -e "sudo watch sensors" &:}%{T2}%{T-} %temperature-c%%{A}
 label-warn-foreground = ${colors.foreground-alert}
 
 [module/cpu]

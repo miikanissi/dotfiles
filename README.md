@@ -3,7 +3,7 @@
 ##
 ## :penguin: My Personal Dotfiles!
 
-<a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/arch_desktop.png?raw=true" alt="desktop-thumbnail" align="right" width="400px"></a>
+<a href="https://miikanissi.com"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/desktop_bspwm_gruvbox_full.jpg?raw=true" alt="bspwm desktop thumbnail" align="right" width="400px"></a>
 
 This is my personal configuration for a custom "Desktop Environment" and other useful programs. To see a list of all my programs check [program_list_arch.csv](https://github.com/miikanissi/dotfiles/master/arch/program_list_arch.csv).
 
@@ -23,8 +23,8 @@ Here are the details of my setup:
 - **Music Player**   : [MPD](https://www.musicpd.org/). [NCMPCPP](https://github.com/ncmpcpp/ncmpcpp) :musical_note: Polybar integration
 
 ## :art: Colors
-### <p align="center">[Hopscotch Color Scheme](https://base16.netlify.app/previews/base16-hopscotch.html)</p>
-<p align="center"><a name="top" href="#art-colors"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/base16-hopscotch.png?raw=true" alt="hopscotch-color-scheme" height="60%" width="100%"></a></p>
+### <p align="center">[Gruvbox Colors](https://github.com/morhetz/gruvbox)</p>
+<p align="center"><a name="top" href="#art-colors"><img src="https://github.com/miikanissi/dotfiles/blob/master/.config/gallery/gruvbox-template.png?raw=true" alt="gruvbox color scheme" height="60%" width="100%"></a></p>
 
 ## :scroll: Scripts
 Most of my useful shell scripts are included in [.local/bin/](https://github.com/miikanissi/dotfiles/tree/master/.local/bin).
