@@ -203,7 +203,7 @@ format-foreground = ${colors.foreground-icon}
 [module/cointop]
 type = custom/script
 exec = .local/bin/polybar_cointop.sh
-format-prefix = %{T2}ﴑ%{T-}%{T1} %{T-}
+format-prefix = "%{T2}ﴑ%{T-} "
 format-prefix-foreground = ${colors.foreground-icon}
 click-left = urxvt -e cointop
 click-right = .local/bin/check_cointop.sh
@@ -257,9 +257,9 @@ label-warn-foreground = ${colors.foreground-alert}
 [module/cpu]
 type = internal/cpu
 interval = 5
-format-prefix = %{T2}%{T-}
+format-prefix = "%{T2}%{T-} "
 format-prefix-foreground = ${colors.foreground-icon}
-format = %{A1:alacritty -e htop --sort-key=PERCENT_CPU &:} <label>%{A}
+format = %{A1:alacritty -e htop --sort-key=PERCENT_CPU &:}<label>%{A}
 label = %percentage%%
 
 [module/battery]
@@ -274,7 +274,7 @@ poll-interval = 5
 
 time-format = %H:%M
 
-format-full-prefix = %{T2}%{T-}
+format-full-prefix = "%{T2}%{T-} "
 format-full-prefix-foreground = ${colors.foreground-icon}
 
 format-full = <label-full>
