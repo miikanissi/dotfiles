@@ -2,16 +2,15 @@
 ;; by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
 [colors]
-background = ${xrdb:color0:#05060A}
-background-alt = ${xrdb:color10}
-foreground = ${xrdb:color7:#f4dfbd}
-;;${xrdb:foreground:#fff}
-foreground-alt = #555555
-primary = ${xrdb:color5}
-secondary = ${xrdb:color1}
-alert = #bd2c40
-underline-normal = ${xrdb:color11}
-underline-alternate = #b9b5b8
+background = ${xrdb:color0}
+background-dim = ${xrdb:color10}
+background-alert = ${xrdb:color1}
+foreground = ${xrdb:color7}
+foreground-dim = ${xrdb:color10}
+foreground-icon = ${xrdb:color14}
+foreground-alert = ${xrdb:color1}
+underline-normal = ${xrdb:color14}
+underline-alternate = ${xrdb:color9}
 
 [settings]
 screenchange-reload = true
@@ -21,7 +20,7 @@ format-padding = 1
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-format-underline = ${colors.primary}
+format-underline = ${colors.underline-normal}
 
 [bar/bar-t440p]
 monitor = ${env:MONITOR:DP-2-2}
@@ -57,7 +56,7 @@ modules-right = weather cointop temperature cpu pulseaudio date network caffeine
 wm-restack = bspwm
 override-redirect = true
 
-format-underline = {colors.secondary}
+format-underline = {colors.underline-normal}
 
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
@@ -122,16 +121,16 @@ ws-icon-8 = "9;9"
 ws-icon-9 = "10;10"
 
 label-focused = %icon%
-label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.secondary}
+label-focused-background = ${colors.background-dim}
+label-focused-underline= ${colors.underline-alternate}
 label-focused-padding = 2
 
 label-occupied = %icon%
-label-occupied-overline = ${colors.primary}
+label-occupied-overline = ${colors.underline-normal}
 label-occupied-padding = 2
 
 label-urgent = %icon%!
-label-urgent-background = ${colors.alert}
+label-urgent-background = ${colors.background-alert}
 label-urgent-padding = 2
 
 label-empty = %icon%
@@ -163,16 +162,16 @@ icon-seekf = %{T2}%{T-}
 icon-random = %{T2}%{T-}
 icon-repeat = %{T2}%{T-}
 
-icon-play-foreground = ${colors.primary}
-icon-pause-foreground = ${colors.primary}
-icon-stop-foreground = ${colors.primary}
-icon-prev-foreground = ${colors.primary}
-icon-next-foreground = ${colors.primary}
-icon-seekb-foreground = ${colors.primary}
-icon-seekf-foreground = ${colors.primary}
+icon-play-foreground = ${colors.foreground-icon}
+icon-pause-foreground = ${colors.foreground-icon}
+icon-stop-foreground = ${colors.foreground-icon}
+icon-prev-foreground = ${colors.foreground-icon}
+icon-next-foreground = ${colors.foreground-icon}
+icon-seekb-foreground = ${colors.foreground-icon}
+icon-seekf-foreground = ${colors.foreground-icon}
 
-toggle-on-foreground = ${colors.primary}
-toggle-off-foreground = #55
+toggle-on-foreground = ${colors.foreground-icon}
+toggle-off-foreground = ${colors.foreground-dim}
 
 bar-progress-width = 12
 bar-progress-indicator = |
@@ -199,15 +198,17 @@ click-left = transmission-remote-gtk &
 click-right = .local/bin/check_torrents.sh
 initial = 1
 interval = 10
-format-foreground = ${colors.primary}
+format-foreground = ${colors.foreground-icon}
 
 [module/cointop]
 type = custom/script
 exec = .local/bin/polybar_cointop.sh
+format-prefix = %{T2}ﴑ%{T-}%{T1} %{T-}
+format-prefix-foreground = ${colors.foreground-icon}
 click-left = urxvt -e cointop
 click-right = .local/bin/check_cointop.sh
 interval = 60
-format-foreground = ${colors.primary}
+format-foreground = ${colors.foreground}
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -247,16 +248,19 @@ warn-temperature = 70
 
 format = <label>
 format-warn = <label-warn>
-
-label = %{A1:alacritty -e "sudo watch sensors" &:}%{T2}%{F#c85e7c}%{T-}%{F-} %temperature%%{A}
+format-prefix = %{T2}%{T-}
+format-prefix-foreground = ${colors.foreground-icon}
+label = %{A1:alacritty -e "sudo watch sensors" &:} %temperature%%{A}
 label-warn = %{A1:alacritty -e "sudo watch sensors" &:}%{T2}%{T-} %temperature%%{A}
-label-warn-foreground = ${colors.secondary}
+label-warn-foreground = ${colors.foreground-alert}
 
 [module/cpu]
 type = internal/cpu
 interval = 5
-format = %{A1:alacritty -e htop --sort-key=PERCENT_CPU &:}<label>%{A}
-label = %{T2}%{F#c85e7c}%{T-}%{F-} %percentage%%
+format-prefix = %{T2}%{T-}
+format-prefix-foreground = ${colors.foreground-icon}
+format = %{A1:alacritty -e htop --sort-key=PERCENT_CPU &:} <label>%{A}
+label = %percentage%%
 
 [module/battery]
 type = internal/battery
@@ -270,9 +274,12 @@ poll-interval = 5
 
 time-format = %H:%M
 
-format-full = %{T2}%{F#c85e7c}%{T-}%{F-} <label-full>
-format-charging = %{T2}%{F#c85e7c}<animation-charging>%{T-}%{F-} <label-charging>
-format-discharging = %{T2}%{F#c85e7c}<ramp-capacity>%{T-}%{F-} <label-discharging>
+format-full-prefix = %{T2}%{T-}
+format-full-prefix-foreground = ${colors.foreground-icon}
+
+format-full = <label-full>
+format-charging = %{T2}<animation-charging>%{T-} <label-charging>
+format-discharging = %{T2}<ramp-capacity>%{T-} <label-discharging>
 
 label-full = %percentage%%
 label-charging = %percentage%%
@@ -283,6 +290,11 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
+ramp-capacity-0-foreground = ${colors.foreground-icon}
+ramp-capacity-1-foreground = ${colors.foreground-icon}
+ramp-capacity-2-foreground = ${colors.foreground-icon}
+ramp-capacity-3-foreground = ${colors.foreground-icon}
+ramp-capacity-4-foreground = ${colors.foreground-icon}
 
 bar-capacity-width = 10
 
@@ -291,6 +303,11 @@ animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
+animation-charging-0-foreground = ${colors.foreground-icon}
+animation-charging-1-foreground = ${colors.foreground-icon}
+animation-charging-2-foreground = ${colors.foreground-icon}
+animation-charging-3-foreground = ${colors.foreground-icon}
+animation-charging-4-foreground = ${colors.foreground-icon}
 animation-charging-framerate = 750
 
 [module/pulseaudio]
@@ -299,12 +316,12 @@ sink = alsa_output.pci-0000_0c_00.4.analog-stereo
 
 format-volume = <label-volume>
 format-volume-prefix = "%{T2}%{T-} "
-format-volume-prefix-foreground = ${colors.primary}
+format-volume-prefix-foreground = ${colors.foreground-icon}
 label-volume = %percentage%%
-label-volume-foreground = ${root.foreground}
+label-volume-foreground = ${colors.foreground}
 
 label-muted = %{T2}%{T-} muted
-label-muted-foreground = #666
+label-muted-foreground = ${colors.foreground-dim}
 
 click-right = pavucontrol &
 
@@ -317,17 +334,15 @@ time = %I:%M%p
 time-alt = %H:%M:%S
 
 format-prefix = "%{T2}%{T-}"
-format-prefix-foreground = ${colors.primary}
+format-prefix-foreground = ${colors.foreground-icon}
 label = %date% %time%
-
-click-right = gsimplecal
 
 [module/network]
 type = custom/script
 exec = .local/bin/polybar_connection.sh
 interval = 1
 click-left = nm-connection-editor
-format-foreground = ${colors.primary}
+format-foreground = ${colors.foreground-icon}
 format-font = 2
 
 [module/caffeine]
@@ -337,7 +352,7 @@ hook-1 = .local/bin/polybar_caffeine.sh --toggle
 initial = 1
 click-left = polybar-msg -p %pid% hook caffeine 2
 
-format-foreground = ${colors.primary}
+format-foreground = ${colors.foreground-icon}
 format-font = 2
 
 [module/notifications]
@@ -347,7 +362,7 @@ hook-1 = .local/bin/polybar_notifications.sh --toggle
 initial = 1
 click-left = polybar-msg -p %pid% hook notifications 2
 
-format-foreground = ${colors.primary}
+format-foreground = ${colors.foreground-icon}
 format-font = 2
 
 [module/powermenu]
@@ -357,11 +372,11 @@ expand-right = true
 
 format-spacing = 1
 label-open = %{T2}%{T-}
-label-open-foreground = ${colors.secondary}
+label-open-foreground = ${colors.foreground-alert}
 label-close =  cancel
-label-close-foreground = ${colors.secondary}
+label-close-foreground = ${colors.foreground-alert}
 label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
+label-separator-foreground = ${colors.foreground-dim}
 
 menu-0-0 = reboot
 menu-0-0-exec = sudo systemctl reboot

@@ -13,7 +13,7 @@ get_weather() {
   # exit if unable to get wttr
   [ $(echo "$wttr" | grep -E "(Unknown|curl|HTML)" | wc -l) -gt 0 ] || [ -z "$wttr" ] && return 0;
   # awk to format polybar colors
-  echo $wttr | awk '{print "%{F#c85e7c}"$1"%{F-} "$2" "$3}' > "$weather_oneline"
+  echo $wttr | awk '{print "%{F#d65d0e}"$1"%{F-} "$2" "$3}' > "$weather_oneline"
   curl -s "v2d.wttr.in/$LOCATION" > "$weather_report"
 
 }

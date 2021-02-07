@@ -12,6 +12,7 @@ if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
 endif
 
 call plug#begin('$HOME/.vim/plugged')
+Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-commentary'
 Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'
@@ -31,11 +32,11 @@ filetype plugin indent on
 syntax on
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 set t_Co=256
-colorscheme base16-hopscotch
+colorscheme base16-gruvbox-dark-hard
 let g:lightline = {
       \ 'colorscheme': 'simpleblack',
       \ }
-let g:airline_theme='base16_hopscotch'
+let g:airline_theme='base16_gruvbox_dark_hard'
 let g:airline_powerline_fonts = 1
 " set runtimepath to current dir
 let $RTP=split(&runtimepath, ',')[0]

@@ -4,40 +4,22 @@
 !
 ! Refresh config 'xrdb ~/.Xresources'.
 
-!!! Base16 Hopscotch !!!
-/* #define base00 #2e2a31 */
-/* #define base01 #4a464d */
-/* #define base02 #666369 */
-/* #define base03 #838085 */
-/* #define base04 #9f9da2 */
-/* #define base05 #bcbabe */
-/* #define base06 #d8d7da */
-/* #define base07 #f5f4f7 */
-/* #define base08 #d8137f */
-/* #define base09 #d65407 */
-/* #define base0A #dc8a0e */
-/* #define base0B #17ad98 */
-/* #define base0C #149bda */
-/* #define base0D #796af5 */
-/* #define base0E #bb60ea */
-/* #define base0F #c720ca */
-
-#define base00 #322931
-#define base01 #433b42
-#define base02 #5c545b
-#define base03 #797379
-#define base04 #989498
-#define base05 #b9b5b8
-#define base06 #d5d3d5
-#define base07 #ffffff
-#define base08 #dd464c
-#define base09 #fd8b19
-#define base0A #fdcc59
-#define base0B #8fc13e
-#define base0C #149b93
-#define base0D #1290bf
-#define base0E #c85e7c
-#define base0F #b33508
+#define base00 #1d2021
+#define base01 #3c3836
+#define base02 #504945
+#define base03 #665c54
+#define base04 #bdae93
+#define base05 #d5c4a1
+#define base06 #ebdbb2
+#define base07 #fbf1c7
+#define base08 #fb4934
+#define base09 #fe8019
+#define base0A #fabd2f
+#define base0B #b8bb26
+#define base0C #8ec07c
+#define base0D #83a598
+#define base0E #d3869b
+#define base0F #d65d0e
 
 *foreground:   base05
 *background:   base00
@@ -59,14 +41,6 @@
 *color12:      base04
 *color13:      base06
 *color14:      base0F
-*color15:      base07
-
-*color16:      base09
-*color17:      base0F
-*color18:      base01
-*color19:      base02
-*color20:      base04
-*color21:      base06
 
 sxiv.Background: base00
 

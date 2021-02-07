@@ -3,4 +3,4 @@
 # displays crypto holdings
 
 total=$(printf '%.*f\n' 0 $(cointop holdings -t))
-echo "%{T2}%{F#c85e7c}""%{F-}%{T-}" $total
+echo $total
