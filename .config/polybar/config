@@ -51,7 +51,7 @@ font-2 = NotoColorEmoji:scale=8;2
 
 modules-left = bspwm mpd
 modules-center =
-modules-right = weather cointop temperature cpu pulseaudio date network caffeine battery powermenu
+modules-right = weather temperature cpu pulseaudio date network caffeine battery powermenu
 
 wm-restack = bspwm
 override-redirect = true
@@ -265,7 +265,7 @@ label = %percentage%%
 [module/battery]
 type = internal/battery
 full-at = 79
-
+click-left = notify-send $(sudo tlp-stat -b | tac | sed -n '2,3p' | sed 's/  */ /q')
 ; Use the following command to list batteries and adapters:
 ; $ ls -1 /sys/class/power_supply/
 battery = BAT0
