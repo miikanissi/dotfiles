@@ -63,7 +63,7 @@ scroll-down = bspwm-deskprev
 
 cursor-click = pointer
 
-[bar/bar-e480]
+[bar/bar-e490]
 monitor = ${env:MONITOR:HDMI-1}
 monitor-fallback = ${env:MONITOR:eDP-1}
 monitor-strict = false

@@ -7,5 +7,9 @@ outputs=$(xrandr --listactivemonitors|awk '{print $4}'|sed '/^$/d')
 
 for m in $outputs; do
   export MONITOR=$m
-  MONITOR=$m polybar --reload bar-t440p -c ~/.config/polybar/config &
+  if [[ "$(hostname)" == "TA-NISMI-E490" ]]; then
+    MONITOR=$m polybar --reload bar-e490 -c ~/.config/polybar/config &
+  else
+    MONITOR=$m polybar --reload bar-t440p -c ~/.config/polybar/config &
+  fi
 done
