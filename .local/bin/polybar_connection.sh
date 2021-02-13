@@ -10,8 +10,8 @@ if (ping -c 1 archlinux.org || ping -c 1 duckduckgo.com || ping -c 1 bitbucket.o
     if [[ $ID == e* ]]; then
         echo "$ethernet_connected"
     else
-        echo "$wireless_connected" 
+        echo "$wireless_connected"
     fi
 else
-    echo "$disconnected" 
+    echo "$disconnected"
 fi

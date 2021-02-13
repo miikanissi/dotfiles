@@ -135,8 +135,6 @@ autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 " run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
-" set polybar config filetype as dosini (.ini)
-autocmd BufNewFile,BufRead config set filetype=dosini
 au! BufNewFile,BufRead *.csv setf csv
 " terminal commands
 command! MakeTags !ctags -R .   " recursively creates ctags in directory
