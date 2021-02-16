@@ -23,6 +23,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 "}}}
 
