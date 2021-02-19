@@ -8,10 +8,6 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(unless (package-installed-p 'gruvbox-theme)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
 ;; config organized in org-mode
 (org-babel-load-file (expand-file-name "~/.config/emacs/config.org"))
 
@@ -23,8 +19,10 @@
  '(custom-enabled-themes '(gruvbox-dark-hard))
  '(custom-safe-themes
    '("6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" default))
+ '(line-number-mode nil)
  '(package-selected-packages
-   '(switch-window rainbow-mode avy smex ido-vertical-mode beacon gruvbox-theme which-key use-package)))
+   '(ido-completing-read+ async doom-modeline spaceline company dashboard rainbow-delimiters sudo-edit switch-window rainbow-mode avy smex ido-vertical-mode beacon gruvbox-theme which-key use-package))
+ '(size-indication-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

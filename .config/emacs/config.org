@@ -11,41 +11,85 @@ Make sure to remove your own ~/.emacs ~/.emacs.d and ~/.config/emacs prior to cl
 
 This configuration is written in Org-mode and is self documented. 
 
+* Theme
+I don't want my eyes to bleed with the default theme.
+** Gruvbox
+I don't think Gruvbox is the prettiest theme out there, but it is VERY easy on the eyes and I think that's the most important part.
+#+begin_src emacs-lisp
+  (use-package gruvbox-theme
+    :ensure t
+    :init
+    (load-theme 'gruvbox-dark-hard t))
+#+end_src
 * Basic Settings
-** inhibit startup message
+These are basic default settings that enhance the UI and functionality.
+** UTF-8 encoding everywhere
+#+begin_src emacs-lisp
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+#+end_src
+** No startup message
+I use a replacement for the default startup menu, =dashboard= package.
 #+begin_src emacs-lisp
 (setq inhibit-startup-message t)
 #+end_src
-** remove menus/scrollbar
+** Remove menus and scrollbar
+I don't use the GUI menus so I get rid of them.
 #+begin_src emacs-lisp
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 #+end_src
-** no backups
+** Better scrolling behavior
+By default emacs scrolling jumps multiple lines when you hit the bottom of the screen. This changes the default behavior to a more sane option.
+#+begin_src emacs-lisp
+(setq scroll-conservatively 100)
+#+end_src
+** No ring-bell for errors
+#+begin_src emacs-lisp
+(setq ring-bell-function 'ignore)
+#+end_src
+** Highlight current line
+Very helpful to avoid "losing" your cursor.
+#+begin_src emacs-lisp
+(when window-system (global-hl-line-mode t))
+#+end_src
+** Truncate lines
+By default long lines will go off the screen, I like to have them wrap on the next line instead.
+#+begin_src emacs-lisp
+  (set-default 'truncate-lines t)
+#+end_src
+** Prettify symbols
+Changes some words into symbols (eg. lambda)
+#+begin_src emacs-lisp
+(when window-system (global-prettify-symbols-mode t))
+#+end_src
+** No backups
+I don't need backup or autosave files so I disable them. By default emacs creates backup files as =filename~= in the files directory. Better behavior would be to have a seperate directory for all backups but I don't feel the need for it.
 #+begin_src emacs-lisp
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 #+end_src
-** better scrolling
-#+begin_src emacs-lisp
-(setq scroll-conservatively 100)
-#+end_src
-** no ring-bell
-#+begin_src emacs-lisp
-(setq ring-bell-function 'ignore)
-#+end_src
-** highlight current line
-#+begin_src emacs-lisp
-(when window-system (global-hl-line-mode t))
-#+end_src
-** prettify symbols
-#+begin_src emacs-lisp
-(when window-system (global-prettify-symbols-mode t))
-#+end_src
-** yes/no to y/n
+** Change yes-or-no to y-or-n
 #+begin_src emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+** Subword
+By default M-f/M-b treat thisIsOneWord as a single word instead. I want it to consider capitalization as a new word.
+ #+begin_src emacs-lisp
+   (global-subword-mode 1)
+ #+end_src
+** Electric
+This creates matching paranthesis.
+#+begin_src emacs-lisp
+  (setq electric-pair-pairs '(
+			      (?\( . ?\))
+			      (?\[ . ?\])
+			      ))
+  (electric-pair-mode t)
 #+end_src
 * Keybinds
 ** M-RET opens terminal
@@ -67,6 +111,12 @@ This configuration is written in Org-mode and is self documented.
 #+end_src
 
 * Org
+** Basic config
+#+begin_src emacs-lisp
+  (setq org-src-window-setup 'current-window)
+  (add-to-list 'org-structure-template-alist
+	       '("el" . "src emacs-lisp"))
+#+end_src
 ** Org Bullets
 #+begin_src emacs-lisp
   (use-package org-bullets
@@ -80,6 +130,19 @@ This configuration is written in Org-mode and is self documented.
   :ensure t
   :init
   (which-key-mode))
+#+end_src
+* Async
+Use asynchronous process when possible.
+#+begin_src emacs-lisp
+  (use-package async
+    :ensure t
+    :init (dired-async-mode 1))
+#+end_src
+* sudo edit
+#+begin_src emacs-lisp
+  (use-package sudo-edit
+    :ensure t
+    :bind ("C-c s" . sudo-edit))
 #+end_src
 * beacon
 #+begin_src emacs-lisp
@@ -103,13 +166,21 @@ This configuration is written in Org-mode and is self documented.
     (ido-vertical-mode 1))
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 #+end_src
+** ido completing read+
+Truly enables ido wherever possible.
+#+begin_src emacs-lisp
+  (use-package ido-completing-read+
+    :ensure t
+    :init
+    (ido-ubiquitous-mode 1))
+#+end_src
 ** smex
+Enhanced M-x menu.
 #+begin_src emacs-lisp
   (use-package smex
     :ensure t
-    :init (smex-initialize)
-    :bind
-    ("M-x" . smex))
+    :init
+    (global-set-key (kbd "M-x") 'smex))
 #+end_src
 * avy
 #+begin_src emacs-lisp
@@ -117,6 +188,26 @@ This configuration is written in Org-mode and is self documented.
     :ensure t
     :bind
     ("M-s" . avy-goto-char))
+#+end_src
+* Convenient functions
+** Kills entire word
+#+begin_src emacs-lisp
+  (defun kill-whole-word ()
+    (interactive)
+    (backward-word)
+    (kill-word 1))
+  (global-set-key (kbd "C-c d") 'kill-whole-word)
+#+end_src
+** Copy whole line
+#+begin_src emacs-lisp
+  (defun copy-whole-line ()
+    (interactive)
+    (save-excursion
+      (kill-new
+       (buffer-substring
+	(point-at-bol)
+	(point-at-eol)))))
+  (global-set-key (kbd "C-c w") 'copy-whole-line)
 #+end_src
 * config edit/reload
 ** edit
@@ -137,7 +228,45 @@ This configuration is written in Org-mode and is self documented.
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :ensure t
-    :init (rainbow-mode 1))
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-mode)
+    (rainbow-mode 1))
+#+end_src
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+    (rainbow-delimiters-mode 1))
+#+end_src
+* dashboard
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents . 10)))
+    (setq dashboard-banner-logo-title "Miika's Emacs"))
+#+end_src
+* modeline
+** doom modeline
+Install and enable doom modeline
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :ensure t
+    :hook
+    (after-init . doom-modeline-mode))
+#+end_src
+** all the icons
+Adds extra icons to doom modeline.
+#+begin_src emacs-lisp
+  (use-package all-the-icons
+    :ensure t)
+#+end_src
+** Show line/column number on modeline
+#+begin_src emacs-lisp
+  (line-number-mode 1)
+  (column-number-mode 1)
 #+end_src
 * switch-window
 #+begin_src emacs-lisp
@@ -165,4 +294,11 @@ This configuration is written in Org-mode and is self documented.
     (balance-windows)
     (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+#+end_src
+* autocompletion
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (add-hook 'after-init-hook 'global-company-mode))
 #+end_src
