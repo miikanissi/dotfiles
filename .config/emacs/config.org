@@ -1,0 +1,168 @@
+#+STARTUP: overview
+#+TITLE: Miika's Emacs
+#+CREATOR: Miika Nissi
+#+LANGUAGE: en
+#+OPTIONS: num:nil
+#+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+* Installation
+=git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
+
+Make sure to remove your own ~/.emacs ~/.emacs.d and ~/.config/emacs prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
+
+This configuration is written in Org-mode and is self documented. 
+
+* Basic Settings
+** inhibit startup message
+#+begin_src emacs-lisp
+(setq inhibit-startup-message t)
+#+end_src
+** remove menus/scrollbar
+#+begin_src emacs-lisp
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+#+end_src
+** no backups
+#+begin_src emacs-lisp
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+#+end_src
+** better scrolling
+#+begin_src emacs-lisp
+(setq scroll-conservatively 100)
+#+end_src
+** no ring-bell
+#+begin_src emacs-lisp
+(setq ring-bell-function 'ignore)
+#+end_src
+** highlight current line
+#+begin_src emacs-lisp
+(when window-system (global-hl-line-mode t))
+#+end_src
+** prettify symbols
+#+begin_src emacs-lisp
+(when window-system (global-prettify-symbols-mode t))
+#+end_src
+** yes/no to y/n
+#+begin_src emacs-lisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+* Keybinds
+** M-RET opens terminal
+#+begin_src emacs-lisp
+(global-set-key (kbd "<M-return>") 'ansi-term)
+#+end_src
+** fix buffers
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x b") 'ibuffer)
+  (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+#+end_src
+* Terminal
+** Setting default shell to bash
+#+begin_src emacs-lisp
+  (defvar my-term-shell "/bin/bash")
+  (defadvice ansi-term (before force-bash)
+    (interactive (list my-term-shell)))
+   (ad-activate 'ansi-term)
+#+end_src
+
+* Org
+** Org Bullets
+#+begin_src emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
+#+end_src
+* which-key
+#+begin_src emacs-lisp
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode))
+#+end_src
+* beacon
+#+begin_src emacs-lisp
+(use-package beacon
+  :ensure t
+  :init
+  (beacon-mode 1))
+#+end_src
+* IDO
+** enable ido mode
+#+begin_src emacs-lisp
+(setq ido-enable-flex-matching nil)
+(setq ido-create-new-buffer 'always)
+(setq ido-everywhere t)
+#+end_src
+** ido vertical mode
+#+begin_src emacs-lisp
+  (use-package ido-vertical-mode
+    :ensure t
+    :init
+    (ido-vertical-mode 1))
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only)
+#+end_src
+** smex
+#+begin_src emacs-lisp
+  (use-package smex
+    :ensure t
+    :init (smex-initialize)
+    :bind
+    ("M-x" . smex))
+#+end_src
+* avy
+#+begin_src emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind
+    ("M-s" . avy-goto-char))
+#+end_src
+* config edit/reload
+** edit
+#+begin_src emacs-lisp
+  (defun config-visit ()
+    (interactive)
+    (find-file "~/.config/emacs/config.org"))
+  (global-set-key (kbd "C-c e") 'config-visit)
+#+end_src
+** reload
+#+begin_src emacs-lisp
+  (defun config-reload ()
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.config/emacs/config.org")))
+  (global-set-key (kbd "C-c r") 'config-reload)
+#+end_src
+* rainbow
+#+begin_src emacs-lisp
+  (use-package rainbow-mode
+    :ensure t
+    :init (rainbow-mode 1))
+#+end_src
+* switch-window
+#+begin_src emacs-lisp
+  (use-package switch-window
+    :ensure t
+    :config
+    (setq switch-window-input-style 'minibuffer)
+    (setq switch-window-increase 4)
+    (setq switch-window-threshold 2)
+    :bind
+    ([remap other-window] . switch-window))
+#+end_src
+* follow window split
+#+begin_src emacs-lisp
+  (defun split-and-follow-horizontally ()
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+  (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+
+  (defun split-and-follow-vertically ()
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
+  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+#+end_src
