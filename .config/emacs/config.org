@@ -7,10 +7,10 @@
 * Installation
 =git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
 
-Make sure to remove your own ~/.emacs ~/.emacs.d and ~/.config/emacs prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
+Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages. To download all-the-icons for doom modeline you might need to run this once to download the icon packages:
+=M-x all-the-icons-install-fonts=
 
 This configuration is written in Org-mode and is self documented. 
-
 * Theme
 I don't want my eyes to bleed with the default theme.
 ** Gruvbox
@@ -57,10 +57,14 @@ Very helpful to avoid "losing" your cursor.
 #+begin_src emacs-lisp
 (when window-system (global-hl-line-mode t))
 #+end_src
-** Truncate lines
-By default long lines will go off the screen, I like to have them wrap on the next line instead.
+** Show matching paranthesis
 #+begin_src emacs-lisp
-  (set-default 'truncate-lines t)
+(show-paren-mode 1)
+#+end_src
+** Visual line mode
+By default long lines will go off the screen, I like to have them wrap on the next line instead. 
+#+begin_src emacs-lisp
+  (global-visual-line-mode 1)
 #+end_src
 ** Prettify symbols
 Changes some words into symbols (eg. lambda)
@@ -91,40 +95,98 @@ This creates matching paranthesis.
 			      ))
   (electric-pair-mode t)
 #+end_src
-* Keybinds
-** M-RET opens terminal
-#+begin_src emacs-lisp
-(global-set-key (kbd "<M-return>") 'ansi-term)
-#+end_src
-** fix buffers
+** Buffers
+Improve default emacs buffers.
+*** Use ibuffer instead of switch-to-buffer
+This should be the default option in the first place. 
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-x b") 'ibuffer)
   (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 #+end_src
-* Terminal
-** Setting default shell to bash
+*** Always kill current buffer
+Doing =C-x k= should always kill the current buffer by default, for more complicated buffer management I use ibuffer.
 #+begin_src emacs-lisp
-  (defvar my-term-shell "/bin/bash")
-  (defadvice ansi-term (before force-bash)
-    (interactive (list my-term-shell)))
-   (ad-activate 'ansi-term)
+  (defun kill-current-buffer ()
+    "Kills the current buffer."
+    (interactive)
+    (kill-buffer (current-buffer)))
+  (global-set-key (kbd "C-x k") 'kill-current-buffer)
 #+end_src
-
+*** Close all buffers
+Sometimes I want to close all buffers to start fresh, this makes it a single command.
+#+begin_src emacs-lisp
+  (defun close-all-buffers ()
+    "Kill all buffers without regard for their origin."
+    (interactive)
+    (mapc 'kill-buffer (buffer-list)))
+  (global-set-key (kbd "C-M-s-k") 'close-all-buffers)
+#+end_src
+** Line numbers when programming
+Having line numbers is very useful when programming.
+#+begin_src emacs-lisp
+  (use-package linum-relative
+    :ensure t
+    :config
+      (setq linum-relative-current-symbol "")
+      (add-hook 'prog-mode-hook 'linum-relative-mode))
+#+end_src
 * Org
-** Basic config
+Org was one of the main reasons why I decided to start using Emacs. I will never have to write documents in any other way. Org mode can do it all.
+** Common settings
+#+begin_src emacs-lisp
+(setq org-ellipsis " ")
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+(setq org-confirm-babel-evaluate nil)
+(setq org-export-with-smart-quotes t)
+(setq org-src-window-setup 'current-window)
+(add-hook 'org-mode-hook 'org-indent-mode)
+#+end_src
+** Snippets
+Snippets for org mode.
+*** src emacs-lisp
 #+begin_src emacs-lisp
   (setq org-src-window-setup 'current-window)
   (add-to-list 'org-structure-template-alist
 	       '("el" . "src emacs-lisp"))
 #+end_src
 ** Org Bullets
+Makes org mode bullets look nicer.
 #+begin_src emacs-lisp
   (use-package org-bullets
     :ensure t
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode))))
 #+end_src
-* which-key
+** Syntax highlighting for HTML export
+#+begin_src emacs-lisp
+  (use-package htmlize
+    :ensure t)
+#+end_src
+** Exporting options
+One of the reasons that makes org so special is the ability to export files in many different formats.
+*** Twitter bootstrap
+#+begin_src emacs-lisp
+  (use-package ox-twbs
+    :ensure t)
+#+end_src
+* Terminal
+I don't usually use the terminal inside emacs, but it is nice to have conveniently available.
+** Setting default shell to bash
+Emacs asks for the shell you want to use every time you launch the terminal. We can skip that by adding a default shell.
+#+begin_src emacs-lisp
+  (defvar my-term-shell "/bin/bash")
+  (defadvice ansi-term (before force-bash)
+    (interactive (list my-term-shell)))
+   (ad-activate 'ansi-term)
+#+end_src
+** Open terminal hotkey
+I use super+return to open terminal in my Window manager. It makes sense to use a similar binding for emacs terminal. 
+#+begin_src emacs-lisp
+(global-set-key (kbd "<M-s-return>") 'ansi-term)
+#+end_src
+* Which key
+Which key shows auto-completion for emacs commands.
 #+begin_src emacs-lisp
 (use-package which-key
   :ensure t
@@ -138,7 +200,8 @@ Use asynchronous process when possible.
     :ensure t
     :init (dired-async-mode 1))
 #+end_src
-* sudo edit
+* Sudo edit
+Sometimes I want to edit files that need root permissions, this package makes it very easy. Just press a hotkey and select a file to edit as sudo.
 #+begin_src emacs-lisp
   (use-package sudo-edit
     :ensure t
@@ -224,7 +287,8 @@ Enhanced M-x menu.
     (org-babel-load-file (expand-file-name "~/.config/emacs/config.org")))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+end_src
-* rainbow
+* Rainbow
+Rainbow mode colorizes color names in buffers.
 #+begin_src emacs-lisp
   (use-package rainbow-mode
     :ensure t
@@ -232,6 +296,7 @@ Enhanced M-x menu.
     (add-hook 'prog-mode-hook #'rainbow-mode)
     (rainbow-mode 1))
 #+end_src
+Ranbow delimiters mode colorizes matrching paranthesis. Very useful for elisp. 
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
@@ -295,10 +360,51 @@ Adds extra icons to doom modeline.
     (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 #+end_src
-* autocompletion
+* Autocompletion
+Autocompletion is really nice for programming and most IDEs come with it out of the box. For emacs I use company to do my autocompletion. It needs some configuration to work for different programming languages.
+** Install company and basic configuration
 #+begin_src emacs-lisp
   (use-package company
     :ensure t
     :init
-    (add-hook 'after-init-hook 'global-company-mode))
+    (add-hook 'prog-mode-hook 'company-mode)
+    :config
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 4))
+#+end_src
+** Change default company keybindings
+#+begin_src emacs-lisp
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") #'company-select-next)
+    (define-key company-active-map (kbd "C-p") #'company-select-previous)
+    (define-key company-active-map (kbd "SPC") #'company-abort))
+#+end_src
+** C/C++
+Irony is what gives us C/C++ completion. First we install the packages and then we add a hook to enable company-mode in C/C++ buffers.
+#+begin_src emacs-lisp
+  (use-package company-irony
+    :ensure t
+    :config
+    (require 'company)
+    (add-to-list 'company-backends 'company-irony))
+
+  (use-package irony
+    :ensure t
+    :config
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+
+  (with-eval-after-load 'company
+    (add-hook 'c++-mode-hook 'company-mode)
+    (add-hook 'c-mode-hook 'company-mode))
+#+end_src
+* kill ring
+** popup kill ring
+#+begin_src emacs-lisp
+  (use-package popup-kill-ring
+    :ensure t
+    :bind ("M-y" . popup-kill-ring))
 #+end_src

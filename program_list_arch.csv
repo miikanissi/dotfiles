@@ -87,6 +87,7 @@ A,brave-bin,"is an elegant browser with built-in adblocking, tor and other featu
 ,poppler,"manipulates .pdfs and gives .pdf previews and other .pdf functions."
 ,pandoc,"is a massive bloated document converter."
 ,texlive-core,"includes TeX-related programs."
+,texlive-latexextra,"allows exporting org documents into pdf among other things."
 ,mediainfo,"shows audio and video information."
 ,easytag,"is a program to modify music information."
 ,pcmanfm,"is a decent graphical file manager."
