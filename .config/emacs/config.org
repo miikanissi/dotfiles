@@ -3,10 +3,7 @@
 #+CREATOR: Miika Nissi
 #+LANGUAGE: en
 #+OPTIONS: num:nil
-#+html: <style type="text/css">
-#+html: img { margin-left: auto;margin-right: auto;  width: 100%;}
-#+html: </style>
-[[./screenshots/dashboard.png]]
+#+html: <p align="center"><img src="/screenshots/dashboard.png"/></p>
 * Installation
 =git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
 
