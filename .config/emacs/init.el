@@ -21,7 +21,7 @@
    '("6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" default))
  '(line-number-mode nil)
  '(package-selected-packages
-   '(company-irony ox-twbs htmlize popup-kill-ring linum-relative ido-completing-read+ async doom-modeline spaceline company dashboard rainbow-delimiters sudo-edit switch-window rainbow-mode avy smex ido-vertical-mode beacon gruvbox-theme which-key use-package))
+   '(magit company-shell company-c-headers flycheck-clang-analyzer flycheck yasnippet-snippets yasnippet prettier-js web-mode company-jedi company-irony ox-twbs htmlize popup-kill-ring linum-relative ido-completing-read+ async doom-modeline spaceline company dashboard rainbow-delimiters sudo-edit switch-window rainbow-mode avy smex ido-vertical-mode beacon gruvbox-theme which-key use-package))
  '(size-indication-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

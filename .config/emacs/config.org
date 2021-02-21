@@ -4,13 +4,28 @@
 #+LANGUAGE: en
 #+OPTIONS: num:nil
 #+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+[[./screenshots/dashboard.png]]
 * Installation
 =git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
 
-Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages. To download all-the-icons for doom modeline you might need to run this once to download the icon packages:
-=M-x all-the-icons-install-fonts=
-
+Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
 This configuration is written in Org-mode and is self documented. 
+
+** Extra dependencies
+** Fonts
+I currently use DejaVu Sans Mono Nerd Font from [[https://github.com/ryanoasis/nerd-fonts][Nerd fonts]]. You need to make sure this font is installed for emacs to use it.
+*** From package manager:
+- =clang=, for c/c++ completion.
+- =python-virtualenv=, for python completion.
+- =flake8=, for python syntax checking.
+- =texlive-core=, for exporting org documents to pdf.
+- =texlive-latexextra=, for exporting org documents to pdf.
+*** From pip:
+- =jedi=, for python syntax checking.
+- =autopep8=, for python syntax checking.
+*** Emacs installation:
+- =all-the-icons-install-fonts=
+- =jedi:install-server=
 * Theme
 I don't want my eyes to bleed with the default theme.
 ** Gruvbox
@@ -121,15 +136,6 @@ Sometimes I want to close all buffers to start fresh, this makes it a single com
     (mapc 'kill-buffer (buffer-list)))
   (global-set-key (kbd "C-M-s-k") 'close-all-buffers)
 #+end_src
-** Line numbers when programming
-Having line numbers is very useful when programming.
-#+begin_src emacs-lisp
-  (use-package linum-relative
-    :ensure t
-    :config
-      (setq linum-relative-current-symbol "")
-      (add-hook 'prog-mode-hook 'linum-relative-mode))
-#+end_src
 * Org
 Org was one of the main reasons why I decided to start using Emacs. I will never have to write documents in any other way. Org mode can do it all.
 ** Common settings
@@ -185,43 +191,16 @@ I use super+return to open terminal in my Window manager. It makes sense to use 
 #+begin_src emacs-lisp
 (global-set-key (kbd "<M-s-return>") 'ansi-term)
 #+end_src
-* Which key
-Which key shows auto-completion for emacs commands.
-#+begin_src emacs-lisp
-(use-package which-key
-  :ensure t
-  :init
-  (which-key-mode))
-#+end_src
-* Async
-Use asynchronous process when possible.
-#+begin_src emacs-lisp
-  (use-package async
-    :ensure t
-    :init (dired-async-mode 1))
-#+end_src
-* Sudo edit
-Sometimes I want to edit files that need root permissions, this package makes it very easy. Just press a hotkey and select a file to edit as sudo.
-#+begin_src emacs-lisp
-  (use-package sudo-edit
-    :ensure t
-    :bind ("C-c s" . sudo-edit))
-#+end_src
-* beacon
-#+begin_src emacs-lisp
-(use-package beacon
-  :ensure t
-  :init
-  (beacon-mode 1))
-#+end_src
-* IDO
-** enable ido mode
+* Navigation
+** IDO
+Ido mode improves buffer switching and prompts.
+*** enable ido mode
 #+begin_src emacs-lisp
 (setq ido-enable-flex-matching nil)
 (setq ido-create-new-buffer 'always)
 (setq ido-everywhere t)
 #+end_src
-** ido vertical mode
+*** ido vertical mode
 #+begin_src emacs-lisp
   (use-package ido-vertical-mode
     :ensure t
@@ -229,7 +208,7 @@ Sometimes I want to edit files that need root permissions, this package makes it
     (ido-vertical-mode 1))
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 #+end_src
-** ido completing read+
+*** ido completing read+
 Truly enables ido wherever possible.
 #+begin_src emacs-lisp
   (use-package ido-completing-read+
@@ -237,7 +216,7 @@ Truly enables ido wherever possible.
     :init
     (ido-ubiquitous-mode 1))
 #+end_src
-** smex
+*** smex
 Enhanced M-x menu.
 #+begin_src emacs-lisp
   (use-package smex
@@ -245,14 +224,76 @@ Enhanced M-x menu.
     :init
     (global-set-key (kbd "M-x") 'smex))
 #+end_src
-* avy
+** Which key
+Which key shows auto-completion for emacs commands.
+#+begin_src emacs-lisp
+(use-package which-key
+  :ensure t
+  :init
+  (which-key-mode))
+#+end_src
+** avy
+Avy allows easy navigation to characters in buffer.
 #+begin_src emacs-lisp
   (use-package avy
     :ensure t
     :bind
     ("M-s" . avy-goto-char))
 #+end_src
-* Convenient functions
+** switch-window
+Improves window switching when multiple splits are used. =C-x o=.
+#+begin_src emacs-lisp
+  (use-package switch-window
+    :ensure t
+    :config
+    (setq switch-window-input-style 'minibuffer)
+    (setq switch-window-increase 4)
+    (setq switch-window-threshold 2)
+    :bind
+    ([remap other-window] . switch-window))
+#+end_src
+** Follow window split
+When a window is split move cursor to new split.
+#+begin_src emacs-lisp
+  (defun split-and-follow-horizontally ()
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+  (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
+
+  (defun split-and-follow-vertically ()
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
+  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+#+end_src
+** Config edit/reload shortcuts
+*** Edit
+#+begin_src emacs-lisp
+  (defun config-visit ()
+    (interactive)
+    (find-file "~/.config/emacs/config.org"))
+  (global-set-key (kbd "C-c e") 'config-visit)
+#+end_src
+*** Reload
+#+begin_src emacs-lisp
+  (defun config-reload ()
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.config/emacs/config.org")))
+  (global-set-key (kbd "C-c r") 'config-reload)
+#+end_src
+** beacon
+Beacon flashes the cursor when moving between buffers/windows. It helps to quickly find the current cursor position.
+#+begin_src emacs-lisp
+(use-package beacon
+  :ensure t
+  :init
+  (beacon-mode 1))
+#+end_src
+* Text editing
+Useful configurations to improve editing text.
 ** Kills entire word
 #+begin_src emacs-lisp
   (defun kill-whole-word ()
@@ -272,22 +313,201 @@ Enhanced M-x menu.
 	(point-at-eol)))))
   (global-set-key (kbd "C-c w") 'copy-whole-line)
 #+end_src
-* config edit/reload
-** edit
+** Sudo edit
+Sometimes I want to edit files that need root permissions, this package makes it very easy. Just press a hotkey and select a file to edit as sudo.
 #+begin_src emacs-lisp
-  (defun config-visit ()
-    (interactive)
-    (find-file "~/.config/emacs/config.org"))
-  (global-set-key (kbd "C-c e") 'config-visit)
+  (use-package sudo-edit
+    :ensure t
+    :bind ("C-c s" . sudo-edit))
 #+end_src
-** reload
+** popup kill ring
+Browse kill ring.
 #+begin_src emacs-lisp
-  (defun config-reload ()
-    (interactive)
-    (org-babel-load-file (expand-file-name "~/.config/emacs/config.org")))
-  (global-set-key (kbd "C-c r") 'config-reload)
+  (use-package popup-kill-ring
+    :ensure t
+    :bind ("M-y" . popup-kill-ring))
 #+end_src
-* Rainbow
+* Modeline
+Having a nice and useful modeline is important. I'm using the doom modeline as it is lightweight and pretty.
+** doom-modeline
+Install and enable doom modeline.
+#+begin_src emacs-lisp
+  (use-package doom-modeline
+    :ensure t
+    :hook
+    (after-init . doom-modeline-mode))
+#+end_src
+** all-the-icons
+Adds extra icons to doom modeline.
+#+begin_src emacs-lisp
+  (use-package all-the-icons
+    :ensure t)
+#+end_src
+** Show line/column number on modeline
+#+begin_src emacs-lisp
+  (line-number-mode 1)
+  (column-number-mode 1)
+#+end_src
+* Dashboard
+Nice dashboard on emacs startup.
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents . 10)))
+    (setq dashboard-banner-logo-title "Miika's Emacs")
+    (setq dashboard-items '((recents . 5)
+                              (projects . 5))))
+#+end_src
+* Programming
+Mostly programming related configurations and packages.
+** Line numbers when programming
+Having line numbers is very useful when programming.
+#+begin_src emacs-lisp
+  (use-package linum-relative
+    :ensure t
+    :config
+      (setq linum-relative-current-symbol "")
+      (add-hook 'prog-mode-hook 'linum-relative-mode))
+#+end_src
+** yasnippet
+Snippets are cool.
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+      (use-package yasnippet-snippets
+        :ensure t)
+      (yas-reload-all))
+#+end_src
+** flycheck
+Check syntax errors while editing.
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :ensure t)
+#+end_src
+** company
+Autocompletion is really nice for programming and most IDEs come with it out of the box. For emacs I use company to do my autocompletion.
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (add-hook 'prog-mode-hook 'company-mode)
+    :config
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 4))
+#+end_src
+*** Change default company keybindings
+#+begin_src emacs-lisp
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") #'company-select-next)
+    (define-key company-active-map (kbd "C-p") #'company-select-previous)
+    (define-key company-active-map (kbd "SPC") #'company-abort))
+#+end_src
+** C/C++
+Irony is what gives us C/C++ completion. First we install the packages and then we add a hook to enable company-mode in C/C++ buffers.
+#+begin_src emacs-lisp
+  (add-hook 'c++-mode-hook 'yas-minor-mode)
+  (add-hook 'c-mode-hook 'yas-minor-mode)
+
+  (use-package flycheck-clang-analyzer
+    :ensure t
+    :config
+    (with-eval-after-load 'flycheck
+      (require 'flycheck-clang-analyzer)
+       (flycheck-clang-analyzer-setup)))
+
+  (with-eval-after-load 'company
+    (add-hook 'c++-mode-hook 'company-mode)
+    (add-hook 'c-mode-hook 'company-mode))
+
+  (use-package company-c-headers
+    :ensure t)
+
+  (use-package company-irony
+    :ensure t
+    :config
+    (setq company-backends '((company-c-headers
+                              company-dabbrev-code
+                              company-irony))))
+
+  (use-package irony
+    :ensure t
+    :config
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+#+end_src
+** Python
+#+begin_src emacs-lisp
+  (add-hook 'python-mode-hook 'yas-minor-mode)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+
+  (with-eval-after-load 'company
+      (add-hook 'python-mode-hook 'company-mode))
+
+  (use-package company-jedi
+    :ensure t
+    :config
+      (require 'company)
+      (add-to-list 'company-backends 'company-jedi))
+
+  (defun python-mode-company-init ()
+    (setq-local company-backends '((company-jedi
+                                    company-etags
+                                    company-dabbrev-code))))
+
+  (use-package company-jedi
+    :ensure t
+    :config
+      (require 'company)
+      (add-hook 'python-mode-hook 'python-mode-company-init))
+#+end_src
+** Javascript
+#+begin_src emacs-lisp
+  (use-package prettier-js
+    :ensure t
+    :hook
+    (web-mode . prettier-js-mode)
+    (js2-mode-hook . prettier-js-mode))
+#+end_src
+** Bash
+Auto-completion, snippets, syntax checking for bash.
+#+begin_src emacs-lisp
+  (add-hook 'shell-mode-hook 'yas-minor-mode)
+  (add-hook 'shell-mode-hook 'flycheck-mode)
+  (add-hook 'shell-mode-hook 'company-mode)
+
+  (defun shell-mode-company-init ()
+    (setq-local company-backends '((company-shell
+                                    company-shell-env
+                                    company-etags
+                                    company-dabbrev-code))))
+
+  (use-package company-shell
+    :ensure t
+    :config
+      (require 'company)
+      (add-hook 'shell-mode-hook 'shell-mode-company-init))
+#+end_src
+** web-mode
+Improves HTML documents when using embed parts and blocks. I Mainly use it for Django development. 
+#+begin_src emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (setq web-mode-engines-alist
+          '(("django" . "\\.html\\'")))
+    (setq web-mode-ac-sources-alist
+          '(("css" . (ac-source-css-property))
+            ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+    (setq web-mode-enable-auto-closing t))
+#+end_src
+** rainbow-mode
 Rainbow mode colorizes color names in buffers.
 #+begin_src emacs-lisp
   (use-package rainbow-mode
@@ -304,107 +524,23 @@ Ranbow delimiters mode colorizes matrching paranthesis. Very useful for elisp.
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
     (rainbow-delimiters-mode 1))
 #+end_src
-* dashboard
+* Git
+I tend to mostly do git commands from the terminal but I'm trying to learn how to use magit instead.
 #+begin_src emacs-lisp
-  (use-package dashboard
+  (use-package magit
     :ensure t
     :config
-    (dashboard-setup-startup-hook)
-    (setq dashboard-items '((recents . 10)))
-    (setq dashboard-banner-logo-title "Miika's Emacs"))
-#+end_src
-* modeline
-** doom modeline
-Install and enable doom modeline
-#+begin_src emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :hook
-    (after-init . doom-modeline-mode))
-#+end_src
-** all the icons
-Adds extra icons to doom modeline.
-#+begin_src emacs-lisp
-  (use-package all-the-icons
-    :ensure t)
-#+end_src
-** Show line/column number on modeline
-#+begin_src emacs-lisp
-  (line-number-mode 1)
-  (column-number-mode 1)
-#+end_src
-* switch-window
-#+begin_src emacs-lisp
-  (use-package switch-window
-    :ensure t
-    :config
-    (setq switch-window-input-style 'minibuffer)
-    (setq switch-window-increase 4)
-    (setq switch-window-threshold 2)
+    (setq magit-push-always-verify nil)
+    (setq git-commit-summary-max-length 50)
     :bind
-    ([remap other-window] . switch-window))
+    ("M-g" . magit-status))
 #+end_src
-* follow window split
+* Projectile
+Projectile helps with navigating files in a project. Projectile also integrates nicely with dashboard.
 #+begin_src emacs-lisp
-  (defun split-and-follow-horizontally ()
-    (interactive)
-    (split-window-below)
-    (balance-windows)
-    (other-window 1))
-  (global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
-
-  (defun split-and-follow-vertically ()
-    (interactive)
-    (split-window-right)
-    (balance-windows)
-    (other-window 1))
-  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
-#+end_src
-* Autocompletion
-Autocompletion is really nice for programming and most IDEs come with it out of the box. For emacs I use company to do my autocompletion. It needs some configuration to work for different programming languages.
-** Install company and basic configuration
-#+begin_src emacs-lisp
-  (use-package company
-    :ensure t
-    :init
-    (add-hook 'prog-mode-hook 'company-mode)
-    :config
-    (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 4))
-#+end_src
-** Change default company keybindings
-#+begin_src emacs-lisp
-  (with-eval-after-load 'company
-    (define-key company-active-map (kbd "M-n") nil)
-    (define-key company-active-map (kbd "M-p") nil)
-    (define-key company-active-map (kbd "C-n") #'company-select-next)
-    (define-key company-active-map (kbd "C-p") #'company-select-previous)
-    (define-key company-active-map (kbd "SPC") #'company-abort))
-#+end_src
-** C/C++
-Irony is what gives us C/C++ completion. First we install the packages and then we add a hook to enable company-mode in C/C++ buffers.
-#+begin_src emacs-lisp
-  (use-package company-irony
+  (use-package projectile
     :ensure t
     :config
-    (require 'company)
-    (add-to-list 'company-backends 'company-irony))
-
-  (use-package irony
-    :ensure t
-    :config
-    (add-hook 'c++-mode-hook 'irony-mode)
-    (add-hook 'c-mode-hook 'irony-mode)
-    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
-
-  (with-eval-after-load 'company
-    (add-hook 'c++-mode-hook 'company-mode)
-    (add-hook 'c-mode-hook 'company-mode))
-#+end_src
-* kill ring
-** popup kill ring
-#+begin_src emacs-lisp
-  (use-package popup-kill-ring
-    :ensure t
-    :bind ("M-y" . popup-kill-ring))
+    (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
+    (projectile-mode +1))
 #+end_src
