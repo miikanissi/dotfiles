@@ -3,7 +3,7 @@
 #+CREATOR: Miika Nissi
 #+LANGUAGE: en
 #+OPTIONS: num:nil
-#+html: <p align="center"><img src="/screenshots/dashboard.png"/></p>
+#+html: <p align="center"><img src="./screenshots/dashboard.png"/></p>
 * Installation
 =git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
 
