@@ -3,7 +3,9 @@
 #+CREATOR: Miika Nissi
 #+LANGUAGE: en
 #+OPTIONS: num:nil
-#+ATTR_HTML: :style margin-left: auto; margin-right: auto;
+#+HTML_HEAD: <style type="text/css">
+#+HTML_HEAD: img { margin: auto;}
+#+HTML_HEAD: </style>
 [[./screenshots/dashboard.png]]
 * Installation
 =git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
@@ -37,7 +39,7 @@ I don't think Gruvbox is the prettiest theme out there, but it is VERY easy on t
     (load-theme 'gruvbox-dark-hard t))
 #+end_src
 * Basic Settings
-These are basic default settings that enhance the UI and functionality.
+These are basic default settings that enhance the UI and functionality. No external packages used here.
 ** UTF-8 encoding everywhere
 #+begin_src emacs-lisp
 (setq locale-coding-system 'utf-8)
@@ -97,7 +99,7 @@ I don't need backup or autosave files so I disable them. By default emacs create
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
 ** Subword
-By default M-f/M-b treat thisIsOneWord as a single word instead. I want it to consider capitalization as a new word.
+By default =M-f= / =M-b= treat thisIsOneWord as a single word instead. I want it to consider capitalization as a new word.
  #+begin_src emacs-lisp
    (global-subword-mode 1)
  #+end_src
@@ -192,6 +194,7 @@ I use super+return to open terminal in my Window manager. It makes sense to use 
 (global-set-key (kbd "<M-s-return>") 'ansi-term)
 #+end_src
 * Navigation
+Packages and improvements for navigation in emacs.
 ** IDO
 Ido mode improves buffer switching and prompts.
 *** enable ido mode
@@ -293,7 +296,7 @@ Beacon flashes the cursor when moving between buffers/windows. It helps to quick
   (beacon-mode 1))
 #+end_src
 * Text editing
-Useful configurations to improve editing text.
+Useful packages and configurations to improve editing text in emacs.
 ** Kills entire word
 #+begin_src emacs-lisp
   (defun kill-whole-word ()
