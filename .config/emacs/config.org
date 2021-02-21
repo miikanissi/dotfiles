@@ -4,7 +4,7 @@
 #+LANGUAGE: en
 #+OPTIONS: num:nil
 #+HTML_HEAD: <style type="text/css">
-#+HTML_HEAD: img { margin: auto;}
+#+HTML_HEAD: img { margin: auto; width: 100%;}
 #+HTML_HEAD: </style>
 [[./screenshots/dashboard.png]]
 * Installation
