@@ -377,9 +377,10 @@ Snippets are cool.
   (use-package yasnippet
     :ensure t
     :config
-      (use-package yasnippet-snippets
-        :ensure t)
-      (yas-reload-all))
+    (use-package yasnippet-snippets
+      :ensure t)
+    (yas-reload-all)
+    (add-hook 'prog-mode-hook #'yas-minor-mode))
 #+end_src
 ** flycheck
 Check syntax errors while editing.
@@ -442,6 +443,7 @@ Irony is what gives us C/C++ completion. First we install the packages and then 
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
 #+end_src
 ** Python
+For python completion I'm using jedi as a backend. It follows the PEP-8 styling guide.
 #+begin_src emacs-lisp
   (add-hook 'python-mode-hook 'yas-minor-mode)
   (add-hook 'python-mode-hook 'flycheck-mode)
@@ -524,6 +526,11 @@ Ranbow delimiters mode colorizes matrching paranthesis. Very useful for elisp.
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
     (rainbow-delimiters-mode 1))
 #+end_src
+** ReST
+Activate snippets in ReST mode
+#+begin_src emacs-lisp
+  (add-hook 'rst-mode-hook 'yas-minor-mode)
+#+end_src
 * Git
 I tend to mostly do git commands from the terminal but I'm trying to learn how to use magit instead.
 #+begin_src emacs-lisp
@@ -543,4 +550,48 @@ Projectile helps with navigating files in a project. Projectile also integrates 
     :config
     (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
     (projectile-mode +1))
+#+end_src
+* Music
+Music from Emacs because why not?!
+** MPD & simple-mpc
+I tried to use EMMS but it was way too complicated for my needs. Simple MPC is a simple frontend to mpc.
+*** simple-mpc
+#+begin_src emacs-lisp
+  (use-package simple-mpc
+    :ensure t)
+#+end_src
+*** MPC
+Setups mpc to use the right host:port
+#+begin_src emacs-lisp
+  (setq mpc-host "localhost:6600")
+#+end_src
+*** Advanced MPD configuration
+**** Start MPD daemon from emacs
+#+begin_src emacs-lisp
+  (defun mpd/start-music-daemon ()
+    "Start MPD, connects to it and syncs the metadata cache."
+    (interactive)
+    (shell-command "mpd")
+    (mpd/update-database)
+    (message "MPD Started!"))
+  (global-set-key (kbd "s-m c") 'mpd/start-music-daemon)
+#+end_src
+**** Kill MPD daemon from emacs
+#+begin_src emacs-lisp
+  (defun mpd/kill-music-daemon ()
+    "Stops playback and kill the music daemon."
+    (interactive)
+    (mpc-stop)
+    (call-process "killall" nil nil nil "mpd")
+    (message "MPD Killed!"))
+  (global-set-key (kbd "s-m k") 'mpd/kill-music-daemon)
+#+end_src
+**** Update MPD database from emacs
+#+begin_src emacs-lisp
+  (defun mpd/update-database ()
+    "Updates the MPD database synchronously."
+    (interactive)
+    (call-process "mpc" nil nil nil "update")
+    (message "MPD Database Updated!"))
+  (global-set-key (kbd "s-m u") 'mpd/update-database)
 #+end_src
