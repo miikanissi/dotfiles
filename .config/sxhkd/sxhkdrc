@@ -4,7 +4,7 @@
 
 ### PROGRAM LAUNCHERS ###
 # launch programs (h,j,k,l,d,q,f,t,n,p,space,greater,less taken by bspc and cmus)
-super + {Return, w, e, c, b, s}
+super + {Return, w, e, g, b, s}
     {alacritty, brave, emacs, pcmanfm, urxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
 
 # print screen script with maim
@@ -46,20 +46,6 @@ super + shift + z
 # launch rofi_mount.sh
 super + x
     .local/bin/rofi_dman.sh
-
-### MPD HOTKEYS ###
-# pause mpd
-super + space
-    mpc toggle
-
-# adjust mpd volume
-super + {greater, less}
-    mpc volume {+, -}2
-
-# change song
-super + {n, p}
-    mpc {next, prev}
-
 
 ### BSPC HOTKEYS ###
 # restart everything

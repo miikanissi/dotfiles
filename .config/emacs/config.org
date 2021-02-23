@@ -11,18 +11,23 @@ Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prio
 This configuration is written in Org-mode and is self documented. 
 
 ** Extra dependencies
-** Fonts
+*** Fonts
 I currently use DejaVu Sans Mono Nerd Font from [[https://github.com/ryanoasis/nerd-fonts][Nerd fonts]]. You need to make sure this font is installed for emacs to use it.
 *** From package manager:
 - =clang=, for c/c++ completion.
 - =python-virtualenv=, for python completion.
-- =flake8=, for python syntax checking.
 - =texlive-core=, for exporting org documents to pdf.
 - =texlive-latexextra=, for exporting org documents to pdf.
+- =mpd= & =mpc=, for playing music with Mingus.
 *** From pip:
-- =jedi=, for python syntax checking.
+For python completion and syntax checking you need to install these from pip:
+- =jedi=, for python completion and syntax checking.
+- =flake8=, for python completion and syntax checking.
 - =autopep8=, for python syntax checking.
+- =pylint=, for python syntax checking.
+- =pylint-odoo=, for python syntax checking with Odoo.
 *** Emacs installation:
+On the first launch of Emacs you might need to run some commands using M-x to fully install everything. Here's a list:
 - =all-the-icons-install-fonts=
 - =jedi:install-server=
 * Theme
@@ -57,6 +62,10 @@ I don't use the GUI menus so I get rid of them.
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 #+end_src
+** Enable clipboard outside of Emacs
+#+begin_src emacs-lisp
+  (setq x-select-enable-clipboard t)
+#+end_src
 ** Better scrolling behavior
 By default emacs scrolling jumps multiple lines when you hit the bottom of the screen. This changes the default behavior to a more sane option.
 #+begin_src emacs-lisp
@@ -80,11 +89,6 @@ By default long lines will go off the screen, I like to have them wrap on the ne
 #+begin_src emacs-lisp
   (global-visual-line-mode 1)
 #+end_src
-** Prettify symbols
-Changes some words into symbols (eg. lambda)
-#+begin_src emacs-lisp
-(when window-system (global-prettify-symbols-mode t))
-#+end_src
 ** No backups
 I don't need backup or autosave files so I disable them. By default emacs creates backup files as =filename~= in the files directory. Better behavior would be to have a seperate directory for all backups but I don't feel the need for it.
 #+begin_src emacs-lisp
@@ -101,12 +105,15 @@ By default =M-f= / =M-b= treat thisIsOneWord as a single word instead. I want it
    (global-subword-mode 1)
  #+end_src
 ** Electric
-This creates matching paranthesis.
+This creates matching paranthesis/brackets etc.
 #+begin_src emacs-lisp
   (setq electric-pair-pairs '(
-			      (?\( . ?\))
-			      (?\[ . ?\])
-			      ))
+                  (?\( . ?\))
+                  (?\[ . ?\])
+                  (?\{ . ?\})
+                  (?\" . ?\")
+                  (?\' . ?\')
+                  ))
   (electric-pair-mode t)
 #+end_src
 ** Buffers
@@ -134,6 +141,10 @@ Sometimes I want to close all buffers to start fresh, this makes it a single com
     (interactive)
     (mapc 'kill-buffer (buffer-list)))
   (global-set-key (kbd "C-M-s-k") 'close-all-buffers)
+#+end_src
+** Defer loading packages for quicker startup
+#+begin_src emacs-lisp
+  (setq use-package-always-defer t)
 #+end_src
 * Org
 Org was one of the main reasons why I decided to start using Emacs. I will never have to write documents in any other way. Org mode can do it all.
@@ -192,6 +203,11 @@ I use super+return to open terminal in my Window manager. It makes sense to use 
 #+end_src
 * Navigation
 Packages and improvements for navigation in emacs.
+** Dired
+Easier key binding to open dired.
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c d") 'dired-other-window)
+#+end_src
 ** IDO
 Ido mode improves buffer switching and prompts.
 *** enable ido mode
@@ -232,6 +248,13 @@ Which key shows auto-completion for emacs commands.
   :init
   (which-key-mode))
 #+end_src
+** swiper
+Swiper no swiping! Improves the default search functionality.
+#+begin_src emacs-lisp
+  (use-package swiper
+      :ensure t
+      :bind ("C-s" . 'swiper))
+#+end_src
 ** avy
 Avy allows easy navigation to characters in buffer.
 #+begin_src emacs-lisp
@@ -239,6 +262,25 @@ Avy allows easy navigation to characters in buffer.
     :ensure t
     :bind
     ("M-s" . avy-goto-char))
+#+end_src
+** rg
+Ripgrep to search for file contents. Previously I used my [[./.local/bin/ff.sh][fuzzy-finding script]] from the terminal but it is much nicer to do from inside Emacs.
+#+begin_src emacs-lisp
+  (use-package rg
+    :ensure t
+    :config
+    (setq rg-group-result t)
+    (setq rg-hide-command t)
+    (setq rg-show-columns nil)
+    (setq rg-show-header t)
+    (setq rg-custom-type-aliases nil)
+    (setq rg-default-alias-fallback "all")
+    :bind
+    (:map rg-mode-map
+          ("C-n" . next-line)
+          ("C-p" . previous-line)
+          ("M-n" . rg-next-file)
+          ("M-p" . tg-prev-file)))
 #+end_src
 ** switch-window
 Improves window switching when multiple splits are used. =C-x o=.
@@ -300,7 +342,7 @@ Useful packages and configurations to improve editing text in emacs.
     (interactive)
     (backward-word)
     (kill-word 1))
-  (global-set-key (kbd "C-c d") 'kill-whole-word)
+  (global-set-key (kbd "M-d") 'kill-whole-word)
 #+end_src
 ** Copy whole line
 #+begin_src emacs-lisp
@@ -326,6 +368,27 @@ Browse kill ring.
   (use-package popup-kill-ring
     :ensure t
     :bind ("M-y" . popup-kill-ring))
+#+end_src
+* General packages
+Some general packages to improve how Emacs works
+** auto-package-update
+Automatically update and remove old packages.
+#+begin_src emacs-lisp
+  (use-package auto-package-update
+    :defer nil
+    :ensure t
+    :config
+    (setq auto-package-update-delete-old-versions t)
+    (setq auto-package-update-hide-results t)
+    (auto-package-update-maybe))
+#+end_src
+** async
+Use asynchronous processes when possible.
+#+begin_src emacs-lisp
+   (use-package async
+      :ensure t
+      :init
+      (dired-async-mode 1))
 #+end_src
 * Modeline
 Having a nice and useful modeline is important. I'm using the doom modeline as it is lightweight and pretty.
@@ -370,6 +433,20 @@ Having line numbers is very useful when programming.
     :config
       (setq linum-relative-current-symbol "")
       (add-hook 'prog-mode-hook 'linum-relative-mode))
+#+end_src
+** Default indentation
+#+begin_src emacs-lisp
+  (setq-default tab-width 4)
+  (setq-default standard-indent 4)
+  (setq c-basic-offset tab-width)
+  (setq-default electric-indent-inhibit t)
+  (setq-default indent-tabs-mode t)
+  (setq backward-delete-char-untabify-method 'nil)
+#+end_src
+** Comment code
+Comments/uncomments the selected region.
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 #+end_src
 ** yasnippet
 Snippets are cool.
@@ -553,12 +630,22 @@ Projectile helps with navigating files in a project. Projectile also integrates 
 #+end_src
 * Music
 Music from Emacs because why not?!
-** MPD & simple-mpc
-I tried to use EMMS but it was way too complicated for my needs. Simple MPC is a simple frontend to mpc.
-*** simple-mpc
+** MPD & Mingus
+I've used NCMPCPP as my main frontend for MPD and got very used to how it worked. I tried finding a similar package for Emacs but none of them were quite as good. EMMS seems great and has tons of features but I don't need most of them. I ended up with Mingus which is very intuitive to use coming from NCMPCPP. 
+The built in MPC client for Emacs is also okay but the playlist management on it is horrible. 
+*** Mingus
+Installs Mingus and sets keybindings.
 #+begin_src emacs-lisp
-  (use-package simple-mpc
-    :ensure t)
+  (use-package mingus
+    :ensure t
+    :bind
+    ("s-m m" . mingus)
+    ("s-SPC" . mingus-pause)
+    ("s-," . mingus-vol-down)
+    ("s-." . mingus-vol-up)
+    ("s-n" . mingus-next)
+    ("s-n" . mingus-prev)
+    ("s-c" . mingus-clear))
 #+end_src
 *** MPC
 Setups mpc to use the right host:port
@@ -569,21 +656,20 @@ Setups mpc to use the right host:port
 **** Start MPD daemon from emacs
 #+begin_src emacs-lisp
   (defun mpd/start-music-daemon ()
-    "Start MPD, connects to it and syncs the metadata cache."
+    "Starts MPD daemon"
     (interactive)
     (shell-command "mpd")
     (mpd/update-database)
-    (message "MPD Started!"))
+    (message "MPD Started"))
   (global-set-key (kbd "s-m c") 'mpd/start-music-daemon)
 #+end_src
 **** Kill MPD daemon from emacs
 #+begin_src emacs-lisp
   (defun mpd/kill-music-daemon ()
-    "Stops playback and kill the music daemon."
+    "Kills MPD daemon"
     (interactive)
-    (mpc-stop)
     (call-process "killall" nil nil nil "mpd")
-    (message "MPD Killed!"))
+    (message "MPD Killed"))
   (global-set-key (kbd "s-m k") 'mpd/kill-music-daemon)
 #+end_src
 **** Update MPD database from emacs
@@ -592,6 +678,6 @@ Setups mpc to use the right host:port
     "Updates the MPD database synchronously."
     (interactive)
     (call-process "mpc" nil nil nil "update")
-    (message "MPD Database Updated!"))
+    (message "MPD Database Updated"))
   (global-set-key (kbd "s-m u") 'mpd/update-database)
 #+end_src
