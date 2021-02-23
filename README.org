@@ -1,0 +1,62 @@
+#+STARTUP: overview
+#+TITLE: Miika's dotfiles
+#+CREATOR: Miika Nissi
+#+LANGUAGE: en
+#+OPTIONS: num:nil
+#+html: <p align="center"><a name="top" href="#my-dotfiles"><img height="60%" width="100%" src="./.config/gallery/dotfiles.png"/></a></p>
+** My dotfiles
+#+html: <p><a href="https://miikanissi.com"><img src="./.config/gallery/desktop_bspwm_gruvbox_full.jpg" align="right" width="400px"/></a></p>
+This is my personal configuration for a custom Desktop Environment, including useful scripts and a list of all the programs I use.
+
+Here are the details of my setup:
+- *Distro*: [[https://www.archlinux.org][Arch]] - I found out Arch is actually the most stable distro to use.
+- *WM*: [[https://github.com/baskerville/bspwm][BSPWM]], [[https://github.com/ch11ng/exwm][EXWM]] - BSPWM is my main tiling window manager. Also playing with Emacs as a window manager.
+- *DM*: [[https://github.com/lightdm][LightDM]] - Simple display manager with easy setup.
+- *Shell*: [[https://www.gnu.org/software/bash][Bash]] - I like bash.
+- *Terminal*: [[https://github.com/alacritty/alacritty][Alacritty]], [[https://www.emacswiki.org/emacs/AnsiTerm][Ansi Term]] - Alacritty is my main terminal, Ansi Term inside Emacs.
+- *Panel*: [[https://github.com/polybar/polybar][Polybar]] - Minimal and customizable bar written in C++.
+- *Compositor*: [[https://github.com/yshui/picom][Picom]] - Helps remove screentearing and adds transparency.
+- *Notifications*: [[https://github.com/dunst-project/dunst][Dunst]] - Minimal and easy to setup notification daemon.
+- *Launcher*: [[https://github.com/davatorium/rofi][Rofi]] - Run prompt and dmenu alternative to use with scripts.
+- *Hotkeys*: [[https://github.com/baskerville/sxhkd][SXHKD]] - Minimal hotkey daemon.
+- *Text Editor*: [[https://www.gnu.org/software/emacs][Emacs]], [[https://www.vim.org][Vim]] - Fell in love with Emacs, slowly transitioning to doing everything inside Emacs.
+- *Music Player*: [[https://github.com/MusicPlayerDaemon/MPD][MPD]] - Music player daemon with multiple frontends to choose from.
+** Colors
+#+html: <h3 align="center"><a href="https://github.com/morhetz/gruvbox">Gruvbox</a></h3>
+#+html: <p align="center"><img src="./.config/gallery/gruvbox-template.png" height="60%" width="100%"/></p>
+** Scripts
+Most of my useful shell scripts are included in [[./.local/bin/][.local/bin/]].
+
+Here are some example scripts:
+- [[./.local/bin/rofi_dman.sh][rofi_dman.sh]] is a script to manage devices with rofi. Features include mounting, unmounting, ejecting and listing devices.
+- [[./.local/bin/ff.sh][ff.sh]] is a script that uses FZF to fuzzy find files by name, filetype and/or content.
+- [[./.local/bin/bspwm_setup_monitors.sh][bspwm_setup_monitors.sh]] is a script that allows hotplugging a laptop with external monitors for BSPWM and Polybar. 
+** Installation
+To install and integrate with your system you need to checkout the master branch and initialize submodules:
+#+begin_src bash
+  git --work-tree $HOME --git-dir $HOME/dotfiles init
+  git --work-tree $HOME --git-dir $HOME/dotfiles remote add-t \* -f origin git@github.com:miikanissi/dotfiles.git
+  git --work-tree $HOME --git-dir $HOME/dotfiles checkout master
+  git --work-tree $HOME --git-dir $HOME/dotfiles submodule update --init
+  git --work-tree $HOME --git-dir $HOME/dotfiles config --local status.showUntrackedFiles no
+#+end_src
+Or you can just clone the repository with submodules and move the files you need to their correct locations.
+#+begin_src bash
+  git clone --recurse-submodules https://github.com/miikanissi/dotfiles.git
+#+end_src
+Elementary cursor theme rquires moving icons to their correct location:
+#+begin_src bash
+  cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
+#+end_src
+Vimix icon theme needs to be installed with:
+#+begin_src bash
+  cd ~/.icons/vimix-icon-theme/ && ./install.sh -a
+#+end_src
+Dependencies are not automatically installed, but to see a full list of packages I'm using for Arch Linux check [[./program_list_arch.csv][program_list_arch.csv]].
+** Links / Credits
+To stay up to date with me visit my [[https://miikanissi.com/blogindex][blog]].
+Credits:
+- [[https://github.com/daedreth/UncleDavesEmacs][Uncle Dave]] - He has an amazing youtube series that covers configuring Emacs from scratch.
+- [[https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ][Lukewh]] - He also has a great youtube series on configuring Emacs.
+- [[https://gitlab.com/protesilaos/dotfiles][Protesilaos Stavrou]] - Very in-depth Youtube videos about Emacs.
+- [[https://github.com/LukeSmithxyz][Luke Smith]] - He has some nice youtube tutorials on different Linux software and also has a cool Linux configuration, LARBS.
