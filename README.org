@@ -56,7 +56,9 @@ Dependencies are not automatically installed, but to see a full list of packages
 ** Links / Credits
 To stay up to date with me visit my [[https://miikanissi.com/blogindex][blog]].
 Credits:
+- [[https://wiki.archlinux.org/][Arch Wiki]] - Arch Wiki is the best linux resource out there.
+- [[https://www.emacswiki.org/][Emacs Wiki]] - Emacs Wiki is a great resource for configuring Emacs.
 - [[https://github.com/daedreth/UncleDavesEmacs][Uncle Dave]] - He has an amazing youtube series that covers configuring Emacs from scratch.
 - [[https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ][Lukewh]] - He also has a great youtube series on configuring Emacs.
-- [[https://gitlab.com/protesilaos/dotfiles][Protesilaos Stavrou]] - Very in-depth Youtube videos about Emacs.
+- [[https://gitlab.com/protesilaos/dotfiles][Protesilaos Stavrou]] - Very in-depth Youtube videos about Emacs and some other Unix related stuff.
 - [[https://github.com/LukeSmithxyz][Luke Smith]] - He has some nice youtube tutorials on different Linux software and also has a cool Linux configuration, LARBS.

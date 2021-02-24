@@ -14,12 +14,12 @@ output DP-2-3
 off
 output eDP-1
 crtc 1
-mode 1600x900
+mode 1920x1080
 pos 0x0
-rate 60.01
+rate 60.00
 output DP-2-2
 crtc 0
 mode 1920x1080
-pos 1600x0
+pos 1920x0
 primary
 rate 60.00

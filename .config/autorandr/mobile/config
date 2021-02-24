@@ -16,7 +16,7 @@ output DP-2-3
 off
 output eDP-1
 crtc 0
-mode 1600x900
+mode 1920x1080
 pos 0x0
 primary
 rate 60.01

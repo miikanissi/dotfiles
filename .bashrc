@@ -1,5 +1,5 @@
-# ~/.bashrc Miika Nissi
-# https://miikanissi.com
+# ~/.bashrc
+# by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
@@ -20,21 +20,16 @@ shopt -s checkwinsize
 # cd by just typing a dir name
 shopt -s autocd
 
-# vim mode for bash
-set -o vi
-
 # prompt
-export PS1='\[\e[0;91m\][\[\e[0;90m\]\u\[\e[0;91m\]@\[\e[0;90m\]\h\[\e[0;91m\]:\[\e[m\] \[\e[0;31m\]\W\[\e[0;91m\]]\[\e[0;90m\]$\[\e[m\] \[\e0'
-
+PS1='\[\e[0;33m\][\[\e[0;30m\]\u\[\e[0;33m\]@\[\e[0;30m\]\h\[\e[0;33m\]: \[\e[0;1;31m\]\W\[\e[0;33m\]]\[\e[0;30m\]$ \[\e[0m\]'
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # navigation
 alias ..='cd ..'
 alias ...='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias .5='cd ../../../../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # binds
 bind -x '"\C-l":clear'
@@ -127,7 +122,7 @@ _gen_fzf_default_opts
 # exports
 export BROWSER=/usr/bin/brave
 export TERMINAL=/usr/bin/alacritty
-export EDITOR=/usr/bin/vim
+export EDITOR="/usr/bin/emacs -nw"
 export LOCATION="Riihimäki"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
