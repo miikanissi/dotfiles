@@ -44,7 +44,12 @@ Or you can just clone the repository with submodules and move the files you need
 #+begin_src bash
   git clone --recurse-submodules https://github.com/miikanissi/dotfiles.git
 #+end_src
-Elementary cursor theme rquires moving icons to their correct location:
+I use BlexMono Nerd Font as my main font for GTK and Emacs. You can use my script to download and install it for your system:
+#+begin_src bash
+  chmod +x ~/.local/bin/install_nerd_fonts_blex.sh
+  install_nerd_fonts_blex.sh
+#+end_src
+Elementary cursor theme requires moving icons to their correct location:
 #+begin_src bash
   cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
 #+end_src
