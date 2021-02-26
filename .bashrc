@@ -21,7 +21,7 @@ shopt -s checkwinsize
 shopt -s autocd
 
 # prompt
-PS1='\[\e[0;33m\][\[\e[0;30m\]\u\[\e[0;33m\]@\[\e[0;30m\]\h\[\e[0;33m\]: \[\e[0;1;31m\]\W\[\e[0;33m\]]\[\e[0;30m\]$ \[\e[0m\]'
+PS1='\[\e[0;33m\][\[\e[0m\]\u\[\e[0;33m\]@\[\e[0m\]\h\[\e[0;33m\]: \[\e[0;1;31m\]\W\[\e[0;33m\]]\[\e[0m\]$ \[\e[0m\]'
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 

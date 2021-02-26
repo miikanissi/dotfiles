@@ -50,6 +50,11 @@ These are basic default settings that enhance the UI and functionality. No exter
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 #+end_src
+** Garbage collection
+Allow 20MB of memory (instead of 0.76MB) before calling garbage collection. This means GC runs less often, which speeds up some operations.
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold 20000000)
+#+end_src
 ** No startup message
 I use a replacement for the default startup menu, =dashboard= package.
 #+begin_src emacs-lisp
@@ -99,6 +104,11 @@ I don't need backup or autosave files so I disable them. By default emacs create
 #+begin_src emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
+** Confirm before closing Emacs
+Sometimes I accidentally do =C-x s=, =C-x c= from muscle memory of working on a single file with the terminal Emacs version. So I actually like having a confirmation before closing Emacs.
+#+begin_src emacs-lisp
+  (setq confirm-kill-emacs 'y-or-n-p)
+#+end_src
 ** Buffers
 Improve default emacs buffers.
 *** Use ibuffer instead of switch-to-buffer
@@ -124,6 +134,15 @@ Sometimes I want to close all buffers to start fresh, this makes it a single com
     (interactive)
     (mapc 'kill-buffer (buffer-list)))
   (global-set-key (kbd "C-M-s-k") 'close-all-buffers)
+#+end_src
+** Always follow symlinks
+When opening a file, always follow symlinks.
+#+begin_src emacs-lisp
+  (setq vc-follow-symlinks t)
+#+end_src
+** Auto reload files on change
+#+begin_src emacs-lisp
+  (global-auto-revert-mode t)
 #+end_src
 * Org
 Org was one of the main reasons why I decided to start using Emacs. I will never have to write documents in any other way. Org mode can do it all.
@@ -166,7 +185,7 @@ One of the reasons that makes org so special is the ability to export files in m
     :ensure t)
 #+end_src
 * Terminal
-I don't usually use the terminal inside emacs, but it is nice to have conveniently available.
+I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them. 
 ** Setting default shell to bash
 Emacs asks for the shell you want to use every time you launch the terminal. We can skip that by adding a default shell.
 #+begin_src emacs-lisp
@@ -180,6 +199,46 @@ I use super+return to open terminal in my Window manager. It makes sense to use 
 #+begin_src emacs-lisp
 (global-set-key (kbd "<M-s-return>") 'ansi-term)
 #+end_src
+** Disable line highlight and beacon in terminal
+#+begin_src emacs-lisp
+  (add-hook 'term-mode-hook (lambda ()
+                              (setq-local global-hl-line-mode nil)
+                              (setq-local beacon-mode nil)))
+#+end_src
+** Disable running process warning for terminal
+#+begin_src emacs-lisp
+  (defun set-no-process-query-on-exit ()
+    (let ((proc (get-buffer-process (current-buffer))))
+      (when (processp proc)
+        (set-process-query-on-exit-flag proc nil))))
+
+  (add-hook 'term-exec-hook 'set-no-process-query-on-exit)
+#+end_src
+** Set UTF-8 in the terminal
+#+begin_src emacs-lisp
+  (defun my-term-use-utf8 ()
+    (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
+  (add-hook 'term-exec-hook 'my-term-use-utf8)
+#+end_src
+** Make URLs clickable
+#+begin_src emacs-lisp
+  (defun my-term-hook ()
+    (goto-address-mode))
+
+  (add-hook 'term-mode-hook 'my-term-hook)
+#+end_src
+** Allow pasting with C-y
+#+begin_src emacs-lisp
+  (defun my-term-paste (&optional string)
+   (interactive)
+   (process-send-string
+    (get-buffer-process (current-buffer))
+    (if string string (current-kill 0))))
+
+  (defun my-term-hook ()
+    (goto-address-mode)
+    (define-key term-raw-map "\C-y" 'my-term-paste))
+#+end_src
 * Navigation
 Packages and improvements for navigation in emacs.
 ** Subword
@@ -188,9 +247,17 @@ By default =M-f= / =M-b= treat thisIsOneWord as a single word instead. I want it
    (global-subword-mode 1)
  #+end_src
 ** Dired
-Easier key binding to open dired.
+*** Easier key binding to open dired.
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c d") 'dired-other-window)
+#+end_src
+*** Human readable units
+#+begin_src emacs-lisp
+  (setq-default dired-listing-switches "-alh")
+#+end_src
+*** Recursively copy by default
+#+begin_src emacs-lisp
+  (setq dired-recursive-copies 'always)
 #+end_src
 ** IDO
 Ido mode improves buffer switching and prompts.
@@ -277,6 +344,17 @@ Improves window switching when multiple splits are used. =C-x o=.
     (setq switch-window-threshold 2)
     :bind
     ([remap other-window] . switch-window))
+#+end_src
+** windmove
+Instead of using =C-x o= to switch between windows you can also use the built in windmove functionality to move with Shift and the arrow keys.
+#+begin_src emacs-lisp
+  (when (fboundp 'windmove-default-keybindings)
+    (windmove-default-keybindings))
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
+  (setq org-support-shift-select 'always)
 #+end_src
 ** beacon
 Beacon flashes the cursor when moving between buffers/windows. It helps to quickly find the current cursor position.
@@ -479,6 +557,7 @@ Having line numbers is very useful when programming.
   (setq-default tab-width 4)
   (setq-default standard-indent 4)
   (setq c-basic-offset tab-width)
+  (setq cperl-indent-level tab-width)
   (setq-default electric-indent-inhibit t)
   (setq-default indent-tabs-mode t)
   (setq backward-delete-char-untabify-method 'nil)
@@ -634,7 +713,8 @@ Improves HTML documents when using embed parts and blocks. I Mainly use it for D
           '(("css" . (ac-source-css-property))
             ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
     (setq web-mode-enable-auto-closing t)
-    (setq web-mode-markup-indent-offset 4))
+    (setq web-mode-markup-indent-offset 4)
+    (setq web-mode-code-indent-offset 4))
 #+end_src
 ** rainbow-mode
 Rainbow mode colorizes color names in buffers.
@@ -731,3 +811,6 @@ Setups mpc to use the right host:port
     (message "MPD Database Updated"))
   (global-set-key (kbd "s-m u") 'mpd/update-database)
 #+end_src
+* Email
+Most email clients are slow, ugly, bloated, lack features or all of the above so using email in Emacs seems like a good solution. Most email is sent as text/plain in addition to text/html anyway so having to render HTML shouldn't be a problem. My configuration includes a hotkey to open a HTML email in a browser as well.
+

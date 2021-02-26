@@ -21,8 +21,9 @@
    '("6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" default))
  '(line-number-mode nil)
  '(package-selected-packages
-   '(symon fancy-battery diminish rg swiper auto-package-update mingus simple-mpc emms magit company-shell company-c-headers flycheck-clang-analyzer flycheck yasnippet-snippets yasnippet prettier-js web-mode company-jedi company-irony ox-twbs htmlize popup-kill-ring linum-relative ido-completing-read+ async doom-modeline spaceline company dashboard rainbow-delimiters sudo-edit switch-window rainbow-mode avy smex ido-vertical-mode beacon gruvbox-theme which-key use-package))
- '(size-indication-mode t))
+   '(eterm-256color symon fancy-battery diminish rg swiper auto-package-update mingus simple-mpc emms magit company-shell company-c-headers flycheck-clang-analyzer flycheck yasnippet-snippets yasnippet prettier-js web-mode company-jedi company-irony ox-twbs htmlize popup-kill-ring linum-relative ido-completing-read+ async doom-modeline spaceline company dashboard rainbow-delimiters sudo-edit switch-window rainbow-mode avy smex ido-vertical-mode beacon gruvbox-theme which-key use-package))
+ '(size-indication-mode t)
+ '(symon-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -142,6 +142,8 @@ command! MakeTags !ctags -R .   " recursively creates ctags in directory
 command! Reload execute "source ~/.vim/vimrc"
 " always fold vimrc
 au BufRead vimrc normal zM
+" clear screen when vim exit
+au VimLeave * :!clear
 "}}}
 
 " PLUGINS{{{
