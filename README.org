@@ -30,7 +30,7 @@ Most of my useful shell scripts are included in [[./.local/bin/][.local/bin/]].
 Here are some example scripts:
 - [[./.local/bin/rofi_dman.sh][rofi_dman.sh]] is a script to manage devices with rofi. Features include mounting, unmounting, ejecting and listing devices.
 - [[./.local/bin/ff.sh][ff.sh]] is a script that uses FZF to fuzzy find files by name, filetype and/or content.
-- [[./.local/bin/bspwm_setup_monitors.sh][bspwm_setup_monitors.sh]] is a script that allows hotplugging a laptop with external monitors for BSPWM and Polybar. 
+- [[./.local/bin/bspwm_setup_monitors.sh][bspwm_setup_monitors.sh]] is a script that allows hotplugging a laptop with external monitors for BSPWM and Polybar.
 ** Installation
 To install and integrate with your system you need to checkout the master branch and initialize submodules:
 #+begin_src bash
@@ -60,10 +60,11 @@ Vimix icon theme needs to be installed with:
 Dependencies are not automatically installed, but to see a full list of packages I'm using for Arch Linux check [[./program_list_arch.csv][program_list_arch.csv]].
 ** Links / Credits
 To stay up to date with me visit my [[https://miikanissi.com/blogindex][blog]].
-Credits:
+Links:
 - [[https://wiki.archlinux.org/][Arch Wiki]] - Arch Wiki is the best linux resource out there.
 - [[https://www.emacswiki.org/][Emacs Wiki]] - Emacs Wiki is a great resource for configuring Emacs.
 - [[https://github.com/daedreth/UncleDavesEmacs][Uncle Dave]] - He has an amazing youtube series that covers configuring Emacs from scratch.
+- [[https://github.com/munen/emacs.d/][Munen]] - Great and easy to follow Emacs config.
 - [[https://www.youtube.com/channel/UC7FpGodjczWY8mDV1KvP2pQ][Lukewh]] - He also has a great youtube series on configuring Emacs.
 - [[https://gitlab.com/protesilaos/dotfiles][Protesilaos Stavrou]] - Very in-depth Youtube videos about Emacs and some other Unix related stuff.
 - [[https://github.com/LukeSmithxyz][Luke Smith]] - He has some nice youtube tutorials on different Linux software and also has a cool Linux configuration, LARBS.

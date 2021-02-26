@@ -8,7 +8,7 @@
 =git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
 
 Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
-This configuration is written in Org-mode and is self documented. 
+This configuration is written in Org-mode and is self documented.
 
 ** Extra dependencies
 *** Fonts
@@ -39,6 +39,12 @@ I don't think Gruvbox is the prettiest theme out there, but it is VERY easy on t
     :ensure t
     :init
     (load-theme 'gruvbox-dark-hard t))
+#+end_src
+** Font
+#+begin_src emacs-lisp
+  (when (eq system-type 'gnu/linux)
+        (add-to-list 'default-frame-alist
+                     '(font . "BlexMono Nerd Font 10")))
 #+end_src
 * Basic Settings
 These are basic default settings that enhance the UI and functionality. No external packages used here.
@@ -90,7 +96,7 @@ Very helpful to avoid "losing" your cursor.
 (show-paren-mode 1)
 #+end_src
 ** Visual line mode
-By default long lines will go off the screen, I like to have them wrap on the next line instead. 
+By default long lines will go off the screen, I like to have them wrap on the next line instead.
 #+begin_src emacs-lisp
   (global-visual-line-mode 1)
 #+end_src
@@ -112,7 +118,7 @@ Sometimes I accidentally do =C-x s=, =C-x c= from muscle memory of working on a 
 ** Buffers
 Improve default emacs buffers.
 *** Use ibuffer instead of switch-to-buffer
-This should be the default option in the first place. 
+This should be the default option in the first place.
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-x b") 'ibuffer)
   (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
@@ -184,8 +190,12 @@ One of the reasons that makes org so special is the ability to export files in m
   (use-package ox-twbs
     :ensure t)
 #+end_src
+*** Don't export HTML validation link
+#+begin_src emacs-lisp
+  (setq org-html-validation-link nil)
+#+end_src
 * Terminal
-I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them. 
+I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them.
 ** Setting default shell to bash
 Emacs asks for the shell you want to use every time you launch the terminal. We can skip that by adding a default shell.
 #+begin_src emacs-lisp
@@ -195,7 +205,7 @@ Emacs asks for the shell you want to use every time you launch the terminal. We 
    (ad-activate 'ansi-term)
 #+end_src
 ** Open terminal hotkey
-I use super+return to open terminal in my Window manager. It makes sense to use a similar binding for emacs terminal. 
+I use super+return to open terminal in my Window manager. It makes sense to use a similar binding for emacs terminal.
 #+begin_src emacs-lisp
 (global-set-key (kbd "<M-s-return>") 'ansi-term)
 #+end_src
@@ -428,12 +438,61 @@ This creates matching paranthesis/brackets etc.
 	(point-at-eol)))))
   (global-set-key (kbd "C-c w") 'copy-whole-line)
 #+end_src
-** Sudo edit
-Sometimes I want to edit files that need root permissions, this package makes it very easy. Just press a hotkey and select a file to edit as sudo.
+** Move current line up or down
 #+begin_src emacs-lisp
-  (use-package sudo-edit
-    :ensure t
-    :bind ("C-c s" . sudo-edit))
+  (defun move-line-up ()
+    "Move up the current line."
+    (interactive)
+    (transpose-lines 1)
+    (forward-line -2)
+    (indent-according-to-mode))
+
+  (defun move-line-down ()
+    "Move down the current line."
+    (interactive)
+    (forward-line 1)
+    (transpose-lines 1)
+    (forward-line -1)
+    (indent-according-to-mode))
+
+  (global-set-key (kbd "M-<down>") 'move-line-down)
+  (global-set-key (kbd "M-<up>") 'move-line-up)
+#+end_src
+** Delete trailing whitespace
+Delete trailing whitespace in all modes except Markdown as it uses two trailing whitespaces as a signal to create a line break.
+#+begin_src emacs-lisp
+  (add-hook 'before-save-hook '(lambda()
+                                (when (not (or (derived-mode-p 'markdown-mode)))
+                                  (delete-trailing-whitespace))))
+#+end_src
+** Save as sudo
+Sometimes I want to edit files that need root permissions, this small script makes it very easy.
+#+begin_src emacs-lisp
+  (defun ph/sudo-file-name (filename)
+    "Prepend '/sudo:root@`system-name`:' to FILENAME if appropriate.
+  This is, when it doesn't already have a sudo-prefix."
+    (if (not (or (string-prefix-p "/sudo:root@localhost:"
+                                  filename)
+                 (string-prefix-p (format "/sudo:root@%s:" system-name)
+                                  filename)))
+        (format "/sudo:root@%s:%s" system-name filename)
+      filename))
+
+  (defun ph/sudo-save-buffer ()
+    "Save FILENAME with sudo if the user approves."
+    (interactive)
+    (when buffer-file-name
+      (let ((file (ph/sudo-file-name buffer-file-name)))
+        (if (yes-or-no-p (format "Save file as %s ? " file))
+            (write-file file)))))
+
+  (advice-add 'save-buffer :around
+              '(lambda (fn &rest args)
+                 (when (or (not (buffer-file-name))
+                           (not (buffer-modified-p))
+                           (file-writable-p (buffer-file-name))
+                           (not (ph/sudo-save-buffer)))
+                   (call-interactively fn args))))
 #+end_src
 ** popup kill ring
 Browse kill ring.
@@ -526,6 +585,10 @@ System monitor with symon.
 #+begin_src emacs-lisp
   (use-package symon
     :ensure t
+    :init
+    (setq symon-delay 2)
+    (setq symon-sparkline-type 'plain)
+    (symon-mode)
     :bind
     ("M-s-h" . symon-mode))
 #+end_src
@@ -552,15 +615,27 @@ Having line numbers is very useful when programming.
       (setq linum-relative-current-symbol "")
       (add-hook 'prog-mode-hook 'linum-relative-mode))
 #+end_src
-** Default indentation
+** Indentation
+*** Default indentation for different modes
 #+begin_src emacs-lisp
   (setq-default tab-width 4)
   (setq-default standard-indent 4)
   (setq c-basic-offset tab-width)
   (setq cperl-indent-level tab-width)
   (setq-default electric-indent-inhibit t)
-  (setq-default indent-tabs-mode t)
+  (setq-default indent-tabs-mode nil)
   (setq backward-delete-char-untabify-method 'nil)
+  (setq web-mode-enable-auto-closing t)
+  (setq web-mode-markup-indent-offset 4)
+  (setq web-mode-code-indent-offset 4)
+  (setq nxml-child-indent 4 nxml-attribute-indent 4)
+  (setq python-indent 4)
+  (setq css-indent-offset 2)
+  (setq js-indent-level 4)
+#+end_src
+*** Auto-indent with Return key
+#+begin_src emacs-lisp
+  (define-key global-map (kbd "RET") 'newline-and-indent)
 #+end_src
 ** Comment code
 Comments/uncomments the selected region.
@@ -701,7 +776,7 @@ Auto-completion, snippets, syntax checking for bash.
       (add-hook 'shell-mode-hook 'shell-mode-company-init))
 #+end_src
 ** web-mode
-Improves HTML documents when using embed parts and blocks. I Mainly use it for Django development. 
+Improves HTML documents when using embed parts and blocks. I Mainly use it for Django development.
 #+begin_src emacs-lisp
   (use-package web-mode
     :ensure t
@@ -711,10 +786,7 @@ Improves HTML documents when using embed parts and blocks. I Mainly use it for D
           '(("django" . "\\.html\\'")))
     (setq web-mode-ac-sources-alist
           '(("css" . (ac-source-css-property))
-            ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-    (setq web-mode-enable-auto-closing t)
-    (setq web-mode-markup-indent-offset 4)
-    (setq web-mode-code-indent-offset 4))
+            ("html" . (ac-source-words-in-buffer ac-source-abbrev)))))
 #+end_src
 ** rainbow-mode
 Rainbow mode colorizes color names in buffers.
@@ -725,7 +797,7 @@ Rainbow mode colorizes color names in buffers.
     (add-hook 'prog-mode-hook #'rainbow-mode)
     (rainbow-mode 1))
 #+end_src
-Ranbow delimiters mode colorizes matrching paranthesis. Very useful for elisp. 
+Ranbow delimiters mode colorizes matrching paranthesis. Very useful for elisp.
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
@@ -738,7 +810,7 @@ Activate snippets in ReST mode
 #+begin_src emacs-lisp
   (add-hook 'rst-mode-hook 'yas-minor-mode)
 #+end_src
-* Git
+** Git
 I tend to mostly do git commands from the terminal but I'm trying to learn how to use magit instead.
 #+begin_src emacs-lisp
   (use-package magit
@@ -749,7 +821,7 @@ I tend to mostly do git commands from the terminal but I'm trying to learn how t
     :bind
     ("M-g" . magit-status))
 #+end_src
-* Projectile
+** Projectile
 Projectile helps with navigating files in a project. Projectile also integrates nicely with dashboard.
 #+begin_src emacs-lisp
   (use-package projectile
@@ -761,8 +833,8 @@ Projectile helps with navigating files in a project. Projectile also integrates 
 * Music
 Music from Emacs because why not?!
 ** MPD & Mingus
-I've used NCMPCPP as my main frontend for MPD and got very used to how it worked. I tried finding a similar package for Emacs but none of them were quite as good. EMMS seems great and has tons of features but I don't need most of them. I ended up with Mingus which is very intuitive to use coming from NCMPCPP. 
-The built in MPC client for Emacs is also okay but the playlist management on it is horrible. 
+I've used NCMPCPP as my main frontend for MPD and got very used to how it worked. I tried finding a similar package for Emacs but none of them were quite as good. EMMS seems great and has tons of features but I don't need most of them. I ended up with Mingus which is very intuitive to use coming from NCMPCPP.
+The built in MPC client for Emacs is also okay but the playlist management on it is horrible.
 *** Mingus
 Installs Mingus and sets keybindings.
 #+begin_src emacs-lisp
@@ -811,6 +883,5 @@ Setups mpc to use the right host:port
     (message "MPD Database Updated"))
   (global-set-key (kbd "s-m u") 'mpd/update-database)
 #+end_src
-* Email
-Most email clients are slow, ugly, bloated, lack features or all of the above so using email in Emacs seems like a good solution. Most email is sent as text/plain in addition to text/html anyway so having to render HTML shouldn't be a problem. My configuration includes a hotkey to open a HTML email in a browser as well.
-
+* Email *SOON*
+Most email clients are slow, ugly, bloated, lack features or all of the above so using email in Emacs seems like a good solution. Most email is sent as text/plain in addition to text/html anyway so having to render HTML shouldn't be a problem.
