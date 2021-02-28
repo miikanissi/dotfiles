@@ -10,7 +10,10 @@
 ## rule file: /usr/lib/udev/rules.d/40-monitor-hotplug.rules
 ## autorandr udev rule:
 ##   ACTION=="change", SUBSYSTEM=="drm", RUN+="/bin/systemctl start --no-block autorandr.service"
-
+WM=$(wmctrl -m | grep Name: | awk '{print $2}')
+if [[ "$WM" != "BSPWM" ]]; then
+  exit 0
+fi
 PRIMARY_MONITOR=$(xrandr | grep primary | cut -d ' ' -f 1)
 MONITORS=($(xrandr --listactivemonitors | awk '{print $4}' | sed '/^$/d'))
 BSPWM_MONITORS=$(bspc query -M --names)

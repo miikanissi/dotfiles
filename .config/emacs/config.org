@@ -4,6 +4,8 @@
 #+LANGUAGE: en
 #+OPTIONS: num:nil
 #+html: <p align="center"><img src="./screenshots/dashboard.png"/></p>
+* Intro
+On Feb 19, 2021, I decided to fully jump into using Emacs as my "operating system". Since then I have been building additional features on top of the base Emacs program. My entire configuration is in this single Org-mode file so it is very portable from computer to computer.
 * Installation
 =git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
 
@@ -14,6 +16,7 @@ This configuration is written in Org-mode and is self documented.
 *** Fonts
 I currently use DejaVu Sans Mono Nerd Font from [[https://github.com/ryanoasis/nerd-fonts][Nerd fonts]]. You need to make sure this font is installed for emacs to use it.
 *** From package manager:
+- =wmctrl=, important! this small program detects if WM is running, if not then EXWM is used.
 - =clang=, for c/c++ completion.
 - =python-virtualenv=, for python completion.
 - =texlive-core=, for exporting org documents to pdf.
@@ -46,6 +49,191 @@ I don't think Gruvbox is the prettiest theme out there, but it is VERY easy on t
         (add-to-list 'default-frame-alist
                      '(font . "BlexMono Nerd Font 10")))
 #+end_src
+* Desktop Environment
+Everything regarding the WM functionality is under this section. To run Emacs as a window manager you need to create the following desktop entry in =/usr/share/xsessions/= directory.
+#+begin_src bash
+[Desktop Entry]
+Name=EXWM
+Comment=Emacs as a Window Manager
+Exec=emacs -mm --debug-init
+Type=Application
+#+end_src
+** Default browser
+I use Brave.
+#+begin_src emacs-lisp
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "brave")
+#+end_src
+** exwm
+I first heard about exwm from my professor in college. He said how he has never met a bad programmer who did everything inside Emacs and showed us EXWM. Naturally as I wanted to become a good programmer I started looking into Emacs. It took me two years but I think I'm finally ready to start using Emacs for basically everything, including Window Management. I still use plenty of external programs of course but technically I'm running them inside Emacs.
+*** Functions for EXWM
+These functions are called inside the EXWM main config.
+**** Rename buffer to programs class name
+#+begin_src emacs-lisp
+  (defun m/exwm-update-class ()
+    (exwm-workspace-rename-buffer exwm-class-name))
+#+end_src
+**** Run program in the background
+#+begin_src emacs-lisp
+  (defun m/run-in-background (command)
+    (let ((command-parts (split-string command "[ ]+")))
+      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+#+end_src
+**** Run program asynchronously
+#+begin_src emacs-lisp
+  (defun exwm-async-run (name)
+    (interactive)
+    (call-process name nil 0 nil))
+#+end_src
+**** Launchers
+Functions to launch programs for EXWM.
+#+begin_src emacs-lisp
+  (defun m/launch-browser ()
+    (interactive)
+    (exwm-async-run "brave"))
+
+  (defun m/screenshot ()
+    (interactive)
+    (exwm-async-run "~/.local/bin/screenshot.sh"))
+
+  (use-package dmenu
+    :ensure t)
+#+end_src
+**** Init workspace 1 on startup
+#+begin_src emacs-lisp
+  (defun m/exwm-init-hook ()
+    (exwm-workspace-switch-create 1))
+#+end_src
+*** Main EXWM config
+EXWM is initialized inside a function that checks if no other WM is running and then setups EXWM. This way you can use Emacs on a non EXWM session and EXWM won't interfere.
+ #+begin_src emacs-lisp
+   ;; only use EXWM if no other window manager is present
+   (when (get-buffer "*window-manager*")
+     (kill-buffer "*window-manager*"))
+   (when (get-buffer "*window-manager-error*")
+     (kill-buffer "*window-manager-error*"))
+   (when (executable-find "wmctrl")
+     (shell-command "wmctrl -m ; echo $?" "*window-manager*" "*window-manager-error*"))
+
+   ;; if there was an error detecting the window manager, initialize EXWM
+   (when (and (get-buffer "*window-manager-error*")
+      (eq window-system 'x))
+     ;; exwm startup goes here:
+     (use-package exwm
+       :ensure t
+       :config
+
+       ;; BASIC CONFIG
+       (require 'exwm-config)
+       ;; fringe size
+       (fringe-mode 3)
+       ;; emacs as a daemon, edit files from terminal using "emacsclient <filename>"
+       (server-start)
+       ;; fixes ido mode
+       (exwm-config-ido)
+       ;; init startup workspaces
+       (setq exwm-workspace-number 2)
+       ;; setup monitors for EXWM I have two, internal eDP-1 and external DP-2-2
+       (require 'exwm-randr)
+       ;; (setq exwm-randr-workspace-monitor-plist '(0 "DP-2-2"
+       ;; 1 "eDP-1"))
+       (add-hook 'exwm-randr-screen-change-hook
+                 (lambda ()
+                   (start-process-shell-command
+                    "xrandr" nil "xrandr --output DP-2-2 --same-as eDP-1")))
+       (exwm-randr-enable)
+
+       ;; When window class updates, use it as a buffer name
+       (add-hook 'exwm-update-class-hook #'m/exwm-update-class)
+       ;; Init hook to land on workspace 1
+       (add-hook 'exwm-init-hook #'m/exwm-init-hook)
+
+       ;; GLOBAL KEYBINDINGS
+       (setq exwm-input-global-keys
+             '(
+               ;; Reset to line mode
+               ([?\s-r] . exwm-reset)
+               ([?\s-k] . exwm-workspace-delete)
+               ([?\s-s] . exwm-workspace-swap)
+
+               ;; Move between windows
+               ([s-left] . windmove-left)
+               ([s-right] . windmove-right)
+               ([s-up] . windmove-up)
+               ([s-down] . windmove-down)
+
+               ;; Programs
+               ([?\s-w] . m/launch-browser)
+               ([s-print] . m/screenshot)
+               ([?\s-d] . dmenu)
+               ))
+
+       ;; s-<number> to switch to corresponding workspace
+       (dotimes (i 10)
+         (exwm-input-set-key (kbd (format "s-%d" i))
+                             `(lambda ()
+                                (interactive)
+                                (exwm-workspace-switch-create ,i))))
+       ;; simple shell launcher, dmenu backuXSp
+       (exwm-input-set-key (kbd "s-&")
+                           (lambda (command)
+                             (interactive (list (read-shell-command "$ ")))
+                             (start-process-shell-command command nil command)))
+
+       ;; These keys should always pass through to Emacs
+       (setq exwm-input-prefix-keys
+             '(?\C-x
+               ?\C-u
+               ?\C-h
+               ?\M-x
+               ?\M-`
+               ?\M-&
+               ?\M-:))
+
+       ;; simulation keys are keys that exwm will send to the exwm buffer upon inputting a key combination
+       (exwm-input-set-simulation-keys
+        '(
+          ;; movement
+          ([?\C-b] . left)
+          ([?\M-b] . C-left)
+          ([?\C-f] . right)
+          ([?\M-f] . C-right)
+          ([?\C-p] . up)
+          ([?\C-n] . down)
+          ([?\C-a] . home)
+          ([?\C-e] . end)
+          ([?\M-v] . prior)
+          ([?\C-v] . next)
+          ([?\C-d] . delete)
+          ([?\C-k] . (S-end delete))
+          ;; cut/paste
+          ([?\C-w] . ?\C-x)
+          ([?\M-w] . ?\C-c)
+          ([?\C-y] . ?\C-v)
+          ;; search
+          ([?\C-s] . ?\C-f)))
+
+       ;; this little bit will make sure that XF86 keys work in exwm buffers as well
+       (dolist (k '(XF86AudioLowerVolume
+                    XF86AudioRaiseVolume
+                    XF86PowerOff
+                    XF86AudioMute
+                    XF86AudioPlay
+                    XF86AudioStop
+                    XF86AudioPrev
+                    XF86AudioNext
+                    XF86ScreenSaver
+                    XF68Back
+                    XF86Forward
+                    Scroll_Lock
+                    print))
+         (cl-pushnew k exwm-input-prefix-keys))
+
+       ;; runs this external script on startup to autostart some programs
+       (call-process "~/.local/bin/exwm_autostart.sh" nil 0 nil)
+       ;; this just enables exwm, it started automatically once everything is ready
+       (exwm-enable)))
+ #+end_src
 * Basic Settings
 These are basic default settings that enhance the UI and functionality. No external packages used here.
 ** UTF-8 encoding everywhere
@@ -882,6 +1070,26 @@ Setups mpc to use the right host:port
     (call-process "mpc" nil nil nil "update")
     (message "MPD Database Updated"))
   (global-set-key (kbd "s-m u") 'mpd/update-database)
+#+end_src
+* Instant Messaging
+Instant messaging from Emacs.
+** telega
+Telega is a Telegram cleint for Emacs. It needs some additional configuration to make it work, check [[https://zevlg.github.io/telega.el/
+   rmail:
+   mhe:
+   irc:
+   info:
+   gnus:
+   docview:
+   bibtex:
+   bbdb:
+   w3m:
+   file+sys:
+   file+emacs:
+   ...][telega.el documentation]].
+#+begin_src emacs-lisp
+  (use-package telega
+    :ensure t)
 #+end_src
 * Email *SOON*
 Most email clients are slow, ugly, bloated, lack features or all of the above so using email in Emacs seems like a good solution. Most email is sent as text/plain in addition to text/html anyway so having to render HTML shouldn't be a problem.

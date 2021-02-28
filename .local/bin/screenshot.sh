@@ -1,7 +1,5 @@
 #!/bin/sh
-# screenshot script by Miika Nissi
-# https://github.com/Miika1806
-# https://miikanissi.com
+# screenshot script by Miika Nissi, https://github.com/miikanissi, https://miikanissi.com
 # Dependencies: maim, ifne(moreutils), xclip
 
 filename=$(date +%F_%T).png
