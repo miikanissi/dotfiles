@@ -4,24 +4,23 @@
 #+LANGUAGE: en
 #+OPTIONS: num:nil
 #+html: <p align="center"><img src="./screenshots/dashboard.png"/></p>
-* Intro
 On Feb 19, 2021, I decided to fully jump into using Emacs as my "operating system". Since then I have been building additional features on top of the base Emacs program. My entire configuration is in this single Org-mode file so it is very portable from computer to computer.
 * Installation
 =git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
 
 Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
 This configuration is written in Org-mode and is self documented.
-
 ** Extra dependencies
 *** Fonts
-I currently use DejaVu Sans Mono Nerd Font from [[https://github.com/ryanoasis/nerd-fonts][Nerd fonts]]. You need to make sure this font is installed for emacs to use it.
+I currently use IBM Plex Mono Nerd Font from [[https://github.com/ryanoasis/nerd-fonts][Nerd fonts]]. You need to make sure this font is installed for emacs to use it. I have made a simple installation script for this font in [[../../.local/bin/install_nerd_fonts_blex.sh][~/.local/bin/install_nerd_fonts_blex.sh]].
 *** From package manager:
-- =wmctrl=, important! this small program detects if WM is running, if not then EXWM is used.
+- =wmctrl=, *important!* this small program detects if WM is running. Ensures EXWM only launches when it is the WM.
 - =clang=, for c/c++ completion.
 - =python-virtualenv=, for python completion.
 - =texlive-core=, for exporting org documents to pdf.
 - =texlive-latexextra=, for exporting org documents to pdf.
 - =mpd= & =mpc=, for playing music with Mingus.
+- =pass= & =pass-otp=, for a password manager.
 *** From pip:
 For python completion and syntax checking you need to install these from pip:
 - =jedi=, for python completion and syntax checking.
@@ -43,6 +42,21 @@ I don't think Gruvbox is the prettiest theme out there, but it is VERY easy on t
     :init
     (load-theme 'gruvbox-dark-hard t))
 #+end_src
+** Solarized theme (light)
+Solarized light is a great light theme that is easy on the eyes.
+#+begin_src emacs-lisp
+  ;; (use-package solarized-theme
+  ;;   :ensure t
+  ;;   :init
+  ;;   (setq solarized-use-variable-pitch nil)
+  ;;   (setq solarized-scale-org-headlines nil)
+  ;;   (setq solarized-height-minus-1 1.0)
+  ;;   (setq solarized-height-plus-1 1.0)
+  ;;   (setq solarized-height-plus-2 1.0)
+  ;;   (setq solarized-height-plus-3 1.0)
+  ;;   (setq solarized-height-plus-4 1.0)
+  ;;   (load-theme 'solarized-light t))
+#+end_src
 ** Font
 #+begin_src emacs-lisp
   (when (eq system-type 'gnu/linux)
@@ -50,7 +64,7 @@ I don't think Gruvbox is the prettiest theme out there, but it is VERY easy on t
                      '(font . "BlexMono Nerd Font 10")))
 #+end_src
 * Desktop Environment
-Everything regarding the WM functionality is under this section. To run Emacs as a window manager you need to create the following desktop entry in =/usr/share/xsessions/= directory.
+Everything regarding the WM and DE functionality is under this section. To run Emacs as a window manager you need to create the following desktop entry in =/usr/share/xsessions/= directory.
 #+begin_src bash
 [Desktop Entry]
 Name=EXWM
@@ -58,6 +72,7 @@ Comment=Emacs as a Window Manager
 Exec=emacs -mm --debug-init
 Type=Application
 #+end_src
+*NOTE*: You can still run emacs as a standalone program on any desktop environment without any issue as long as you have =wmctrl= package installed. It checks the current Window Manager session and if one is present EXWM won't load.
 ** Default browser
 I use Brave.
 #+begin_src emacs-lisp
@@ -1093,3 +1108,12 @@ Telega is a Telegram cleint for Emacs. It needs some additional configuration to
 #+end_src
 * Email *SOON*
 Most email clients are slow, ugly, bloated, lack features or all of the above so using email in Emacs seems like a good solution. Most email is sent as text/plain in addition to text/html anyway so having to render HTML shouldn't be a problem.
+* Password Manager
+I have been using pass, the standard UNIX password manager, for a while with Rofi integration, but I found out there is a package to integrate it with Emacs as well.
+Passwords are stored in =~/.password-store= directory, for more information check [[https://www.passwordstore.org/][pass]].
+#+begin_src emacs-lisp
+  (use-package password-store
+    :ensure t)
+  (use-package password-store-otp
+    :ensure t)
+#+end_src
