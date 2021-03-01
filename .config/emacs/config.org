@@ -803,8 +803,8 @@ Nice dashboard on emacs startup.
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-banner-logo-title "Miika's Emacs")
-    (setq dashboard-items '((recents . 10)))
-    (setq dashboard-items '((recents . 5)
+    (setq dashboard-set-init-info t)
+    (setq dashboard-items '((recents . 10)
                               (projects . 5))))
 #+end_src
 * Programming
@@ -1107,7 +1107,7 @@ Telega is a Telegram cleint for Emacs. It needs some additional configuration to
     :ensure t)
 #+end_src
 * Email *SOON*
-Most email clients are slow, ugly, bloated, lack features or all of the above so using email in Emacs seems like a good solution. Most email is sent as text/plain in addition to text/html anyway so having to render HTML shouldn't be a problem.
+Most email is sent as text/plain in addition to text/html anyway so having to render HTML shouldn't be a problem, but my configuration includes a way to open those in a browser as well.
 * Password Manager
 I have been using pass, the standard UNIX password manager, for a while with Rofi integration, but I found out there is a package to integrate it with Emacs as well.
 Passwords are stored in =~/.password-store= directory, for more information check [[https://www.passwordstore.org/][pass]].
