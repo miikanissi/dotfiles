@@ -11,7 +11,7 @@
 ## autorandr udev rule:
 ##   ACTION=="change", SUBSYSTEM=="drm", RUN+="/bin/systemctl start --no-block autorandr.service"
 WM=$(wmctrl -m | grep Name: | awk '{print $2}')
-if [[ "$WM" != "BSPWM" ]]; then
+if [[ "$WM" != "bspwm" ]]; then
   exit 0
 fi
 PRIMARY_MONITOR=$(xrandr | grep primary | cut -d ' ' -f 1)
