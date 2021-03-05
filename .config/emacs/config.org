@@ -251,7 +251,8 @@ Allow 20MB of memory (instead of 0.76MB) before calling garbage collection. This
 ** No startup message
 I use a replacement for the default startup menu, =dashboard= package.
 #+begin_src emacs-lisp
-(setq inhibit-startup-message t)
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message "")
 #+end_src
 ** Remove menus and scrollbar
 I don't use the GUI menus so I get rid of them.
@@ -1125,8 +1126,8 @@ Passwords are stored in =~/.password-store= directory, for more information chec
 * Blog
 I have previously used my own [[https://github.com/miikanissi/blogi][blog system]] written in bash to make and publish my blogs. It works fine but the only downside is I have to manually write the html for my posts. Once I got used to using org-mode I wanted to find a way to write blogs with it.
 Org-publish allows me to write posts in org-mode and easily render them to html and publish on my website ([[https://miikanissi.com/][https://miikanissi.com/]]).
-** custom website variables/functions
-These variables are used to publish my website.
+** custom sitemap-format-entry
+This function customizes the sitemap-format-entry to show the publishing date.
 #+begin_src emacs-lisp
   (defun m:sitemap-format-entry(entry style project)
     "Add Date Prefix for ENTRY STYLE PROJECT."
@@ -1139,7 +1140,6 @@ These variables are used to publish my website.
            ;; Return only last subdir.
            (file-name-nondirectory (directory-file-name entry)))
           (t entry)))
-  (defcustom website-base-dir "~/miikanissi.com/" "Base directory for website files")
 #+end_src
 ** org-publish
 #+begin_src emacs-lisp
@@ -1166,40 +1166,38 @@ These variables are used to publish my website.
            "<link rel=\"stylesheet\" href=\"css/site.css\" type=\"text/css\"/>"
            :html-head-extra
            "<link rel=\"alternate\" type=\"application/rss+xml\"
-                  href=\"https://miikanissi.com/posts.xml\"
+                  href=\"https://miikanissi.com/blog/blogindex.xml\"
                   title=\"RSS feed\">"
            :html-preamble
-           "<h1>Miika Nissi (https://miikanissi.com/)</h1>
+           "<header><h1>Miika Nissi (https://miikanissi.com/)</h1>
             <hr></hr>
-            <div class=\"nav\">
-            <ul>
+            <nav><ul>
             <li><a href=\"./index.html\">Home</a></li>
             <li><a href=\"./blog/blogindex.html\">Blog</a></li>
             <li><a href=\"https://github.com/miikanissi\">GitHub</a></li>
             <li><a href=\"./blog/blogindex.xml\">RSS</a></li>
-            </ul></div>"
+            </ul></nav>
+            </header>"
            :html-postamble
-           "<div class=\"footer\"> Author: <a href=\"https://miikanissi.com\"/>%a</a>.<br>
-           Email: %e. <br>
+           "<footer><hr></hr>
+           By <a href=\"https://miikanissi.com\"/>%a</a>, %e.<br>
            Last updated %C.<br>
-           Built with %c.</div>")
+           Built with %c.</footer>")
           ("blog"
            :base-directory "~/miikanissi.com/blog/"
            :base-extension "org"
            :publishing-directory "~/miikanissi.com/public_html/blog/"
            :publishing-function org-html-publish-to-html
 
-           :sitemap-title "Blog Index"
+           :sitemap-title "Miika's Blog Index"
            :sitemap-filename "blogindex.org"
            :sitemap-sort-files anti-chronologically
            :sitemap-format-entry m:sitemap-format-entry
            :auto-sitemap t
            :author "Miika Nissi"
            :email "miika@miikanissi.com"
-           :with-title t
            :section-numbers nil
            :headline-levels 4
-           :language en
            :with-toc nil
            :with-date t
            :with-email t
@@ -1207,26 +1205,26 @@ These variables are used to publish my website.
            :html-doctype "html5"
            :html-html5-fancy t
            :html-head
-           "<link rel=\"stylesheet\" href=\"css/site.css\" type=\"text/css\"/>"
+           "<link rel=\"stylesheet\" href=\"../css/site.css\" type=\"text/css\"/>"
            :html-head-extra
            "<link rel=\"alternate\" type=\"application/rss+xml\"
-                  href=\"https://miikanissi.com/posts.xml\"
+                  href=\"https://miikanissi.com/blog/blogindex.xml\"
                   title=\"RSS feed\">"
            :html-preamble
-           "<h1>Miika Nissi (https://miikanissi.com/)</h1>
+           "<header><h1>Miika Nissi (https://miikanissi.com/)</h1>
             <hr></hr>
-            <div class=\"nav\">
-            <ul>
+            <nav><ul>
             <li><a href=\"../index.html\">Home</a></li>
-            <li><a href=\"./blogindex.html\">Blog</a></li>
+            <li><a href=\"../blog/blogindex.html\">Blog</a></li>
             <li><a href=\"https://github.com/miikanissi\">GitHub</a></li>
-            <li><a href=\"./blogindex.xml\">RSS</a></li>
-            </ul></div>"
+            <li><a href=\"../blog/blogindex.xml\">RSS</a></li>
+            </ul></nav>
+            </header>"
            :html-postamble
-           "<div class=\"footer\"> Author: <a href=\"https://miikanissi.com\"/>%a</a>.<br>
-           Email: %e. <br>
+           "<footer><hr></hr>
+           By <a href=\"https://miikanissi.com\"/>%a</a>, %e.<br>
            Last updated %C.<br>
-           Built with %c.</div>")
+           Built with %c.</footer>")
           ("images"
            :base-directory "~/miikanissi.com/img/"
            :base-extension "png\\|jpg\\|gif\\|svg"
