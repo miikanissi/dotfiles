@@ -30,32 +30,16 @@ For python completion and syntax checking you need to install these from pip:
 - =pylint-odoo=, for python syntax checking with Odoo.
 *** Emacs installation:
 On the first launch of Emacs you might need to run some commands using M-x to fully install everything. Here's a list:
-- =all-the-icons-install-fonts=
 - =jedi:install-server=
 * Theme
 I don't want my eyes to bleed with the default theme.
 ** Gruvbox
-I don't think Gruvbox is the prettiest theme out there, but it is VERY easy on the eyes and I think that's the most important part.
+Gruvbox is VERY easy on the eyes and I think that's the most important part of a theme. Gruvbox-theme package also comes with light themes and can easily be switched to using =M-x load-theme=
 #+begin_src emacs-lisp
   (use-package gruvbox-theme
     :ensure t
     :init
     (load-theme 'gruvbox-dark-hard t))
-#+end_src
-** Solarized theme (light)
-Solarized light is a great light theme that is easy on the eyes.
-#+begin_src emacs-lisp
-  ;; (use-package solarized-theme
-  ;;   :ensure t
-  ;;   :init
-  ;;   (setq solarized-use-variable-pitch nil)
-  ;;   (setq solarized-scale-org-headlines nil)
-  ;;   (setq solarized-height-minus-1 1.0)
-  ;;   (setq solarized-height-plus-1 1.0)
-  ;;   (setq solarized-height-plus-2 1.0)
-  ;;   (setq solarized-height-plus-3 1.0)
-  ;;   (setq solarized-height-plus-4 1.0)
-  ;;   (load-theme 'solarized-light t))
 #+end_src
 ** Font
 #+begin_src emacs-lisp
@@ -303,6 +287,14 @@ By default long lines will go off the screen, I like to have them wrap on the ne
 #+begin_src emacs-lisp
   (global-visual-line-mode 1)
 #+end_src
+** Bidirectional editing
+Display all paragraphs from left to right. This reduces the amount of line scans Emacs has to do. Keep the default value if working with languages that spell from right to left.
+#+begin_src emacs-lisp
+  (setq-default bidi-paragraph-direction 'left-to-right)
+
+  (if (version<= "27.1" emacs-version)
+      (setq bidi-inhibit-bpa t))
+#+end_src
 ** No backups
 I don't need backup or autosave files so I disable them. By default emacs creates backup files as =filename~= in the files directory. Better behavior would be to have a seperate directory for all backups but I don't feel the need for it.
 #+begin_src emacs-lisp
@@ -353,17 +345,42 @@ When opening a file, always follow symlinks.
 #+begin_src emacs-lisp
   (global-auto-revert-mode t)
 #+end_src
+** EWW
+Emacs Web Wowser is a built in web browser for Emacs.
+*** Scroll without changing point
+#+begin_src emacs-lisp
+  (add-hook 'eww-mode-hook 'scroll-lock-mode)
+#+end_src
 * Org
 Org was one of the main reasons why I decided to start using Emacs. I will never have to write documents in any other way. Org mode can do it all.
+** Org-plus-contrib
+Have to add a new package archive for org-plus-contrib for some reason. I also remove default css and js, add default language and utf-8 etc.
+#+begin_src emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+  (use-package htmlize)
+  (use-package org
+    :ensure org-plus-contrib
+    :init
+    (require 'org)
+    (require 'ox-html)
+    (require 'ox-publish)
+    (require 'ox-rss)
+    (setq org-export-default-language "en")
+    (setq org-html-htmlize-output-type 'css)
+    (setq org-html-head-include-default-style nil)
+    (setq org-html-head-include-scripts nil)
+    (setq org-export-with-priority t))
+#+end_src
 ** Common settings
 #+begin_src emacs-lisp
-(setq org-ellipsis " ")
-(setq org-src-fontify-natively t)
-(setq org-src-tab-acts-natively t)
-(setq org-confirm-babel-evaluate nil)
-(setq org-export-with-smart-quotes t)
-(setq org-src-window-setup 'current-window)
-(add-hook 'org-mode-hook 'org-indent-mode)
+  (setq org-ellipsis " ")
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+  (setq org-confirm-babel-evaluate nil)
+  (setq org-export-with-smart-quotes t)
+  (setq org-src-window-setup 'current-window)
+  (add-hook 'org-mode-hook 'org-indent-mode)
 #+end_src
 ** Snippets
 Snippets for org mode.
@@ -460,10 +477,6 @@ By default =M-f= / =M-b= treat thisIsOneWord as a single word instead. I want it
    (global-subword-mode 1)
  #+end_src
 ** Dired
-*** Easier key binding to open dired.
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-c d") 'dired-other-window)
-#+end_src
 *** Human readable units
 #+begin_src emacs-lisp
   (setq-default dired-listing-switches "-alh")
@@ -622,6 +635,10 @@ This creates matching paranthesis/brackets etc.
                   ))
   (electric-pair-mode t)
 #+end_src
+** Typing on highlighted text deletes it
+#+begin_src emacs-lisp
+  (delete-selection-mode 1)
+#+end_src
 ** Kills entire word
 #+begin_src emacs-lisp
   (defun kill-whole-word ()
@@ -742,7 +759,7 @@ Diminish hides minor modes from modeline.
 #+begin_src emacs-lisp
   (use-package diminish
     :ensure t
-    :init
+    :config
     (diminish 'eldoc-mode)
     (diminish 'which-key-mode)
     (diminish 'visual-line-mode)
@@ -782,18 +799,6 @@ Shows time in the statusbar in the format of 02:00PM.
 #+begin_src emacs-lisp
   (line-number-mode 1)
   (column-number-mode 1)
-#+end_src
-** symon
-System monitor with symon.
-#+begin_src emacs-lisp
-  (use-package symon
-    :ensure t
-    :init
-    (setq symon-delay 2)
-    (setq symon-sparkline-type 'plain)
-    (symon-mode)
-    :bind
-    ("M-s-h" . symon-mode))
 #+end_src
 * Dashboard
 Nice dashboard on emacs startup.
@@ -1049,7 +1054,7 @@ Installs Mingus and sets keybindings.
     ("s-," . mingus-vol-down)
     ("s-." . mingus-vol-up)
     ("s-n" . mingus-next)
-    ("s-n" . mingus-prev)
+    ("s-p" . mingus-prev)
     ("s-c" . mingus-clear))
 #+end_src
 *** MPC
@@ -1116,4 +1121,135 @@ Passwords are stored in =~/.password-store= directory, for more information chec
     :ensure t)
   (use-package password-store-otp
     :ensure t)
+#+end_src
+* Blog
+I have previously used my own [[https://github.com/miikanissi/blogi][blog system]] written in bash to make and publish my blogs. It works fine but the only downside is I have to manually write the html for my posts. Once I got used to using org-mode I wanted to find a way to write blogs with it.
+Org-publish allows me to write posts in org-mode and easily render them to html and publish on my website ([[https://miikanissi.com/][https://miikanissi.com/]]).
+** custom website variables/functions
+These variables are used to publish my website.
+#+begin_src emacs-lisp
+  (defun m:sitemap-format-entry(entry style project)
+    "Add Date Prefix for ENTRY STYLE PROJECT."
+    (cond ((not (directory-name-p entry))
+           (let* ((date (org-publish-find-date entry project)))
+             (format "%s - [[file:%s][%s]]"
+                     (format-time-string "%F" date) entry
+                     (org-publish-find-title entry project))))
+          ((eq style 'tree)
+           ;; Return only last subdir.
+           (file-name-nondirectory (directory-file-name entry)))
+          (t entry)))
+  (defcustom website-base-dir "~/miikanissi.com/" "Base directory for website files")
+#+end_src
+** org-publish
+#+begin_src emacs-lisp
+  (setq org-publish-project-alist
+        '(("static"
+           :base-directory "~/miikanissi.com/"
+           :base-extension "org"
+           :publishing-directory "~/miikanissi.com/public_html/"
+           :publishing-function org-html-publish-to-html
+
+           :author "Miika Nissi"
+           :email "miika@miikanissi.com"
+           :with-title t
+           :section-numbers nil
+           :headline-levels 4
+           :language en
+           :with-toc nil
+           :with-date t
+           :with-email t
+           :htmlized-source t
+           :html-doctype "html5"
+           :html-html5-fancy t
+           :html-head
+           "<link rel=\"stylesheet\" href=\"css/site.css\" type=\"text/css\"/>"
+           :html-head-extra
+           "<link rel=\"alternate\" type=\"application/rss+xml\"
+                  href=\"https://miikanissi.com/posts.xml\"
+                  title=\"RSS feed\">"
+           :html-preamble
+           "<h1>Miika Nissi (https://miikanissi.com/)</h1>
+            <hr></hr>
+            <div class=\"nav\">
+            <ul>
+            <li><a href=\"./index.html\">Home</a></li>
+            <li><a href=\"./blog/blogindex.html\">Blog</a></li>
+            <li><a href=\"https://github.com/miikanissi\">GitHub</a></li>
+            <li><a href=\"./blog/blogindex.xml\">RSS</a></li>
+            </ul></div>"
+           :html-postamble
+           "<div class=\"footer\"> Author: <a href=\"https://miikanissi.com\"/>%a</a>.<br>
+           Email: %e. <br>
+           Last updated %C.<br>
+           Built with %c.</div>")
+          ("blog"
+           :base-directory "~/miikanissi.com/blog/"
+           :base-extension "org"
+           :publishing-directory "~/miikanissi.com/public_html/blog/"
+           :publishing-function org-html-publish-to-html
+
+           :sitemap-title "Blog Index"
+           :sitemap-filename "blogindex.org"
+           :sitemap-sort-files anti-chronologically
+           :sitemap-format-entry m:sitemap-format-entry
+           :auto-sitemap t
+           :author "Miika Nissi"
+           :email "miika@miikanissi.com"
+           :with-title t
+           :section-numbers nil
+           :headline-levels 4
+           :language en
+           :with-toc nil
+           :with-date t
+           :with-email t
+           :htmlized-source t
+           :html-doctype "html5"
+           :html-html5-fancy t
+           :html-head
+           "<link rel=\"stylesheet\" href=\"css/site.css\" type=\"text/css\"/>"
+           :html-head-extra
+           "<link rel=\"alternate\" type=\"application/rss+xml\"
+                  href=\"https://miikanissi.com/posts.xml\"
+                  title=\"RSS feed\">"
+           :html-preamble
+           "<h1>Miika Nissi (https://miikanissi.com/)</h1>
+            <hr></hr>
+            <div class=\"nav\">
+            <ul>
+            <li><a href=\"../index.html\">Home</a></li>
+            <li><a href=\"./blogindex.html\">Blog</a></li>
+            <li><a href=\"https://github.com/miikanissi\">GitHub</a></li>
+            <li><a href=\"./blogindex.xml\">RSS</a></li>
+            </ul></div>"
+           :html-postamble
+           "<div class=\"footer\"> Author: <a href=\"https://miikanissi.com\"/>%a</a>.<br>
+           Email: %e. <br>
+           Last updated %C.<br>
+           Built with %c.</div>")
+          ("images"
+           :base-directory "~/miikanissi.com/img/"
+           :base-extension "png\\|jpg\\|gif\\|svg"
+           :publishing-directory "~/miikanissi.com/public_html/img"
+           :publishing-function org-publish-attachment)
+          ("css"
+           :base-directory "~/miikanissi.com/css/"
+           :base-extension "css"
+           :publishing-directory "~/miikanissi.com/public_html/css"
+           :publishing-function org-publish-attachment)
+          ("rss"
+           :base-directory "~/miikanissi.com/blog/"
+           :base-extension "org"
+           :exclude ".*"
+           :include ("blogindex.org")
+           :publishing-directory "~/miikanissi.com/public_html/blog/"
+           :publishing-function (org-rss-publish-to-rss)
+
+           :html-link-use-abs-url t
+           :html-link-home "https://miikanissi.com/"
+           :with-broken-link t
+           :section-numbers nil
+           :with-toc nil
+           :with-date t)
+          ("miikanissi.com" :components ("static" "blog" "images" "css" "rss"))))
 #+end_src
