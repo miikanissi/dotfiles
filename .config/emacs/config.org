@@ -359,19 +359,10 @@ Have to add a new package archive for org-plus-contrib for some reason. I also r
 #+begin_src emacs-lisp
   (require 'package)
   (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-  (use-package htmlize)
+  (use-package htmlize
+    :ensure t)
   (use-package org
-    :ensure org-plus-contrib
-    :init
-    (require 'org)
-    (require 'ox-html)
-    (require 'ox-publish)
-    (require 'ox-rss)
-    (setq org-export-default-language "en")
-    (setq org-html-htmlize-output-type 'css)
-    (setq org-html-head-include-default-style nil)
-    (setq org-html-head-include-scripts nil)
-    (setq org-export-with-priority t))
+    :ensure org-plus-contrib)
 #+end_src
 ** Common settings
 #+begin_src emacs-lisp
@@ -411,9 +402,229 @@ One of the reasons that makes org so special is the ability to export files in m
   (use-package ox-twbs
     :ensure t)
 #+end_src
-*** Don't export HTML validation link
+*** HTML export config
+Miscellaneous configurations for HTML exporting.
 #+begin_src emacs-lisp
+  (require 'org)
+  (require 'ox-html)
+  (require 'ox-publish)
+  (require 'ox-rss)
+  (require 'htmlize)
+  (setq org-export-default-language "en")
+  (setq org-export-htmlize-output-type 'css)
+  (setq org-html-htmlize-output-type 'css)
+  (setq org-html-head-include-default-style t)
+  (setq org-html-head-include-scripts t)
+  (setq org-export-with-sub-superscripts nil)
+  (setq org-html-doctype "html5")
+  (setq org-export-with-priority t)
   (setq org-html-validation-link nil)
+#+end_src
+** Blog
+I have previously used my own [[https://github.com/miikanissi/blogi][blog system]] written in bash to make and publish my blogs. It works fine but the only downside is I have to manually write the html for my posts. Once I got used to using org-mode I wanted to find a way to write blogs with it.
+Org-publish allows me to write posts in org-mode and easily render them to html and publish on my website ([[https://miikanissi.com/][https://miikanissi.com/]]).
+
+File structure for my website is as follows:
+#+begin_src bash
+  root
+  ├── org
+  │   ├── about.org
+  │   ├── blog
+  │   │   └── post1.org
+  │   ├── css
+  │   │   └── site.css
+  │   ├── html
+  │   │   ├── html_head.html
+  │   │   ├── html_postamble.html
+  │   │   └── html_preamble.html
+  │   ├── img
+  │   │   ├── favicon.ico
+  │   │   └── miika.jpg
+  │   ├── index.org
+  │   ├── rss.org
+  │   └── sitemap.org
+  └── www
+      ├── about.html
+      ├── blog
+      │   └── post1.html
+      ├── css
+      │   └── site.css
+      ├── img
+      │   ├── favicon.ico
+      │   └── miika.jpg
+      ├── index.html
+      ├── rss.xml
+      └── sitemap.html
+
+  9 directories, 19 files
+#+end_src
+*** Custom functions for org-publish
+**** Customize sitemap
+Customizes the sitemap-format-entry to show the publishing date.
+#+begin_src emacs-lisp
+  (defun m/org-publish-org-sitemap (title list)
+    "Sitemap generation function."
+    (concat "#+TITLE: Sitemap\n\n"
+            (org-list-to-subtree list)))
+
+  (defun m/org-publish-org-sitemap-format-entry (entry style project)
+    (cond ((not (directory-name-p entry))
+           (let* ((date (org-publish-find-date entry project)))
+             (format "%s - [[file:%s][%s]]"
+                     (format-time-string "%F" date) entry
+                     (org-publish-find-title entry project))))
+          ((eq style 'tree)
+           ;; Return only last subdir.
+           (file-name-nondirectory (directory-file-name entry)))
+          (t entry)))
+#+end_src
+**** Rss feed
+Custom functions to build an RSS feed with all blog contents.
+#+begin_src emacs-lisp
+  (defun m/org-rss-publish-to-rss (plist filename pub-dir)
+    "Publish RSS with PLIST, only when FILENAME is 'rss.org'.
+  PUB-DIR is when the output will be placed."
+    (if (equal "rss.org" (file-name-nondirectory filename))
+        (org-rss-publish-to-rss plist filename pub-dir)))
+
+  (defun m/format-rss-feed (title list)
+    "Generate RSS feed, as a string.
+  TITLE is the title of the RSS feed.  LIST is an internal
+  representation for the files to include, as returned by
+  `org-list-to-lisp'.  PROJECT is the current project."
+    (concat "#+TITLE: " title "\n\n"
+            (org-list-to-subtree list 1 '(:icount "" :istart ""))))
+
+  (defun m/format-rss-feed-entry (entry style project)
+    "Format ENTRY for the RSS feed.
+  ENTRY is a file name.  STYLE is either 'list' or 'tree'.
+  PROJECT is the current project."
+    (cond ((not (directory-name-p entry))
+           (let* ((file (org-publish--expand-file-name entry project))
+                  (title (org-publish-find-title entry project))
+                  (date (format-time-string "%Y-%m-%d" (org-publish-find-date entry project)))
+                  (link (concat (file-name-sans-extension entry) ".html")))
+             (with-temp-buffer
+               (insert (format "* %s\n" title))
+               (org-set-property "RSS_PERMALINK" link)
+               (org-set-property "PUBDATE" date)
+               (insert-file-contents file)
+               (buffer-string))))
+          ((eq style 'tree)
+           ;; Return only last subdir.
+           (file-name-nondirectory (directory-file-name entry)))
+          (t entry)))
+#+end_src
+*** Project spec for miikanissi.com
+This is my project settings for my website [[https://miikanissi.com/][https://miikanissi.com/]].
+#+begin_src emacs-lisp
+  (defun m/get-publish-project-spec ()
+    "Return project settings for use with `org-publish-project-alist'."
+    (let* ((website-root (file-name-as-directory
+                          "~/miikanissi.com"))
+           (website-org (file-name-as-directory
+                         (concat website-root "org")))
+           (website-www (file-name-as-directory
+                         (concat website-root "www")))
+           (website-org-img (file-name-as-directory
+                             (concat website-org "img")))
+           (website-www-img (file-name-as-directory
+                             (concat website-www "img")))
+           (website-org-css (file-name-as-directory
+                             (concat website-org "css")))
+           (website-www-css (file-name-as-directory
+                             (concat website-www "css")))
+           (website-org-html (file-name-as-directory
+                              (concat website-org "html")))
+           (website-org-blog (file-name-as-directory
+                               (concat website-org "blog")))
+           (get-content (lambda (x)
+                          (with-temp-buffer
+                            (insert-file-contents (concat website-org-html
+                                                          x))
+                            (buffer-string))))
+           (website-html-head (funcall get-content "html_head.html"))
+           (website-html-preamble (funcall get-content "html_preamble.html"))
+           (website-html-postamble (funcall get-content "html_postamble.html")))
+        `(("org"
+           :base-directory ,website-org
+           :base-extension "org"
+           :recursive t
+           :exclude "rss\\.org\\|sitemap\\.org"
+           :publishing-directory ,website-www
+           :publishing-function org-html-publish-to-html
+           :author "Miika Nissi"
+           :email "miika@miikanissi.com"
+           :with-title t
+           :section-numbers nil
+           :headline-levels 4
+           :language en
+           :with-toc nil
+           :with-date t
+           :with-email t
+           :with-statistics-cookies nil
+           :with-todo-keywords nil
+           :auto-sitemap t
+           :sitemap-sort-files anti-chronologically
+           :sitemap-format-entry m/org-publish-org-sitemap-format-entry
+           :html-head-include-default-style nil
+           :html-head-include-scripts nil
+           :htmlized-source t
+           :html-doctype "html5"
+           :html-html5-fancy t
+           :html-head ,website-html-head
+           :html-preamble ,website-html-preamble
+           :html-postamble ,website-html-postamble)
+          ("images"
+           :base-directory ,website-org-img
+           :base-extension "png\\|jpg\\|gif\\|svg\\|ico"
+           :recursive t
+           :publishing-directory ,website-www-img
+           :publishing-function org-publish-attachment)
+          ("css"
+           :base-directory ,website-org-css
+           :base-extension "css"
+           :publishing-directory ,website-www-css
+           :publishing-function org-publish-attachment)
+          ("rss"
+           :base-directory ,website-org
+           :base-extension "org"
+           :exclude "rss\\.org\\|index\\.org\\|about\\.org\\|sitemap\\.org"
+           :recursive t
+           :publishing-directory ,website-www
+           :publishing-function m/org-rss-publish-to-rss
+           :title "Miika's Blog"
+           :description "This feed contains blog posts from Miika Nissi. Topics ranging from lifestyle to technology."
+           :author "Miika Nissi"
+           :html-link-use-abs-url t
+           :html-link-home "https://miikanissi.com/"
+           :with-broken-link t
+           :section-numbers nil
+           :with-toc nil
+           :with-date t
+           :with-author t
+           :with-description t
+           :auto-sitemap t
+           :sitemap-filename "rss.org"
+           :sitemap-title "Miika's blog"
+           :sitemap-style list
+           :sitemap-sort-files anti-chronologically
+           :sitemap-function m/format-rss-feed
+           :sitemap-format-entry m/format-rss-feed-entry)
+          ("miikanissi.com" :components ("org" "images" "css" "rss")))))
+#+end_src
+*** Function to publish miikanissi.com project
+The website is updated when calling =(m/publish-website)=, which only publishes newly modified files. When used with additional arguments, a full update can be forced: =(m/publish-website "miikanissi.com" t)=.
+#+begin_src emacs-lisp
+  (defun m/publish-website (&optional project force)
+    "Publish personal website."
+    (interactive)
+    (unless project (setq project "miikanissi.com"))
+    (let ((org-publish-project-alist (m/get-publish-project-spec))
+          (org-export-date-timestamp-format "%Y-%m-%d")
+          (org-todo-keywords '((sequence "TODO" "REVIEW" "|"
+                                         "DONE" "DEFERRED" "ABANDONED"))))
+      (org-publish-project project force)))
 #+end_src
 * Terminal
 I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them.
@@ -1122,132 +1333,4 @@ Passwords are stored in =~/.password-store= directory, for more information chec
     :ensure t)
   (use-package password-store-otp
     :ensure t)
-#+end_src
-* Blog
-I have previously used my own [[https://github.com/miikanissi/blogi][blog system]] written in bash to make and publish my blogs. It works fine but the only downside is I have to manually write the html for my posts. Once I got used to using org-mode I wanted to find a way to write blogs with it.
-Org-publish allows me to write posts in org-mode and easily render them to html and publish on my website ([[https://miikanissi.com/][https://miikanissi.com/]]).
-** custom sitemap-format-entry
-This function customizes the sitemap-format-entry to show the publishing date.
-#+begin_src emacs-lisp
-  (defun m:sitemap-format-entry(entry style project)
-    "Add Date Prefix for ENTRY STYLE PROJECT."
-    (cond ((not (directory-name-p entry))
-           (let* ((date (org-publish-find-date entry project)))
-             (format "%s - [[file:%s][%s]]"
-                     (format-time-string "%F" date) entry
-                     (org-publish-find-title entry project))))
-          ((eq style 'tree)
-           ;; Return only last subdir.
-           (file-name-nondirectory (directory-file-name entry)))
-          (t entry)))
-#+end_src
-** org-publish
-#+begin_src emacs-lisp
-  (setq org-publish-project-alist
-        '(("static"
-           :base-directory "~/miikanissi.com/"
-           :base-extension "org"
-           :publishing-directory "~/miikanissi.com/public_html/"
-           :publishing-function org-html-publish-to-html
-
-           :author "Miika Nissi"
-           :email "miika@miikanissi.com"
-           :with-title t
-           :section-numbers nil
-           :headline-levels 4
-           :language en
-           :with-toc nil
-           :with-date t
-           :with-email t
-           :htmlized-source t
-           :html-doctype "html5"
-           :html-html5-fancy t
-           :html-head
-           "<link rel=\"stylesheet\" href=\"css/site.css\" type=\"text/css\"/>"
-           :html-head-extra
-           "<link rel=\"alternate\" type=\"application/rss+xml\"
-                  href=\"https://miikanissi.com/blog/blogindex.xml\"
-                  title=\"RSS feed\">"
-           :html-preamble
-           "<header><h1>Miika Nissi (https://miikanissi.com/)</h1>
-            <hr></hr>
-            <nav><ul>
-            <li><a href=\"./index.html\">Home</a></li>
-            <li><a href=\"./blog/blogindex.html\">Blog</a></li>
-            <li><a href=\"https://github.com/miikanissi\">GitHub</a></li>
-            <li><a href=\"./blog/blogindex.xml\">RSS</a></li>
-            </ul></nav>
-            </header>"
-           :html-postamble
-           "<footer><hr></hr>
-           By <a href=\"https://miikanissi.com\"/>%a</a>, %e.<br>
-           Last updated %C.<br>
-           Built with %c.</footer>")
-          ("blog"
-           :base-directory "~/miikanissi.com/blog/"
-           :base-extension "org"
-           :publishing-directory "~/miikanissi.com/public_html/blog/"
-           :publishing-function org-html-publish-to-html
-
-           :sitemap-title "Miika's Blog Index"
-           :sitemap-filename "blogindex.org"
-           :sitemap-sort-files anti-chronologically
-           :sitemap-format-entry m:sitemap-format-entry
-           :auto-sitemap t
-           :author "Miika Nissi"
-           :email "miika@miikanissi.com"
-           :section-numbers nil
-           :headline-levels 4
-           :with-toc nil
-           :with-date t
-           :with-email t
-           :htmlized-source t
-           :html-doctype "html5"
-           :html-html5-fancy t
-           :html-head
-           "<link rel=\"stylesheet\" href=\"../css/site.css\" type=\"text/css\"/>"
-           :html-head-extra
-           "<link rel=\"alternate\" type=\"application/rss+xml\"
-                  href=\"https://miikanissi.com/blog/blogindex.xml\"
-                  title=\"RSS feed\">"
-           :html-preamble
-           "<header><h1>Miika Nissi (https://miikanissi.com/)</h1>
-            <hr></hr>
-            <nav><ul>
-            <li><a href=\"../index.html\">Home</a></li>
-            <li><a href=\"../blog/blogindex.html\">Blog</a></li>
-            <li><a href=\"https://github.com/miikanissi\">GitHub</a></li>
-            <li><a href=\"../blog/blogindex.xml\">RSS</a></li>
-            </ul></nav>
-            </header>"
-           :html-postamble
-           "<footer><hr></hr>
-           By <a href=\"https://miikanissi.com\"/>%a</a>, %e.<br>
-           Last updated %C.<br>
-           Built with %c.</footer>")
-          ("images"
-           :base-directory "~/miikanissi.com/img/"
-           :base-extension "png\\|jpg\\|gif\\|svg"
-           :publishing-directory "~/miikanissi.com/public_html/img"
-           :publishing-function org-publish-attachment)
-          ("css"
-           :base-directory "~/miikanissi.com/css/"
-           :base-extension "css"
-           :publishing-directory "~/miikanissi.com/public_html/css"
-           :publishing-function org-publish-attachment)
-          ("rss"
-           :base-directory "~/miikanissi.com/blog/"
-           :base-extension "org"
-           :exclude ".*"
-           :include ("blogindex.org")
-           :publishing-directory "~/miikanissi.com/public_html/blog/"
-           :publishing-function (org-rss-publish-to-rss)
-
-           :html-link-use-abs-url t
-           :html-link-home "https://miikanissi.com/"
-           :with-broken-link t
-           :section-numbers nil
-           :with-toc nil
-           :with-date t)
-          ("miikanissi.com" :components ("static" "blog" "images" "css" "rss"))))
 #+end_src
