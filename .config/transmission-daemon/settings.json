@@ -12,13 +12,13 @@
     "blocklist-url": "http://list.iblocklist.com/?list=ydxerpxkpcfqjaybcssw&fileformat=p2p&archiveformat=gz",
     "cache-size-mb": 4,
     "dht-enabled": false,
-    "download-dir": "/home/miika/Downloads/tor/fin",
+    "download-dir": "/home/m/Downloads/tor/fin",
     "download-queue-enabled": true,
     "download-queue-size": 5,
     "encryption": 1,
     "idle-seeding-limit": 30,
     "idle-seeding-limit-enabled": false,
-    "incomplete-dir": "/home/miika/Downloads/tor/inc",
+    "incomplete-dir": "/home/m/Downloads/tor/inc",
     "incomplete-dir-enabled": true,
     "lpd-enabled": false,
     "message-level": 1,
@@ -64,5 +64,5 @@
     "trash-original-torrent-files": false,
     "umask": 18,
     "upload-slots-per-torrent": 14,
-    "utp-enabled": true
+    "utp-enabled": false
 }
