@@ -515,6 +515,23 @@ Custom functions to build an RSS feed with all blog contents.
            (file-name-nondirectory (directory-file-name entry)))
           (t entry)))
 #+end_src
+**** XML Sitemap for SEO
+This is different from the sitemap we defined previously. Search engines use this sitemap.xml file to crawl the web for search results. We generate this from all of the html files in the project.
+#+begin_src emacs-lisp
+  (defun templated-html-create-sitemap-xml (output directory base-url &rest regexp)
+    (let* ((rx (or regexp "\\.html")))
+      (with-temp-file output
+        (insert "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+  <urlset
+        xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"
+        xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9
+              http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n")
+        (cl-loop for file in (directory-files-recursively directory rx)
+              do (insert (format "<url>\n <loc>%s/%s</loc>\n <priority>0.5</priority>\n</url>\n"
+                                 base-url (file-relative-name file directory))))
+        (insert "</urlset>"))))
+#+end_src
 *** Project spec for miikanissi.com
 This is my project settings for my website [[https://miikanissi.com/][https://miikanissi.com/]].
 #+begin_src emacs-lisp
@@ -599,10 +616,11 @@ This is my project settings for my website [[https://miikanissi.com/][https://mi
            :html-link-use-abs-url t
            :html-link-home "https://miikanissi.com/"
            :with-broken-link t
-           :section-numbers nil
            :with-toc nil
+           :rss-image-url "https://miikanissi.com/img/favicon.ico"
            :with-date t
            :with-author t
+           :creator "Miika Nissi"
            :with-description t
            :auto-sitemap t
            :sitemap-filename "rss.org"
@@ -624,7 +642,8 @@ The website is updated when calling =(m/publish-website)=, which only publishes 
           (org-export-date-timestamp-format "%Y-%m-%d")
           (org-todo-keywords '((sequence "TODO" "REVIEW" "|"
                                          "DONE" "DEFERRED" "ABANDONED"))))
-      (org-publish-project project force)))
+      (org-publish-project project force))
+    (templated-html-create-sitemap-xml "~/miikanissi.com/www/sitemap.xml" "~/miikanissi.com/www" "https://miikanissi.com/"))
 #+end_src
 * Terminal
 I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them.
@@ -933,6 +952,18 @@ Browse kill ring.
     :ensure t
     :bind ("M-y" . popup-kill-ring))
 #+end_src
+** yasnippet
+Snippets are cool.
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (use-package yasnippet-snippets
+      :ensure t)
+    (yas-reload-all)
+    (add-hook 'prog-mode-hook #'yas-minor-mode)
+    (add-hook 'org-mode-hook #'yas-minor-mode))
+#+end_src
 * General packages
 Some general packages to improve how Emacs works
 ** auto-package-update
@@ -1061,17 +1092,6 @@ Having line numbers is very useful when programming.
 Comments/uncomments the selected region.
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-#+end_src
-** yasnippet
-Snippets are cool.
-#+begin_src emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :config
-    (use-package yasnippet-snippets
-      :ensure t)
-    (yas-reload-all)
-    (add-hook 'prog-mode-hook #'yas-minor-mode))
 #+end_src
 ** flycheck
 Check syntax errors while editing.

@@ -1,0 +1,24 @@
+IMAPAccount miikanissi
+Host imap.mailfence.com
+Port 993
+User miikanissi
+PassCmd "pass email/mailfence/miika.nissi@mailfence.com"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore miikanissi-remote
+Account miikanissi
+
+MaildirStore miikanissi-local
+SubFolders Verbatim
+Path ~/Mail/miikanissi/
+Inbox ~/Mail/miikanissi/Inbox
+
+Channel miikanissi
+Far :miikanissi-remote:
+Near :miikanissi-local:
+Patterns *
+SyncState *
+Create Both
+Expunge Both
+MaxMessages 0
