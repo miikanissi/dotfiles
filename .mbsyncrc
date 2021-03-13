@@ -13,12 +13,15 @@ MaildirStore miikanissi-local
 SubFolders Verbatim
 Path ~/Mail/miikanissi/
 Inbox ~/Mail/miikanissi/Inbox
+Trash ~/Mail/miikanissi/Trash
 
 Channel miikanissi
 Far :miikanissi-remote:
 Near :miikanissi-local:
-Patterns *
+Patterns INBOX "Sent Items" Drafts Trash Spam?
 SyncState *
 Create Both
 Expunge Both
+CopyArrivalDate yes
+Sync All
 MaxMessages 0
