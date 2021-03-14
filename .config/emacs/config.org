@@ -20,7 +20,8 @@ I currently use IBM Plex Mono Nerd Font from [[https://github.com/ryanoasis/nerd
 - =texlive-core=, for exporting org documents to pdf.
 - =texlive-latexextra=, for exporting org documents to pdf.
 - =mpd= & =mpc=, for playing music with Mingus.
-- =pass= & =pass-otp=, for a password manager.
+- =pass= & =pass-otp=, for a password manager and secure password store for email.
+- =mbsync/isync= & =mu= for email configuration.
 *** From pip:
 For python completion and syntax checking you need to install these from pip:
 - =jedi=, for python completion and syntax checking.
@@ -34,14 +35,15 @@ On the first launch of Emacs you might need to run some commands using M-x to fu
 * Theme
 I don't want my eyes to bleed with the default theme.
 ** Gruvbox
-Gruvbox is VERY easy on the eyes and I think that's the most important part of a theme. Gruvbox-theme package also comes with light themes and can easily be switched to using =M-x load-theme=
+Gruvbox is VERY easy on the eyes and I think that's the most important part of a theme. Gruvbox-theme package also comes with light/dark themes and can easily be switched to using =M-x load-theme=
 #+begin_src emacs-lisp
   (use-package gruvbox-theme
     :ensure t
     :init
-    (load-theme 'gruvbox-dark-hard t))
+    (load-theme 'gruvbox-light-medium t))
 #+end_src
 ** Font
+Use BlexMono Nerd Font.
 #+begin_src emacs-lisp
   (when (eq system-type 'gnu/linux)
         (add-to-list 'default-frame-alist
@@ -573,6 +575,8 @@ This is my project settings for my website [[https://miikanissi.com/][https://mi
            :author "Miika Nissi"
            :email "miika@miikanissi.com"
            :with-title t
+           :description "This is my personal website: a place where you can read and learn about technology related subjects."
+           :keywords "Miika Nissi, blog, resume, technology, programming"
            :section-numbers nil
            :headline-levels 4
            :language en
@@ -1393,8 +1397,122 @@ Telega is a Telegram cleint for Emacs. It needs some additional configuration to
   (use-package telega
     :ensure t)
 #+end_src
-* Email *SOON*
-Most email is sent as text/plain in addition to text/html anyway so having to render HTML shouldn't be a problem, but my configuration includes a way to open those in a browser as well.
+* Email
+I am using mu4e as an Emacs frontend for my email. The actual syncing and sending emails is done with external programs that need to be configured. In my case I am using isync/mbsync for syncing mail, and mu for sending mail.
+
+I also made [[https://miikanissi.com/blog/email-setup-with-mbsync-msmtp-mu4e.html][a blog post]] as a guide for setting up mbsync + mu4e for email.
+** Mbsync
+Here is a template configuration to follow for setting up mbsync in =~/.mbsyncrc=:
+#+begin_src bash
+  IMAPAccount <account>
+  Host <imap.host.tld>
+  Port <993>
+  User <email username>
+  PassCmd "pass <account>"
+  SSLType IMAPS
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+  IMAPStore <account>-remote
+  Account <account>
+
+  MaildirStore <account>-local
+  SubFolders Verbatim
+  Path ~/Mail/<account>/
+  Inbox ~/Mail/<account>/Inbox
+  Trash ~/Mail/<account>/Trash
+
+  Channel <account>
+  Far :<account>-remote:
+  Near :<account>-local:
+  ;; Patterns are the names of your mail folders. You can also use * for all of your mail folders.
+  Patterns INBOX "Sent Items" Drafts Trash Spam?
+  SyncState *
+  Create Both
+  Expunge Both
+  CopyArrivalDate yes
+  Sync All
+#+end_src
+** Mu4e
+Mu4e configuration.
+#+begin_src emacs-lisp
+  (use-package mu4e
+    :defer 20
+    :load-path "/usr/share/emacs/site-lisp/mue4/"
+    :config
+    (require 'org-mu4e)
+    ;; refresh mbsync every 10 minutes
+    (setq mu4e-update-interval (* 10 60))
+    (setq mu4e-get-mail-command "mbsync -a")
+    (setq mu4e-maildir "~/Mail")
+
+    ;; moving messages renames files to avoid errors
+    (setq mu4e-change-filenames-when-moving t)
+     ;; Set up contexts for email accounts
+    (setq mu4e-contexts
+          `(,(make-mu4e-context
+              :name "miikanissi"
+              :match-func (lambda (msg) (when msg
+                                          (string-prefix-p "/miikanissi" (mu4e-message-field msg :maildir))))
+              :vars '(
+                      (user-full-name . "Miika Nissi")
+                      (user-mail-address . "miika@miikanissi.com")
+                      (mu4e-sent-folder . "/miikanissi/Sent Items")
+                      (mu4e-trash-folder . "/miikanissi/Trash")
+                      (mu4e-drafts-folder . "/miikanissi/Drafts")
+                      (mu4e-refile-folder . "/miikanissi/Archive")
+                      (mu4e-sent-messages-behavior . sent)
+                      ))))
+    (setq mu4e-context-policy 'pick-first)
+    ;; Prevent mu4e from permanently deleting trashed items
+      (defun remove-nth-element (nth list)
+      (if (zerop nth) (cdr list)
+        (let ((last (nthcdr (1- nth) list)))
+          (setcdr last (cddr last))
+          list)))
+    (setq mu4e-marks (remove-nth-element 5 mu4e-marks))
+    (add-to-list 'mu4e-marks
+                 '(trash
+                   :char ("d" . "▼")
+                   :prompt "dtrash"
+                   :dyn-target (lambda (target msg) (mu4e-get-trash-folder msg))
+                   :action (lambda (docid msg target)
+                             (mu4e~proc-move docid
+                                             (mu4e~mark-check-target target) "-N"))))
+    ;; Display options
+    (setq mu4e-view-show-images t)
+    (setq mu4e-view-show-addresses 't)
+     ;; Composing mail
+    (setq mu4e-compose-dont-reply-to-self t)
+    ;; Use mu4e for sending e-mail
+    (setq mail-user-agent 'mu4e-user-agent
+          message-send-mail-function 'smtpmail-send-it
+          smtpmail-smtp-server "smtp.mailfence.com"
+          smtpmail-smtp-service 465
+          smtpmail-stream-type 'ssl)
+    ;; don't keep message buffers around
+    (setq message-kill-buffer-on-exit t)
+    (setq m/mu4e-inbox-query
+          "(maildir:/miikanissi/Inbox) AND flag:unread")
+    (defun m/go-to-inbox ()
+      (interactive)
+      (mu4e-headers-search m/mu4e-inbox-query))
+    ;; start mu4e
+    (mu4e t))
+#+end_src
+** Mu4e-alert
+Shows notifications when new email arrives.
+#+begin_src emacs-lisp
+  (use-package mu4e-alert
+    :ensure t
+    :after mu4e
+    :config
+    ;; Show unread emails from all inboxes
+    (setq mu4e-alert-interesting-mail-query m/mu4e-inbox-query)
+    ;; Show notifications for mails already notified
+    (setq mu4e-alert-notify-repeated-mails nil)
+    (mu4e-alert-enable-notifications)
+    (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
+#+end_src
 * Password Manager
 I have been using pass, the standard UNIX password manager, for a while with Rofi integration, but I found out there is a package to integrate it with Emacs as well.
 Passwords are stored in =~/.password-store= directory, for more information check [[https://www.passwordstore.org/][pass]].
