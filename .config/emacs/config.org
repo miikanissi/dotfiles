@@ -647,13 +647,14 @@ The website is updated when calling =(m/publish-website)=, which only publishes 
 #+end_src
 * Terminal
 I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them.
+There is also an external package vterm which aims to provide a full terminal emulator inside Emacs, however it is still in an alpha stage.
 ** Setting default shell to bash
 Emacs asks for the shell you want to use every time you launch the terminal. We can skip that by adding a default shell.
 #+begin_src emacs-lisp
   (defvar my-term-shell "/bin/bash")
   (defadvice ansi-term (before force-bash)
     (interactive (list my-term-shell)))
-   (ad-activate 'ansi-term)
+  (ad-activate 'ansi-term)
 #+end_src
 ** Open terminal hotkey
 I use super+return to open terminal in my Window manager. It makes sense to use a similar binding for emacs terminal.
@@ -674,6 +675,7 @@ I use super+return to open terminal in my Window manager. It makes sense to use 
         (set-process-query-on-exit-flag proc nil))))
 
   (add-hook 'term-exec-hook 'set-no-process-query-on-exit)
+  (add-hook 'vterm-mode-hook 'set-no-process-query-on-exit)
 #+end_src
 ** Set UTF-8 in the terminal
 #+begin_src emacs-lisp
@@ -700,8 +702,56 @@ I use super+return to open terminal in my Window manager. It makes sense to use 
     (goto-address-mode)
     (define-key term-raw-map "\C-y" 'my-term-paste))
 #+end_src
+** Vterm
+Requires Emacs27 or above. Offers a full terminal emulator inside Emacs. Based on libvterm library.
+#+begin_src emacs-lisp
+  (if (version<= "27.1" emacs-version)
+      (use-package vterm
+        :ensure t
+        :config
+        (setq vterm-kill-buffer-on-exit t)
+        (setq vterm-shell "/bin/bash")))
+#+end_src
 * Navigation
 Packages and improvements for navigation in emacs.
+** Window rules
+Rules for setting a specific layout for different windows.
+#+begin_src emacs-lisp
+  (setq display-buffer-alist
+        '(;; bottom side window
+          ("\\*.*\\([^E]eshell\\|shell\\|v?term\\).*"
+           (display-buffer-in-side-window)
+           (window-height . 0.25)
+           (side . bottom)
+           (slot . -1)
+           (window-parameters . ((mode-line-format . none))))
+          ("\\*\\(Backtrace\\|Warnings\\|Compile-Log\\|Messages\\)\\*"
+           (display-buffer-in-side-window)
+           (window-height . 0.25)
+           (side . bottom)
+           (slot . 0)
+           (window-parameters . ((mode-line-format . none))))
+          ("\\*Faces\\*"
+           (display-buffer-in-side-window)
+           (window-height . 0.25)
+           (side . bottom)
+           (slot . 1)
+           (window-parameters . ((mode-line-format . none))))
+          ;; left side window
+          ("\\*Help.*"
+           (display-buffer-in-side-window)
+           (window-width . 0.25)
+           (side . left)
+           (slot . 0)
+           (window-parameters . ((mode-line-format . none))))
+          ))
+  (setq window-combination-resize t)
+  (setq even-window-sizes 'height-only)
+  (setq window-sides-vertical nil)
+  (setq switch-to-buffer-in-dedicated-window 'pop)
+  (add-hook 'help-mode-hook #'visual-line-mode)
+  (add-hook 'custom-mode-hook #'visual-line-mode)
+#+end_src
 ** Subword
 By default =M-f= / =M-b= treat thisIsOneWord as a single word instead. I want it to consider capitalization as a new word.
  #+begin_src emacs-lisp
