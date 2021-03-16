@@ -53,22 +53,42 @@ Use BlexMono Nerd Font.
 These are basic default settings that enhance the UI and functionality. No external packages used here.
 ** UTF-8 encoding everywhere
 #+begin_src emacs-lisp
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+#+end_src
+** No warnings for redefinition
+#+begin_src emacs-lisp
+  (setq-default ad-redefinition-action 'accept)
+#+end_src
+** Cursor and line improvements
+*** Highlight current line
+Very helpful to avoid "losing" your cursor.
+#+begin_src emacs-lisp
+(when window-system (global-hl-line-mode t))
+#+end_src
+*** Hide cursor in inactive windows
+#+begin_src emacs-lisp
+  (setq-default cursor-in-non-selected-windows nil)
+#+end_src
+*** Visual line mode
+By default long lines will go off the screen, I like to have them wrap on the next line instead.
+#+begin_src emacs-lisp
+  (global-visual-line-mode 1)
 #+end_src
 ** Garbage collection
 Allow 20MB of memory (instead of 0.76MB) before calling garbage collection. This means GC runs less often, which speeds up some operations.
 #+begin_src emacs-lisp
-  (setq gc-cons-threshold 20000000)
+  (setq-default gc-cons-threshold 20000000)
 #+end_src
 ** No startup message
 I use a replacement for the default startup menu, =dashboard= package.
 #+begin_src emacs-lisp
-  (setq inhibit-startup-message t)
-  (setq initial-scratch-message "")
+  (setq-default inhibit-startup-message t)
+  (setq-default initial-scratch-message "")
 #+end_src
 ** Remove menus and scrollbar
 I don't use the GUI menus so I get rid of them.
@@ -79,30 +99,24 @@ I don't use the GUI menus so I get rid of them.
 #+end_src
 ** Enable clipboard outside of Emacs
 #+begin_src emacs-lisp
-  (setq x-select-enable-clipboard t)
+  (setq-default x-select-enable-clipboard t)
 #+end_src
 ** Better scrolling behavior
 By default emacs scrolling jumps multiple lines when you hit the bottom of the screen. This changes the default behavior to a more sane option.
 #+begin_src emacs-lisp
-(setq scroll-conservatively 100)
+(setq-default scroll-conservatively 100)
+#+end_src
+** Focus help window when opened
+#+begin_src emacs-lisp
+  (setq-default help-window-select t)
 #+end_src
 ** No ring-bell for errors
 #+begin_src emacs-lisp
-(setq ring-bell-function 'ignore)
-#+end_src
-** Highlight current line
-Very helpful to avoid "losing" your cursor.
-#+begin_src emacs-lisp
-(when window-system (global-hl-line-mode t))
+(setq-default ring-bell-function 'ignore)
 #+end_src
 ** Show matching paranthesis
 #+begin_src emacs-lisp
 (show-paren-mode 1)
-#+end_src
-** Visual line mode
-By default long lines will go off the screen, I like to have them wrap on the next line instead.
-#+begin_src emacs-lisp
-  (global-visual-line-mode 1)
 #+end_src
 ** Bidirectional editing
 Display all paragraphs from left to right. This reduces the amount of line scans Emacs has to do. Keep the default value if working with languages that spell from right to left.
@@ -115,8 +129,8 @@ Display all paragraphs from left to right. This reduces the amount of line scans
 ** No backups
 I don't need backup or autosave files so I disable them. By default emacs creates backup files as =filename~= in the files directory. Better behavior would be to have a seperate directory for all backups but I don't feel the need for it.
 #+begin_src emacs-lisp
-(setq make-backup-files nil)
-(setq auto-save-default nil)
+(setq-default make-backup-files nil)
+(setq-default auto-save-default nil)
 #+end_src
 ** Change yes-or-no to y-or-n
 #+begin_src emacs-lisp
@@ -125,7 +139,7 @@ I don't need backup or autosave files so I disable them. By default emacs create
 ** Confirm before closing Emacs
 Sometimes I accidentally do =C-x s=, =C-x c= from muscle memory of working on a single file with the terminal Emacs version. So I actually like having a confirmation before closing Emacs.
 #+begin_src emacs-lisp
-  (setq confirm-kill-emacs 'y-or-n-p)
+  (setq-default confirm-kill-emacs 'y-or-n-p)
 #+end_src
 ** Buffers
 Improve default emacs buffers.
@@ -156,11 +170,32 @@ Sometimes I want to close all buffers to start fresh, this makes it a single com
 ** Always follow symlinks
 When opening a file, always follow symlinks.
 #+begin_src emacs-lisp
-  (setq vc-follow-symlinks t)
+  (setq-default vc-follow-symlinks t)
 #+end_src
 ** Auto reload files on change
 #+begin_src emacs-lisp
   (global-auto-revert-mode t)
+#+end_src
+** Use =.cache/= to contain local data
+This is to avoid littering in the Emacs directory.
+#+begin_src emacs-lisp
+  (defconst m/cache-directory
+    (expand-file-name ".cache/")
+    "Directory where all cache files should be saved")
+
+  (defun m/cache-concat (name)
+    "Return the absolute path of NAME under `m/cache-directory'."
+    (let* ((directory (file-name-as-directory m/cache-directory))
+           (path (convert-standard-filename (concat directory name))))
+      (make-directory (file-name-directory path) t)
+      path))
+
+  (with-eval-after-load 'request
+    (setq-default request-storage-directory (m/cache-concat "request/")))
+  (with-eval-after-load 'tramp
+    (setq-default tramp-persistency-file-name (m/cache-concat "tramp.eld")))
+  (with-eval-after-load 'url
+    (setq-default url-configuration-directory (m/cache-concat "url/")))
 #+end_src
 ** EWW
 Emacs Web Wowser is a built in web browser for Emacs.
