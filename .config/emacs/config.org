@@ -32,6 +32,25 @@ For python completion and syntax checking you need to install these from pip:
 *** Emacs installation:
 On the first launch of Emacs you might need to run some commands using M-x to fully install everything. Here's a list:
 - =jedi:install-server=
+* Secrets
+In this section I define variables that are loaded from a =.secret.el= file. These secrets contain personal information and machine specific settings that are best to keep away from version control.
+#+begin_src emacs-lisp
+  (defvar m/erc-nick nil                 "The ERC nick to use.")
+  (defvar m/erc-password nil             "The ERC password to use.")
+  (defvar m/erc-port nil                 "The ERC port to use.")
+  (defvar m/erc-server nil               "The ERC server to use.")
+
+  (defvar m/user-full-name nil           "The full name of user.")
+  (defvar m/user-mail-address nil        "The email address of user.")
+
+  (defvar m/mail-smtp-server nil         "The smtp server for mail.")
+  (defvar m/mail-smtp-port nil           "The smtp port for mail.")
+  (defvar m/mail-smtp-user nil           "The smtp user for mail.")
+  (defvar m/mail-smtp-password nil       "The smtp password for mail.")
+
+  (let ((secret.el (expand-file-name ".secret.el")))
+    (load secret.el t))
+#+end_src
 * Theme
 I don't want my eyes to bleed with the default theme.
 ** Gruvbox
@@ -202,6 +221,10 @@ Emacs Web Wowser is a built in web browser for Emacs.
 *** Scroll without changing point
 #+begin_src emacs-lisp
   (add-hook 'eww-mode-hook 'scroll-lock-mode)
+#+end_src
+** Run Emacs as a daemon
+#+begin_src emacs-lisp
+  (server-start)
 #+end_src
 * Terminal
 I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them.
@@ -595,9 +618,12 @@ Use asynchronous processes when possible.
 #+end_src
 * Modeline
 I like the way powerline looks with spaceline-theme.
+** TODO Migrate from powerline to a customized default Emacs modeline.
 ** powerline
-Install and enable powerline.
+Install and enable powerline. Also install spaceline for the powerline theme.
 #+begin_src emacs-lisp
+  (use-package spaceline
+    :ensure t)
   (use-package powerline
     :ensure t
     :init
@@ -1255,13 +1281,10 @@ EXWM is initialized inside a function that checks if no other WM is running and 
      (use-package exwm
        :ensure t
        :config
-
        ;; BASIC CONFIG
        (require 'exwm-config)
        ;; fringe size
        (fringe-mode 3)
-       ;; emacs as a daemon, edit files from terminal using "emacsclient <filename>"
-       (server-start)
        ;; fixes ido mode
        (exwm-config-ido)
        ;; init startup workspaces
@@ -1362,9 +1385,7 @@ EXWM is initialized inside a function that checks if no other WM is running and 
                     print))
          (cl-pushnew k exwm-input-prefix-keys))
 
-       ;; runs this external script on startup to autostart some programs
-       (call-process "~/.local/bin/exwm_autostart.sh" nil 0 nil)
-       ;; this just enables exwm, it started automatically once everything is ready
+       ;; this starts exwm if no window manager is present
        (exwm-enable)))
  #+end_src
 * Music
@@ -1490,61 +1511,62 @@ Here is a template configuration to follow for setting up mbsync in =~/.mbsyncrc
 Mu4e configuration.
 #+begin_src emacs-lisp
   (use-package mu4e
-    :defer 20
+    :ensure nil
+    :defer 5
     :load-path "/usr/share/emacs/site-lisp/mue4/"
     :config
     (require 'org-mu4e)
+
     ;; refresh mbsync every 10 minutes
     (setq mu4e-update-interval (* 10 60))
     (setq mu4e-get-mail-command "mbsync -a")
     (setq mu4e-maildir "~/Mail")
-
+    ;; use pass to store passwords
+    ;; file auth looks for is ~/.password-store/<smtp.host.tld>:<port>/<name>
+    (auth-source-pass-enable)
+    (setq auth-sources '(password-store))
+    (setq auth-source-debug t)
+    (setq auth-source-do-cache nil)
+    ;; no reply to self
+    (setq mu4e-compose-dont-reply-to-self t)
+    (setq mu4e-compose-keep-self-cc nil)
     ;; moving messages renames files to avoid errors
     (setq mu4e-change-filenames-when-moving t)
-     ;; Set up contexts for email accounts
-    (setq mu4e-contexts
-          `(,(make-mu4e-context
-              :name "miikanissi"
-              :match-func (lambda (msg) (when msg
-                                          (string-prefix-p "/miikanissi" (mu4e-message-field msg :maildir))))
-              :vars '(
-                      (user-full-name . "Miika Nissi")
-                      (user-mail-address . "miika@miikanissi.com")
-                      (mu4e-sent-folder . "/miikanissi/Sent Items")
-                      (mu4e-trash-folder . "/miikanissi/Trash")
-                      (mu4e-drafts-folder . "/miikanissi/Drafts")
-                      (mu4e-refile-folder . "/miikanissi/Archive")
-                      (mu4e-sent-messages-behavior . sent)
-                      ))))
-    (setq mu4e-context-policy 'pick-first)
-    ;; Prevent mu4e from permanently deleting trashed items
-      (defun remove-nth-element (nth list)
-      (if (zerop nth) (cdr list)
-        (let ((last (nthcdr (1- nth) list)))
-          (setcdr last (cddr last))
-          list)))
-    (setq mu4e-marks (remove-nth-element 5 mu4e-marks))
-    (add-to-list 'mu4e-marks
-                 '(trash
-                   :char ("d" . "▼")
-                   :prompt "dtrash"
-                   :dyn-target (lambda (target msg) (mu4e-get-trash-folder msg))
-                   :action (lambda (docid msg target)
-                             (mu4e~proc-move docid
-                                             (mu4e~mark-check-target target) "-N"))))
+    ;; Configure the function to use for sending mail
+    (setq message-send-mail-function 'smtpmail-send-it)
     ;; Display options
     (setq mu4e-view-show-images t)
     (setq mu4e-view-show-addresses 't)
-     ;; Composing mail
+    ;; Composing mail
     (setq mu4e-compose-dont-reply-to-self t)
-    ;; Use mu4e for sending e-mail
-    (setq mail-user-agent 'mu4e-user-agent
-          message-send-mail-function 'smtpmail-send-it
-          smtpmail-smtp-server "smtp.mailfence.com"
-          smtpmail-smtp-service 465
-          smtpmail-stream-type 'ssl)
     ;; don't keep message buffers around
     (setq message-kill-buffer-on-exit t)
+    ;; Don't ask for a 'context' upon opening mu4e
+    (setq mu4e-context-policy 'pick-first)
+    ;; Don't ask to quit... why is this the default?
+    (setq mu4e-confirm-quit nil)
+
+    ;; Set up contexts for email accounts
+    (setq mu4e-contexts
+          (list
+           (make-mu4e-context
+            :name "miikanissi"
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/miikanissi" (mu4e-message-field msg :maildir))))
+            :vars `((user-mail-address . ,m/user-mail-address)
+                    (user-full-name    . ,m/user-full-name)
+                    (smtpmail-smtp-server  . ,m/mail-smtp-server)
+                    (smtpmail-smtp-service . ,m/mail-smtp-port)
+                    (smtpmail-stream-type  . ssl)
+                    (smtpmail-smtp-user . ,m/mail-smtp-user)
+                    (mu4e-compose-signature . "- Miika Nissi")
+                    (mu4e-drafts-folder  . "/miikanissi/Drafts")
+                    (mu4e-sent-folder  . "/miikanissi/Sent Items")
+                    (mu4e-refile-folder  . "/miikanissi/Archive")
+                    (mu4e-trash-folder  . "/miikanissi/Trash")))))
+
     (setq m/mu4e-inbox-query
           "(maildir:/miikanissi/Inbox) AND flag:unread")
     (defun m/go-to-inbox ()
