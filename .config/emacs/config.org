@@ -5,10 +5,12 @@
 #+OPTIONS: num:nil
 #+html: <p align="center"><img src="./screenshots/dashboard.png"/></p>
 On Feb 19, 2021, I decided to fully jump into using Emacs as my "operating system". Since then I have been building additional features on top of the base Emacs program. My entire configuration is in this single Org-mode file so it is very portable from computer to computer.
-* Installation
-=git clone https://github.com/miikanissi/MiikasEmacs ~/.config/emacs=
-
+* Installation and bootstrapping
 Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
+#+begin_src bash
+  git clone https://github.com/miikanissi/dotfiles/
+  cp dotfiles/.config/emacs/ ~/.config/emacs
+#+end_src
 This configuration is written in Org-mode and is self documented.
 ** Extra dependencies
 *** Fonts
@@ -32,8 +34,23 @@ For python completion and syntax checking you need to install these from pip:
 *** Emacs installation:
 On the first launch of Emacs you might need to run some commands using M-x to fully install everything. Here's a list:
 - =jedi:install-server=
+** Packages
+Setup MELPA and Org repositories.
+#+begin_src emacs-lisp
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
+#+end_src
+Install =use-package= for managing other packages.
+#+begin_src emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+#+end_src
 * Secrets
-In this section I define variables that are loaded from a =.secret.el= file. These secrets contain personal information and machine specific settings that are best to keep away from version control.
+In this section I define variables that are set in a =.secret.el= file. These secrets contain personal information and machine specific settings that are best to keep away from version control.
 #+begin_src emacs-lisp
   (defvar m/erc-nick nil                 "The ERC nick to use.")
   (defvar m/erc-password nil             "The ERC password to use.")
@@ -42,6 +59,7 @@ In this section I define variables that are loaded from a =.secret.el= file. The
 
   (defvar m/user-full-name nil           "The full name of user.")
   (defvar m/user-mail-address nil        "The email address of user.")
+  (defvar m/mail-signature nil           "The mail signature.")
 
   (defvar m/mail-smtp-server nil         "The smtp server for mail.")
   (defvar m/mail-smtp-port nil           "The smtp port for mail.")
@@ -99,13 +117,27 @@ By default long lines will go off the screen, I like to have them wrap on the ne
   (global-visual-line-mode 1)
 #+end_src
 ** Garbage collection
+*** Increase memory limit before gc
 Allow 20MB of memory (instead of 0.76MB) before calling garbage collection. This means GC runs less often, which speeds up some operations.
 #+begin_src emacs-lisp
   (setq-default gc-cons-threshold 20000000)
 #+end_src
+*** Gc on focus-out
+Garbage-collect on focus-out.
+#+begin_src emacs-lisp
+  (add-function :after after-focus-change-function
+    (defun m/garbage-collect-maybe ()
+      (unless (frame-focus-state)
+        (garbage-collect))))
+#+end_src
+** Disable customize-* in user-init-file
+#+begin_src emacs-lisp
+  (setq-default custom-file null-device)
+#+end_src
 ** No startup message
 I use a replacement for the default startup menu, =dashboard= package.
 #+begin_src emacs-lisp
+  (setq inhibit-startup-echo-area-message user-login-name)
   (setq-default inhibit-startup-message t)
   (setq-default initial-scratch-message "")
 #+end_src
@@ -289,6 +321,7 @@ Requires Emacs27 or above. Offers a full terminal emulator inside Emacs. Based o
   (if (version<= "27.1" emacs-version)
       (use-package vterm
         :ensure t
+        :commands vterm
         :config
         (setq vterm-kill-buffer-on-exit t)
         (setq vterm-shell "/bin/bash")))
@@ -831,12 +864,24 @@ For python completion I'm using jedi as a backend. It follows the PEP-8 styling 
       (add-hook 'python-mode-hook 'python-mode-company-init))
 #+end_src
 ** Javascript
+*** Prettier
 #+begin_src emacs-lisp
   (use-package prettier-js
     :ensure t
     :hook
     (web-mode . prettier-js-mode)
     (js2-mode-hook . prettier-js-mode))
+#+end_src
+*** js-doc
+#+begin_src emacs-lisp
+  (use-package js-doc
+    :ensure t)
+#+end_src
+** Json-mode
+#+begin_src emacs-lisp
+  (use-package json-mode
+    :ensure t
+    :mode "\\.json\\'")
 #+end_src
 ** Bash
 Auto-completion, snippets, syntax checking for bash.
@@ -892,11 +937,12 @@ Activate snippets in ReST mode
 #+begin_src emacs-lisp
   (add-hook 'rst-mode-hook 'yas-minor-mode)
 #+end_src
-** Git
+** Magit
 I tend to mostly do git commands from the terminal but I'm trying to learn how to use magit instead.
 #+begin_src emacs-lisp
   (use-package magit
     :ensure t
+    :commands magit-status
     :config
     (setq magit-push-always-verify nil)
     (setq git-commit-summary-max-length 50)
@@ -917,8 +963,6 @@ Org was one of the main reasons why I decided to start using Emacs. I will never
 ** Org-plus-contrib
 Have to add a new package archive for org-plus-contrib for some reason. I also remove default css and js, add default language and utf-8 etc.
 #+begin_src emacs-lisp
-  (require 'package)
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
   (use-package htmlize
     :ensure t)
   (use-package org
@@ -1475,7 +1519,7 @@ Telega is a Telegram cleint for Emacs. It needs some additional configuration to
 * Email
 I am using mu4e as an Emacs frontend for my email. The actual syncing and sending emails is done with external programs that need to be configured. In my case I am using isync/mbsync for syncing mail, and mu for sending mail.
 
-I also made [[https://miikanissi.com/blog/email-setup-with-mbsync-msmtp-mu4e.html][a blog post]] as a guide for setting up mbsync + mu4e for email.
+I also made [[https://miikanissi.com/blog/email-setup-with-mbsync-mu4e.html][a blog post]] as a guide for setting up mbsync + mu4e for email.
 ** Mbsync
 Here is a template configuration to follow for setting up mbsync in =~/.mbsyncrc=:
 #+begin_src bash
@@ -1561,7 +1605,7 @@ Mu4e configuration.
                     (smtpmail-smtp-service . ,m/mail-smtp-port)
                     (smtpmail-stream-type  . ssl)
                     (smtpmail-smtp-user . ,m/mail-smtp-user)
-                    (mu4e-compose-signature . "- Miika Nissi")
+                    (mu4e-compose-signature . ,m/mail-signature)
                     (mu4e-drafts-folder  . "/miikanissi/Drafts")
                     (mu4e-sent-folder  . "/miikanissi/Sent Items")
                     (mu4e-refile-folder  . "/miikanissi/Archive")
