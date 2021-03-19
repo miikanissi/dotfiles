@@ -1443,7 +1443,7 @@ Installs Mingus and sets keybindings.
   (use-package mingus
     :ensure t
     :bind
-    ("s-m m" . mingus)
+    ("s-m" . mingus)
     ("s-SPC" . mingus-pause)
     ("s-," . mingus-vol-down)
     ("s-." . mingus-vol-up)
@@ -1465,7 +1465,6 @@ Setups mpc to use the right host:port
     (shell-command "mpd")
     (mpd/update-database)
     (message "MPD Started"))
-  (global-set-key (kbd "s-m c") 'mpd/start-music-daemon)
 #+end_src
 **** Kill MPD daemon from emacs
 #+begin_src emacs-lisp
@@ -1474,7 +1473,6 @@ Setups mpc to use the right host:port
     (interactive)
     (call-process "killall" nil nil nil "mpd")
     (message "MPD Killed"))
-  (global-set-key (kbd "s-m k") 'mpd/kill-music-daemon)
 #+end_src
 **** Update MPD database from emacs
 #+begin_src emacs-lisp
@@ -1483,11 +1481,12 @@ Setups mpc to use the right host:port
     (interactive)
     (call-process "mpc" nil nil nil "update")
     (message "MPD Database Updated"))
-  (global-set-key (kbd "s-m u") 'mpd/update-database)
 #+end_src
 * Password Manager
 I have been using pass, the standard UNIX password manager, for a while with Rofi integration, but I found out there is a package to integrate it with Emacs as well.
+
 Passwords are stored in =~/.password-store= directory, for more information check [[https://www.passwordstore.org/][pass]].
+I have also made a [[https://miikanissi.com/blog/pass-the-standard-unix-password-manager.html][blog post]] as a guide on setting up Pass.
 #+begin_src emacs-lisp
   (if (version<= "27.1" emacs-version)
       (use-package password-store
@@ -1499,19 +1498,7 @@ Passwords are stored in =~/.password-store= directory, for more information chec
 * Instant Messaging
 Instant messaging from Emacs.
 ** telega
-Telega is a Telegram cleint for Emacs. It needs some additional configuration to make it work, check [[https://zevlg.github.io/telega.el/
-   rmail:
-   mhe:
-   irc:
-   info:
-   gnus:
-   docview:
-   bibtex:
-   bbdb:
-   w3m:
-   file+sys:
-   file+emacs:
-   ...][telega.el documentation]].
+Telega is a Telegram cleint for Emacs. It needs some additional configuration to make it work, check [[https://zevlg.github.io/telega.el/][telega.el documentation]].
 #+begin_src emacs-lisp
   (use-package telega
     :ensure t)
@@ -1558,6 +1545,8 @@ Mu4e configuration.
     :ensure nil
     :defer 5
     :load-path "/usr/share/emacs/site-lisp/mue4/"
+    :bind
+    ("s-e" . mu4e)
     :config
     (require 'org-mu4e)
 
