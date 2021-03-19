@@ -4,8 +4,12 @@
 
 ### PROGRAM LAUNCHERS ###
 # launch programs (h,j,k,l,d,q,f,t,n,p,space,greater,less taken by bspc and cmus)
-super + {Return, w, e, g, b, s}
-    {alacritty, brave, emacs, pcmanfm, urxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
+super + {w, e, g, b, s}
+    {brave, emacs, pcmanfm, urxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
+
+# launch terminal
+super + alt + Return
+      alacritty
 
 # print screen script with maim
 super + Print
@@ -33,19 +37,19 @@ super + Tab
 
 # launch rofi kill script
 super + shift + x
-    .local/bin/rofi_killprocess.sh
+    ~/.local/bin/rofi_killprocess.sh
 
 # launch passmenu
 super + z
-    .local/bin/rofi_passmenu.sh
+    ~/.local/bin/rofi_passmenu.sh
 
 # launch passmenu_otp
 super + shift + z
-    .local/bin/rofi_passmenu_otp.sh
+    ~/.local/bin/rofi_passmenu_otp.sh
 
 # launch rofi_mount.sh
 super + x
-    .local/bin/rofi_dman.sh
+    ~/.local/bin/rofi_dman.sh
 
 ### BSPC HOTKEYS ###
 # restart everything

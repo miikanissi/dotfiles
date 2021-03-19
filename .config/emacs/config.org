@@ -317,14 +317,52 @@ I use super+return to open terminal in my Window manager. It makes sense to use 
 #+end_src
 ** Vterm
 Requires Emacs27 or above. Offers a full terminal emulator inside Emacs. Based on libvterm library.
+*** Init vterm and binds
+With my custom functions I can open up vterm on the bottom with =Super + Return= and hide with =Super + '=.
 #+begin_src emacs-lisp
   (if (version<= "27.1" emacs-version)
       (use-package vterm
         :ensure t
-        :commands vterm
+        :commands vterm vterm-other-window
+        :bind
+        ("s-<return>" . m/vterm-dwim)
+        ("s-'" . m/vterm-close)
         :config
         (setq vterm-kill-buffer-on-exit t)
         (setq vterm-shell "/bin/bash")))
+#+end_src
+*** Close the bottom vterm window
+Closes the bottom vterm window by hiding it.
+#+begin_src emacs-lisp
+  (defun m/vterm-close ()
+    (interactive)
+    (walk-windows
+     (lambda (window)
+       (let ((windmove-wrap-around nil))
+         (with-selected-window window
+           (when (and (eq major-mode 'vterm-mode)
+                      (window-in-direction 'up)
+                      (not (window-in-direction 'down)))
+             (delete-window)))))
+     nil (selected-frame)))
+#+end_src
+*** Invoke vterm according to context
+If vterm already exists bring back the first window.
+#+begin_src emacs-lisp
+  (defun m/vterm-dwim (&optional argument)
+    (interactive "P")
+    (if (or argument (not (projectile-project-root)))
+        (vterm)
+      (let* ((project (projectile-acquire-root))
+             (buffer (format "*vterm: %s*" (projectile-project-name project)))
+             (replace (string= buffer (buffer-name)))
+             (buffer (if replace (generate-new-buffer-name buffer) buffer)))
+        (if (buffer-live-p (get-buffer buffer))
+            (pop-to-buffer buffer)
+          (projectile-with-default-dir project
+            (unless (require 'vterm nil :noerror)
+              (error "Package 'vterm' not found"))
+            (vterm buffer))))))
 #+end_src
 * Navigation
 Packages and improvements for navigation in emacs.
