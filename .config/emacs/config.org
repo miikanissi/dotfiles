@@ -260,60 +260,12 @@ Emacs Web Wowser is a built in web browser for Emacs.
 #+end_src
 * Terminal
 I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them.
-There is also an external package vterm which aims to provide a full terminal emulator inside Emacs, however it is still in an alpha stage.
-** Setting default shell to bash
-Emacs asks for the shell you want to use every time you launch the terminal. We can skip that by adding a default shell.
-#+begin_src emacs-lisp
-  (defvar my-term-shell "/bin/bash")
-  (defadvice ansi-term (before force-bash)
-    (interactive (list my-term-shell)))
-  (ad-activate 'ansi-term)
-#+end_src
-** Open terminal hotkey
-I use super+return to open terminal in my Window manager. It makes sense to use a similar binding for emacs terminal.
+There is also an external package vterm which aims to provide a full terminal emulator inside Emacs, however it is still in an alpha stage, but seems to be working fine for me.
+** Ansi-term
+*** Open ansi-term hotkey
+Opens ansi-term with =Meta + Super + Return=.
 #+begin_src emacs-lisp
 (global-set-key (kbd "<M-s-return>") 'ansi-term)
-#+end_src
-** Disable line highlight and beacon in terminal
-#+begin_src emacs-lisp
-  (add-hook 'term-mode-hook (lambda ()
-                              (setq-local global-hl-line-mode nil)
-                              (setq-local beacon-mode nil)))
-#+end_src
-** Disable running process warning for terminal
-#+begin_src emacs-lisp
-  (defun set-no-process-query-on-exit ()
-    (let ((proc (get-buffer-process (current-buffer))))
-      (when (processp proc)
-        (set-process-query-on-exit-flag proc nil))))
-
-  (add-hook 'term-exec-hook 'set-no-process-query-on-exit)
-  (add-hook 'vterm-mode-hook 'set-no-process-query-on-exit)
-#+end_src
-** Set UTF-8 in the terminal
-#+begin_src emacs-lisp
-  (defun my-term-use-utf8 ()
-    (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
-  (add-hook 'term-exec-hook 'my-term-use-utf8)
-#+end_src
-** Make URLs clickable
-#+begin_src emacs-lisp
-  (defun my-term-hook ()
-    (goto-address-mode))
-
-  (add-hook 'term-mode-hook 'my-term-hook)
-#+end_src
-** Allow pasting with C-y
-#+begin_src emacs-lisp
-  (defun my-term-paste (&optional string)
-   (interactive)
-   (process-send-string
-    (get-buffer-process (current-buffer))
-    (if string string (current-kill 0))))
-
-  (defun my-term-hook ()
-    (goto-address-mode)
-    (define-key term-raw-map "\C-y" 'my-term-paste))
 #+end_src
 ** Vterm
 Requires Emacs27 or above. Offers a full terminal emulator inside Emacs. Based on libvterm library.
@@ -363,6 +315,59 @@ If vterm already exists bring back the first window.
             (unless (require 'vterm nil :noerror)
               (error "Package 'vterm' not found"))
             (vterm buffer))))))
+#+end_src
+** Allow pasting with C-y
+#+begin_src emacs-lisp
+  (defun my-term-paste (&optional string)
+   (interactive)
+   (process-send-string
+    (get-buffer-process (current-buffer))
+    (if string string (current-kill 0))))
+
+  (defun my-term-hook ()
+    (goto-address-mode)
+    (define-key term-raw-map "\C-y" 'my-term-paste))
+#+end_src
+** Disable line highlight and beacon in terminals
+#+begin_src emacs-lisp
+  (add-hook 'term-mode-hook (lambda ()
+                              (setq-local global-hl-line-mode nil)
+                              (setq-local beacon-mode nil)))
+  (add-hook 'vterm-mode-hook (lambda ()
+                              (setq-local global-hl-line-mode nil)
+                              (setq-local beacon-mode nil)))
+#+end_src
+*** Setting default shell to bash
+Emacs asks for the shell you want to use every time you launch the terminal. We can skip that by adding a default shell.
+#+begin_src emacs-lisp
+  (defvar my-term-shell "/bin/bash")
+  (defadvice ansi-term (before force-bash)
+    (interactive (list my-term-shell)))
+  (ad-activate 'ansi-term)
+#+end_src
+** Disable running process warning for terminals
+#+begin_src emacs-lisp
+  (defun set-no-process-query-on-exit ()
+    (let ((proc (get-buffer-process (current-buffer))))
+      (when (processp proc)
+        (set-process-query-on-exit-flag proc nil))))
+
+  (add-hook 'term-exec-hook 'set-no-process-query-on-exit)
+  (add-hook 'vterm-mode-hook 'set-no-process-query-on-exit)
+#+end_src
+** Set UTF-8 in the terminal
+#+begin_src emacs-lisp
+  (defun my-term-use-utf8 ()
+    (set-buffer-process-coding-system 'utf-8-unix 'utf-8-unix))
+  (add-hook 'term-exec-hook 'my-term-use-utf8)
+  (add-hook 'vterm-mode-hook 'my-term-use-utf8)
+#+end_src
+** Make URLs clickable
+#+begin_src emacs-lisp
+  (defun my-term-hook ()
+    (goto-address-mode))
+  (add-hook 'term-mode-hook 'my-term-hook)
+  (add-hook 'vterm-mode-hook 'my-term-hook)
 #+end_src
 * Navigation
 Packages and improvements for navigation in emacs.
