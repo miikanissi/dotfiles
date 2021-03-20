@@ -3,7 +3,7 @@
 #+CREATOR: Miika Nissi
 #+LANGUAGE: en
 #+OPTIONS: num:nil
-#+html: <p align="center"><img src="./screenshots/dashboard.png"/></p>
+#+html: <p align="center"><img src="./dashboard.png"/></p>
 On Feb 19, 2021, I decided to fully jump into using Emacs as my "operating system". Since then I have been building additional features on top of the base Emacs program. My entire configuration is in this single Org-mode file so it is very portable from computer to computer.
 * Installation and bootstrapping
 Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
@@ -704,8 +704,7 @@ Install and enable powerline. Also install spaceline for the powerline theme.
     :ensure t
     :init
     (spaceline-spacemacs-theme)
-    :hook
-    ('after-init-hook . 'powerline-reset))
+    (powerline-reset))
 #+end_src
 ** delight
 Delight allows customizing which major/minor modes are shown on the modeline.
@@ -762,15 +761,16 @@ Shows time in the statusbar in the format of 02:00PM.
   (column-number-mode 1)
 #+end_src
 * Dashboard
-Nice dashboard on emacs startup.
+Nice dashboard on emacs startup. Using the [[https://github.com/snackon/Witchmacs][Witchmacs]] banner image. Marisa is cute.
 #+begin_src emacs-lisp
   (use-package dashboard
     :ensure t
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-banner-logo-title "Miika's Emacs")
+    (setq dashboard-startup-banner "~/.emacs.d/marisa.png")
     (setq dashboard-set-init-info t)
-    (setq dashboard-items '((recents . 10)
+    (setq dashboard-items '((recents . 5)
                               (projects . 5))))
 #+end_src
 * Programming
