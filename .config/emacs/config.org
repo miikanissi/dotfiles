@@ -87,6 +87,12 @@ Use BlexMono Nerd Font.
         (add-to-list 'default-frame-alist
                      '(font . "BlexMono Nerd Font 10")))
 #+end_src
+** All-the-icons
+A library that includes loads of icons.
+#+begin_src emacs-lisp
+  (use-package all-the-icons
+    :ensure t)
+#+end_src
 * Basic Settings
 These are basic default settings that enhance the UI and functionality. No external packages used here.
 ** UTF-8 encoding everywhere
@@ -280,6 +286,7 @@ With my custom functions I can open up vterm on the bottom with =Super + Return=
     ("s-<return>" . m/vterm-dwim)
     ("s-'" . m/vterm-close)
     :config
+    (setq vterm-always-compile-module t)
     (setq vterm-kill-buffer-on-exit t)
     (setq vterm-shell "/bin/bash"))
 #+end_src
@@ -773,8 +780,8 @@ Nice dashboard on emacs startup. Using the [[https://github.com/snackon/Witchmac
     (setq dashboard-items '((recents . 5)
                               (projects . 5))))
 #+end_src
-* Programming
-Mostly programming related configurations and packages.
+* Development
+Mostly programming/development related configurations and packages.
 ** Line numbers when programming
 Having line numbers is very useful when programming.
 #+begin_src emacs-lisp
