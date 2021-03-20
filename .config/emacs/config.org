@@ -285,8 +285,9 @@ With my custom functions I can open up vterm on the bottom with =Super + Return=
     :bind
     ("s-<return>" . m/vterm-dwim)
     ("s-'" . m/vterm-close)
-    :config
+    :init
     (setq vterm-always-compile-module t)
+    :config
     (setq vterm-kill-buffer-on-exit t)
     (setq vterm-shell "/bin/bash"))
 #+end_src
