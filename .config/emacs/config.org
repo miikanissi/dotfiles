@@ -268,20 +268,19 @@ Opens ansi-term with =Meta + Super + Return=.
 (global-set-key (kbd "<M-s-return>") 'ansi-term)
 #+end_src
 ** Vterm
-Requires Emacs27 or above. Offers a full terminal emulator inside Emacs. Based on libvterm library.
+Offers a full terminal emulator inside Emacs. Based on libvterm library.
 *** Init vterm and binds
 With my custom functions I can open up vterm on the bottom with =Super + Return= and hide with =Super + '=.
 #+begin_src emacs-lisp
-  (if (version<= "27.1" emacs-version)
-      (use-package vterm
-        :ensure t
-        :commands vterm vterm-other-window
-        :bind
-        ("s-<return>" . m/vterm-dwim)
-        ("s-'" . m/vterm-close)
-        :config
-        (setq vterm-kill-buffer-on-exit t)
-        (setq vterm-shell "/bin/bash")))
+  (use-package vterm
+    :ensure t
+    :commands vterm vterm-other-window
+    :bind
+    ("s-<return>" . m/vterm-dwim)
+    ("s-'" . m/vterm-close)
+    :config
+    (setq vterm-kill-buffer-on-exit t)
+    (setq vterm-shell "/bin/bash"))
 #+end_src
 *** Close the bottom vterm window
 Closes the bottom vterm window by hiding it.
@@ -1531,12 +1530,12 @@ I have been using pass, the standard UNIX password manager, for a while with Rof
 Passwords are stored in =~/.password-store= directory, for more information check [[https://www.passwordstore.org/][pass]].
 I have also made a [[https://miikanissi.com/blog/pass-the-standard-unix-password-manager.html][blog post]] as a guide on setting up Pass.
 #+begin_src emacs-lisp
-  (if (version<= "27.1" emacs-version)
-      (use-package password-store
-        :ensure t))
-  (if (version<= "27.1" emacs-version)
-      (use-package password-store-otp
-        :ensure t))
+  ;; (if (version<= "27.1" emacs-version)
+  ;;     (use-package password-store
+  ;;       :ensure t))
+  ;; (if (version<= "27.1" emacs-version)
+  ;;     (use-package password-store-otp
+  ;;       :ensure t))
 #+end_src
 * Instant Messaging
 Instant messaging from Emacs.

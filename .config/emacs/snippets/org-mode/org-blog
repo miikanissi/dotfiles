@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: org-blog
+# key: blog
+# --
+#+TITLE: ${1}
+#+KEYWORDS: ${2}
+#+DESCRIPTION: ${3}
+#+OPTIONS: title:t
+
+#+BEGIN_abstract
+${0}
+#+END_abstract
