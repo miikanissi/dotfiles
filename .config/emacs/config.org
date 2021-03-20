@@ -35,11 +35,12 @@ For python completion and syntax checking you need to install these from pip:
 On the first launch of Emacs you might need to run some commands using M-x to fully install everything. Here's a list:
 - =jedi:install-server=
 ** Packages
-Setup MELPA and Org repositories.
+Setup ELPA, MELPA and Org repositories.
 #+begin_src emacs-lisp
   (require 'package)
   (setq package-enable-at-startup nil)
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-initialize)
 #+end_src
@@ -1530,12 +1531,12 @@ I have been using pass, the standard UNIX password manager, for a while with Rof
 Passwords are stored in =~/.password-store= directory, for more information check [[https://www.passwordstore.org/][pass]].
 I have also made a [[https://miikanissi.com/blog/pass-the-standard-unix-password-manager.html][blog post]] as a guide on setting up Pass.
 #+begin_src emacs-lisp
-  ;; (if (version<= "27.1" emacs-version)
-  ;;     (use-package password-store
-  ;;       :ensure t))
-  ;; (if (version<= "27.1" emacs-version)
-  ;;     (use-package password-store-otp
-  ;;       :ensure t))
+  (if (version<= "27.1" emacs-version)
+      (use-package password-store
+        :ensure t))
+  (if (version<= "27.1" emacs-version)
+      (use-package password-store-otp
+        :ensure t))
 #+end_src
 * Instant Messaging
 Instant messaging from Emacs.
