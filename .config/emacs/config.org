@@ -39,9 +39,9 @@ Setup ELPA, MELPA and Org repositories.
 #+begin_src emacs-lisp
   (require 'package)
   (setq package-enable-at-startup nil)
-  ;; (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
   (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
   (package-initialize)
 #+end_src
 Install =use-package= for managing other packages.
