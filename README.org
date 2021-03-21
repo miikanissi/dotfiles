@@ -5,7 +5,7 @@
 #+OPTIONS: num:nil
 #+html: <p align="center"><a name="top" href="#my-dotfiles"><img height="60%" width="100%" src="./.config/gallery/dotfiles.png"/></a></p>
 ** My dotfiles
-#+html: <p><a href="https://miikanissi.com"><img src="./.config/gallery/desktop_bspwm_gruvbox_full.jpg" align="right" width="400px"/></a></p>
+#+html: <p><a href="https://miikanissi.com"><img src="./.config/gallery/desktop.png" align="right" width="400px"/></a></p>
 This is my personal configuration for a custom Desktop Environment, including useful scripts and a list of all the programs I use.
 
 Here are the details of my setup:
