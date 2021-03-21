@@ -10,7 +10,7 @@ On Feb 19, 2021, I decided to fully jump into using Emacs as my "operating syste
 Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
 #+begin_src bash
   git clone https://github.com/miikanissi/dotfiles/
-  cp dotfiles/.config/emacs/ ~/.config/emacs
+  cp dotfiles/.emacs.d/ ~/.emacs.d
 #+end_src
 This configuration is written in Org-mode and is self documented.
 ** Extra dependencies
@@ -66,7 +66,6 @@ In this section I define variables that are set in a =.secret.el= file. These se
   (defvar m/mail-smtp-server nil         "The smtp server for mail.")
   (defvar m/mail-smtp-port nil           "The smtp port for mail.")
   (defvar m/mail-smtp-user nil           "The smtp user for mail.")
-  (defvar m/mail-smtp-password nil       "The smtp password for mail.")
 
   (let ((secret.el (expand-file-name ".secret.el")))
     (load secret.el t))
@@ -571,14 +570,14 @@ When a window is split move cursor to new split.
 #+begin_src emacs-lisp
   (defun config-visit ()
     (interactive)
-    (find-file "~/.config/emacs/config.org"))
+    (find-file "~/.emacs.d/config.org"))
   (global-set-key (kbd "C-c e") 'config-visit)
 #+end_src
 *** Reload
 #+begin_src emacs-lisp
   (defun config-reload ()
     (interactive)
-    (org-babel-load-file (expand-file-name "~/.config/emacs/config.org")))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/config.org")))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+end_src
 * Text editing

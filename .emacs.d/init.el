@@ -7,7 +7,7 @@
 ;; Following lines load an Org file which contains my configuration.
 ;;
 ;; Code:
-(org-babel-load-file (expand-file-name "~/.config/emacs/config.org"))
+(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
 ;; Set the working directory to home regardless of where Emacs was started from
 (cd "~/")
 ;; Collect garbage when all else is done
