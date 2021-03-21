@@ -6,6 +6,7 @@
 #+html: <p align="center"><img src="./dashboard.png"/></p>
 On Feb 19, 2021, I decided to fully jump into using Emacs as my "operating system". Since then I have been building additional features on top of the base Emacs program. My entire configuration is in this single Org-mode file so it is very portable from computer to computer.
 * Installation and bootstrapping
+| =use-package= | https://github.com/jwiegley/use-package |
 Make sure to remove your own =~/.emacs=, =~/.emacs.d= and =~/.config/emacs= prior to cloning this configuration. When you launch emacs it will automatically download and setup all packages.
 #+begin_src bash
   git clone https://github.com/miikanissi/dotfiles/
@@ -71,6 +72,8 @@ In this section I define variables that are set in a =.secret.el= file. These se
     (load secret.el t))
 #+end_src
 * Theme
+| =gruvbox-theme= | https://github.com/Greduan/emacs-theme-gruvbox |
+| =all-the-icons= | https://github.com/domtronn/all-the-icons.el   |
 I don't want my eyes to bleed with the default theme.
 ** Gruvbox
 Gruvbox is VERY easy on the eyes and I think that's the most important part of a theme. Gruvbox-theme package also comes with light/dark themes and can easily be switched to using =M-x load-theme=
@@ -266,6 +269,7 @@ Emacs Web Wowser is a built in web browser for Emacs.
   (server-start)
 #+end_src
 * Terminal
+| =vterm= | https://github.com/akermu/emacs-libvterm |
 I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them.
 There is also an external package vterm which aims to provide a full terminal emulator inside Emacs, however it is still in an alpha stage, but seems to be working fine for me.
 ** Ansi-term
@@ -378,6 +382,15 @@ Emacs asks for the shell you want to use every time you launch the terminal. We 
   (add-hook 'vterm-mode-hook 'my-term-hook)
 #+end_src
 * Navigation
+| =ido-vertical-mode=    | https://github.com/creichert/ido-vertical-mode.el             |
+| =ido-completing-read+= | https://github.com/DarwinAwardWinner/ido-completing-read-plus |
+| =smex=                 | https://github.com/nonsequitur/smex/                          |
+| =which-key=            | https://github.com/justbur/emacs-which-key                    |
+| =swiper=               | https://github.com/abo-abo/swiper                             |
+| =avy=                  | https://github.com/abo-abo/avy                                |
+| =rg=                   | https://github.com/dajva/rg.el                                |
+| =switch-window=        | https://github.com/dimitri/switch-window                      |
+| =beacon=               | https://github.com/Malabarba/beacon                           |
 Packages and improvements for navigation in emacs.
 ** Window rules
 Rules for setting a specific layout for different windows.
@@ -569,6 +582,9 @@ When a window is split move cursor to new split.
   (global-set-key (kbd "C-c r") 'config-reload)
 #+end_src
 * Text editing
+| =popup-kill-ring=    | https://github.com/waymondo/popup-kill-ring        |
+| =yasnippet=          | https://github.com/joaotavora/yasnippet            |
+| =yasnippet-snippets= | https://github.com/AndreaCrotti/yasnippet-snippets |
 Useful packages and configurations to improve editing text in emacs.
 ** Electric
 This creates matching paranthesis/brackets etc.
@@ -680,6 +696,8 @@ Snippets are cool.
     (add-hook 'org-mode-hook #'yas-minor-mode))
 #+end_src
 * General packages
+| =auto-package-update= | https://github.com/rranelli/auto-package-update.el |
+| =async=               | https://github.com/jwiegley/emacs-async            |
 Some general packages to improve how Emacs works
 ** auto-package-update
 Automatically update and remove old packages.
@@ -701,8 +719,11 @@ Use asynchronous processes when possible.
       (dired-async-mode 1))
 #+end_src
 * Modeline
+| =spaceline=     | https://github.com/TheBB/spaceline              |
+| =powerline=     | https://github.com/milkypostman/powerline       |
+| =delight=       | https://savannah.nongnu.org/projects/delight    |
+| =fancy-battery= | https://github.com/emacsorphanage/fancy-battery |
 I like the way powerline looks with spaceline-theme.
-** TODO Migrate from powerline to a customized default Emacs modeline.
 ** powerline
 Install and enable powerline. Also install spaceline for the powerline theme.
 #+begin_src emacs-lisp
@@ -769,6 +790,7 @@ Shows time in the statusbar in the format of 02:00PM.
   (column-number-mode 1)
 #+end_src
 * Dashboard
+| =dashboard= | https://github.com/emacs-dashboard/emacs-dashboard |
 Nice dashboard on emacs startup. Using the [[https://github.com/snackon/Witchmacs][Witchmacs]] banner image. Marisa is cute.
 #+begin_src emacs-lisp
   (use-package dashboard
@@ -782,6 +804,23 @@ Nice dashboard on emacs startup. Using the [[https://github.com/snackon/Witchmac
                               (projects . 5))))
 #+end_src
 * Development
+| =linum-relative=          | https://github.com/coldnew/linum-relative             |
+| =flycheck=                | https://www.flycheck.org/en/latest/                   |
+| =company=                 | https://company-mode.github.io/                       |
+| =flycheck-clang-analyzer= | https://github.com/alexmurray/flycheck-clang-analyzer |
+| =company-c-headers=       | https://github.com/randomphrase/company-c-headers     |
+| =company-irony=           | https://github.com/Sarcasm/company-irony              |
+| =irony=                   | https://github.com/Sarcasm/irony-mode                 |
+| =company-jedi=            | https://github.com/emacsorphanage/company-jedi        |
+| =prettier-js=             | https://github.com/prettier/prettier-emacs            |
+| =json-mode=               | https://github.com/joshwnj/json-mode                  |
+| =csv-mode=                | https://elpa.gnu.org/packages/csv-mode.html           |
+| =company-shell=           | https://github.com/Alexander-Miller/company-shell     |
+| =web-mode=                | https://web-mode.org/                                 |
+| =rainbow-mode=            | https://elpa.gnu.org/packages/rainbow-mode.html       |
+| =rainbow-delimiters=      | https://github.com/Fanael/rainbow-delimiters          |
+| =magit=                   | https://magit.vc/                                     |
+| =projectile=              | https://projectile.mx/                                |
 Mostly programming/development related configurations and packages.
 ** Line numbers when programming
 Having line numbers is very useful when programming.
@@ -897,22 +936,16 @@ For python completion I'm using jedi as a backend. It follows the PEP-8 styling 
   (with-eval-after-load 'company
       (add-hook 'python-mode-hook 'company-mode))
 
-  (use-package company-jedi
-    :ensure t
-    :config
-      (require 'company)
-      (add-to-list 'company-backends 'company-jedi))
-
   (defun python-mode-company-init ()
     (setq-local company-backends '((company-jedi
                                     company-etags
                                     company-dabbrev-code))))
-
   (use-package company-jedi
     :ensure t
     :config
-      (require 'company)
-      (add-hook 'python-mode-hook 'python-mode-company-init))
+    (require 'company)
+    (add-to-list 'company-backends 'company-jedi)
+    (add-hook 'python-mode-hook 'python-mode-company-init))
 #+end_src
 ** Javascript
 *** Prettier
@@ -923,12 +956,8 @@ For python completion I'm using jedi as a backend. It follows the PEP-8 styling 
     (web-mode . prettier-js-mode)
     (js2-mode-hook . prettier-js-mode))
 #+end_src
-*** js-doc
-#+begin_src emacs-lisp
-  (use-package js-doc
-    :ensure t)
-#+end_src
 ** Json-mode
+Major mode for editing JSON files. Adds better syntax highlighting and keybindings.
 #+begin_src emacs-lisp
   (use-package json-mode
     :ensure t
@@ -1010,12 +1039,17 @@ Projectile helps with navigating files in a project. Projectile also integrates 
     (projectile-mode +1))
 #+end_src
 * Org
+| =org=         | https://orgmode.org/                     |
+| =org-bullets= | https://github.com/sabof/org-bullets     |
+| =htmlize=     | https://github.com/hniksic/emacs-htmlize |
+| =ox-twbs=     | https://github.com/marsmining/ox-twbs    |
+| =ox-html=     | Built in Org mode                        |
+| =ox-publish=  | Built in Org mode                        |
+| =ox-rss=      | Built in Org mode                        |
 Org was one of the main reasons why I decided to start using Emacs. I will never have to write documents in any other way. Org mode can do it all.
 ** Org-plus-contrib
 Have to add a new package archive for org-plus-contrib for some reason. I also remove default css and js, add default language and utf-8 etc.
 #+begin_src emacs-lisp
-  (use-package htmlize
-    :ensure t)
   (use-package org
     :ensure org-plus-contrib)
 #+end_src
@@ -1028,14 +1062,6 @@ Have to add a new package archive for org-plus-contrib for some reason. I also r
   (setq org-export-with-smart-quotes t)
   (setq org-src-window-setup 'current-window)
   (add-hook 'org-mode-hook 'org-indent-mode)
-#+end_src
-** Snippets
-Snippets for org mode.
-*** src emacs-lisp
-#+begin_src emacs-lisp
-  (setq org-src-window-setup 'current-window)
-  (add-to-list 'org-structure-template-alist
-	       '("el" . "src emacs-lisp"))
 #+end_src
 ** Org Bullets
 Makes org mode bullets look nicer.
@@ -1303,6 +1329,8 @@ The website is updated when calling =(m/publish-website)=, which only publishes 
     (templated-html-create-sitemap-xml "~/miikanissi.com/www/sitemap.xml" "~/miikanissi.com/www" "https://miikanissi.com/"))
 #+end_src
 * Desktop Environment
+| =exwm=  | https://github.com/ch11ng/exwm        |
+| =dmenu= | https://github.com/lujun9972/el-dmenu |
 Everything regarding the WM and DE functionality is under this section. To run Emacs as a window manager you need to create the following desktop entry in =/usr/share/xsessions/= directory.
 #+begin_src bash
 [Desktop Entry]
@@ -1484,6 +1512,7 @@ EXWM is initialized inside a function that checks if no other WM is running and 
        (exwm-enable)))
  #+end_src
 * Music
+| =mingus= | https://github.com/pft/mingus |
 Music from Emacs because why not?!
 ** MPD & Mingus
 I've used NCMPCPP as my main frontend for MPD and got very used to how it worked. I tried finding a similar package for Emacs but none of them were quite as good. EMMS seems great and has tons of features but I don't need most of them. I ended up with Mingus which is very intuitive to use coming from NCMPCPP.
@@ -1534,6 +1563,8 @@ Setups mpc to use the right host:port
     (message "MPD Database Updated"))
 #+end_src
 * Password Manager
+| =password-store=     | https://github.com/zx2c4/password-store          |
+| =password-store-otp= | https://github.com/volrath/password-store-otp.el |
 I have been using pass, the standard UNIX password manager, for a while with Rofi integration, but I found out there is a package to integrate it with Emacs as well.
 
 Passwords are stored in =~/.password-store= directory, for more information check [[https://www.passwordstore.org/][pass]].
@@ -1547,6 +1578,7 @@ I have also made a [[https://miikanissi.com/blog/pass-the-standard-unix-password
         :ensure t))
 #+end_src
 * Instant Messaging
+| =telega= | https://github.com/zevlg/telega.el |
 Instant messaging from Emacs.
 ** telega
 Telega is a Telegram cleint for Emacs. It needs some additional configuration to make it work, check [[https://zevlg.github.io/telega.el/][telega.el documentation]].
@@ -1555,6 +1587,8 @@ Telega is a Telegram cleint for Emacs. It needs some additional configuration to
     :ensure t)
 #+end_src
 * Email
+| =mu=         | https://github.com/djcb/mu                |
+| =mu4e-alert= | https://github.com/iqbalansari/mu4e-alert |
 I am using mu4e as an Emacs frontend for my email. The actual syncing and sending emails is done with external programs that need to be configured. In my case I am using isync/mbsync for syncing mail, and mu for sending mail.
 
 I also made [[https://miikanissi.com/blog/email-setup-with-mbsync-mu4e.html][a blog post]] as a guide for setting up mbsync + mu4e for email.
