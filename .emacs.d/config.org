@@ -732,6 +732,7 @@ Install and enable powerline. Also install spaceline for the powerline theme.
     :ensure t
     :init
     (spaceline-spacemacs-theme)
+    :config
     (powerline-reset))
 #+end_src
 ** delight

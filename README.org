@@ -13,7 +13,7 @@ Here are the details of my setup:
 - *WM*: [[https://github.com/baskerville/bspwm][BSPWM]], [[https://github.com/ch11ng/exwm][EXWM]] - BSPWM is my main tiling window manager. Also playing with Emacs as a window manager.
 - *DM*: [[https://github.com/lightdm][LightDM]] - Simple display manager with easy setup.
 - *Shell*: [[https://www.gnu.org/software/bash][Bash]] - I like bash.
-- *Terminal*: [[https://github.com/alacritty/alacritty][Alacritty]], [[https://www.emacswiki.org/emacs/AnsiTerm][Ansi Term]] - Alacritty is my main terminal, Ansi Term inside Emacs.
+- *Terminal*: [[https://github.com/alacritty/alacritty][Alacritty]], [[https://github.com/akermu/emacs-libvterm][Vterm]] - Alacritty is my main terminal, Vterm inside Emacs.
 - *Panel*: [[https://github.com/polybar/polybar][Polybar]] - Minimal and customizable bar written in C++.
 - *Compositor*: [[https://github.com/yshui/picom][Picom]] - Helps remove screentearing and adds transparency.
 - *Notifications*: [[https://github.com/dunst-project/dunst][Dunst]] - Minimal and easy to setup notification daemon.
