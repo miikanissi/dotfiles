@@ -59,6 +59,7 @@ In this section I define variables that are set in a =.secret.el= file. These se
   (defvar m/erc-port nil                 "The ERC port to use.")
   (defvar m/erc-server nil               "The ERC server to use.")
 
+  (defvar m/elfeed-feeds nil             "A list of RSS feeds for elfeed.")
   (defvar m/user-full-name nil           "The full name of user.")
   (defvar m/user-mail-address nil        "The email address of user.")
   (defvar m/mail-signature nil           "The mail signature.")
@@ -1063,6 +1064,12 @@ Have to add a new package archive for org-plus-contrib for some reason. I also r
   (setq org-src-window-setup 'current-window)
   (add-hook 'org-mode-hook 'org-indent-mode)
 #+end_src
+** Elisp source-block
+#+begin_src emacs-lisp
+  (setq org-src-window-setup 'current-window)
+  (add-to-list 'org-structure-template-alist
+               '("el" . "src emacs-lisp"))
+#+end_src
 ** Org Bullets
 Makes org mode bullets look nicer.
 #+begin_src emacs-lisp
@@ -1388,129 +1395,141 @@ Functions to launch programs for EXWM.
 #+end_src
 *** Main EXWM config
 EXWM is initialized inside a function that checks if no other WM is running and then setups EXWM. This way you can use Emacs on a non EXWM session and EXWM won't interfere.
- #+begin_src emacs-lisp
-   ;; only use EXWM if no other window manager is present
-   (when (get-buffer "*window-manager*")
-     (kill-buffer "*window-manager*"))
-   (when (get-buffer "*window-manager-error*")
-     (kill-buffer "*window-manager-error*"))
-   (when (executable-find "wmctrl")
-     (shell-command "wmctrl -m ; echo $?" "*window-manager*" "*window-manager-error*"))
+#+begin_src emacs-lisp
+  ;; only use EXWM if no other window manager is present
+  (when (get-buffer "*window-manager*")
+    (kill-buffer "*window-manager*"))
+  (when (get-buffer "*window-manager-error*")
+    (kill-buffer "*window-manager-error*"))
+  (when (executable-find "wmctrl")
+    (shell-command "wmctrl -m ; echo $?" "*window-manager*" "*window-manager-error*"))
 
-   ;; if there was an error detecting the window manager, initialize EXWM
-   (when (and (get-buffer "*window-manager-error*")
-      (eq window-system 'x))
-     ;; exwm startup goes here:
-     (use-package exwm
-       :ensure t
-       :config
-       ;; BASIC CONFIG
-       (require 'exwm-config)
-       ;; fringe size
-       (fringe-mode 3)
-       ;; fixes ido mode
-       (exwm-config-ido)
-       ;; init startup workspaces
-       (setq exwm-workspace-number 2)
-       ;; setup monitors for EXWM I have two, internal eDP-1 and external DP-2-2
-       (require 'exwm-randr)
-       ;; (setq exwm-randr-workspace-monitor-plist '(0 "DP-2-2"
-       ;; 1 "eDP-1"))
-       (add-hook 'exwm-randr-screen-change-hook
-                 (lambda ()
-                   (start-process-shell-command
-                    "xrandr" nil "xrandr --output DP-2-2 --same-as eDP-1")))
-       (exwm-randr-enable)
+  ;; if there was an error detecting the window manager, initialize EXWM
+  (when (and (get-buffer "*window-manager-error*")
+     (eq window-system 'x))
+    ;; exwm startup goes here:
+    (use-package exwm
+      :ensure t
+      :config
+      ;; BASIC CONFIG
+      (require 'exwm-config)
+      ;; fringe size
+      (fringe-mode 3)
+      ;; fixes ido mode
+      (exwm-config-ido)
+      ;; init startup workspaces
+      (setq exwm-workspace-number 2)
+      ;; setup monitors for EXWM I have two, internal eDP-1 and external DP-2-2
+      (require 'exwm-randr)
+      ;; (setq exwm-randr-workspace-monitor-plist '(0 "DP-2-2"
+      ;; 1 "eDP-1"))
+      (add-hook 'exwm-randr-screen-change-hook
+                (lambda ()
+                  (start-process-shell-command
+                   "xrandr" nil "xrandr --output DP-2-2 --same-as eDP-1")))
+      (exwm-randr-enable)
 
-       ;; When window class updates, use it as a buffer name
-       (add-hook 'exwm-update-class-hook #'m/exwm-update-class)
-       ;; Init hook to land on workspace 1
-       (add-hook 'exwm-init-hook #'m/exwm-init-hook)
+      ;; When window class updates, use it as a buffer name
+      (add-hook 'exwm-update-class-hook #'m/exwm-update-class)
+      ;; Init hook to land on workspace 1
+      (add-hook 'exwm-init-hook #'m/exwm-init-hook)
 
-       ;; GLOBAL KEYBINDINGS
-       (setq exwm-input-global-keys
-             '(
-               ;; Reset to line mode
-               ([?\s-r] . exwm-reset)
-               ([?\s-k] . exwm-workspace-delete)
-               ([?\s-s] . exwm-workspace-swap)
+      ;; GLOBAL KEYBINDINGS
+      (setq exwm-input-global-keys
+            '(
+              ;; Reset to line mode
+              ([?\s-r] . exwm-reset)
+              ([?\s-k] . exwm-workspace-delete)
+              ([?\s-s] . exwm-workspace-swap)
 
-               ;; Move between windows
-               ([s-left] . windmove-left)
-               ([s-right] . windmove-right)
-               ([s-up] . windmove-up)
-               ([s-down] . windmove-down)
+              ;; Move between windows
+              ([s-left] . windmove-left)
+              ([s-right] . windmove-right)
+              ([s-up] . windmove-up)
+              ([s-down] . windmove-down)
 
-               ;; Programs
-               ([?\s-w] . m/launch-browser)
-               ([s-print] . m/screenshot)
-               ([?\s-d] . dmenu)
-               ))
+              ;; Programs
+              ([?\s-w] . m/launch-browser)
+              ([s-print] . m/screenshot)
+              ([?\s-d] . dmenu)
+              ))
 
-       ;; s-<number> to switch to corresponding workspace
-       (dotimes (i 10)
-         (exwm-input-set-key (kbd (format "s-%d" i))
-                             `(lambda ()
-                                (interactive)
-                                (exwm-workspace-switch-create ,i))))
-       ;; simple shell launcher, dmenu backuXSp
-       (exwm-input-set-key (kbd "s-&")
-                           (lambda (command)
-                             (interactive (list (read-shell-command "$ ")))
-                             (start-process-shell-command command nil command)))
+      ;; s-<number> to switch to corresponding workspace
+      (dotimes (i 10)
+        (exwm-input-set-key (kbd (format "s-%d" i))
+                            `(lambda ()
+                               (interactive)
+                               (exwm-workspace-switch-create ,i))))
+      ;; simple shell launcher, dmenu backuXSp
+      (exwm-input-set-key (kbd "s-&")
+                          (lambda (command)
+                            (interactive (list (read-shell-command "$ ")))
+                            (start-process-shell-command command nil command)))
 
-       ;; These keys should always pass through to Emacs
-       (setq exwm-input-prefix-keys
-             '(?\C-x
-               ?\C-u
-               ?\C-h
-               ?\M-x
-               ?\M-`
-               ?\M-&
-               ?\M-:))
+      ;; These keys should always pass through to Emacs
+      (setq exwm-input-prefix-keys
+            '(?\C-x
+              ?\C-u
+              ?\C-h
+              ?\M-x
+              ?\M-`
+              ?\M-&
+              ?\M-:))
 
-       ;; simulation keys are keys that exwm will send to the exwm buffer upon inputting a key combination
-       (exwm-input-set-simulation-keys
-        '(
-          ;; movement
-          ([?\C-b] . left)
-          ([?\M-b] . C-left)
-          ([?\C-f] . right)
-          ([?\M-f] . C-right)
-          ([?\C-p] . up)
-          ([?\C-n] . down)
-          ([?\C-a] . home)
-          ([?\C-e] . end)
-          ([?\M-v] . prior)
-          ([?\C-v] . next)
-          ([?\C-d] . delete)
-          ([?\C-k] . (S-end delete))
-          ;; cut/paste
-          ([?\C-w] . ?\C-x)
-          ([?\M-w] . ?\C-c)
-          ([?\C-y] . ?\C-v)
-          ;; search
-          ([?\C-s] . ?\C-f)))
+      ;; simulation keys are keys that exwm will send to the exwm buffer upon inputting a key combination
+      (exwm-input-set-simulation-keys
+       '(
+         ;; movement
+         ([?\C-b] . left)
+         ([?\M-b] . C-left)
+         ([?\C-f] . right)
+         ([?\M-f] . C-right)
+         ([?\C-p] . up)
+         ([?\C-n] . down)
+         ([?\C-a] . home)
+         ([?\C-e] . end)
+         ([?\M-v] . prior)
+         ([?\C-v] . next)
+         ([?\C-d] . delete)
+         ([?\C-k] . (S-end delete))
+         ;; cut/paste
+         ([?\C-w] . ?\C-x)
+         ([?\M-w] . ?\C-c)
+         ([?\C-y] . ?\C-v)
+         ;; search
+         ([?\C-s] . ?\C-f)))
 
-       ;; this little bit will make sure that XF86 keys work in exwm buffers as well
-       (dolist (k '(XF86AudioLowerVolume
-                    XF86AudioRaiseVolume
-                    XF86PowerOff
-                    XF86AudioMute
-                    XF86AudioPlay
-                    XF86AudioStop
-                    XF86AudioPrev
-                    XF86AudioNext
-                    XF86ScreenSaver
-                    XF68Back
-                    XF86Forward
-                    Scroll_Lock
-                    print))
-         (cl-pushnew k exwm-input-prefix-keys))
+      ;; this little bit will make sure that XF86 keys work in exwm buffers as well
+      (dolist (k '(XF86AudioLowerVolume
+                   XF86AudioRaiseVolume
+                   XF86PowerOff
+                   XF86AudioMute
+                   XF86AudioPlay
+                   XF86AudioStop
+                   XF86AudioPrev
+                   XF86AudioNext
+                   XF86ScreenSaver
+                   XF68Back
+                   XF86Forward
+                   Scroll_Lock
+                   print))
+        (cl-pushnew k exwm-input-prefix-keys))
 
-       ;; this starts exwm if no window manager is present
-       (exwm-enable)))
- #+end_src
+      ;; this starts exwm if no window manager is present
+      (exwm-enable)))
+#+end_src
+* TODO Elfeed
+| =elfeed= | https://github.com/skeeto/elfeed |
+Elfeed, an RSS feed reader for Emacs. In the past I have used [[https://newsboat.org/][newsboat]] as my RSS feed reader , which I still recommend to those not using Emacs. But for us Emacs users Elfeed is a great choice.
+#+begin_src emacs-lisp
+  (use-package elfeed
+    :ensure t
+    :defer 2
+    :config
+    (setq elfeed-feeds m/elfeed-feeds)
+    (bind-keys :map elfeed-show-mode-map
+               ("<return>" . shr-browse-url)))
+#+end_src
 * Music
 | =mingus= | https://github.com/pft/mingus |
 Music from Emacs because why not?!

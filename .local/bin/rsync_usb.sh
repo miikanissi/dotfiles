@@ -6,7 +6,8 @@ if mountpoint -q -- $mount_point; then
     --exclude 'Music' \
     --exclude 'Downloads' \
     --exclude 'dotfiles' \
-    --include '.config/emacs' \
+    --include '.emacs.d' \
+    --include '.emacs.d/.secret.el' \
     --include '.ssh' \
     --include '.gnupg' \
     --include '.password-store' \
