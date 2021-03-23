@@ -1518,15 +1518,21 @@ EXWM is initialized inside a function that checks if no other WM is running and 
       ;; this starts exwm if no window manager is present
       (exwm-enable)))
 #+end_src
-* TODO Elfeed
+* Elfeed
 | =elfeed= | https://github.com/skeeto/elfeed |
 Elfeed, an RSS feed reader for Emacs. In the past I have used [[https://newsboat.org/][newsboat]] as my RSS feed reader , which I still recommend to those not using Emacs. But for us Emacs users Elfeed is a great choice.
 #+begin_src emacs-lisp
   (use-package elfeed
     :ensure t
     :defer 2
-    :config
+    :init
     (setq elfeed-feeds m/elfeed-feeds)
+    (setq m/default-elfeed-search-filter "@1-month-ago +unread")
+    (setq-default elfeed-search-filter m/default-elfeed-search-filter)
+    :config
+    (add-hook 'elfeed-new-entry-hook
+              (elfeed-make-tagger :before "2 weeks ago"
+                                  :remove 'unread))
     (bind-keys :map elfeed-show-mode-map
                ("<return>" . shr-browse-url)))
 #+end_src
