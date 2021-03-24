@@ -219,15 +219,6 @@ Doing =C-x k= should always kill the current buffer by default, for more complic
     (kill-buffer (current-buffer)))
   (global-set-key (kbd "C-x k") 'kill-current-buffer)
 #+end_src
-*** Close all buffers
-Sometimes I want to close all buffers to start fresh, this makes it a single command.
-#+begin_src emacs-lisp
-  (defun close-all-buffers ()
-    "Kill all buffers without regard for their origin."
-    (interactive)
-    (mapc 'kill-buffer (buffer-list)))
-  (global-set-key (kbd "C-M-s-k") 'close-all-buffers)
-#+end_src
 ** Always follow symlinks
 When opening a file, always follow symlinks.
 #+begin_src emacs-lisp
@@ -803,6 +794,15 @@ Nice dashboard on emacs startup. Using the [[https://github.com/snackon/Witchmac
     (setq dashboard-set-init-info t)
     (setq dashboard-items '((recents . 5)
                               (projects . 5))))
+#+end_src
+** kill all buffers and open dashboard
+#+begin_src emacs-lisp
+  (defun close-all-buffers ()
+    "Kill all buffers without regard for their origin."
+    (interactive)
+    (mapc 'kill-buffer (buffer-list))
+    (dashboard-refresh-buffer))
+  (global-set-key (kbd "C-M-s-k") 'close-all-buffers)
 #+end_src
 * Development
 | =linum-relative=          | https://github.com/coldnew/linum-relative             |
@@ -1526,9 +1526,10 @@ Elfeed, an RSS feed reader for Emacs. In the past I have used [[https://newsboat
     :ensure t
     :defer 2
     :init
-    (setq elfeed-feeds m/elfeed-feeds)
+    (setq elfeed-feeds m/elfeed-feeds) ;; set elfeed feeds from .secret.el
     (setq m/default-elfeed-search-filter "@1-month-ago +unread")
     (setq-default elfeed-search-filter m/default-elfeed-search-filter)
+    (run-at-time nil (* 60 10) #'elfeed-update) ;; update elfeed every 10 minutes
     :config
     (add-hook 'elfeed-new-entry-hook
               (elfeed-make-tagger :before "2 weeks ago"
