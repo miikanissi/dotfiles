@@ -4,22 +4,22 @@
 !
 ! Refresh config 'xrdb ~/.Xresources'.
 
-#define base00 #1d2021
-#define base01 #3c3836
-#define base02 #504945
-#define base03 #665c54
-#define base04 #bdae93
-#define base05 #d5c4a1
-#define base06 #ebdbb2
-#define base07 #fbf1c7
-#define base08 #fb4934
-#define base09 #fe8019
-#define base0A #fabd2f
-#define base0B #b8bb26
-#define base0C #8ec07c
-#define base0D #83a598
-#define base0E #d3869b
-#define base0F #d65d0e
+#define base00 #000000
+#define base01 #303030
+#define base02 #505050
+#define base03 #b0b0b0
+#define base04 #d0d0d0
+#define base05 #e0e0e0
+#define base06 #f5f5f5
+#define base07 #ffffff
+#define base08 #fb0120
+#define base09 #fc6d24
+#define base0A #fda331
+#define base0B #a1c659
+#define base0C #76c7b7
+#define base0D #6fb3d2
+#define base0E #d381c3
+#define base0F #be643c
 
 *foreground:   base05
 *background:   base00
@@ -41,6 +41,7 @@
 *color12:      base04
 *color13:      base06
 *color14:      base0F
+*color15:      base07
 
 sxiv.Background: base00
 
@@ -63,7 +64,7 @@ URxvt.internalBorder:               4
 URxvt.intensityStyles:  	        false
 URxvt.scrollBar:    		        false
 ! URxvt.font:         		        xft:DejaVu Sans Mono:size=10, xft:FontAwesome:size=10, xft:Symbola:size=12, xft:Font Awesome 5 Free:style=Regular:pixelsize=10, xft:Font Awesome 5 Free:style=Solid:size=10
-URxvt.font: xft:DejaVuSansMono Nerd Font Mono:size=10:style=Book
+URxvt.font: xft:BlexMono Nerd Font Mono:size=10:style=Book
 
 ! URxvt Extensions
 URxvt.perl-ext-common:default,matcher,font-size

@@ -53,6 +53,10 @@ Elementary cursor theme requires moving icons to their correct location:
 #+begin_src bash
   cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
 #+end_src
+Flat Remix GTK theme needs to be moved to correct location:
+#+begin_src bash
+  cp -R ~/.themes/flat-remix-gtk/Flat-Remix-GTK-Red-Darkest/ ~/.themes/
+#+end_src
 Vimix icon theme needs to be installed with:
 #+begin_src bash
   cd ~/.icons/vimix-icon-theme/ && ./install.sh -a

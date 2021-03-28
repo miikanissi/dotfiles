@@ -5,11 +5,11 @@ configuration {
 	modi: "window,run,ssh";
 	width: 20;
 	lines: 10;
-	font: "DejaVu Sans Mono Nerd Font Mono 12px";
+	font: "BlexMonoNerdFontMono 12px";
 	location: 1;
     yoffset: 0;
     xoffset: 0;
-	theme: "base16-gruvbox-dark-hard.rasi";
+	theme: "base16-bright.rasi";
     hide-scrollbar: true;
     window-format: "{w}   {c}";
 }

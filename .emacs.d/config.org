@@ -19,12 +19,12 @@ I currently use IBM Plex Mono Nerd Font from [[https://github.com/ryanoasis/nerd
 *** From package manager:
 - =wmctrl=, *important!* this small program detects if WM is running. Ensures EXWM only launches when it is the WM.
 - =clang=, for c/c++ completion.
-- =python-virtualenv=, for python completion.
-- =texlive-core=, for exporting org documents to pdf.
-- =texlive-latexextra=, for exporting org documents to pdf.
+- =python3-venv=, virtualenv for python.
+- =texlive-base=, for exporting org documents to pdf.
+- =texlive-latex-extra=, for exporting org documents to pdf.
 - =mpd= & =mpc=, for playing music with Mingus.
 - =pass= & =pass-otp=, for a password manager and secure password store for email.
-- =mbsync/isync= & =mu= for email configuration.
+- =isync= & =mu4e= for email configuration.
 *** From pip:
 For python completion and syntax checking you need to install these from pip:
 - =jedi=, for python completion and syntax checking.
@@ -73,15 +73,24 @@ In this section I define variables that are set in a =.secret.el= file. These se
 #+end_src
 * Theme
 | =gruvbox-theme= | https://github.com/Greduan/emacs-theme-gruvbox |
+| =base16-theme=  | https://github.com/belak/base16-emacs          |
 | =all-the-icons= | https://github.com/domtronn/all-the-icons.el   |
 I don't want my eyes to bleed with the default theme.
 ** Gruvbox
 Gruvbox is VERY easy on the eyes and I think that's the most important part of a theme. Gruvbox-theme package also comes with light/dark themes and can easily be switched to using =M-x load-theme=
 #+begin_src emacs-lisp
-  (use-package gruvbox-theme
+  ;; (use-package gruvbox-theme
+  ;;   :ensure t
+  ;;   :init
+  ;;   (load-theme 'gruvbox-dark-hard t))
+#+end_src
+** Base16
+Base16 is a collection of themes using a carefully chosen syntax highlighting with a base of sixteen colors.
+#+begin_src emacs-lisp
+  (use-package base16-theme
     :ensure t
-    :init
-    (load-theme 'gruvbox-light-medium t))
+    :config
+    (load-theme 'base16-bright t))
 #+end_src
 ** Font
 Use BlexMono Nerd Font.
@@ -267,7 +276,7 @@ There is also an external package vterm which aims to provide a full terminal em
 *** Open ansi-term hotkey
 Opens ansi-term with =Meta + Super + Return=.
 #+begin_src emacs-lisp
-(global-set-key (kbd "<M-s-return>") 'ansi-term)
+(global-set-key (kbd "<M-s-shift-return>") 'ansi-term)
 #+end_src
 ** Vterm
 Offers a full terminal emulator inside Emacs. Based on libvterm library.
@@ -278,8 +287,8 @@ With my custom functions I can open up vterm on the bottom with =Super + Return=
     :ensure t
     :commands vterm vterm-other-window
     :bind
-    ("s-<return>" . m/vterm-dwim)
-    ("s-'" . m/vterm-close)
+    ("M-s-<return>" . m/vterm-dwim)
+    ("M-s-'" . m/vterm-close)
     :init
     (setq vterm-always-compile-module t)
     :config
@@ -1655,7 +1664,7 @@ Mu4e configuration.
   (use-package mu4e
     :ensure nil
     :defer 5
-    :load-path "/usr/share/emacs/site-lisp/mue4/"
+    ;; :load-path "/usr/share/emacs/site-lisp/mue4/"
     :bind
     ("s-e" . mu4e)
     :config

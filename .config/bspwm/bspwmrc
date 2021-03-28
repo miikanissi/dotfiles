@@ -11,17 +11,16 @@ bspc config window_gap              4
 bspc config automatic_scheme        longest_side # longest_side, alternate or spiral
 
 bspc config split_ratio             0.52
-bspc config top_padding             32
+bspc config top_padding             24
 bspc config borderless_monocle      true
 bspc config gapless_monocle         true
 bspc config single_monocle          true
 bspc config focus_follows_pointer   true
 
-bspc config focused_border_color    "#d65d0e"
+bspc config focused_border_color    "#fb0120"
 
 # BSPWM window rules
-bspc rule -a URxvt:ncmpcpp desktop='4' state=floating follow=on
-bspc rule -a Gimp state=floating follow=on
+bspc rule -a Gimp state=floating
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
 

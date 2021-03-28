@@ -11,7 +11,7 @@
   HOSTNAME=$(hostname)
   TRAY=eDP-1
 
-  if [[ "$HOSTNAME" == "stinkpad" ]]; then
+  if [[ "$HOSTNAME" == "deb" ]]; then
     for m in $MONITORS; do
       if [[ $m == $PRIMARY_MONITOR ]]; then
         TRAY=$m

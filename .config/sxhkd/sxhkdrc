@@ -3,13 +3,8 @@
 # https://miikanissi.com
 
 ### PROGRAM LAUNCHERS ###
-# launch programs (h,j,k,l,d,q,f,t,n,p,space,greater,less taken by bspc and cmus)
-super + {w, e, g, b, s}
-    {brave, emacs, pcmanfm, urxvt -name newsboat -e newsboat, signal-desktop --use-tray-icon}
-
-# launch terminal
-super + alt + Return
-      alacritty
+super + {Return, w, e, b, s}
+    {urxvt, brave-browser, emacs, pcmanfm, signal-desktop --use-tray-icon}
 
 # print screen script with maim
 super + Print

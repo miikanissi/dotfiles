@@ -1,15 +1,19 @@
 /**
- * Base16 Hopscotch ROFI Color theme
+ * Base16 Bright ROFI Color theme
+ *
+ * Authors
+ *  Scheme: Chris Kempson (http://chriskempson.com)
+ *  Template: Jordi Pakey-Rodriguez (https://github.com/0xdec), Andrea Scarpino (https://github.com/ilpianista)
  */
 
 * {
-    red:                         rgba ( 221, 70, 76, 100 % );
-    blue:                        rgba ( 18, 144, 191, 100 % );
-    lightfg:                     rgba ( 213, 211, 213, 100 % );
-    lightbg:                     rgba ( 67, 59, 66, 100 % );
-    foreground:                  rgba ( 185, 181, 184, 100 % );
-    background:                  rgba ( 50, 41, 49, 100 % );
-    background-color:            rgba ( 50, 41, 49, 0 % );
+    red:                         rgba ( 251, 1, 32, 100 % );
+    blue:                        rgba ( 111, 179, 210, 100 % );
+    lightfg:                     rgba ( 245, 245, 245, 100 % );
+    lightbg:                     rgba ( 48, 48, 48, 100 % );
+    foreground:                  rgba ( 224, 224, 224, 100 % );
+    background:                  rgba ( 0, 0, 0, 100 % );
+    background-color:            rgba ( 0, 0, 0, 0 % );
     separatorcolor:              @foreground;
     border-color:                @foreground;
     selected-normal-foreground:  @lightbg;
@@ -30,5 +34,4 @@
     alternate-active-background: @lightbg;
     alternate-urgent-foreground: @red;
     alternate-urgent-background: @lightbg;
-    spacing:                     2;
 }

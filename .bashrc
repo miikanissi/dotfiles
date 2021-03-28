@@ -93,22 +93,22 @@ fd() {
 }
 _gen_fzf_default_opts() {
 
-local color00='#1d2021'
-local color01='#3c3836'
-local color02='#504945'
-local color03='#665c54'
-local color04='#bdae93'
-local color05='#d5c4a1'
-local color06='#ebdbb2'
-local color07='#fbf1c7'
-local color08='#fb4934'
-local color09='#fe8019'
-local color0A='#fabd2f'
-local color0B='#b8bb26'
-local color0C='#8ec07c'
-local color0D='#83a598'
-local color0E='#d3869b'
-local color0F='#d65d0e'
+local color00='#000000'
+local color01='#303030'
+local color02='#505050'
+local color03='#b0b0b0'
+local color04='#d0d0d0'
+local color05='#e0e0e0'
+local color06='#f5f5f5'
+local color07='#ffffff'
+local color08='#fb0120'
+local color09='#fc6d24'
+local color0A='#fda331'
+local color0B='#a1c659'
+local color0C='#76c7b7'
+local color0D='#6fb3d2'
+local color0E='#d381c3'
+local color0F='#be643c'
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
 " --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
