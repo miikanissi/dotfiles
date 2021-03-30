@@ -35,6 +35,7 @@ For python completion and syntax checking you need to install these from pip:
 *** Emacs installation:
 On the first launch of Emacs you might need to run some commands using M-x to fully install everything. Here's a list:
 - =jedi:install-server=
+- =all-the-icons-install-fonts=
 ** Packages
 Setup ELPA, MELPA and Org repositories.
 #+begin_src emacs-lisp
@@ -84,13 +85,13 @@ Gruvbox is VERY easy on the eyes and I think that's the most important part of a
   ;;   :init
   ;;   (load-theme 'gruvbox-dark-hard t))
 #+end_src
-** Base16
-Base16 is a collection of themes using a carefully chosen syntax highlighting with a base of sixteen colors.
+** Sanityinc Tomorrow Bright
+More extensive port of [[https://github.com/ChrisKempson/Tomorrow-Theme][Chris Kempson's "Tomorrow" theme]].
 #+begin_src emacs-lisp
-  (use-package base16-theme
+  (use-package color-theme-sanityinc-tomorrow
     :ensure t
     :config
-    (load-theme 'base16-bright t))
+    (load-theme 'sanityinc-tomorrow-bright t))
 #+end_src
 ** Font
 Use BlexMono Nerd Font.

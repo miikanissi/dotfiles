@@ -1,37 +1,35 @@
-# .config/zathura/zathurarc
-#
-# Base16 Gruvbox dark, hard
-# Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+# Base16 Bright
+# Author: Chris Kempson (http://chriskempson.com)
 
-set default-bg                  "#1d2021"
-set default-fg                  "#3c3836"
+set default-bg                  "#000000"
+set default-fg                  "#303030"
 
-set statusbar-fg                "#bdae93"
-set statusbar-bg                "#504945"
+set statusbar-fg                "#d0d0d0"
+set statusbar-bg                "#505050"
 
-set inputbar-bg                 "#1d2021"
-set inputbar-fg                 "#fbf1c7"
+set inputbar-bg                 "#000000"
+set inputbar-fg                 "#ffffff"
 
-set notification-bg             "#1d2021"
-set notification-fg             "#fbf1c7"
+set notification-bg             "#000000"
+set notification-fg             "#ffffff"
 
-set notification-error-bg       "#1d2021"
-set notification-error-fg       "#fb4934"
+set notification-error-bg       "#000000"
+set notification-error-fg       "#fb0120"
 
-set notification-warning-bg     "#1d2021"
-set notification-warning-fg     "#fb4934"
+set notification-warning-bg     "#000000"
+set notification-warning-fg     "#fb0120"
 
-set highlight-color             "#fabd2f"
-set highlight-active-color      "#83a598"
+set highlight-color             "#fda331"
+set highlight-active-color      "#6fb3d2"
 
-set completion-bg               "#3c3836"
-set completion-fg               "#83a598"
+set completion-bg               "#303030"
+set completion-fg               "#6fb3d2"
 
-set completion-highlight-fg     "#fbf1c7"
-set completion-highlight-bg     "#83a598"
+set completion-highlight-fg     "#ffffff"
+set completion-highlight-bg     "#6fb3d2"
 
-set recolor-lightcolor          "#1d2021"
-set recolor-darkcolor           "#ebdbb2"
+set recolor-lightcolor          "#000000"
+set recolor-darkcolor           "#f5f5f5"
 
 set recolor                     "false"
 set recolor-keephue             "false"
