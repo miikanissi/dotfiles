@@ -94,11 +94,11 @@ More extensive port of [[https://github.com/ChrisKempson/Tomorrow-Theme][Chris K
     (load-theme 'sanityinc-tomorrow-bright t))
 #+end_src
 ** Font
-Use BlexMono Nerd Font.
+Use Ubuntu Mono Nerd Font Mono. Installation script for the font available on my [[https://github.com/miikanissi/dotfiles/blob/master/.local/bin/install_nerd_fonts_ubuntu_mono.sh][GitHub]].
 #+begin_src emacs-lisp
   (when (eq system-type 'gnu/linux)
         (add-to-list 'default-frame-alist
-                     '(font . "BlexMono Nerd Font 10")))
+                     '(font . "UbuntuMonoNerdFont 12")))
 #+end_src
 ** All-the-icons
 A library that includes loads of icons.

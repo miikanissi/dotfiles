@@ -9,17 +9,17 @@
 This is my personal configuration for a custom Desktop Environment, including useful scripts and a list of all the programs I use.
 
 Here are the details of my setup:
-- *Distro*: [[https://www.archlinux.org][Arch]] - I found out Arch is actually the most stable distro to use.
-- *WM*: [[https://github.com/baskerville/bspwm][BSPWM]], [[https://github.com/ch11ng/exwm][EXWM]] - BSPWM is my main tiling window manager. Also playing with Emacs as a window manager.
+- *Distro*: [[https://www.debian.org/][Debian]] - Since Debian Bullseye 11 is around the corner I decided to jump on board.
+- *WM*: [[https://github.com/baskerville/bspwm][BSPWM]], [[https://github.com/ch11ng/exwm][EXWM]] - BSPWM is my main tiling window manager. Also playing with Emacs as a window manager occasionally.
 - *DM*: [[https://github.com/lightdm][LightDM]] - Simple display manager with easy setup.
-- *Shell*: [[https://www.gnu.org/software/bash][Bash]] - I like bash.
-- *Terminal*: [[https://github.com/alacritty/alacritty][Alacritty]], [[https://github.com/akermu/emacs-libvterm][Vterm]] - Alacritty is my main terminal, Vterm inside Emacs.
+- *Shell*: [[https://www.gnu.org/software/bash][Bash]], [[https://wiki.archlinux.org/index.php/Dash][dash]] - Bash is my =$SHELL= but =/bin/sh= is linked to dash for speed of execution.
+- *Terminal*: [[http://software.schmorp.de/pkg/rxvt-unicode.html][URxvt]], [[https://github.com/akermu/emacs-libvterm][Vterm]] - URxvt is my main terminal emulator, Vterm inside Emacs.
 - *Panel*: [[https://github.com/polybar/polybar][Polybar]] - Minimal and customizable bar written in C++.
 - *Compositor*: [[https://github.com/yshui/picom][Picom]] - Helps remove screentearing and adds transparency.
 - *Notifications*: [[https://github.com/dunst-project/dunst][Dunst]] - Minimal and easy to setup notification daemon.
 - *Launcher*: [[https://github.com/davatorium/rofi][Rofi]] - Run prompt and dmenu alternative to use with scripts.
 - *Hotkeys*: [[https://github.com/baskerville/sxhkd][SXHKD]] - Minimal hotkey daemon.
-- *Text Editor*: [[https://www.gnu.org/software/emacs][Emacs]], [[https://www.vim.org][Vim]] - Fell in love with Emacs, slowly transitioning to doing everything inside Emacs.
+- *Text Editor*: [[https://www.gnu.org/software/emacs][Emacs]], [[https://www.vim.org][Vim]] - Fell in love with Emacs, slowly transitioning to doing everything inside Emacs. Previously a Vim user.
 - *Music Player*: [[https://github.com/MusicPlayerDaemon/MPD][MPD]] - Music player daemon with multiple frontends to choose from.
 ** Colors
 #+html: <h3 align="center"><a href="https://github.com/morhetz/gruvbox">Gruvbox</a></h3>
@@ -44,10 +44,14 @@ Or you can just clone the repository with submodules and move the files you need
 #+begin_src bash
   git clone --recurse-submodules https://github.com/miikanissi/dotfiles.git
 #+end_src
-I use BlexMono Nerd Font as my main font for GTK and Emacs. You can use my script to download and install it for your system:
+To install all of my Debian packages (this is a lot of programs) you can run:
+#+begin_src sh
+  sudo apt install $(< ~/debian_programs.txt)
+#+end_src
+I use Ubuntu Mono Nerd Font Mono as my main font for GTK, Xresources and Emacs. You can use my script to download and install it for your system:
 #+begin_src bash
-  chmod +x ~/.local/bin/install_nerd_fonts_blex.sh
-  install_nerd_fonts_blex.sh
+  chmod +x ~/.local/bin/install_nerd_fonts_ubuntu_mono.sh
+  ~/.local/bin/install_nerd_fonts_ubuntu_mono.sh
 #+end_src
 Elementary cursor theme requires moving icons to their correct location:
 #+begin_src bash
@@ -61,7 +65,6 @@ Vimix icon theme needs to be installed with:
 #+begin_src bash
   cd ~/.icons/vimix-icon-theme/ && ./install.sh -a
 #+end_src
-Dependencies are not automatically installed, but to see a full list of packages I'm using for Arch Linux check [[./program_list_arch.csv][program_list_arch.csv]].
 ** Links / Credits
 To stay up to date with me visit my [[https://miikanissi.com/blogindex][blog]].
 Links:

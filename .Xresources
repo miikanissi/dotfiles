@@ -57,13 +57,13 @@ URxvt*cursorBlink:                  true
 URxvt.cursorUnderline:              false
 URxvt*saveline:                     2048
 URxvt.iso14755:                     false
-URxvt.letterSpace:                  1
+URxvt.letterSpace:                  0
 URxvt.lineSpace:                    0
 URxvt.geometry:                     92x24
 URxvt.internalBorder:               4
 URxvt.intensityStyles:  	        false
 URxvt.scrollBar:    		        false
-URxvt.font: xft:BlexMonoNerdFont:size=10
+URxvt.font: xft:UbuntuMonoNerdFontMono:size=11
 
 ! URxvt Extensions
 URxvt.perl-ext-common:default,matcher,font-size
