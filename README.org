@@ -22,8 +22,8 @@ Here are the details of my setup:
 - *Text Editor*: [[https://www.gnu.org/software/emacs][Emacs]], [[https://www.vim.org][Vim]] - Fell in love with Emacs, slowly transitioning to doing everything inside Emacs. Previously a Vim user.
 - *Music Player*: [[https://github.com/MusicPlayerDaemon/MPD][MPD]] - Music player daemon with multiple frontends to choose from.
 ** Colors
-#+html: <h3 align="center"><a href="https://github.com/morhetz/gruvbox">Gruvbox</a></h3>
-#+html: <p align="center"><img src="./.config/gallery/gruvbox-template.png" height="60%" width="100%"/></p>
+#+html: <h3 align="center"><a href="https://github.com/ChrisKempson/Tomorrow-Theme">Tomorrow Night Bright</a></h3>
+#+html: <p align="center"><img src="./.config/gallery/tomorrow-night-bright-template.png" height="60%" width="100%"/></p>
 ** Scripts
 Most of my useful shell scripts are included in [[./.local/bin/][.local/bin/]].
 
