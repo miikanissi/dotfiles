@@ -1361,7 +1361,7 @@ Type=Application
 I use Brave.
 #+begin_src emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "brave")
+        browse-url-generic-program "brave-browser")
 #+end_src
 ** exwm
 I first heard about exwm from my professor in college. He said how he has never met a bad programmer who did everything inside Emacs and showed us EXWM. Naturally as I wanted to become a good programmer I started looking into Emacs. It took me two years but I think I'm finally ready to start using Emacs for basically everything, including Window Management. I still use plenty of external programs of course but technically I'm running them inside Emacs.
@@ -1535,6 +1535,8 @@ Elfeed, an RSS feed reader for Emacs. In the past I have used [[https://newsboat
   (use-package elfeed
     :ensure t
     :defer 2
+    :bind
+    ("M-s-r" . elfeed)
     :init
     (setq elfeed-feeds m/elfeed-feeds) ;; set elfeed feeds from .secret.el
     (setq m/default-elfeed-search-filter "@1-month-ago +unread")
@@ -1559,13 +1561,13 @@ Installs Mingus and sets keybindings.
   (use-package mingus
     :ensure t
     :bind
-    ("s-m" . mingus)
-    ("s-SPC" . mingus-pause)
-    ("s-," . mingus-vol-down)
-    ("s-." . mingus-vol-up)
-    ("s-n" . mingus-next)
-    ("s-p" . mingus-prev)
-    ("s-c" . mingus-clear))
+    ("M-s-m" . mingus)
+    ("M-s-SPC" . mingus-pause)
+    ("M-s-," . mingus-vol-down)
+    ("M-s-." . mingus-vol-up)
+    ("M-s-n" . mingus-next)
+    ("M-s-p" . mingus-prev)
+    ("M-s-c" . mingus-clear))
 #+end_src
 *** MPC
 Setups mpc to use the right host:port
@@ -1667,7 +1669,7 @@ Mu4e configuration.
     :defer 5
     ;; :load-path "/usr/share/emacs/site-lisp/mue4/"
     :bind
-    ("s-e" . mu4e)
+    ("M-s-e" . mu4e)
     :config
     (require 'org-mu4e)
 
