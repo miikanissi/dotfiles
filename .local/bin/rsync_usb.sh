@@ -5,6 +5,7 @@ if mountpoint -q -- $mount_point; then
   sudo rsync -avxPW --delete-after \
     --exclude 'Music' \
     --exclude 'Downloads' \
+    --exclude 'Videos' \
     --exclude 'dotfiles' \
     --include '.emacs.d' \
     --include '.emacs.d/.secret.el' \
