@@ -75,10 +75,13 @@ alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -E
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;'
 alias odoo='/opt/odoo/12/server/odoo-bin'
 alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
+alias odoo14='/opt/odoo/14/server/odoo-bin'
+alias odoo14_run='odoo14 -c /opt/odoo/14/conf/odoo-14-all-dev-modules.conf'
 alias mpg='cd /opt/odoo/12/addons/mpg-dev/'
-alias mpg_link='/opt/odoo/12/addons/mpg-dev-linked-all'
+alias mpg14='cd /opt/odoo/14/addons/mpg-dev/'
 alias passmenu='~/.local/bin/rofi_passmenu.sh'
-
+# stop using vim
+alias vim='emacsclient -nw'
 # view markdown file in terminal via lynx
 md () {
   pandoc $1 | lynx -stdin
@@ -121,7 +124,7 @@ _gen_fzf_default_opts
 
 # exports
 export BROWSER=/usr/bin/brave
-export TERMINAL=/usr/bin/alacritty
+export TERMINAL=/usr/bin/urxvt
 export EDITOR="/usr/bin/emacs -nw"
 export LOCATION="Riihimäki"
 export QT_QPA_PLATFORMTHEME=gtk2

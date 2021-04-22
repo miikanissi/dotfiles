@@ -29,9 +29,11 @@ I currently use IBM Plex Mono Nerd Font from [[https://github.com/ryanoasis/nerd
 For python completion and syntax checking you need to install these from pip:
 - =jedi=, for python completion and syntax checking.
 - =flake8=, for python completion and syntax checking.
+- =flake8-docstrings=, for docstring style checker.
 - =autopep8=, for python syntax checking.
 - =pylint=, for python syntax checking.
 - =pylint-odoo=, for python syntax checking with Odoo.
+- =virtualenv=, for jedi to work properly.
 *** Emacs installation:
 On the first launch of Emacs you might need to run some commands using M-x to fully install everything. Here's a list:
 - =jedi:install-server=
@@ -684,18 +686,6 @@ Browse kill ring.
     :ensure t
     :bind ("M-y" . popup-kill-ring))
 #+end_src
-** yasnippet
-Snippets are cool.
-#+begin_src emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :config
-    (use-package yasnippet-snippets
-      :ensure t)
-    (yas-reload-all)
-    (add-hook 'prog-mode-hook #'yas-minor-mode)
-    (add-hook 'org-mode-hook #'yas-minor-mode))
-#+end_src
 * General packages
 | =auto-package-update= | https://github.com/rranelli/auto-package-update.el |
 | =async=               | https://github.com/jwiegley/emacs-async            |
@@ -873,7 +863,22 @@ Comments/uncomments the selected region.
 Check syntax errors while editing.
 #+begin_src emacs-lisp
   (use-package flycheck
-    :ensure t)
+    :ensure t
+    :init
+    (add-hook 'python-mode-hook 'flycheck-mode))
+#+end_src
+** yasnippet
+Snippets are cool.
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (use-package yasnippet-snippets
+      :ensure t)
+    (yas-reload-all)
+    (add-hook 'prog-mode-hook 'yas-minor-mode)
+    (add-hook 'org-mode-hook 'yas-minor-mode)
+    (add-hook 'rst-mode-hook 'yas-minor-mode))
 #+end_src
 ** company
 Autocompletion is really nice for programming and most IDEs come with it out of the box. For emacs I use company to do my autocompletion.
@@ -884,7 +889,7 @@ Autocompletion is really nice for programming and most IDEs come with it out of 
     (add-hook 'prog-mode-hook 'company-mode)
     :config
     (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 4))
+    (setq company-minimum-prefix-length 3))
 #+end_src
 *** Change default company keybindings
 #+begin_src emacs-lisp
@@ -898,19 +903,12 @@ Autocompletion is really nice for programming and most IDEs come with it out of 
 ** C/C++
 Irony is what gives us C/C++ completion. First we install the packages and then we add a hook to enable company-mode in C/C++ buffers.
 #+begin_src emacs-lisp
-  (add-hook 'c++-mode-hook 'yas-minor-mode)
-  (add-hook 'c-mode-hook 'yas-minor-mode)
-
   (use-package flycheck-clang-analyzer
     :ensure t
     :config
     (with-eval-after-load 'flycheck
       (require 'flycheck-clang-analyzer)
        (flycheck-clang-analyzer-setup)))
-
-  (with-eval-after-load 'company
-    (add-hook 'c++-mode-hook 'company-mode)
-    (add-hook 'c-mode-hook 'company-mode))
 
   (use-package company-c-headers
     :ensure t)
@@ -936,17 +934,9 @@ Makes sure python-mode runs as python3.
 #+begin_src emacs-lisp
   (setq python-shell-interpreter "python3")
 #+end_src
-*** Hook yasnippet and flycheck to python mode
-#+begin_src emacs-lisp
-  (add-hook 'python-mode-hook 'yas-minor-mode)
-  (add-hook 'python-mode-hook 'flycheck-mode)
-#+end_src
 *** company for python
 For python completion I'm using jedi as a backend. It follows the PEP-8 styling guide.
 #+begin_src emacs-lisp
-  (with-eval-after-load 'company
-      (add-hook 'python-mode-hook 'company-mode))
-
   (defun python-mode-company-init ()
     (setq-local company-backends '((company-jedi
                                     company-etags
@@ -977,10 +967,6 @@ Major mode for editing JSON files. Adds better syntax highlighting and keybindin
 ** Bash
 Auto-completion, snippets, syntax checking for bash.
 #+begin_src emacs-lisp
-  (add-hook 'shell-mode-hook 'yas-minor-mode)
-  (add-hook 'shell-mode-hook 'flycheck-mode)
-  (add-hook 'shell-mode-hook 'company-mode)
-
   (defun shell-mode-company-init ()
     (setq-local company-backends '((company-shell
                                     company-shell-env
@@ -990,8 +976,8 @@ Auto-completion, snippets, syntax checking for bash.
   (use-package company-shell
     :ensure t
     :config
-      (require 'company)
-      (add-hook 'shell-mode-hook 'shell-mode-company-init))
+    (require 'company)
+    (add-hook 'shell-mode-hook 'shell-mode-company-init))
 #+end_src
 ** web-mode
 Improves HTML documents when using embed parts and blocks. I Mainly use it for Django development.
@@ -1012,7 +998,8 @@ Rainbow mode colorizes color names in buffers.
   (use-package rainbow-mode
     :ensure t
     :init
-    (add-hook 'prog-mode-hook #'rainbow-mode)
+    (add-hook 'prog-mode-hook 'rainbow-mode)
+    (add-hook 'conf-xdefaults-mode-hook 'rainbow-mode)
     (rainbow-mode 1))
 #+end_src
 Ranbow delimiters mode colorizes matrching paranthesis. Very useful for elisp.
@@ -1020,13 +1007,8 @@ Ranbow delimiters mode colorizes matrching paranthesis. Very useful for elisp.
   (use-package rainbow-delimiters
     :ensure t
     :init
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
     (rainbow-delimiters-mode 1))
-#+end_src
-** ReST
-Activate snippets in ReST mode
-#+begin_src emacs-lisp
-  (add-hook 'rst-mode-hook 'yas-minor-mode)
 #+end_src
 ** Magit
 I tend to mostly do git commands from the terminal but I'm trying to learn how to use magit instead.
