@@ -389,7 +389,7 @@ Emacs asks for the shell you want to use every time you launch the terminal. We 
 | =ido-completing-read+= | https://github.com/DarwinAwardWinner/ido-completing-read-plus |
 | =smex=                 | https://github.com/nonsequitur/smex/                          |
 | =which-key=            | https://github.com/justbur/emacs-which-key                    |
-| =swiper=               | https://github.com/abo-abo/swiper                             |
+| =ivy=, =swiper=        | https://github.com/abo-abo/swiper                             |
 | =avy=                  | https://github.com/abo-abo/avy                                |
 | =rg=                   | https://github.com/dajva/rg.el                                |
 | =switch-window=        | https://github.com/dimitri/switch-window                      |
@@ -446,7 +446,7 @@ By default =M-f= / =M-b= treat thisIsOneWord as a single word instead. I want it
 *** Recursively copy by default
 #+begin_src emacs-lisp
   (setq dired-recursive-copies 'always)
-#+end_src
+  #+end_src
 ** IDO
 Ido mode improves buffer switching and prompts.
 *** enable ido mode
@@ -486,6 +486,14 @@ Which key shows auto-completion for emacs commands.
   :ensure t
   :init
   (which-key-mode))
+#+end_src
+
+** Ivy
+#+begin_src emacs-lisp
+  (use-package ivy
+    :ensure t
+    :init
+    (ivy-mode))
 #+end_src
 ** swiper
 Swiper no swiping! Improves the default search functionality.
@@ -790,9 +798,9 @@ Nice dashboard on emacs startup. Using the [[https://github.com/snackon/Witchmac
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-banner-logo-title "Miika's Emacs")
-    (setq dashboard-startup-banner "~/.emacs.d/marisa.png")
+    ;; (setq dashboard-startup-banner "~/.emacs.d/marisa.png")
     (setq dashboard-set-init-info t)
-    (setq dashboard-items '((recents . 5)
+    (setq dashboard-items '((recents . 15)
                               (projects . 5))))
 #+end_src
 ** kill all buffers and open dashboard
