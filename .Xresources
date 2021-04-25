@@ -67,11 +67,13 @@ URxvt.font: xft:UbuntuMonoNerdFontMono:size=11
 
 ! URxvt Extensions
 URxvt.perl-ext-common:default,matcher,font-size
-! URxvt keybinds
+! URxvt keybinds, Emacs copy/paste
 URxvt.keysym.Shift-Control-V:       eval:paste_clipboard
 URxvt.keysym.Shift-Control-C:       eval:selection_to_clipboard
-URxvt.keysym.C-Up:                  font-size:increase
-URxvt.keysym.C-Down:                font-size:decrease
+URxvt.keysym.Control-y:             eval:paste_clipboard
+URxvt.keysym.Meta-w:                eval:selection_to_clipboard
+URxvt.keysym.Control-Up:            font-size:increase
+URxvt.keysym.Control-Down:          font-size:decrease
 
 !!! Xft !!!
 Xft.dpi:       96

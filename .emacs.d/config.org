@@ -448,7 +448,7 @@ By default =M-f= / =M-b= treat thisIsOneWord as a single word instead. I want it
   (setq dired-recursive-copies 'always)
   #+end_src
 ** IDO
-Ido mode improves buffer switching and prompts.
+Ido mode improves buffer switching and prompts. Only used if Ivy mode is disabled.
 *** enable ido mode
 #+begin_src emacs-lisp
 (setq ido-enable-flex-matching nil)
@@ -471,14 +471,6 @@ Truly enables ido wherever possible.
     :init
     (ido-ubiquitous-mode 1))
 #+end_src
-*** smex
-Enhanced M-x menu.
-#+begin_src emacs-lisp
-  (use-package smex
-    :ensure t
-    :init
-    (global-set-key (kbd "M-x") 'smex))
-#+end_src
 ** Which key
 Which key shows auto-completion for emacs commands.
 #+begin_src emacs-lisp
@@ -487,13 +479,21 @@ Which key shows auto-completion for emacs commands.
   :init
   (which-key-mode))
 #+end_src
-
 ** Ivy
+Ivy ensures Emacs commands use Ivy for completion, makes finding files and switching buffers faster.
 #+begin_src emacs-lisp
   (use-package ivy
     :ensure t
     :init
     (ivy-mode))
+#+end_src
+** Councel
+Councel replaces common Emacs commands with a customized Ivy optimized alternatives.
+#+begin_src emacs-lisp
+  (use-package counsel
+    :ensure t
+    :init
+    (counsel-mode))
 #+end_src
 ** swiper
 Swiper no swiping! Improves the default search functionality.
@@ -751,11 +751,13 @@ Delight allows customizing which major/minor modes are shown on the modeline.
     (delight 'page-break-lines-mode nil 'page-break-lines)
     (delight 'auto-revert-mode nil 'autorevert)
     (delight 'rainbow-delimiters-mode nil 'rainbow-delimiters)
-    (delight 'rainbow-mode nil 'rainbow)
+    (delight 'rainbow-mode nil 'rainbow-mode)
     (delight 'yas-minor-mode nil 'yasnippet)
     (delight 'flycheck-mode nil 'flycheck)
     (delight 'org-indent-mode nil 'org-indent)
     (delight 'projectile-mode nil 'projectile)
+    (delight 'ivy-mode nil 'ivy)
+    (delight 'counsel-mode nil 'counsel)
     (delight 'emacs-lisp-mode "Elisp" 'elisp-mode))
 
   (defadvice powerline-major-mode (around delight-powerline-major-mode activate)
