@@ -1,6 +1,8 @@
 # ~/.bashrc
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
+# disable ctrl-s and ctrl-q
+stty -ixon
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
@@ -50,8 +52,8 @@ man() {
 
 ### aliases ###
 # colors to commands
-alias ll='ls --color=auto -laF'
-alias ls='ls --color=auto --group-directories-first'
+alias ll='ls --color=auto -lbAFhN'
+alias ls='ls --color=auto --group-directories-first -hN'
 alias la='ls --color=auto -A'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -64,25 +66,25 @@ alias rm='rm -v'
 alias mkdir='mkdir -pv'
 alias df='df -h'
 # others
-alias psg='\ps -e --forest | grep'
-alias em='emacs -nw'
-alias yt='youtube-dl'
+alias psg='\ps -e --forest | grep' # grep for a running process
+alias em='emacsclient -nw'
+alias vim='emacsclient -nw' # stop using vim
+alias yt='youtube-dl --add-metadata -ic'
 alias yta='yt --extract-audio --audio-format mp3 --audio-quality 0'
-alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias pubip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias localip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
-alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;'
+alias localip="ip address | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
+alias passmenu='~/.local/bin/rofi_passmenu.sh' # replace passmenu script with rofi passmenu
+### odoo aliases ###
 alias odoo='/opt/odoo/12/server/odoo-bin'
 alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
 alias odoo14='/opt/odoo/14/server/odoo-bin'
 alias odoo14_run='odoo14 -c /opt/odoo/14/conf/odoo-14-all-dev-modules.conf'
 alias mpg='cd /opt/odoo/12/addons/mpg-dev/'
 alias mpg14='cd /opt/odoo/14/addons/mpg-dev/'
-alias passmenu='~/.local/bin/rofi_passmenu.sh'
-# stop using vim
-alias vim='emacsclient -nw'
-# view markdown file in terminal via lynx
+
+# view markdown file in terminal via lynx and pandoc
 md () {
   pandoc $1 | lynx -stdin
 }

@@ -898,8 +898,10 @@ Autocompletion is really nice for programming and most IDEs come with it out of 
     :init
     (add-hook 'prog-mode-hook 'company-mode)
     :config
+    (add-to-list 'company-backends '(company-capf company-dabbrev))
     (setq company-idle-delay 0)
-    (setq company-minimum-prefix-length 3))
+    (setq company-minimum-prefix-length 1)
+    (setq company-selection-wrap-around t))
 #+end_src
 *** Change default company keybindings
 #+begin_src emacs-lisp
@@ -926,9 +928,9 @@ Irony is what gives us C/C++ completion. First we install the packages and then 
   (use-package company-irony
     :ensure t
     :config
-    (setq company-backends '((company-c-headers
+    (add-to-list 'company-backends '(company-c-headers
                               company-dabbrev-code
-                              company-irony))))
+                              company-irony)))
 
   (use-package irony
     :ensure t
@@ -936,6 +938,19 @@ Irony is what gives us C/C++ completion. First we install the packages and then 
     (add-hook 'c++-mode-hook 'irony-mode)
     (add-hook 'c-mode-hook 'irony-mode)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+#+end_src
+** web-mode
+Improves HTML documents when using embed parts and blocks. I Mainly use it for Django development.
+#+begin_src emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (setq web-mode-engines-alist
+          '(("django" . "\\.html\\'")))
+    (setq web-mode-ac-sources-alist
+          '(("css" . (ac-source-css-property))
+            ("html" . (ac-source-words-in-buffer ac-source-abbrev)))))
 #+end_src
 ** Python
 Python specific configurations.
@@ -988,19 +1003,6 @@ Auto-completion, snippets, syntax checking for bash.
     :config
     (require 'company)
     (add-hook 'shell-mode-hook 'shell-mode-company-init))
-#+end_src
-** web-mode
-Improves HTML documents when using embed parts and blocks. I Mainly use it for Django development.
-#+begin_src emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :config
-    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-    (setq web-mode-engines-alist
-          '(("django" . "\\.html\\'")))
-    (setq web-mode-ac-sources-alist
-          '(("css" . (ac-source-css-property))
-            ("html" . (ac-source-words-in-buffer ac-source-abbrev)))))
 #+end_src
 ** rainbow-mode
 Rainbow mode colorizes color names in buffers.
