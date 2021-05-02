@@ -271,6 +271,17 @@ Emacs Web Wowser is a built in web browser for Emacs.
 #+begin_src emacs-lisp
   (server-start)
 #+end_src
+** Delete process
+Delete a process with =ido-completing-read=
+#+begin_src emacs-lisp
+  (defun delete-process-interactive ()
+    (interactive)
+    (let ((pname (ido-completing-read "Process Name: "
+                      (mapcar 'process-name (process-list)))))
+
+      (delete-process (get-process pname))))
+  (global-set-key (kbd "C-c C-x") 'delete-process-interactive)
+#+end_src
 * Terminal
 | =vterm= | https://github.com/akermu/emacs-libvterm |
 I find that ansi-term works fine for most tasks. If you use ncurses style programs a lot then you should use an external terminal for them.
@@ -1042,6 +1053,21 @@ Projectile helps with navigating files in a project. Projectile also integrates 
     :config
     (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
     (projectile-mode +1))
+#+end_src
+** Odoo
+Some helpful functions to improve Odoo development.
+*** run-odoo
+Defines a function that prompts for odoo version to run and a name of a module to update. NOTE: If you copy this you need to change your own file paths.
+#+begin_src emacs-lisp
+  (defun run-odoo ()
+    (interactive)
+    (let ((version-list '("12" "14")))
+      (let ((version (ido-completing-read "Select Odoo version: " version-list)))
+        (let ((update (ido-completing-read "Select module to update: " (directory-files (concat "/opt/odoo/" version "/addons/mpg-dev-linked-all")))))
+          (let ((odoo (concat "/opt/odoo/" version "/server/odoo-bin")))
+            (let ((conf (concat "/opt/odoo/" version "/conf/odoo-" version "-all-dev-modules.conf")))
+              (start-process "odoo" "odoo" odoo "-c" conf "-u" update)))))))
+  (global-set-key (kbd "C-c C-o") 'run-odoo)
 #+end_src
 * Org
 | =org=         | https://orgmode.org/                     |
