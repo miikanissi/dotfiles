@@ -1,1 +1,2 @@
-../../../../etc/udev/rules.d/99-keyboard.rules
+# /etc/udev/rules.d/99-keyboard.rules
+ACTION=="bind", SUBSYSTEM=="usb", ENV{PRODUCT}=="4b4/510/201", RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"

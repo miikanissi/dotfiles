@@ -3,6 +3,7 @@
 # create a file in /etc/udev/rules.d/99-keyboard.rules with
 # ACTION=="bind", SUBSYSTEM=="usb", ENV{PRODUCT}=="4b4/510/201", RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"
 # replace m with your username and command with path to your command
+# replace ENV{PRODUCT} with your product id
 
 # we need to use X11 auth token for the calls otherwise xset and setckbmap won't work
 export XAUTHORITY=/home/m/.Xauthority
