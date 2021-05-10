@@ -71,7 +71,9 @@ In this section I define variables that are set in a =.secret.el= file. These se
   (defvar m/mail-smtp-port nil           "The smtp port for mail.")
   (defvar m/mail-smtp-user nil           "The smtp user for mail.")
 
-  (load "~/.emacs.d/.secret.el")
+  (let ((m/secret-file "~/.emacs.d/.secret.el"))
+    (when (file-readable-p m/secret-file)
+      (load m/secret-file)))
 #+end_src
 * Theme
 | =gruvbox-theme= | https://github.com/Greduan/emacs-theme-gruvbox |
