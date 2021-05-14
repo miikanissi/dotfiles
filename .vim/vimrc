@@ -3,50 +3,51 @@
 " language specific configs at .vim/ftplugin/<language>.vim
 " or .vim/after/syntax/<language>.vim for syntax
 
-" PLUGIN MANAGER{{{
+" PLUGIN MANAGER {{{
 if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
 	silent !mkdir -p $HOME/.vim/autoload/
-	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > $HOME/.vim/autoload/plug.vim
+    silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > $HOME/.vim/autoload/plug.vim
 	autocmd VimEnter * PlugInstall
 endif
 
 call plug#begin('$HOME/.vim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-commentary'
-Plug 'preservim/nerdtree'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'ap/vim-css-color'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-syntastic/syntastic'
-Plug 'vim-python/python-syntax'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+" Plug 'vim-syntastic/syntastic'
+Plug 'itchyny/lightline.vim'
+Plug 'vim-python/python-syntax', { 'for': 'python' }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 "}}}
-
 " BASICS{{{
-set encoding=utf-8
-filetype plugin indent on
-syntax on
 highlight ColorColumn ctermbg=0 guibg=lightgrey
-set t_Co=256
-colorscheme base16-gruvbox-dark-hard
+colorscheme base16-tomorrow-night
 let g:lightline = {
-      \ 'colorscheme': 'simpleblack',
+      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
       \ }
-let g:airline_theme='base16_gruvbox_dark_hard'
-let g:airline_powerline_fonts = 1
 " set runtimepath to current dir
 let $RTP=split(&runtimepath, ',')[0]
 let $RC="$HOME/.vim/vimrc"
 " marker based folding in vim files
 autocmd FileType vim setlocal foldmethod=marker
-"}}}
-
-" SETTINGS{{{
+" settings
+set encoding=utf-8              " utf-8 always
+filetype plugin indent on       " indentation on
+syntax on                       " syntax highlighting on
+set t_Co=256                    " use 256 colors
 set mouse=a                     " enable mouse functionality
 set noeb vb t_vb=               " no error bells
 set backspace=indent,eol,start  " normal backspace functionality
@@ -89,14 +90,11 @@ set updatetime=300              " default is 4000
 set shortmess+=c                " no messages to ins completion
 set signcolumn=yes              " always show signcolumns
 "}}}
-
 " KEY MAPPINGS{{{
 " defines leader key as comma
 let mapleader = ","
 " show buffers
 nnoremap <leader>b :buffers<CR>:buffer<Space>
-" open nerdtree
-nnoremap <leader>n :NERDTreeToggle<CR>
 " indent file
 nnoremap <leader>i gg=G<C-o><C-o>
 " toggle folding
@@ -107,9 +105,6 @@ nnoremap <leader>s :FZF<CR>
 nnoremap <leader>f :Format<CR>
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
-nnoremap <leader>cc :-1read $HOME/.vim/snippets/skeleton.c<CR>4ji<tab>
-nnoremap <leader>cpp :-1read $HOME/.vim/snippets/skeleton.cpp<CR>4ji<tab>
-nnoremap <leader>cred :-1read $HOME/.vim/snippets/skeleton_credits.txt<CR>I
 nnoremap <leader>tpy :-1read $HOME/.vim/snippets/skeleton_tawasta_models.py<CR>:35<CR>wi
 nnoremap <leader>tmd :-1read $HOME/.vim/snippets/skeleton_tawasta_README.rst<CR>:6<CR>i
 nnoremap <leader>tman :-1read $HOME/.vim/snippets/skeleton_tawasta_manifest.py<CR>:22<CR>$hi
@@ -117,7 +112,6 @@ nnoremap <leader>txml :-1read $HOME/.vim/snippets/skeleton_tawasta_views.xml<CR>
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 "}}}
-
 " COMMANDS{{{
 " trim empty lines at the end of file on save
 function TrimEndLines()
@@ -132,25 +126,17 @@ autocmd BufWritePre * call TrimEndLines()
 autocmd FileType xml let b:noStripWhiteSpace=1
 " automatically deletes all trailing whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
-" update binds when sxhkdrc is updated.
-autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 " run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
 au! BufNewFile,BufRead *.csv setf csv
 " terminal commands
-command! MakeTags !ctags -R .   " recursively creates ctags in directory
 command! Reload execute "source ~/.vim/vimrc"
 " always fold vimrc
 au BufRead vimrc normal zM
 " clear screen when vim exit
 au VimLeave * :!clear
 "}}}
-
 " PLUGINS{{{
-"AIRLINE {{{
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-"}}}
 "FZF {{{
 set rtp+=/usr/bin/fzf
 let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.6 } }
@@ -230,16 +216,6 @@ endfunction
 command! -nargs=0 Format :call CocAction('format')
 " coc status to statusline
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-"}}}
-" NERDTREE{{{
-" automatically open nerdtree if no file specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" automatically open nerdtree if vim is started on a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-" close vim if only nerd tree is left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "}}}
 " SYNTASTIC{{{
 " set statusline+=%#warningmsg#
