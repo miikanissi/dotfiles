@@ -11,5 +11,6 @@
         "highlight": { "lsRanges": true }
       }
     }
-  }
+  },
+  "diagnostic.displayByAle": true
 }

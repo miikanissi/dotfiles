@@ -5,19 +5,19 @@
 
 " PLUGIN MANAGER {{{
 if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
-	echo "Downloading junegunn/vim-plug to manage plugins..."
-	silent !mkdir -p $HOME/.vim/autoload/
-    silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > $HOME/.vim/autoload/plug.vim
-	autocmd VimEnter * PlugInstall
+  echo "Downloading junegunn/vim-plug to manage plugins..."
+  silent !mkdir -p $HOME/.vim/autoload/
+  silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > $HOME/.vim/autoload/plug.vim
+  autocmd VimEnter * PlugInstall
 endif
-
 call plug#begin('$HOME/.vim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-commentary'
 Plug 'ap/vim-css-color'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'vim-syntastic/syntastic'
+Plug 'dense-analysis/ale'
 Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -28,16 +28,6 @@ call plug#end()
 " BASICS{{{
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 colorscheme base16-tomorrow-night
-let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
 " set runtimepath to current dir
 let $RTP=split(&runtimepath, ',')[0]
 let $RC="$HOME/.vim/vimrc"
@@ -91,18 +81,14 @@ set shortmess+=c                " no messages to ins completion
 set signcolumn=yes              " always show signcolumns
 "}}}
 " KEY MAPPINGS{{{
-" defines leader key as comma
+" leader as comma
 let mapleader = ","
 " show buffers
-nnoremap <leader>b :buffers<CR>:buffer<Space>
+" nnoremap <leader>b :buffers<CR>:buffer<Space>
 " indent file
 nnoremap <leader>i gg=G<C-o><C-o>
 " toggle folding
 nnoremap <space> za
-" open fzf
-nnoremap <leader>s :FZF<CR>
-" format file with coc-prettier
-nnoremap <leader>f :Format<CR>
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
 nnoremap <leader>tpy :-1read $HOME/.vim/snippets/skeleton_tawasta_models.py<CR>:35<CR>wi
@@ -113,32 +99,53 @@ nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 "}}}
 " COMMANDS{{{
-" trim empty lines at the end of file on save
-function TrimEndLines()
-  if exists('b:noStripWhiteSpace')
-    return
-  endif
-  let save_cursor = getpos(".")
-  silent! %s/\($\n\s*\)\+\%$//e
-  call setpos('.', save_cursor)
-endfunction
-autocmd BufWritePre * call TrimEndLines()
-autocmd FileType xml let b:noStripWhiteSpace=1
-" automatically deletes all trailing whitespace on save.
-autocmd BufWritePre * %s/\s\+$//e
 " run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+" set .csv filetype as csv
 au! BufNewFile,BufRead *.csv setf csv
-" terminal commands
-command! Reload execute "source ~/.vim/vimrc"
 " always fold vimrc
 au BufRead vimrc normal zM
 " clear screen when vim exit
 au VimLeave * :!clear
 "}}}
 " PLUGINS{{{
+" LIGHTLINE{{{
+let g:lightline = {
+      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
+      \            [ 'lineinfo' ],
+      \            [ 'percent' ],
+      \            [ 'fileformat', 'fileencoding', 'filetype'] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
+      \   'linter_checking': 'lightline#ale#checking',
+      \   'linter_infos': 'lightline#ale#infos',
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors',
+      \   'linter_ok': 'lightline#ale#ok',
+      \ },
+      \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
+      \ }
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_infos = "\uf129"
+let g:lightline#ale#indicator_warnings = "\uf071"
+let g:lightline#ale#indicator_errors = "\uf05e"
+let g:lightline#ale#indicator_ok = "\uf00c"
+" }}}
 "FZF {{{
 set rtp+=/usr/bin/fzf
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
 let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.6 } }
 let g:fzf_layout = { 'down': '40%' }
 let g:fzf_colors =
@@ -159,7 +166,6 @@ let g:fzf_colors =
 " COC.NVIM{{{
 let g:coc_global_extensions = [
       \ 'coc-pairs',
-      \ 'coc-prettier',
       \ 'coc-python',
       \ 'coc-xml',
       \ 'coc-html',
@@ -169,8 +175,6 @@ let g:coc_global_extensions = [
       \ 'coc-sh',
       \ 'coc-vimlsp'
       \ ]
-" :Prettier runs prettier for file
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " tab for coc.nvim completion
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -191,7 +195,7 @@ endif
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -217,15 +221,29 @@ command! -nargs=0 Format :call CocAction('format')
 " coc status to statusline
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "}}}
-" SYNTASTIC{{{
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['flake8']
+" ALE{{{
+let g:ale_disable_lsp = 1
+let g:ale_fix_on_save = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_python_pylint_executable = 'pylint --load-plugins=pylint_odoo'
+let g:ale_linters = {
+      \   'python': ['flake8', 'pylint'],
+      \   'javascript': ['eslint'],
+      \   'xml': ['xmllint'],
+      \ }
+let g:ale_fixers = {
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'javascript': ['eslint', 'prettier'],
+      \   'python': ['autopep8', 'black', 'yapf'],
+      \}
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 "}}}
 " PYTHON-SYNTAX{{{
 let g:python_highlight_all = 1

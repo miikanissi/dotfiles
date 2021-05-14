@@ -127,7 +127,7 @@ _gen_fzf_default_opts
 # exports
 export BROWSER=/usr/bin/brave
 export TERMINAL=/usr/bin/urxvt
-export EDITOR="/usr/bin/emacs -nw"
+export EDITOR=/usr/bin/vim
 export LOCATION="Riihimäki"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
