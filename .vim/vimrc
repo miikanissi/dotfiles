@@ -13,6 +13,7 @@ endif
 call plug#begin('$HOME/.vim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'ap/vim-css-color'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
@@ -146,6 +147,7 @@ let g:lightline#ale#indicator_ok = "\uf00c"
 set rtp+=/usr/bin/fzf
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>r :Rg<Space>
 let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.6 } }
 let g:fzf_layout = { 'down': '40%' }
 let g:fzf_colors =
@@ -236,11 +238,14 @@ let g:ale_linters = {
       \   'python': ['flake8', 'pylint'],
       \   'javascript': ['eslint'],
       \   'xml': ['xmllint'],
+      \   'sh': ['shellcheck', 'bashate'],
       \ }
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'javascript': ['eslint', 'prettier'],
       \   'python': ['autopep8', 'black', 'yapf'],
+      \   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
+      \   'xml': [],
       \}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)

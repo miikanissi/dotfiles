@@ -40,13 +40,13 @@ bind 'set bell-style none'
 # color man pages
 man() {
   env \
-    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-    LESS_TERMCAP_md=$(printf "\e[1;31m") \
-    LESS_TERMCAP_me=$(printf "\e[0m") \
-    LESS_TERMCAP_se=$(printf "\e[0m") \
-    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-    LESS_TERMCAP_ue=$(printf "\e[0m") \
-    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    LESS_TERMCAP_mb="$(printf "\e[1;31m")" \
+    LESS_TERMCAP_md="$(printf "\e[1;31m")" \
+    LESS_TERMCAP_me="$(printf "\e[0m")" \
+    LESS_TERMCAP_se="$(printf "\e[0m")" \
+    LESS_TERMCAP_so="$(printf "\e[1;44;33m")" \
+    LESS_TERMCAP_ue="$(printf "\e[0m")" \
+    LESS_TERMCAP_us="$(printf "\e[1;32m")" \
     man "$@"
   }
 
@@ -86,7 +86,7 @@ alias mpg14='cd /opt/odoo/14/addons/mpg-dev/'
 
 # view markdown file in terminal via lynx and pandoc
 md () {
-  pandoc $1 | lynx -stdin
+  pandoc "$1" | lynx -stdin
 }
 
 ### fzf
@@ -94,7 +94,7 @@ alias fe='~/.local/bin/fe.sh'
 alias ff='~/.local/bin/ff.sh'
 fd() {
   local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+  dir=$(find "${1:-.}" -type d 2> /dev/null | fzf +m) && cd "$dir" || exit
 }
 _gen_fzf_default_opts() {
 
@@ -134,4 +134,4 @@ export PATH=~/.local/bin:$PATH
 export PATH=~/go/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden' # use ripgrep
 export FZF_DEFAULT_OPTS="--layout=reverse --height=60% --preview-window=down:99%:wrap"
-cd ~/
+cd ~/ || exit
