@@ -1,15 +1,6 @@
-[submodule ".themes/Sweet"]
-	path = .themes/Sweet
-	url = git@github.com:EliverLara/Sweet.git
-[submodule ".themes/vimix-gtk-themes"]
-	path = .themes/vimix-gtk-themes
-	url = git@github.com:vinceliuice/vimix-gtk-themes.git
 [submodule ".icons/vimix-icon-theme"]
 	path = .icons/vimix-icon-theme
 	url = git@github.com:vinceliuice/vimix-icon-theme.git
-[submodule ".vim/pack/plugins/start/semshi"]
-	path = .vim/pack/plugins/start/semshi
-	url = git@github.com:numirias/semshi.git
 [submodule ".icons/elementary-cursors"]
 	path = .icons/elementary-cursors
 	url = git@github.com:kaesetoast/elementary-cursors.git

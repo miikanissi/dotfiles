@@ -24,90 +24,95 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'mbbill/undotree'
 call plug#end()
 "}}}
 " BASICS{{{
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 colorscheme base16-tomorrow-night
-" set runtimepath to current dir
-let $RTP=split(&runtimepath, ',')[0]
-let $RC="$HOME/.vim/vimrc"
-" marker based folding in vim files
-autocmd FileType vim setlocal foldmethod=marker
 " settings
-set encoding=utf-8              " utf-8 always
-filetype plugin indent on       " indentation on
-syntax on                       " syntax highlighting on
-set t_Co=256                    " use 256 colors
-set mouse=a                     " enable mouse functionality
-set noeb vb t_vb=               " no error bells
-set backspace=indent,eol,start  " normal backspace functionality
-set hidden                      " hides instead of unloads buffers
-set path=.,**                   " path is cur file and dir
-set wildmenu                    " tab complete shows all matching files
-set nocompatible                " compatibility vim only
-set clipboard=unnamedplus       " uses system clipboard
-set noerrorbells                " no error bells
-set tabstop=4                   " tab stops at 4 spaces
-set softtabstop=4               " tab stops at 4 spaces
-set shiftwidth=4                " default shift
-set expandtab                   " default tabs
-set smartindent                 " default tabs
-set autoindent                  " indents paste
-set nu rnu                      " hybrid line numbers
-set wrap                        " no wrap
-set ignorecase                  " ignores case in search
-set smartcase                   " uses smartcase in search
-set noswapfile                  " no swap file
-set nobackup                    " no backup file
-set incsearch                   " incremental search enabled
-set ruler                       " ruler shows cur pos
-set modelines=0                 " no modelines
-set colorcolumn=80              " colorcolumn is 80
-set lazyredraw                  " no redraw
-set magic                       " magic for regex
-set scrolloff=5                 " shows 5 lines under mouse
-set matchpairs+=<:>             " highlights matching brackets, '%' to jump between them
-set viminfo='100,<9999,s100     " only stores info from 100 files at a time, 9999 lot.
-set laststatus=2                " allows lightline to show
-set noshowmode                  " -- INSERT -- is not shown as lightline shows it
-let skip_defaults_vim=1         " disable viminfo
-set viminfo=""                  " disable viminfo
-set showcmd                     " shows the typed command
-set cmdheight=2                 " more space for command
-set foldmethod=indent           " enable folding
-set foldlevel=99                " never folded
-set updatetime=300              " default is 4000
-set shortmess+=c                " no messages to ins completion
-set signcolumn=yes              " always show signcolumns
+filetype plugin indent on           " indentation on
+syntax on                           " syntax highlighting on
+set t_Co=256                        " use 256 colors
+set encoding=utf-8                  " utf-8 always
+set mouse=a                         " enable mouse functionality
+set noeb vb t_vb=                   " no error bells
+set backspace=indent,eol,start      " normal backspace functionality
+set hidden                          " hides instead of unloads buffers
+set wildmode=longest,list,full      " wild mode settings
+set wildmenu                        " tab complete shows all matching files
+set wildignore+=*.pyc               " ignore .pyc files"
+set wildignore+=**/node_modules/*   " ignore node_modules
+set wildignore+=**/.git/*           " ignore git
+set nocompatible                    " compatibility vim only
+set clipboard=unnamedplus           " uses system clipboard
+set noerrorbells                    " no error bells
+set tabstop=4                       " tab stops at 4 spaces
+set softtabstop=4                   " tab stops at 4 spaces
+set shiftwidth=4                    " default shift
+set expandtab                       " default tabs
+set smartindent                     " default tabs
+set autoindent                      " indents paste
+set nu rnu                          " hybrid line numbers
+set wrap                            " no wrap
+set ignorecase                      " ignores case in search
+set smartcase                       " uses smartcase in search
+set noswapfile                      " no swap file
+set nobackup                        " no backup file
+set undodir=~/.vim/undodir          " undodir for history
+set undofile                        " makes undofile for history in undodir
+set incsearch                       " incremental search enabled
+set ruler                           " ruler shows cur pos
+set modelines=0                     " no modelines
+set colorcolumn=80                  " colorcolumn is 80
+set lazyredraw                      " no redraw
+set magic                           " magic for regex
+set scrolloff=8                     " shows 8 lines under mouse when moving the file
+set matchpairs+=<:>                 " highlights matching brackets, '%' to jump between them
+set viminfo='100,<9999,s100         " only stores info from 100 files at a time, 9999 lot.
+set viminfo+=n~/.vim/viminfo        " store viminfo in ~/.vim folder
+set laststatus=2                    " allows lightline to show
+set noshowmode                      " -- INSERT -- is not shown as lightline shows it
+set showcmd                         " shows the typed command
+set foldmethod=indent               " enable folding
+set foldlevel=99                    " never folded
+set updatetime=300                  " default is 4000
+set shortmess+=c                    " no messages to ins completion
+set signcolumn=yes                  " always show signcolumns
 "}}}
 " KEY MAPPINGS{{{
 " leader as comma
 let mapleader = ","
-" show buffers
-" nnoremap <leader>b :buffers<CR>:buffer<Space>
-" indent file
-nnoremap <leader>i gg=G<C-o><C-o>
 " toggle folding
 nnoremap <space> za
+" navigation
+nnoremap <PageUp> :bprevious<CR>
+nnoremap <PageDown> :bnext<CR>
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+nnoremap <C-H> <C-W>h
 " snippets
 nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>5jwf>a
 nnoremap <leader>tpy :-1read $HOME/.vim/snippets/skeleton_tawasta_models.py<CR>:35<CR>wi
 nnoremap <leader>tmd :-1read $HOME/.vim/snippets/skeleton_tawasta_README.rst<CR>:6<CR>i
 nnoremap <leader>tman :-1read $HOME/.vim/snippets/skeleton_tawasta_manifest.py<CR>:22<CR>$hi
 nnoremap <leader>txml :-1read $HOME/.vim/snippets/skeleton_tawasta_views.xml<CR>jo
-nnoremap <PageUp>   :bprevious<CR>
-nnoremap <PageDown> :bnext<CR>
 "}}}
-" COMMANDS{{{
-" run xrdb whenever Xdefaults or Xresources are updated.
-autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
-" set .csv filetype as csv
-au! BufNewFile,BufRead *.csv setf csv
-" always fold vimrc
-au BufRead vimrc normal zM
-" clear screen when vim exit
-au VimLeave * :!clear
+" AUTOCOMMANDS{{{
+augroup personal_commands
+  autocmd!
+  " marker based folding in vim files
+  autocmd FileType vim setlocal foldmethod=marker
+  " run xrdb whenever Xdefaults or Xresources are updated.
+  autocmd BufWritePost *Xresources,*Xdefaults !xrdb %
+  " set .csv filetype as csv
+  autocmd BufNewFile,BufRead *.csv setf csv
+  " always fold vimrc
+  autocmd BufRead vimrc normal zM
+  " clear screen when vim exit
+  autocmd VimLeave * :!clear
+augroup END
 "}}}
 " PLUGINS{{{
 " LIGHTLINE{{{
@@ -164,6 +169,9 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
+    "}}}
+"UNDOTREE{{{
+nnoremap <leader>u :UndotreeToggle<CR>
 "}}}
 " COC.NVIM{{{
 let g:coc_global_extensions = [
