@@ -206,10 +206,6 @@ endif
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -227,7 +223,7 @@ function! s:show_documentation()
   endif
 endfunction
 " :Format formats current buffer
-command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=0 Format :call CocAction('format')
 " coc status to statusline
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "}}}
@@ -241,19 +237,24 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1
+let g:ale_set_highlights = 0
 let g:ale_python_pylint_executable = 'pylint --load-plugins=pylint_odoo'
+let g:ale_python_flake8_options = '--max-line-length 88 --extend-ignore=E203'
+let g:ale_xml_xmllint_indentsize = 4
+let g:ale_javascript_eslint_options = '-c ~/.eslintrc.json'
 let g:ale_linters = {
       \   'python': ['flake8', 'pylint'],
       \   'javascript': ['eslint'],
       \   'xml': ['xmllint'],
+      \   'html': ['htmlhint', 'tidy'],
       \   'sh': ['shellcheck', 'bashate'],
       \ }
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'javascript': ['eslint', 'prettier'],
-      \   'python': ['autopep8', 'black', 'yapf'],
+      \   'javascript': ['eslint'],
+      \   'python': ['black'],
       \   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
-      \   'xml': [],
+      \   'xml': ['xmllint'],
       \}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
