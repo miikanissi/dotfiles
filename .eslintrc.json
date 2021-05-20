@@ -198,7 +198,7 @@
     "max-len": ["error", {
       "code": 80,
       "ignorePattern": "odoo\\.define\\(",
-      "tabWidth": 4
+      "tabWidth": 2
     }],
     "max-lines": "off",
     "max-nested-callbacks": "error",

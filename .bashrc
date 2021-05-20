@@ -21,6 +21,8 @@ shopt -s histappend
 shopt -s checkwinsize
 # cd by just typing a dir name
 shopt -s autocd
+# vi mode in bash
+set -o vi
 
 # prompt
 PS1='\[\e[0;33m\][\[\e[0m\]\u\[\e[0;33m\]@\[\e[0m\]\h\[\e[0;33m\]: \[\e[0;1;31m\]\W\[\e[0;33m\]]\[\e[0m\]$ \[\e[0m\]'

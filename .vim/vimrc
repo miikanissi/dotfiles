@@ -228,6 +228,12 @@ endfunction
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "}}}
 " ALE{{{
+" Linting and Formatting dependencies from package manager:
+" xmllint flake8 tidy shellcheck black
+" Linting and Formatting dependencies from npm:
+" prettier eslint prettier-eslint prettier-eslin-cli
+" Linting and Formatting dependencies from package manager:
+" pylint pylint_odoo
 let g:ale_disable_lsp = 1
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '>>'
@@ -241,7 +247,6 @@ let g:ale_set_highlights = 0
 let g:ale_python_pylint_executable = 'pylint --load-plugins=pylint_odoo'
 let g:ale_python_flake8_options = '--max-line-length 88 --extend-ignore=E203'
 let g:ale_xml_xmllint_indentsize = 4
-let g:ale_javascript_eslint_options = '-c ~/.eslintrc.json'
 let g:ale_linters = {
       \   'python': ['flake8', 'pylint'],
       \   'javascript': ['eslint'],
@@ -251,7 +256,7 @@ let g:ale_linters = {
       \ }
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'javascript': ['eslint'],
+      \   'javascript': ['prettier_eslint'],
       \   'python': ['black'],
       \   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
       \   'xml': ['xmllint'],
