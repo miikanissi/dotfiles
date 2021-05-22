@@ -229,10 +229,10 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "}}}
 " ALE{{{
 " Linting and Formatting dependencies from package manager:
-" xmllint flake8 tidy shellcheck black
+" libxml2-utils flake8 tidy shellcheck black
 " Linting and Formatting dependencies from npm:
-" prettier eslint prettier-eslint prettier-eslin-cli
-" Linting and Formatting dependencies from package manager:
+" prettier eslint prettier-eslint prettier-eslint-cli
+" Linting and Formatting dependencies from pip:
 " pylint pylint_odoo
 let g:ale_disable_lsp = 1
 let g:ale_fix_on_save = 1
@@ -251,15 +251,17 @@ let g:ale_linters = {
       \   'python': ['flake8', 'pylint'],
       \   'javascript': ['eslint'],
       \   'xml': ['xmllint'],
-      \   'html': ['htmlhint', 'tidy'],
-      \   'sh': ['shellcheck', 'bashate'],
+      \   'html': ['tidy'],
+      \   'sh': ['shellcheck'], 
       \ }
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'javascript': ['prettier_eslint'],
       \   'python': ['black'],
-      \   'sh': ['shfmt', 'trim_whitespace', 'remove_trailing_lines'],
       \   'xml': ['xmllint'],
+      \   'html': ['prettier_eslint'],
+      \   'css': ['prettier_eslint'],
+      \   'sh': ['trim_whitespace', 'remove_trailing_lines'],
       \}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)

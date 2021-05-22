@@ -23,7 +23,9 @@ bspc config focused_border_color    "#d381c3"
 bspc rule -a Gimp state=floating
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
+bspc rule -a URxvt:ncmpcpp desktop='^4' state=floating follow=on
 
+dunst --config ~/.config/dunst/dunstrc &
 # BSPWM monitors
 ~/.local/bin/bspwm_setup_monitors.sh &
 

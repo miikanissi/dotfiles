@@ -3,8 +3,8 @@
 # https://miikanissi.com
 
 ### PROGRAM LAUNCHERS ###
-super + {Return, w, e, b, s}
-    {urxvt, brave-browser, emacs, pcmanfm, signal-desktop --use-tray-icon}
+super + {Return, w, e, b, s, m}
+    {urxvt, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, urxvt -name ncmpcpp -e ncmpcpp}
 
 # print screen script with maim
 super + Print
@@ -73,6 +73,10 @@ super + r
 
 # focus the node in the given direction, shift swaps nodes
 super + {_,shift +}{Left,Down,Up,Right}
+    bspc node -{f,s} {west,south,north,east}
+
+# focus the node in the given direction, shift swaps nodes
+super + {_,shift +}{h,j,k,l}
     bspc node -{f,s} {west,south,north,east}
 
 # focus or send to the given desktop
