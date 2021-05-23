@@ -15,7 +15,8 @@ sxiv.Background: #eeeeee
 *fg-alt: #bcbcbc
 *icon: #005faf
 *warn: #af0000
-*border: #005faf
+*normal-border: #eeeeee
+*focused-border: #005faf
 ! black
 *color0: #eeeeee
 *color8: #bcbcbc

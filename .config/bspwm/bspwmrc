@@ -17,7 +17,8 @@ bspc config gapless_monocle         true
 bspc config single_monocle          true
 bspc config focus_follows_pointer   true
 
-bspc config focused_border_color    "$(xrdb -query | grep border | awk '{print $2}')"
+bspc config normal_border_color "$(xrdb -query | grep normal-border | awk '{print $2}')"
+bspc config focused_border_color "$(xrdb -query | grep focused-border | awk '{print $2}')"
 
 # BSPWM window rules
 bspc rule -a Gimp state=floating
