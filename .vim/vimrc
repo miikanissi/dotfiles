@@ -11,9 +11,7 @@ if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
   autocmd VimEnter * PlugInstall
 endif
 call plug#begin('$HOME/.vim/plugged')
-Plug 'gruvbox-community/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'ap/vim-css-color'
@@ -33,10 +31,10 @@ call plug#end()
 " colors
 colorscheme PaperColor
 set t_Co=256                        " use 256 colors
-set termguicolors
-let &t_ut=''
-highlight ColorColumn ctermbg=0 guibg=grey
-set background=light
+set termguicolors                   " use gui colors, not supported by every terminal
+let &t_ut=''                        " fixes colors for kitty
+highlight ColorColumn ctermbg=0 guibg=grey 
+set background=light                " light or dark mode
 syntax on                           " syntax highlighting on
 " settings
 filetype plugin indent on           " indentation on
