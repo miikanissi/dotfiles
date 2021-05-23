@@ -11,6 +11,8 @@ if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
   autocmd VimEnter * PlugInstall
 endif
 call plug#begin('$HOME/.vim/plugged')
+Plug 'gruvbox-community/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -28,12 +30,16 @@ Plug 'mbbill/undotree'
 call plug#end()
 "}}}
 " BASICS{{{
-highlight ColorColumn ctermbg=0 guibg=lightgrey
-colorscheme base16-tomorrow-night
+" colors
+colorscheme PaperColor
+set t_Co=256                        " use 256 colors
+set termguicolors
+let &t_ut=''
+highlight ColorColumn ctermbg=0 guibg=grey
+set background=light
+syntax on                           " syntax highlighting on
 " settings
 filetype plugin indent on           " indentation on
-syntax on                           " syntax highlighting on
-set t_Co=256                        " use 256 colors
 set encoding=utf-8                  " utf-8 always
 set mouse=a                         " enable mouse functionality
 set noeb vb t_vb=                   " no error bells
@@ -64,7 +70,7 @@ set undofile                        " makes undofile for history in undodir
 set incsearch                       " incremental search enabled
 set ruler                           " ruler shows cur pos
 set modelines=0                     " no modelines
-set colorcolumn=80                  " colorcolumn is 80
+set colorcolumn=88                  " colorcolumn is 80
 set lazyredraw                      " no redraw
 set magic                           " magic for regex
 set scrolloff=8                     " shows 8 lines under mouse when moving the file
@@ -117,7 +123,7 @@ augroup END
 " PLUGINS{{{
 " LIGHTLINE{{{
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'colorscheme': 'PaperColor',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
@@ -252,7 +258,7 @@ let g:ale_linters = {
       \   'javascript': ['eslint'],
       \   'xml': ['xmllint'],
       \   'html': ['tidy'],
-      \   'sh': ['shellcheck'], 
+      \   'sh': ['shellcheck'],
       \ }
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],

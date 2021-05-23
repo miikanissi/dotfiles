@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 # display number of torrents downloading, paused and seeding
-
-if [ -z $(pidof transmission-daemon | awk '{print $1}') ]; then
-  echo "%{T2}%{F#d381c3}%{F-}%{T-} 0 %{T2}%{F#d381c3}%{F-}%{T-} 0 %{T2}%{F#d381c3}%{F-}%{T-} 0 %{T2}%{F#d381c3}%{F-}%{T-} 0 "
+color=$(xrdb -query | grep icon | awk '{print $2}')
+if [ -z "$(pidof transmission-daemon | awk '{print $1}')" ]; then
+  echo "%{T2}%{F$color}%{F-}%{T-} 0 %{T2}%{F$color}%{F-}%{T-} 0 %{T2}%{F$color}%{F-}%{T-} 0 %{T2}%{F$color}%{F-}%{T-} 0 "
 else
   torrents=$(transmission-remote -l)
-  downloading=$(echo "$torrents" | grep "Downloading\|Up & Down" | wc -l)
-  paused=$(echo "$torrents" | grep "Stopped" | wc -l)
-  seeding=$(echo "$torrents" | grep "Seeding" | wc -l)
-  idle=$(echo "$torrents" | grep "Idle" | wc -l)
+  downloading=$(echo "$torrents" | grep -c "Downloading\|Up & Down")
+  paused=$(echo "$torrents" | grep -c "Stopped")
+  seeding=$(echo "$torrents" | grep -c "Seeding")
+  idle=$(echo "$torrents" | grep -c "Idle")
 
-  echo "%{T2}%{F#d381c3}%{F-}%{T-} $downloading %{T2}%{F#d381c3}%{F-}%{T-} $seeding %{T2}%{F#d381c3}%{F-}%{T-} $paused %{T2}%{F#d381c3}%{F-}%{T-} $idle "
+  echo "%{T2}%{F$color}%{F-}%{T-} $downloading %{T2}%{F$color}%{F-}%{T-} $seeding %{T2}%{F$color}%{F-}%{T-} $paused %{T2}%{F$color}%{F-}%{T-} $idle "
 fi

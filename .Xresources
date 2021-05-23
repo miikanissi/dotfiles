@@ -4,46 +4,42 @@
 !
 ! Refresh config 'xrdb ~/.Xresources'.
 
-#define base00 #000000
-#define base01 #303030
-#define base02 #505050
-#define base03 #b0b0b0
-#define base04 #d0d0d0
-#define base05 #e0e0e0
-#define base06 #f5f5f5
-#define base07 #ffffff
-#define base08 #fb0120
-#define base09 #fc6d24
-#define base0A #fda331
-#define base0B #a1c659
-#define base0C #76c7b7
-#define base0D #6fb3d2
-#define base0E #d381c3
-#define base0F #be643c
-
-*foreground:   base05
-*background:   base00
-*cursorColor:  base05
-
-*color0:       base00
-*color1:       base08
-*color2:       base0B
-*color3:       base0A
-*color4:       base0D
-*color5:       base0E
-*color6:       base0C
-*color7:       base05
-
-*color8:       base03
-*color9:       base09
-*color10:      base01
-*color11:      base02
-*color12:      base04
-*color13:      base06
-*color14:      base0F
-*color15:      base07
-
-sxiv.Background: base00
+! PaperColor Theme
+*foreground: #878787
+*background: #eeeeee
+*cursorColor: #878787
+sxiv.Background: #eeeeee
+*bg: #eeeeee
+*bg-alt: #eeeeee
+*fg: #878787
+*fg-alt: #bcbcbc
+*icon: #005faf
+*warn: #af0000
+*border: #005faf
+! black
+*color0: #eeeeee
+*color8: #bcbcbc
+! red
+*color1: #af0000
+*color9: #d70000
+! green
+*color2: #008700
+*color10: #d70087
+! yellow / orange
+*color3: #5f8700
+*color11: #8700af
+! blue
+*color4: #0087af
+*color12: #d75f00
+! magenta
+*color5: #878787
+*color13: #d75f00
+! cyan
+*color6: #005f87
+*color14: #005faf
+! white
+*color7: #444444
+*color15: #005f87
 
 !!! URXVT configs !!!
 URxvt*depth: 24
@@ -64,7 +60,6 @@ URxvt.internalBorder:               4
 URxvt.intensityStyles:  	        false
 URxvt.scrollBar:    		        false
 URxvt.font: xft:UbuntuMonoNerdFontMono:size=11
-
 ! URxvt Extensions
 URxvt.perl-ext-common:default,matcher,font-size
 ! URxvt keybinds, Emacs copy/paste

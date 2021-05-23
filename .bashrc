@@ -25,7 +25,7 @@ shopt -s autocd
 set -o vi
 
 # prompt
-PS1='\[\e[0;33m\][\[\e[0m\]\u\[\e[0;33m\]@\[\e[0m\]\h\[\e[0;33m\]: \[\e[0;1;31m\]\W\[\e[0;33m\]]\[\e[0m\]$ \[\e[0m\]'
+PS1='\[\e[0;34m\][\[\e[0m\]\u\[\e[0;34m\]@\[\e[0m\]\h\[\e[0;34m\]: \[\e[0;1;31m\]\W\[\e[0;34m\]]\[\e[0m\]$ \[\e[0m\]'
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -128,7 +128,7 @@ _gen_fzf_default_opts
 
 # exports
 export BROWSER=/usr/bin/brave
-export TERMINAL=/usr/bin/urxvt
+export TERMINAL=/usr/bin/kitty
 export EDITOR=/usr/bin/vim
 export LOCATION="Riihimäki"
 export QT_QPA_PLATFORMTHEME=gtk2

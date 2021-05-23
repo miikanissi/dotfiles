@@ -4,7 +4,7 @@
 
 ### PROGRAM LAUNCHERS ###
 super + {Return, w, e, b, s, m}
-    {urxvt, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, urxvt -name ncmpcpp -e ncmpcpp}
+    {kitty, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, urxvt -name ncmpcpp -e ncmpcpp}
 
 # print screen script with maim
 super + Print
