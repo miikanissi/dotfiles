@@ -250,7 +250,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_set_highlights = 0
-let g:ale_python_pylint_executable = 'pylint --load-plugins=pylint_odoo'
+let g:ale_python_pylint_options = '--load-plugins=pylint_odoo -d all -e odoolint'
 let g:ale_python_flake8_options = '--max-line-length 88 --extend-ignore=E203'
 let g:ale_xml_xmllint_indentsize = 4
 let g:ale_linters = {
@@ -263,7 +263,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'javascript': ['prettier_eslint'],
-      \   'python': ['black'],
+      \   'python': ['black', 'remove_trailing_lines', 'trim_whitespace'],
       \   'xml': ['xmllint'],
       \   'html': ['prettier_eslint'],
       \   'css': ['prettier_eslint'],
