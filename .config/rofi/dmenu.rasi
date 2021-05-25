@@ -18,7 +18,7 @@
 
 #prompt {
     text-color: @normal-foreground;
-    border-color: @selected-urgent-background;
+    border-color: @lightfg;
 	border:	0 0 3 0;
 	padding:	4 20 0 20;
 	border-radius:	0px;
@@ -45,16 +45,16 @@
 
 #element {
     text-color: @normal-foreground;
-    border-color: @selected-urgent-background;
+    border-color: @lightfg;
 	border:  0;
 	padding: 6 12 6 12;
 }
 
 #element alternate.normal {
-    background-color: @alternate-normal-background;
+    background-color: @urgent-foreground;
     text-color:       @alternate-normal-foreground;
 }
 #element selected.normal {
-    background-color: @selected-normal-background;
-    text-color:       @selected-normal-foreground;
+    background-color: @lightfg;
+    text-color:       @background;
 }
