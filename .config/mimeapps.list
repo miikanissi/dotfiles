@@ -1,15 +1,11 @@
 [Default Applications]
 text/x-shellscript=text.desktop;
-x-scheme-handler/magnet=torrent.desktop;
-application/x-bittorrent=torrent.desktop;
-x-scheme-handler/mailto=userapp-Thunderbird-1RUFW0.desktop
 text/plain=text.desktop;
 application/postscript=pdf.desktop;
 application/pdf=pdf.desktop;
 image/png=img.desktop;
 image/jpeg=img.desktop;
 image/gif=img.desktop;
-application/rss+xml=rss.desktop
 video/x-matroska=media.desktop
 inode/directory=file.desktop
 application/x-msvideo=media.desktop # avi
@@ -29,5 +25,3 @@ application/xhtml+xml=browser.desktop
 application/x-shellscript=text.desktop
 
 [Added Associations]
-application/xhtml+xml=browser.desktop;
-application/x-shellscript=text.desktop;
