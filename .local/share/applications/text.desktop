@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Text editor
-Exec=/usr/bin/urxvt -e vim %u
+Exec=/usr/bin/kitty -e vim %u

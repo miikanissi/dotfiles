@@ -1,4 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Torrent
-Exec=/usr/bin/env .local/bin/torrent_add.sh

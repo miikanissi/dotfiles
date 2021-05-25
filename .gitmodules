@@ -4,6 +4,3 @@
 [submodule ".icons/elementary-cursors"]
 	path = .icons/elementary-cursors
 	url = git@github.com:kaesetoast/elementary-cursors.git
-[submodule ".themes/flat-remix-gtk"]
-	path = .themes/flat-remix-gtk
-	url = git@github.com:daniruiz/flat-remix-gtk.git
