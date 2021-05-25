@@ -12,6 +12,8 @@ if mountpoint -q -- $mount_point; then
     --include '.ssh' \
     --include '.gnupg' \
     --include '.password-store' \
+    --include '.gitconfig'
+    --include '.minecraft/saves'
     --exclude '.*' \
     /home/m/ $mount_point/backup
 fi
