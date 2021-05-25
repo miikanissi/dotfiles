@@ -15,6 +15,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'ap/vim-css-color'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'itchyny/lightline.vim'
@@ -33,7 +34,7 @@ colorscheme PaperColor
 set t_Co=256                        " use 256 colors
 set termguicolors                   " use gui colors, not supported by every terminal
 let &t_ut=''                        " fixes colors for kitty
-highlight ColorColumn ctermbg=0 guibg=grey 
+highlight ColorColumn ctermbg=0 guibg=grey
 set background=light                " light or dark mode
 syntax on                           " syntax highlighting on
 " settings
@@ -272,5 +273,10 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 "}}}
 " PYTHON-SYNTAX{{{
 let g:python_highlight_all = 1
-"}}}
+" }}}
+" VIM-LATEX-PREVIEW{{{
+let g:livepreview_previewer = 'zathura'
+let g:livepreview_cursorhold_recompile = 0
+let g:livepreview_use_biber = 1
+" }}}
 "}}}
