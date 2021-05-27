@@ -1,19 +1,20 @@
+
 /**
- * Base16 Bright ROFI Color theme
+ * Base16 PaperColor Light ROFI Color theme
  *
  * Authors
- *  Scheme: Chris Kempson (http://chriskempson.com)
+ *  Scheme: Jon Leopard (http://github.com/jonleopard) based on PaperColor Theme (https://github.com/NLKNguyen/papercolor-theme)
  *  Template: Jordi Pakey-Rodriguez (https://github.com/0xdec), Andrea Scarpino (https://github.com/ilpianista)
  */
 
 * {
-    red:                         rgba ( 251, 1, 32, 100 % );
-    blue:                        rgba ( 111, 179, 210, 100 % );
-    lightfg:                     rgba ( 245, 245, 245, 100 % );
-    lightbg:                     rgba ( 48, 48, 48, 100 % );
-    foreground:                  rgba ( 224, 224, 224, 100 % );
-    background:                  rgba ( 0, 0, 0, 100 % );
-    background-color:            rgba ( 0, 0, 0, 0 % );
+    red:                         rgba ( 188, 188, 188, 100 % );
+    blue:                        rgba ( 215, 95, 0, 100 % );
+    lightfg:                     rgba ( 0, 95, 135, 100 % );
+    lightbg:                     rgba ( 175, 0, 0, 100 % );
+    foreground:                  rgba ( 135, 135, 135, 100 % );
+    background:                  rgba ( 238, 238, 238, 100 % );
+    background-color:            rgba ( 238, 238, 238, 0 % );
     separatorcolor:              @foreground;
     border-color:                @foreground;
     selected-normal-foreground:  @lightbg;
