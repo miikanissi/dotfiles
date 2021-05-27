@@ -5,6 +5,7 @@ include "/home/m/.gtkrc-2.0.mine"
 gtk-theme-name="Adwaita"
 gtk-icon-theme-name="Vimix-Doder"
 gtk-font-name="Ubuntu 11"
+gtk-cursor-theme-name="elementary"
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_BOTH
 gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR

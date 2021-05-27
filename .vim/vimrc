@@ -35,7 +35,7 @@ set t_Co=256                        " use 256 colors
 set termguicolors                   " use gui colors, not supported by every terminal
 let &t_ut=''                        " fixes colors for kitty
 highlight ColorColumn ctermbg=0 guibg=grey
-set background=light                " light or dark mode
+set background=light
 syntax on                           " syntax highlighting on
 " settings
 filetype plugin indent on           " indentation on
