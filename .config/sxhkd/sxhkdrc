@@ -4,7 +4,11 @@
 
 ### PROGRAM LAUNCHERS ###
 super + {Return, w, e, b, s, m}
-    {kitty, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, urxvt -name ncmpcpp -e ncmpcpp}
+    {kitty -1 --listen-on=tcp:localhost:12344, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, kitty -1 --listen-on=tcp:localhost:12344 --name ncmpcpp ncmpcpp}
+
+# toggle dark/light theme
+super + shift + m
+    ~/.local/bin/toggle-theme.sh
 
 # print screen script with maim
 super + Print
