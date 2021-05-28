@@ -30,8 +30,9 @@ Here are some example scripts:
 - [bspwm_setup_monitors.sh](./.local/bin/bspwm_setup_monitors.sh) is a script that allows hotplugging external monitors for BSPWM and Polybar.
 
 ## Colors
-<p align="center">[PaperColor Light & Dark](https://github.com/NLKNguyen/papercolor-theme)</p>
+<p align="center"><a href="https://github.com/NLKNguyen/papercolor-theme">PaperColor Light & Dark</a></p>
 <p align="center"><img src="./.config/gallery/papercolor-light-template.png" height="60%" width="100%" alt="PaperColor Light Template"/></p>
+<p align="center"><img src="./.config/gallery/papercolor-dark-template.png" height="60%" width="100%" alt="PaperColor Dark Template"/></p>
 
 ## Installation
 To install and integrate with your system you need to checkout the master branch and initialize included submodules.
@@ -67,10 +68,10 @@ Vimix icon theme needs to be installed with:
     cd ~/.icons/vimix-icon-theme/ && .install.sh -a
 
 ## Links / Credits
-To stay up to date with me visit my [website](https://miikaniss.com).
+To stay up to date with me visit my [website](https://miikanissi.com).
 
 Links:
 - [Arch Wiki](https://wiki.archlinux.org/) - Arch Wiki is a great Linux resource for almost anything.
-- [Uncle Dave](https://github.com/daedreth/UncleDavesEmacs) - He has a great youtube series on configuring Emacs from scratch. 
+- [Uncle Dave](https://github.com/daedreth/UncleDavesEmacs) - He has a great youtube series on configuring Emacs from scratch.
 - [Luke Smith](https://github.com/LukeSmithxyz) - He has nice dotfiles and good youtube tutorials on minimalist software.
 - [Protesilaos Stavrou](https://gitlab.com/protesilaos/dotfiles) - He goes very in-depth on Emacs configuration on his youtube channel.
