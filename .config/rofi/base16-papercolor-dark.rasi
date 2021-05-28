@@ -1,5 +1,5 @@
 /**
- * Base16 PaperColor Light ROFI Color theme
+ * Base16 PaperColor Dark ROFI Color theme
  *
  * Authors
  *  Scheme: Jon Leopard (http://github.com/jonleopard) based on PaperColor Theme (https://github.com/NLKNguyen/papercolor-theme)
@@ -7,11 +7,11 @@
  */
 
 * {
-    bg:         rgba(238,238,238,100%);
-    bg-alt:     rgba(188,188,188,100%);
-    bg-color:   rgba(0,95,175,100%);
-    fg:         rgba(68,68,68,100%);
-    fg-alt:     rgba(135,135,135,100%);
+    bg:         rgba(28,28,28,100%);
+    bg-alt:     rgba(88,88,88,100%);
+    bg-color:   rgba(95,175,215,100%);
+    fg:         rgba(208,208,208,100%);
+    fg-alt:     rgba(128,128,128,100%);
     foreground: @fg;
     background: @fg;
     background-color: @bg;

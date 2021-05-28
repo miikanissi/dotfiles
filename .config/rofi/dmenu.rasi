@@ -4,7 +4,8 @@
 #window {
     anchor: north;
     location: north;
-    background-color: @background;
+    background-color: @bg;
+    border-color: @bg;
 	width:		100%;
 	border:	0px;
 	children:	[ horibox ];
@@ -17,8 +18,9 @@
 }
 
 #prompt {
-    text-color: @normal-foreground;
-    border-color: @lightfg;
+    text-color: @fg;
+    border-color: @bg-color;
+    background-color: @bg;
 	border:	0 0 3 0;
 	padding:	4 20 0 20;
 	border-radius:	0px;
@@ -31,7 +33,9 @@
 }
 
 #entry {
-    text-color: @normal-foreground;
+    text-color: @fg;
+    border-color: @bg;
+    background-color: @bg;
 	expand:	false;
 	width:		10em;
 	padding:	6 10 0 5;
@@ -44,17 +48,17 @@
 }
 
 #element {
-    text-color: @normal-foreground;
-    border-color: @lightfg;
+    text-color: @fg;
 	border:  0;
 	padding: 6 12 6 12;
+    border-color: @bg;
 }
 
 #element alternate.normal {
-    background-color: @urgent-foreground;
-    text-color:       @alternate-normal-foreground;
+    background-color: @bg;
+    text-color:       @fg;
 }
 #element selected.normal {
-    background-color: @lightfg;
-    text-color:       @background;
+    background-color: @bg-color;
+    text-color:       @bg;
 }

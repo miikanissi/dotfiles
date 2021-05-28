@@ -23,6 +23,7 @@ if grep -q '^!! DARK START$' ~/.Xresources && grep -q '^! LIGHT START$' ~/.Xreso
   sed -i "/gtk-theme-name=/c\gtk-theme-name=$DARK_GTK_THEME" ~/.config/gtk-3.0/settings.ini
   sed -i "/gtk-theme-name=/c\gtk-theme-name=\"$DARK_GTK_THEME\"" ~/.gtkrc-2.0
   sed -i "/set background=/c\set background=dark" ~/.vim/vimrc
+  sed -i "/theme:/c\    theme: \"base16-papercolor-dark.rasi\";" ~/.config/rofi/config.rasi
   kitty @ --to=tcp:localhost:12344 set-colors --all --configured ~/.config/kitty/kitty.conf
   bspc wm -r
   notify-send "Dark Mode enabled"
@@ -38,6 +39,7 @@ if grep -q '^! DARK START$' ~/.Xresources | grep -q '^!! LIGHT START$' ~/.Xresou
   sed -i "/gtk-theme-name=/c\gtk-theme-name=$LIGHT_GTK_THEME" ~/.config/gtk-3.0/settings.ini
   sed -i "/gtk-theme-name=/c\gtk-theme-name=\"$LIGHT_GTK_THEME\"" ~/.gtkrc-2.0
   sed -i "/set background=/c\set background=light" ~/.vim/vimrc
+  sed -i "/theme:/c\    theme: \"base16-papercolor-light.rasi\";" ~/.config/rofi/config.rasi
   kitty @ --to=tcp:localhost:12344 set-colors --all --configured ~/.config/kitty/kitty.conf
   bspc wm -r
   notify-send "Light Mode enabled"
