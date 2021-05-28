@@ -25,7 +25,5 @@ fi
 /usr/bin/xset r rate 200 70
 # sets caps lock to ctrl and holding down right meta key toggles on finnish keyboard (for ä,ö,å)
 /usr/bin/setxkbmap -option 'ctrl:nocaps' -option grp:switch -option grp_led:scroll us,fi
-# notify when keyboard setup done
-/usr/bin/notify-send -i info "Keyboard ready"
 
 # lock file will be unlocked when the script ends
