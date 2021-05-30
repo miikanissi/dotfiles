@@ -11,12 +11,13 @@
 ## autorandr udev rule:
 ##   ACTION=="change", SUBSYSTEM=="drm", RUN+="/bin/systemctl start --no-block autorandr.service"
 WM=$(wmctrl -m | grep Name: | awk '{print $2}')
-if [[ "$WM" != "bspwm" ]]; then
+if [[ "${WM}" != "bspwm" ]]; then
   exit 0
 fi
 PRIMARY_MONITOR=$(xrandr | grep primary | cut -d ' ' -f 1)
-MONITORS=($(xrandr --listactivemonitors | awk '{print $4}' | sed '/^$/d'))
-BSPWM_MONITORS=$(bspc query -M --names)
+# use mapfile to create arrays of monitors
+mapfile -t MONITORS < <(xrandr | grep " connected " | awk '{ print $1 }')
+mapfile -t BSPWM_MONITORS < <(bspc query -M --names)
 
 _desk_order() {
   while read -r line; do
@@ -25,9 +26,9 @@ _desk_order() {
 }
 
 _set_bspwm_config() {
-  # apply the bspwm configs escept external_rules_command
+  # apply the bspwm configs except external_rules_command
   # or the desktops will look funny if monitors have changed
-  while read line ; do
+  while read -r line ; do
     $line
   done < <(grep --color=never -E \
     '(split_ratio|border_width|window_gap|top_padding|bottom_padding|left_padding|right_padding)' ~/.config/bspwm/bspwmrc)
@@ -36,20 +37,20 @@ _set_bspwm_config() {
 # bspwm creates default desktops, remove them
 _remove_default_desktops(){
   for d in $(bspc query -D --names); do
-    if [[ "$d" == "Desktop" ]]; then
-      bspc desktop $d --remove
+    if [[ "${d}" == "Desktop" ]]; then
+      bspc desktop "${d}" --remove
     fi
   done
 }
 
 # moves all desktops to main monitor
 _to_main_monitor() {
-  for m in ${BSPWM_MONITORS[@]}; do
-    if [[ $m != $PRIMARY_MONITOR ]]; then
-      bspc monitor $m -a Desktop > /dev/null
-      for desktop in $(bspc query -D -m $m); do
-        if [[ "$desktop" != "Desktop" ]]; then
-          bspc desktop $desktop --to-monitor $PRIMARY_MONITOR
+  for m in "${BSPWM_MONITORS[@]}"; do
+    if [[ "${m}" != "${PRIMARY_MONITOR}" ]]; then
+      bspc monitor "${m}" -a Desktop > /dev/null
+      for desktop in $(bspc query -D -m "${m}" --names); do
+        if [[ "${desktop}" != "Desktop" ]]; then
+          bspc desktop "${desktop}" --to-monitor "${PRIMARY_MONITOR}"
         fi
       done
       _remove_default_desktops
@@ -58,40 +59,43 @@ _to_main_monitor() {
 }
 
 # some hacky logic to move desktops around
-case ${#MONITORS[@]} in
+case "${#MONITORS[@]}" in
   1)
     # if no desktops create them
-    if [[ $(bspc query -D | wc -w) < 3 ]]; then
-      bspc monitor $PRIMARY_MONITOR -d 1 2 3 4 5 6
+    if [[ $(bspc query -d | wc -w) -lt 3 ]]; then
+      bspc monitor "${PRIMARY_MONITOR}" -d 1 2 3 4 5 6
     # move desktops to single monitor and delete monitors
     else
       _to_main_monitor
-      for m in $BSPWM_MONITORS; do
-        if [[ ${m} != ${PRIMARY_MONITOR} ]]; then
-          bspc monitor $m --remove > /dev/null
+      notify-send "main monitor $PRIMARY_MONITOR"
+      for m in "${BSPWM_MONITORS[@]}"; do
+        notify-send "$m"
+        if [[ "{$m}" != "${PRIMARY_MONITOR}" ]]; then
+          bspc monitor "${m}" --remove > /dev/null
         fi
       done
     fi
     ;;
   *)
     # if no desktops present create them
-    if [[ $(bspc query -D | wc -w) < 3 ]]; then
-      bspc monitor $PRIMARY_MONITOR -d 1 2 3 4
-      for m in ${MONITORS[@]}; do
-        if [[ ${m} != ${PRIMARY_MONITOR} ]]; then
-          bspc monitor $m -d 5 6
+    if [[ $(bspc query -D | wc -w) -lt 3 ]]; then
+      bspc monitor "${PRIMARY_MONITOR}" -d 1 2 3 4
+      for m in "${MONITORS[@]}"; do
+        if [[ "${m}" != "${PRIMARY_MONITOR}" ]]; then
+          bspc monitor "${m}" -d 5 6
         fi
       done
     else
       # first move all desktops to primary monitor
       _to_main_monitor
       _remove_default_desktops
-      bspc monitor $PRIMARY_MONITOR -o $(eval _desk_order $PRIMARY_MONITOR)
+
+      bspc monitor "${PRIMARY_MONITOR}" -o $(eval _desk_order "${PRIMARY_MONITOR}")
       # move two desktops to secondary monitor(s)
-      for m in ${MONITORS[@]}; do
-        if [[ ${m} != ${PRIMARY_MONITOR} ]]; then
-          for desktop in $(bspc query -D -m $PRIMARY_MONITOR | tac | sed "2"q | tac); do
-            bspc desktop $desktop --to-monitor $m
+      for m in "${MONITORS[@]}"; do
+        if [[ "${m}" != "${PRIMARY_MONITOR}" ]]; then
+          for desktop in $(bspc query -D -m "${PRIMARY_MONITOR}" --names | tac | sed "2"q | tac); do
+            bspc desktop "${desktop}" --to-monitor "${m}"
           done
         fi
       done
@@ -102,11 +106,11 @@ esac
 
 _remove_default_desktops
 # reorder the desktops for each monitor
-for m in ${MONITORS[@]}; do
-  bspc monitor $m -o $(eval _desk_order $MONITOR)
+for m in "${BSPWM_MONITORS[@]}"; do
+  bspc monitor "${m}" -o $(eval _desk_order "${m}")
 done
 
 _set_bspwm_config
-.local/bin/keyboard.sh # set keyboard conf
+~/.local/bin/keyboard.sh # set keyboard conf
 ~/.local/bin/setbg.sh & # set wallpaper
 ~/.local/bin/polybar_launch.sh & # launch polybar
