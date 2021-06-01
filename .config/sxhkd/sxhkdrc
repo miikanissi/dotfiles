@@ -5,104 +5,91 @@
 ### PROGRAM LAUNCHERS ###
 super + {Return, w, e, b, s, m}
     {kitty -1 --listen-on=tcp:localhost:12344, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, kitty -1 --listen-on=tcp:localhost:12344 --name ncmpcpp ncmpcpp}
-
 # toggle dark/light theme
 super + shift + m
     ~/.local/bin/toggle-theme.sh
-
 # print screen script with maim
 super + Print
     ~/.local/bin/screenshot.sh
-
 # print screen with flameshot
 super + shift + Print
     flameshot gui
-
 # launch rofi
 super + d
     rofi -show run
-
 # launch rofi ssh
 super + alt + d
     rofi -show ssh
-
 # launch rofimoji
 super + shift + d
     rofimoji -c -s light
-
 # launch rofi window switcher
 super + Tab
     rofi -show window
-
 # launch rofi kill script
 super + shift + x
     ~/.local/bin/rofi_killprocess.sh
-
 # launch passmenu
 super + z
     ~/.local/bin/rofi_passmenu.sh
-
 # launch passmenu_otp
 super + shift + z
     ~/.local/bin/rofi_passmenu_otp.sh
-
 # launch rofi_mount.sh
 super + x
     ~/.local/bin/rofi_dman.sh
+
+### MPC HOTKEYS ###
+# toggle pause/play
+super + p
+    mpc toggle
+# volume up
+super + {_,ctrl} + plus
+    mpc volume +{1,5}
+# volume down
+super + {_,ctrl} + minus
+    mpc volume -{1,5}
 
 ### BSPC HOTKEYS ###
 # restart everything
 super + q
     bspc wm -r
-
 # exit bspwm
 super + shift + q
     bspc quit
-
 # close current window
 super + shift + c
     bspc node -c
-
 # swap the current node and the biggest node
 super + shift + Return
     bspc node -s biggest
-
 # state of the window
 super + {t,shift + t,shift + f,f}
     bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
 #rotate the tree from current nodes parent
 super + r
     bspc node @parent --rotate 90
-
 # focus the node in the given direction, shift swaps nodes
 super + {_,shift +}{Left,Down,Up,Right}
     bspc node -{f,s} {west,south,north,east}
-
 # focus the node in the given direction, shift swaps nodes
 super + {_,shift +}{h,j,k,l}
     bspc node -{f,s} {west,south,north,east}
-
 # focus or send to the given desktop
 super + {_,shift +}{1-8}
     bspc {desktop -f,node -d} {1-8} --follow
-
 # focus or send to desktop up, down
 super + {_,shift +}{Next, Prior}
     bspc {desktop -f,node -d} {prev, next} --follow
-
 # expand a window by moving one of its side outward
 super + alt + {Left,Down,Up,Right}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
 # contract a window by moving one of its side inward
 super + ctrl + {Left,Down,Up,Right}
     bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
 # contract a window by moving one of its side inward
 super + ctrl + {h,j,k,l}
     bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
