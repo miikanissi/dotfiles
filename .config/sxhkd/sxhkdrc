@@ -49,6 +49,11 @@ super + {_,ctrl} + plus
 # volume down
 super + {_,ctrl} + minus
     mpc volume -{1,5}
+# next song
+super + >
+    mpc next
+super + <
+    mpc prev
 
 ### BSPC HOTKEYS ###
 # restart everything
