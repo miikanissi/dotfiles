@@ -1,0 +1,5 @@
+dmenu
+dmenu.o
+stest
+stest.o
+util.o
