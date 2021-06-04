@@ -45,10 +45,10 @@ super + p
     mpc toggle
 # volume up
 super + {_,ctrl} + plus
-    mpc volume +{1,5}
+    mpc volume +{2,5}
 # volume down
 super + {_,ctrl} + minus
-    mpc volume -{1,5}
+    mpc volume -{2,5}
 # next song
 super + >
     mpc next
