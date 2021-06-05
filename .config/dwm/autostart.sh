@@ -8,10 +8,12 @@ _run() {
 autorandr -c
 
 source ~/.bashrc
-xrdb .Xresources &
+xrdb .Xresources
 
 # keyboard
-~/.local/bin/keyboard.sh &
+~/.local/bin/keyboard.sh
+# wallapaper
+~/.local/bin/setbg.sh
 
 # cursor and fonts
 xsetroot -cursor_name left_ptr &
@@ -25,6 +27,7 @@ _run transmission-daemon
 _run mpd
 _run signal-desktop --start-in-tray --use-tray-icon
 _run light-locker --lock-on-suspend --lock-after-screensaver=30
+_run dwmblocks
 
 if [[ -z $(which picom) ]]; then
   _run ~/.local/bin/picom/build/src/picom --config .config/picom/picom.conf --experimental-backends --vsync
