@@ -18,6 +18,13 @@ sxiv.Background: #eeeeee
 *warn: #af0000
 *normal-border: #eeeeee
 *focused-border: #005faf
+! dwm colors
+dwm.normbordercolor: #eeeeee
+dwm.normbgcolor: #eeeeee
+dwm.normfgcolor: #444444
+dwm.selbordercolor: #005faf
+dwm.selbgcolor: #eeeeee
+dwm.selfgcolor: #444444
 ! black
 *color0: #eeeeee
 *color8: #bcbcbc
