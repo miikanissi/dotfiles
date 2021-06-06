@@ -3,3 +3,4 @@ dmenu.o
 stest
 stest.o
 util.o
+drw.o

@@ -127,8 +127,8 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
 _gen_fzf_default_opts
 
 # exports
-export BROWSER=/usr/bin/brave
-export TERMINAL=/usr/bin/kitty
+export BROWSER=/usr/bin/brave-browser
+export TERMINAL="/usr/bin/kitty -1 --listen-on=tcp:localhost:12344"
 export EDITOR=/usr/bin/vim
 export LOCATION="Riihimäki"
 export QT_QPA_PLATFORMTHEME=gtk2

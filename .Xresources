@@ -23,8 +23,8 @@ dwm.normbordercolor: #eeeeee
 dwm.normbgcolor: #eeeeee
 dwm.normfgcolor: #444444
 dwm.selbordercolor: #005faf
-dwm.selbgcolor: #eeeeee
-dwm.selfgcolor: #444444
+dwm.selbgcolor: #005faf
+dwm.selfgcolor: #eeeeee
 ! black
 *color0: #eeeeee
 *color8: #bcbcbc
