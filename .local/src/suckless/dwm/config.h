@@ -46,7 +46,7 @@ static const Rule rules[] = {
 	 */
 	/* class        instance        title       tags mask     isfloating   monitor */
 	{ "Gimp",       NULL,           NULL,       0,            1,           -1 },
-	{ "kitty",      "kitty",        "ncmpcpp",  5,            1,           -1 },
+	{ "kitty",      "kitty",        "ncmpcpp",  0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -85,7 +85,7 @@ static Key keys[] = {
 	/* modifier                     key             function        argument */
 	STACKKEYS(MODKEY,                               focus)
 	STACKKEYS(MODKEY|ShiftMask,                     push)
-	{ MODKEY,                       XK_d,           spawn,          {.v = dmenucmd } },
+        /* dwm hotkeys */
 	{ MODKEY,                       XK_Return,      spawn,          {.v = termcmd } },
         { MODKEY|ShiftMask,		XK_q,           quit,           {0} },
 	{ MODKEY,                       XK_o,           incnmaster,     {.i = +1 } },
@@ -119,6 +119,13 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                           7)
 	TAGKEYS(                        XK_9,                           8)
 	{ MODKEY|ShiftMask,             XK_BackSpace,   quit,           {0} },
+        /* dmenu hotkeys */
+	{ MODKEY,                       XK_d,           spawn,          {.v = dmenucmd } },
+        { MODKEY|ShiftMask,		XK_d,           spawn,	        SHCMD("~/.local/bin/passmenu.sh") },
+        { MODKEY|ShiftMask|Mod1Mask,	XK_d,           spawn,	        SHCMD("~/.local/bin/passmenu-otp.sh") },
+	{ MODKEY,                       XK_z,           spawn,          SHCMD("~/.local/bin/dman.sh") },
+	{ MODKEY,                       XK_x,           spawn,          SHCMD("~/.local/bin/killprocess.sh") },
+        /* launchers and commands */
         { MODKEY,                       XK_minus,       spawn,          SHCMD("pactl set-sink-volume 0 -5%; kill -40 $(pidof dwmblocks)") },
         { MODKEY,                       XK_equal,       spawn,          SHCMD("pactl set-sink-volume 0 +5%; kill -40 $(pidof dwmblocks)") },
         { MODKEY|ShiftMask,             XK_m,           spawn,          SHCMD("pactl set-sink-mute 0 toggle; kill -40 $(pidof dwmblocks)") },
@@ -127,7 +134,8 @@ static Key keys[] = {
         { MODKEY,		        XK_n,	        spawn,		SHCMD("mpc next") },
         { MODKEY|ShiftMask,		XK_n,	        spawn,		SHCMD("mpc prev") },
         { MODKEY,		        XK_r,	        spawn,		SHCMD("mpc random") },
-        /* launchers */
+        { MODKEY,		        XK_Print,	spawn,		SHCMD("~/.local/bin/screenshot.sh") },
+        { MODKEY|ShiftMask,		XK_Print,	spawn,		SHCMD("flameshot gui") },
         { MODKEY,			XK_w,           spawn,	        SHCMD("brave-browser") },
         { MODKEY,			XK_e,           spawn,	        SHCMD("geary") },
         { MODKEY,			XK_s,           spawn,	        SHCMD("signal-desktop --start-in-tray --use-tray-icon") },
