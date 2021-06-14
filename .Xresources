@@ -64,6 +64,13 @@ dwm.selfgcolor: #eeeeee
 !*warn: #af005f
 !*normal-border: #1c1c1c
 !*focused-border: #5fafd7
+!! dwm colors
+!dwm.normbordercolor: #1c1c1c
+!dwm.normbgcolor: #1c1c1c
+!dwm.normfgcolor: #d0d0d0
+!dwm.selbordercolor: #5fafd7
+!dwm.selbgcolor: #5fafd7
+!dwm.selfgcolor: #1c1c1c
 !! black
 !*color0: #1c1c1c
 !*color8: #585858

@@ -34,9 +34,12 @@ if grep -q '^!! DARK START$' ~/.Xresources && grep -q '^! LIGHT START$' ~/.Xreso
   sed -i "/theme:/c\    theme: \"$DARK_ROFI_THEME\";" ~/.config/rofi/config.rasi
   kitty @ --to=tcp:localhost:12344 set-colors --all --configured ~/.config/kitty/kitty.conf
   killall dunst && dunst --config ~/.config/dunst/dunstrc &
-  bspc wm -r
-  # sleep as bspwm and dunst restarts
-  sleep 3
+  if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "bspwm" ]]; then
+    bspc wm -r
+  fi
+  # sleep as dunst restarts
+  xdotool key "Super+F5"
+  sleep 2
   notify-send "Dark Mode enabled"
   exit 1;
 fi
@@ -55,9 +58,12 @@ if grep -q '^! DARK START$' ~/.Xresources | grep -q '^!! LIGHT START$' ~/.Xresou
   sed -i "/theme:/c\    theme: \"$LIGHT_ROFI_THEME\";" ~/.config/rofi/config.rasi
   kitty @ --to=tcp:localhost:12344 set-colors --all --configured ~/.config/kitty/kitty.conf
   killall dunst && dunst --config ~/.config/dunst/dunstrc &
-  bspc wm -r
-  # sleep as bspwm and dunst restarts
-  sleep 3
+  if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "bspwm" ]]; then
+    bspc wm -r
+  fi
+  xdotool key "Super+F5"
+  # sleep as dunst restarts
+  sleep 2
   notify-send "Light Mode enabled"
   exit 1;
 fi
