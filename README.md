@@ -7,14 +7,14 @@ This is my personal configuration for a custom Desktop Environment, including us
 
 Here are the details of my setup:
 - **Distro**: [Debian](https://www.debian.org/) - Debian Bullseye 11.
-- **WM**: [BSPWM](https://github.com/baskerville/bspwm) - My tiling window manager of choice.
+- **WM**: [dwm](https://dwm.suckless.org/), [BSPWM](https://github.com/baskerville/bspwm) - Currently using dwm
 - **DM**: [LightDM](https://github.com/canonical/lightdm) - Simple display manager with an easy configuration.
 - **Shell**: [Bash](https://www.gnu.org/software/bash/) - Bash just works and I'm used to scripting in it.
-- **Terminal**: [Kitty](https://sw.kovidgoyal.net/kitty/) - Kitty is a featureful terminal emulator that works well out of the box. Got tired of URxvt never working.
+- **Terminal**: [st](https://st.suckless.org/), [Kitty](https://sw.kovidgoyal.net/kitty/) - Kitty is a featureful terminal emulator that works well out of the box. Migrating to st.
 - **Panel**: [Polybar](https://github.com/polybar/polybar) - Very customizable bar.
 - **Compositor**: [Picom](https://wiki.archlinux.org/index.php/Picom) - Helps remove screen tearing.
 - **Notifications**: [Dunst](https://wiki.archlinux.org/index.php/Dunst) - Simple notification manager.
-- **Launcher**: [Rofi](https://github.com/davatorium/rofi) - Used for a run prompt and dmenu replacement.
+- **Launcher**: [dmenu](https://tools.suckless.org/dmenu/), [Rofi](https://github.com/davatorium/rofi) - Used for a run prompt and passmenu
 - **File Manager**: [PCManFM](https://wiki.archlinux.org/index.php/PCManFM) - Somewhat minimal graphical file manager.
 - **Hotkeys**: [SXHKD](https://github.com/baskerville/sxhkd)
 - **Text Editor**: [Vim](https://www.vim.org/), [Emacs](https://www.gnu.org/software/emacs/) - Programming and text editing.
@@ -25,7 +25,7 @@ Most of my useful shell scripts are included in [.local/bin/](./.local/bin/).
 
 Here are some example scripts:
 - [rofi_dman.sh](./.local/bin/rofi_dman.sh) is a script to manage devices with rofi/dmenu. Features include mounting, unmounting, ejecting and listing devices.
-- [toggle-theme.sh](./.local/bin/toggle-theme.sh) is a script to toggle between PaperColor Light & Dark theme. Supports Vim, Xresources, Kitty, BSPWM, Polybar, Rofi, Dunst & GTK-2/3.
+- [toggle-theme.sh](./.local/bin/toggle-theme.sh) is a script to toggle between PaperColor Light & Dark theme. Supports Vim, Xresources, Kitty, BSPWM, dwm, dmenu, st, Polybar, Rofi, Dunst & GTK-2/3.
 - [ff.sh](./.local/bin/ff.sh) is a script that uses FZF to find files by name, filetype and/or content.
 - [bspwm_setup_monitors.sh](./.local/bin/bspwm_setup_monitors.sh) is a script that allows hotplugging external monitors for BSPWM and Polybar.
 
@@ -66,6 +66,20 @@ Elementary cursor theme requires moving icons to their correct location:
 Vimix icon theme needs to be installed with:
 
     cd ~/.icons/vimix-icon-theme/ && .install.sh -a
+
+Suckless program installation:
+
+    sudo echo "[Desktop Entry]
+    Encoding=UTF-8
+    Name=dwm
+    Comment=Dynamic window manager
+    Exec=dwm
+    Icon=dwm
+    Type=XSession" > /usr/share/xsessions/dwm.desktop
+    cd .local/src/suckless/dwm && sudo make clean install
+    cd .local/src/suckless/dmenu && sudo make clean install
+    cd .local/src/suckless/dwmblocks && sudo make clean install
+    cd .local/src/suckless/st && sudo make clean install
 
 ## Links / Credits
 To stay up to date with me visit my [website](https://miikanissi.com).
