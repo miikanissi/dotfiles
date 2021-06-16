@@ -24,6 +24,7 @@ Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 call plug#end()
@@ -154,12 +155,12 @@ let g:lightline#ale#indicator_errors = "\uf05e"
 let g:lightline#ale#indicator_ok = "\uf00c"
 " }}}
 "FZF {{{
-set rtp+=/usr/bin/fzf
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>r :Rg<Space>
-let g:fzf_layout = { 'window': { 'width': 0.4, 'height': 0.6 } }
-let g:fzf_layout = { 'down': '40%' }
+nnoremap <leader>r :Rg<CR>
+let g:fzf_buffers_jump = 1
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let g:fzf_layout = { 'down': '60%' }
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -174,6 +175,7 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
+
     "}}}
 "UNDOTREE{{{
 nnoremap <leader>u :UndotreeToggle<CR>
