@@ -6,3 +6,5 @@ def_key "h"
     previous_column
 def_key "l"
     next_column
+def_key "="
+    volume_up
