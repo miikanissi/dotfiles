@@ -135,6 +135,7 @@ export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
 export PATH=~/.local/bin/statusbar:$PATH
 export PATH=~/go/bin:$PATH
+export PATH=~/node_modules/.bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden' # use ripgrep
 export FZF_DEFAULT_OPTS="--layout=reverse --height=60% --preview-window=down:99%:wrap"
 cd ~/ || exit
