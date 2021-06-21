@@ -37,8 +37,10 @@ if grep -q '^!! DARK START$' ~/.Xresources && grep -q '^! LIGHT START$' ~/.Xreso
   if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "bspwm" ]]; then
     bspc wm -r
   fi
-  # sleep as dunst restarts
   xdotool key "Super+F5"
+  # signal st to reload
+  kill -USR1 "$(pidof st)"
+  # sleep as dunst restarts
   sleep 2
   notify-send "Dark Mode enabled"
   exit 1;
@@ -62,6 +64,8 @@ if grep -q '^! DARK START$' ~/.Xresources | grep -q '^!! LIGHT START$' ~/.Xresou
     bspc wm -r
   fi
   xdotool key "Super+F5"
+  # signal st to reload
+  kill -USR1 "$(pidof st)"
   # sleep as dunst restarts
   sleep 2
   notify-send "Light Mode enabled"
