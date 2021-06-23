@@ -36,6 +36,8 @@ colorscheme PaperColor
 set t_Co=256                        " use 256 colors
 set termguicolors                   " use gui colors, not supported by every terminal
 let &t_ut=''                        " fixes colors for kitty
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum" " fixes colors for st
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum" " fixes colors for st
 highlight ColorColumn ctermbg=0 guibg=grey
 set background=light
 syntax on                           " syntax highlighting on
@@ -43,6 +45,7 @@ syntax on                           " syntax highlighting on
 filetype plugin indent on           " indentation on
 set encoding=utf-8                  " utf-8 always
 set mouse=a                         " enable mouse functionality
+set ttymouse=sgr                    " fix mouse scrolling for st
 set noeb vb t_vb=                   " no error bells
 set backspace=indent,eol,start      " normal backspace functionality
 set hidden                          " hides instead of unloads buffers

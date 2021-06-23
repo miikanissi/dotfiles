@@ -97,7 +97,12 @@ dwm.selfgcolor: #eeeeee
 !*color15: #5f8787
 !! DARK END
 
-!!! URXVT configs !!!
+!!! st settings !!!
+st.termname: st-256color
+st.font: UbuntuMonoNerdFontMono:pixelsize=16:antialias=true:autohint=false
+st.shell: /bin/bash
+
+!!! URXVT settings !!!
 URxvt*depth: 24
 URxvt*scrollBar:                    false
 URxvt*mouseWheelScrollPage:         true

@@ -9,7 +9,7 @@ if [ "$prompt" = mount ]; then
   devname=$(echo -n "$dev" | sed 's/\//\n/g' | tail -n 1)
   if ! mount | grep -q "$dev"; then
     if sudo cryptsetup isLuks "$dev"; then
-      pass=$(dmenu -password -p "$dev passphrase")
+      pass=$(dmenu -P -p "$dev passphrase")
       dir=$(find /mnt/ -mindepth 1 -maxdepth 1 | dmenu -p "$dev mountpoint")
       [[ -z $pass || -z $dir ]] && exit 0;
       echo -n "$pass" | sudo cryptsetup luksOpen "$dev" "$devname" -d -

@@ -5,7 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+
+static char *font = "UbuntuMonoNerdFontMono:size=11:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -16,7 +17,7 @@ static int borderpx = 2;
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
  */
-static char *shell = "/bin/sh";
+static char *shell = "/bin/bash";
 char *utmp = NULL;
 /* scroll program: to enable use a string like "scroll" */
 char *scroll = NULL;
@@ -96,36 +97,36 @@ unsigned int tabspaces = 8;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+        [0] = "#eeeeee",
+	[1] = "#af0000",
+	[2] = "#008700",
+	[3] = "#5f8700",
+	[4] = "#0087af",
+	[5] = "#878787",
+	[6] = "#005f87",
+	[7] = "#444444",
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	[8] = "#bcbcbc",
+	[9] = "#d70000",
+	[10] = "#d70087",
+	[11] = "#8700af",
+	[12] = "#d75f00",
+	[13] = "#d75f00",
+	[14] = "#005faf",
+	[15] = "#005f87",
 
-	[255] = 0,
+        [255] = 0,
 
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
+        /* more colors can be added after 255 to use with DefaultXX */
+        [256] = "#444444",
+        [257] = "#bcbcbc",
 };
 
 
 /*
  * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
+ * foreground, background, cursor, reverseCursor
  */
 unsigned int defaultfg = 7;
 unsigned int defaultbg = 0;
@@ -151,7 +152,7 @@ static unsigned int rows = 24;
 /*
  * Default colour and shape of the mouse cursor
  */
-static unsigned int mouseshape = XC_xterm;
+static unsigned int mouseshape = XC_left_ptr;
 static unsigned int mousefg = 7;
 static unsigned int mousebg = 0;
 
