@@ -22,6 +22,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'alvan/vim-closetag'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
@@ -275,6 +276,21 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 "}}}
 " PYTHON-SYNTAX{{{
 let g:python_highlight_all = 1
+" }}}
+" VIM-CLOSETAG{{{
+let g:closetag_filenames = '*.html,*.xml,*.xhtml,*.js,*.jsx,*.tsx'
+let g:closetag_xhtml_filenames = '*.xhtml,*.xml,*.jsx,*.js,*.jsx,*.tsx'
+let g:closetag_filetypes = 'html,xml,xhtml,js,jsx,tsx'
+let g:closetag_xhtml_filetypes = 'xhtml,xml,js,jsx,tsx'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+let g:closetag_shortcut = '>'
+let g:closetag_close_shortcut = '<leader>>'
 " }}}
 " VIM-LATEX-PREVIEW{{{
 let g:livepreview_previewer = 'zathura'
