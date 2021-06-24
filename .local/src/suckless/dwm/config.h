@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "kitty -1 --listen-on=tcp:localhost:12344"
+#define TERMINAL "st"
 #define STATUSBAR "dwmblocks"
 
 /* appearance */
@@ -99,7 +99,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,           setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,           setlayout,      {.v = &layouts[1]} },
 	{ MODKEY|ShiftMask,             XK_t,           setlayout,      {.v = &layouts[2]} },
-	/* { MODKEY,                       XK_space,       setlayout,      {0} }, */
 	{ MODKEY|ShiftMask,             XK_space,       togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_f,           togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,           view,           {.ui = ~0 } },
@@ -126,6 +125,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_z,           spawn,          SHCMD("~/.local/bin/dman.sh") },
 	{ MODKEY,                       XK_x,           spawn,          SHCMD("~/.local/bin/killprocess.sh") },
         /* launchers and commands */
+        { MODKEY,		        XK_grave,	spawn,		SHCMD("~/.local/bin/toggle-theme.sh") },
         { MODKEY,                       XK_minus,       spawn,          SHCMD("pactl set-sink-volume 0 -5%; kill -40 $(pidof dwmblocks)") },
         { MODKEY,                       XK_equal,       spawn,          SHCMD("pactl set-sink-volume 0 +5%; kill -40 $(pidof dwmblocks)") },
         { MODKEY|ShiftMask,             XK_m,           spawn,          SHCMD("pactl set-sink-mute 0 toggle; kill -40 $(pidof dwmblocks)") },

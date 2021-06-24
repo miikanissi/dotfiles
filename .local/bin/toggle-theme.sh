@@ -39,7 +39,7 @@ if grep -q '^!! DARK START$' ~/.Xresources && grep -q '^! LIGHT START$' ~/.Xreso
   fi
   xdotool key "Super+F5"
   # signal st to reload
-  kill -USR1 "$(pidof st)"
+  kill -USR1 $(pidof st)
   # sleep as dunst restarts
   sleep 2
   notify-send "Dark Mode enabled"
@@ -65,7 +65,7 @@ if grep -q '^! DARK START$' ~/.Xresources | grep -q '^!! LIGHT START$' ~/.Xresou
   fi
   xdotool key "Super+F5"
   # signal st to reload
-  kill -USR1 "$(pidof st)"
+  kill -USR1 $(pidof st)
   # sleep as dunst restarts
   sleep 2
   notify-send "Light Mode enabled"

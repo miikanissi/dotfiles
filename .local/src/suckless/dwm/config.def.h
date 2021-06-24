@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "kitty -1 --listen-on=tcp:localhost:12344"
+#define TERMINAL "st"
 #define STATUSBAR "dwmblocks"
 
 /* appearance */
