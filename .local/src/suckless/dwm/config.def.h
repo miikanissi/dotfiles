@@ -139,7 +139,7 @@ static Key keys[] = {
         { MODKEY,			XK_w,           spawn,	        SHCMD("brave-browser") },
         { MODKEY,			XK_e,           spawn,	        SHCMD("geary") },
         { MODKEY,			XK_s,           spawn,	        SHCMD("signal-desktop --start-in-tray --use-tray-icon") },
-        { MODKEY,			XK_m,		spawn,		SHCMD(TERMINAL " --title ncmpcpp ncmpcpp") },
+        { MODKEY,			XK_m,		spawn,		SHCMD(TERMINAL " -t ncmpcpp ncmpcpp") },
         { MODKEY,                       XK_b,           spawn,          SHCMD("pcmanfm") },
 };
 
