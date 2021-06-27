@@ -44,9 +44,9 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class        instance        title       tags mask     isfloating   monitor */
-	{ "Gimp",       NULL,           NULL,       0,            1,           -1 },
-	{ "kitty",      "kitty",        "ncmpcpp",  0,            1,           -1 },
+	/* class        instance        title                   tags mask       isfloating      monitor */
+	{ "Gimp",       NULL,           NULL,                   0,              1,              -1 },
+	{ "St",         "ncmpcpp",      NULL,                   1 << 4,         1,              -1 },
 };
 
 /* layout(s) */
@@ -79,7 +79,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "kitty", "-1", NULL, "--listen-on=tcp:localhost:12344", NULL };
+static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key             function        argument */
@@ -139,7 +139,7 @@ static Key keys[] = {
         { MODKEY,			XK_w,           spawn,	        SHCMD("brave-browser") },
         { MODKEY,			XK_e,           spawn,	        SHCMD("geary") },
         { MODKEY,			XK_s,           spawn,	        SHCMD("signal-desktop --start-in-tray --use-tray-icon") },
-        { MODKEY,			XK_m,		spawn,		SHCMD(TERMINAL " -t ncmpcpp ncmpcpp") },
+        { MODKEY,			XK_m,		spawn,		SHCMD(TERMINAL " -n ncmpcpp -t ncmpcpp -e ncmpcpp") },
         { MODKEY,                       XK_b,           spawn,          SHCMD("pcmanfm") },
 };
 
