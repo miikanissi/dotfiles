@@ -242,7 +242,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Linting and Formatting dependencies from package manager:
 " libxml2-utils flake8 tidy shellcheck black
 " Linting and Formatting dependencies from npm:
-" prettier eslint prettier-eslint prettier-eslint-cli eslint-config-prettier
+" prettier eslint eslint-config-prettier
 " Linting and Formatting dependencies from pip:
 " pylint pylint_odoo
 let g:ale_disable_lsp = 1
@@ -255,7 +255,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_set_highlights = 0
-let g:ale_python_pylint_options = '--load-plugins=pylint_odoo -d all -e odoolint'
 let g:ale_xml_xmllint_indentsize = 4
 let g:ale_linters = {
       \   'python': ['flake8', 'pylint'],
@@ -269,8 +268,8 @@ let g:ale_fixers = {
       \   'javascript': ['prettier'],
       \   'python': ['black', 'remove_trailing_lines', 'trim_whitespace'],
       \   'xml': ['xmllint'],
-      \   'html': ['prettier_eslint'],
-      \   'css': ['prettier_eslint'],
+      \   'html': ['prettier'],
+      \   'css': ['prettier'],
       \   'sh': ['trim_whitespace', 'remove_trailing_lines'],
       \}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
