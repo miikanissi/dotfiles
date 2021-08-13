@@ -90,6 +90,9 @@ alias mpg14='cd /opt/odoo/14/addons/mpg-dev/'
 md () {
   pandoc "$1" | lynx -stdin
 }
+pyclean () {
+    find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+}
 
 ### fzf
 alias fe='~/.local/bin/fe.sh'
