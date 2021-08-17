@@ -29,6 +29,7 @@ Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 call plug#end()
+runtime macros/matchit.vim
 "}}}
 " BASICS{{{
 " colors
