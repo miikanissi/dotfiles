@@ -17,5 +17,4 @@ byzanz-record                                       \
 # sends notification if saved succesfully.
 if [ -f $filepath ]; then
     notify-send "Gif saved."
-    xclip -selection clipboard -t image/gif < "$filepath"
 fi
