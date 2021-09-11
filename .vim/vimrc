@@ -15,7 +15,6 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'ap/vim-css-color'
-Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'itchyny/lightline.vim'
@@ -28,6 +27,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 call plug#end()
 runtime macros/matchit.vim
 "}}}
@@ -273,8 +274,8 @@ let g:ale_fixers = {
       \   'css': ['prettier'],
       \   'sh': ['trim_whitespace', 'remove_trailing_lines'],
       \}
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-n> <Plug>(ale_previous_wrap)
+nmap <silent> <C-p> <Plug>(ale_next_wrap)
 "}}}
 " PYTHON-SYNTAX{{{
 let g:python_highlight_all = 1
@@ -294,9 +295,10 @@ let g:closetag_regions = {
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 " }}}
-" VIM-LATEX-PREVIEW{{{
-let g:livepreview_previewer = 'zathura'
-let g:livepreview_cursorhold_recompile = 0
-let g:livepreview_use_biber = 1
-" }}}
+" ULTISNIPS{{{
+let g:UltiSnipsEditSplit="horizontal"
+let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"}}}
 "}}}
