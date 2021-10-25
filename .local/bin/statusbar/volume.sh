@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-cur_sink=$(pactl list short sinks | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
+default_sink=$(pacmd stat | awk -F": " '/^Default sink name: /{print $2}')
+cur_sink=$(pactl list short sinks | grep "$default_sink" | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n 1)
 
 case $BUTTON in
 	1) pactl set-sink-mute "$cur_sink" toggle ;;
