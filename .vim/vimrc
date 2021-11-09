@@ -12,6 +12,7 @@ if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
 endif
 call plug#begin('$HOME/.vim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'ap/vim-css-color'
@@ -34,7 +35,8 @@ runtime macros/matchit.vim
 "}}}
 " BASICS{{{
 " colors
-colorscheme PaperColor
+let g:gruvbox_contrast_light = 'hard'
+colorscheme gruvbox
 set t_Co=256                        " use 256 colors
 set termguicolors                   " use gui colors, not supported by every terminal
 let &t_ut=''                        " fixes colors for kitty
@@ -129,7 +131,7 @@ augroup END
 " PLUGINS{{{
 " LIGHTLINE{{{
 let g:lightline = {
-      \ 'colorscheme': 'PaperColor',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],

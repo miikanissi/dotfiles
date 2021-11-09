@@ -20,7 +20,7 @@ mod = "mod4"
 terminal = "st"
 browser = "brave-browser"
 file_browser = "pcmanfm"
-launcher = 'dmenu_run -fn "UbuntuNerdFont:size=11" -nb "#eeeeee" -nf "#444444" -sb "#005faf" -sf "#bcbcbc"'
+launcher = "dmenu_run -fn 'UbuntuNerdFont:size=11' -nb '#f9f5d7' -nf '#3c3836' -sb '#b16286' -sf '#7c6f64'"
 
 # Dynamic multiscreen setup
 d = display.Display()
@@ -138,9 +138,10 @@ for i in groups:
 
 layouts = [
     layout.Columns(
-        border_focus=["#005faf"],
-        border_normal=["#000000"],
-        border_width=4,
+        border_focus=["#b16286"],
+        border_normal=["#928374"],
+        border_width=2,
+        # margin=2,
         insert_position=1,
     ),
     layout.Max(),
@@ -150,8 +151,8 @@ widget_defaults = dict(
     font="Ubuntu",
     fontsize=12,
     padding=3,
-    background="#eeeeee",
-    foreground="#444444",
+    background="#f9f5d7",
+    foreground="#3c3836",
 )
 extension_defaults = widget_defaults.copy()
 
@@ -164,14 +165,14 @@ screens = [
                     highlight_method="line",
                     disable_drag=True,
                     hide_unused=True,
-                    active="#444444",
-                    inactive="#bcbcbc",
-                    block_highlight_text_color="#444444",
-                    this_screen_border="#005faf",
-                    this_current_screen_border="#005faf",
-                    other_screen_border="#bcbcbc",
-                    other_current_screen_border="#444444",
-                    highlight_color=["#bcbcbc"],
+                    active="#3c3836",
+                    inactive="#928374",
+                    block_highlight_text_color="#3c3836",
+                    this_screen_border="#b16286",
+                    this_current_screen_border="#b16286",
+                    other_screen_border="#928374",
+                    other_current_screen_border="#3c3836",
+                    highlight_color=["#928374"],
                 ),
                 widget.WindowName(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
@@ -180,8 +181,8 @@ screens = [
                 widget.Systray(),
             ],
             24,
-            background="#eeeeee",
-            foreground="#444444",
+            background="#f9f5d7",
+            foreground="#3c3836",
         ),
     ),
 ]

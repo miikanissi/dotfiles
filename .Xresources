@@ -4,19 +4,35 @@
 !
 ! Refresh config 'xrdb ~/.Xresources'.
 
-! LIGHT START
-! PaperColor Theme Light
-*foreground: #444444
-*background: #eeeeee
-*cursorColor: #444444
-sxiv.Background: #eeeeee
-*bg: #eeeeee
+! colors
+*background: #f9f5d7
+*foreground: #3c3836
+*cursorColor: #3c3836
+*color0:  #fbf1c7
+*color8:  #928374
+*color1:  #cc241d
+*color9:  #9d0006
+*color2:  #98971a
+*color10: #79740e
+*color3:  #d79921
+*color11: #b57614
+*color4:  #458588
+*color12: #076678
+*color5:  #b16286
+*color13: #8f3f71
+*color6:  #689d6a
+*color14: #427b58
+*color7:  #7c6f64
+*color15: #3c3836
+
+sxiv.Background: #f9f5d7
+*bg: #f9f5d7
 *bg-alt: #bcbcbc
-*fg: #444444
+*fg: #3c3836
 *fg-alt: #878787
 *icon: #005faf
 *warn: #af0000
-*normal-border: #eeeeee
+*normal-border: #f9f5d7
 *focused-border: #005faf
 ! dwm colors
 dwm.normbordercolor: #eeeeee
@@ -25,77 +41,6 @@ dwm.normfgcolor: #444444
 dwm.selbordercolor: #005faf
 dwm.selbgcolor: #005faf
 dwm.selfgcolor: #eeeeee
-! black
-*color0: #eeeeee
-*color8: #bcbcbc
-! red
-*color1: #af0000
-*color9: #d70000
-! green
-*color2: #008700
-*color10: #d70087
-! yellow / orange
-*color3: #5f8700
-*color11: #8700af
-! blue
-*color4: #0087af
-*color12: #d75f00
-! magenta
-*color5: #878787
-*color13: #d75f00
-! cyan
-*color6: #005f87
-*color14: #005faf
-! white
-*color7: #444444
-*color15: #005f87
-! LIGHT END
-!! DARK START
-!! PaperColor Dark
-!*foreground: #d0d0d0
-!*background: #1c1c1c
-!*cursorColor: #d0d0d0
-!sxiv.Background: #1c1c1c
-!*bg: #1c1c1c
-!*bg-alt: #585858
-!*fg: #d0d0d0
-!*fg-alt: #808080
-!*icon: #5fafd7
-!*warn: #af005f
-!*normal-border: #1c1c1c
-!*focused-border: #5fafd7
-!! dwm colors
-!dwm.normbordercolor: #1c1c1c
-!dwm.normbgcolor: #1c1c1c
-!dwm.normfgcolor: #d0d0d0
-!dwm.selbordercolor: #5fafd7
-!dwm.selbgcolor: #5fafd7
-!dwm.selfgcolor: #1c1c1c
-!! black
-!*color0: #1c1c1c
-!*color8: #585858
-!! red
-!*color1: #af005f
-!*color9: #5faf5f
-!! green
-!*color2: #5faf00
-!*color10: #afd700
-!! yellow / orange
-!*color3: #d7af5f
-!*color11: #af87d7
-!! blue
-!*color4: #5fafd7
-!*color12: #ffaf00
-!! magenta
-!*color5: #808080
-!*color13: #ff5faf
-!! cyan
-!*color6: #d7875f
-!*color14: #00afaf
-!! white
-!*color7: #d0d0d0
-!*color15: #5f8787
-!! DARK END
 
 !!! st settings !!!
 st.termname: st-256color

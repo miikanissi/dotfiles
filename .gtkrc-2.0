@@ -2,8 +2,8 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/m/.gtkrc-2.0.mine"
-gtk-theme-name="Adwaita"
-gtk-icon-theme-name="Vimix-Doder"
+gtk-theme-name="Gruvbox-Material-Dark"
+gtk-icon-theme-name="Vimix-Amethyst-dark"
 gtk-font-name="Ubuntu 11"
 gtk-cursor-theme-name="elementary"
 gtk-cursor-theme-size=0
