@@ -21,6 +21,7 @@ dunst --config ~/.config/dunst/dunstrc &
 transmission-daemon &
 mpd &
 signal-desktop --start-in-tray --use-tray-icon &
+nm-applet &
 light-locker --lock-on-suspend --lock-after-screensaver=30 &
 
 if [[ -z $(which picom) ]]; then

@@ -27,20 +27,20 @@
 
 sxiv.Background: #f9f5d7
 *bg: #f9f5d7
-*bg-alt: #bcbcbc
+*bg-alt: #928374
 *fg: #3c3836
-*fg-alt: #878787
-*icon: #005faf
-*warn: #af0000
+*fg-alt: #7c6f64
+*icon: #b16286
+*warn: #cc241d
 *normal-border: #f9f5d7
-*focused-border: #005faf
+*focused-border: #b16286
 ! dwm colors
-dwm.normbordercolor: #eeeeee
-dwm.normbgcolor: #eeeeee
-dwm.normfgcolor: #444444
-dwm.selbordercolor: #005faf
-dwm.selbgcolor: #005faf
-dwm.selfgcolor: #eeeeee
+dwm.normbordercolor: #928374
+dwm.normbgcolor: #f9f5d7
+dwm.normfgcolor: #3c3836
+dwm.selbordercolor: #b16286
+dwm.selbgcolor: #b16286
+dwm.selfgcolor: #f9f5d7
 
 !!! st settings !!!
 st.termname: st-256color

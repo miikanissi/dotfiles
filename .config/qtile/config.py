@@ -7,7 +7,7 @@ import subprocess
 from typing import List
 
 # Qtile imports
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
@@ -15,12 +15,35 @@ from libqtile.lazy import lazy
 # For dynamic multiscreen, install xlib from pip
 from Xlib import display
 
+# colors
+black = "#f9f5d7"
+black0 = "#928374"
+red = "#cc241d"
+red0 = "#9d0006"
+green = "#98971a"
+green0 = "#79740e"
+yellow = "#d79921"
+yellow0 = "#b57614"
+blue = "#458588"
+blue0 = "#076678"
+purple = "#b16286"
+purple0 = "#8f3f71"
+aqua = "#689d6a"
+aqua0 = "#427b58"
+white = "#7c6f64"
+white0 = "#3c3836"
+background = black
+foreground = white0
+soft = "#f2e5bc"
+
 # Global variables
 mod = "mod4"
 terminal = "st"
 browser = "brave-browser"
 file_browser = "pcmanfm"
-launcher = "dmenu_run -fn 'UbuntuNerdFont:size=11' -nb '#f9f5d7' -nf '#3c3836' -sb '#b16286' -sf '#7c6f64'"
+home = os.path.expanduser("~")
+slash = ""
+separator = slash
 
 # Dynamic multiscreen setup
 d = display.Display()
@@ -35,11 +58,6 @@ for output in res["outputs"]:
         screen_count += 1
 if screen_count == 0:
     screen_count = 1
-
-
-@hook.subscribe.screen_change
-def restart_on_randr(qtile, _ev):
-    qtile.cmd_restart()
 
 
 @hook.subscribe.client_new
@@ -102,12 +120,62 @@ keys = [
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "d", lazy.spawn(launcher), desc="Spawn a launcher"),
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating window"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen window"),
     # programs
+    Key([mod], "d", lazy.spawn("rofi -show run"), desc="Spawn Rofi run prompt"),
+    Key(
+        [mod, "shift"],
+        "d",
+        lazy.spawn(home + "/.local/bin/rofi_passmenu.sh"),
+        desc="Spawn Rofi passmenu",
+    ),
+    Key(
+        [mod, "shift", "control"],
+        "d",
+        lazy.spawn(home + "/.local/bin/rofi_passmenu_otp.sh"),
+        desc="Spawn Rofi passmenu one time password",
+    ),
+    Key(
+        [mod],
+        "z",
+        lazy.spawn(home + "/.local/bin/rofi_dman.sh"),
+        desc="Spawn Rofi device manager",
+    ),
+    Key(
+        [mod],
+        "x",
+        lazy.spawn(home + "/.local/bin/rofi_killprocess.sh"),
+        desc="Spawn Rofi process manager",
+    ),
+    Key(
+        [mod],
+        "q",
+        lazy.spawn(home + "/.local/bin/rofi_power_menu.sh"),
+        desc="Spawn Rofi power menu",
+    ),
+    Key(
+        [mod, "shift"],
+        "Print",
+        lazy.spawn(home + "/.local/bin/screenrecord.sh"),
+        desc="Screenrecord gif",
+    ),
+    Key([mod], "Print", lazy.spawn("flameshot gui"), desc="Screenshot tool"),
     Key([mod], "w", lazy.spawn(browser), desc="Launch browser"),
     Key([mod], "b", lazy.spawn(file_browser), desc="Launch file browser"),
+    Key([mod], "e", lazy.spawn("geary"), desc="Launch email client"),
+    Key(
+        [mod],
+        "s",
+        lazy.spawn("signal-desktop --start-in-tray --use-tray-icon"),
+        desc="Launch Signal messenger",
+    ),
+    Key(
+        [mod],
+        "m",
+        lazy.spawn(terminal + " -n ncmpcpp -t ncmpcpp -e ncmpcpp"),
+        desc="Launch NCMPCPP music player",
+    ),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -138,10 +206,9 @@ for i in groups:
 
 layouts = [
     layout.Columns(
-        border_focus=["#b16286"],
-        border_normal=["#928374"],
-        border_width=2,
-        # margin=2,
+        border_focus=[purple],
+        border_normal=[black0],
+        border_width=3,
         insert_position=1,
     ),
     layout.Max(),
@@ -151,8 +218,8 @@ widget_defaults = dict(
     font="Ubuntu",
     fontsize=12,
     padding=3,
-    background="#f9f5d7",
-    foreground="#3c3836",
+    background=background,
+    foreground=foreground,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -160,29 +227,70 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayoutIcon(),
+                widget.CurrentLayoutIcon(padding=3),
                 widget.GroupBox(
                     highlight_method="line",
                     disable_drag=True,
                     hide_unused=True,
-                    active="#3c3836",
-                    inactive="#928374",
-                    block_highlight_text_color="#3c3836",
-                    this_screen_border="#b16286",
-                    this_current_screen_border="#b16286",
-                    other_screen_border="#928374",
-                    other_current_screen_border="#3c3836",
-                    highlight_color=["#928374"],
+                    active=foreground,
+                    inactive=black0,
+                    block_highlight_text_color=foreground,
+                    this_screen_border=purple,
+                    this_current_screen_border=purple,
+                    other_screen_border=black0,
+                    other_current_screen_border=foreground,
+                    highlight_color=[black0],
+                    padding=6,
+                    spacing=0,
+                    margin_x=0,
                 ),
-                widget.WindowName(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
-                widget.Volume(volume_app="pavucontrol"),
-                widget.Systray(),
+                widget.WindowName(for_current_screen=True, padding=6),
+                widget.TextBox(
+                    padding=0,
+                    text=separator,
+                    foreground=soft,
+                    fontsize=28,
+                    font="UbuntuNerdFont",
+                ),
+                widget.TextBox(text="vol:", background=soft),
+                widget.Volume(volume_app="pavucontrol", background=soft, padding=0),
+                widget.TextBox(
+                    padding=0,
+                    text=separator,
+                    background=soft,
+                    foreground=background,
+                    fontsize=28,
+                    font="UbuntuNerdFont",
+                ),
+                widget.TextBox(text="bat:"),
+                widget.Battery(
+                    format="{char}{percent:2.0%}",
+                    unknown_char="",
+                    low_foreground=red,
+                    notify_below=10,
+                    padding=0,
+                ),
+                widget.TextBox(
+                    padding=0,
+                    text=separator,
+                    foreground=soft,
+                    fontsize=28,
+                    font="UbuntuNerdFont",
+                ),
+                widget.Clock(format="%I:%M%P %m/%d/%Y", background=soft, padding=0),
+                widget.TextBox(
+                    padding=0,
+                    text=separator,
+                    background=soft,
+                    foreground=background,
+                    fontsize=28,
+                    font="UbuntuNerdFont",
+                ),
+                widget.Systray(padding=0),
             ],
-            24,
-            background="#f9f5d7",
-            foreground="#3c3836",
+            26,
+            background=background,
+            foreground=foreground,
         ),
     ),
 ]
@@ -233,7 +341,7 @@ mouse = [
 ]
 
 dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
+dgroups_app_rules = []
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = True
@@ -241,6 +349,22 @@ floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
+        Match(title="Quit and close tabs?"),
+        Match(wm_type="utility"),
+        Match(wm_type="notification"),
+        Match(wm_type="toolbar"),
+        Match(wm_type="splash"),
+        Match(wm_type="dialog"),
+        Match(wm_class="ncmpcpp"),
+        Match(wm_class="Conky"),
+        Match(wm_class="file_progress"),
+        Match(wm_class="confirm"),
+        Match(wm_class="dialog"),
+        Match(wm_class="download"),
+        Match(wm_class="error"),
+        Match(wm_class="notification"),
+        Match(wm_class="splash"),
+        Match(wm_class="toolbar"),
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
