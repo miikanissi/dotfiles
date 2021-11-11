@@ -121,20 +121,22 @@
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
     frame_width = 2
 # LIGHT START
-    frame_color = "#005faf"
-    separator_color = "#005faf"
+    frame_color = "#b16286"
+    separator_color = "#b16286"
 [base16_low]
     msg_urgency = low
-    background = "#eeeeee"
-    foreground = "#444444"
+    background = "#f9f5d7"
+    foreground = "#3c3836"
 [base16_normal]
     msg_urgency = normal
-    background = "#eeeeee"
-    foreground = "#444444"
+    background = "#f9f5d7"
+    foreground = "#3c3836"
 [base16_critical]
     msg_urgency = critical
-    background = "#eeeeee"
-    foreground = "#af0000"
+    background = "#f9f5d7"
+    foreground = "#3c3836"
+    frame_color = "#cc231d"
+    separator_color = "#cc231d"
 # LIGHT END
 ## DARK START
 #    frame_color = "#5fafd7"

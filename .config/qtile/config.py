@@ -245,6 +245,13 @@ screens = [
                     margin_x=0,
                 ),
                 widget.WindowName(for_current_screen=True, padding=6),
+                widget.Mpd2(
+                    idle_message="idle",
+                    idle_format="{play_status} [{repeat}{random}{single}{consume}{updating_db}] {idle_message}",
+                    status_format="{play_status} [{repeat}{random}{single}{consume}{updating_db}] {artist} - {title}",
+                    no_connection="",
+                    space="",
+                ),
                 widget.TextBox(
                     padding=0,
                     text=separator,
@@ -290,7 +297,6 @@ screens = [
             ],
             26,
             background=background,
-            foreground=foreground,
         ),
     ),
 ]
@@ -300,28 +306,72 @@ if screen_count > 1:
             Screen(
                 top=bar.Bar(
                     [
-                        widget.CurrentLayoutIcon(),
+                        widget.CurrentLayoutIcon(padding=3),
                         widget.GroupBox(
                             highlight_method="line",
                             disable_drag=True,
                             hide_unused=True,
-                            active="#444444",
-                            inactive="#bcbcbc",
-                            block_highlight_text_color="#444444",
-                            this_screen_border="#005faf",
-                            this_current_screen_border="#005faf",
-                            other_screen_border="#bcbcbc",
-                            other_current_screen_border="#444444",
-                            highlight_color=["#bcbcbc"],
+                            active=foreground,
+                            inactive=black0,
+                            block_highlight_text_color=foreground,
+                            this_screen_border=purple,
+                            this_current_screen_border=purple,
+                            other_screen_border=black0,
+                            other_current_screen_border=foreground,
+                            highlight_color=[black0],
+                            padding=6,
+                            spacing=0,
+                            margin_x=0,
                         ),
-                        widget.WindowName(),
-                        widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                        widget.QuickExit(),
-                        widget.Volume(volume_app="pavucontrol"),
+                        widget.WindowName(for_current_screen=True, padding=6),
+                        widget.TextBox(
+                            padding=0,
+                            text=separator,
+                            foreground=soft,
+                            fontsize=28,
+                            font="UbuntuNerdFont",
+                        ),
+                        widget.TextBox(text="vol:", background=soft),
+                        widget.Volume(
+                            volume_app="pavucontrol", background=soft, padding=0
+                        ),
+                        widget.TextBox(
+                            padding=0,
+                            text=separator,
+                            background=soft,
+                            foreground=background,
+                            fontsize=28,
+                            font="UbuntuNerdFont",
+                        ),
+                        widget.TextBox(text="bat:"),
+                        widget.Battery(
+                            format="{char}{percent:2.0%}",
+                            unknown_char="",
+                            low_foreground=red,
+                            notify_below=10,
+                            padding=0,
+                        ),
+                        widget.TextBox(
+                            padding=0,
+                            text=separator,
+                            foreground=soft,
+                            fontsize=28,
+                            font="UbuntuNerdFont",
+                        ),
+                        widget.Clock(
+                            format="%I:%M%P %m/%d/%Y", background=soft, padding=0
+                        ),
+                        widget.TextBox(
+                            padding=0,
+                            text=separator,
+                            background=soft,
+                            foreground=background,
+                            fontsize=28,
+                            font="UbuntuNerdFont",
+                        ),
                     ],
-                    24,
-                    background="#eeeeee",
-                    foreground="#444444",
+                    26,
+                    background=background,
                 ),
             ),
         )
@@ -344,7 +394,7 @@ dgroups_key_binder = None
 dgroups_app_rules = []
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = True
+cursor_warp = False
 floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
