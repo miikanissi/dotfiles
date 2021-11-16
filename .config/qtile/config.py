@@ -223,6 +223,36 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+caffeine = widget.GenPollText(
+    update_interval=1,
+    func=lambda: subprocess.check_output(
+        home + "/.local/bin/statusbar/caffeine.sh"
+    ).decode("utf-8"),
+    mouse_callbacks={
+        "Button1": lambda: qtile.cmd_spawn(
+            home + "/.local/bin/statusbar/caffeine.sh --toggle"
+        )
+    },
+    font="UbuntuNerdFont",
+    fontsize=16,
+    padding_right=2,
+    padding_left=0,
+)
+powermenu = widget.TextBox(
+    text="",
+    foreground=red,
+    padding=2,
+    font="UbuntuNerdFont",
+    fontsize=16,
+    mouse_callbacks={
+        "Button1": lambda: qtile.cmd_spawn(
+            "rofi -show powermenu -modi powermenu:"
+            + home
+            + "/.local/bin/rofi_powermenu.sh"
+        )
+    },
+)
+
 screens = [
     Screen(
         top=bar.Bar(
@@ -293,7 +323,9 @@ screens = [
                     fontsize=28,
                     font="UbuntuNerdFont",
                 ),
-                widget.Systray(padding=0),
+                caffeine,
+                widget.Systray(padding=2),
+                powermenu,
             ],
             26,
             background=background,
@@ -369,6 +401,9 @@ if screen_count > 1:
                             fontsize=28,
                             font="UbuntuNerdFont",
                         ),
+                        caffeine,
+                        widget.TextBox(),
+                        powermenu,
                     ],
                     26,
                     background=background,

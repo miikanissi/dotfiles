@@ -8,10 +8,18 @@ if mountpoint -q -- $mount_point; then
     --exclude 'Videos' \
     --exclude 'dotfiles' \
     --exclude 'node_modules' \
+    --exclude 'jagex_cl_oldschool_LIVE.dat' \
+    --exclude 'random.dat' \
+    --exclude 'package.json' \
+    --exclude 'package-lock.json' \
     --include '.emacs.d' \
     --include '.emacs.d/.secret.el' \
     --include '.ssh' \
     --include '.gnupg' \
+    --include '.password-store/***' \
+    --include '.password-store/**' \
+    --include '.password-store/*' \
+    --include '.password-store/' \
     --include '.password-store' \
     --include '.gitconfig' \
     --include '.minecraft/' \
