@@ -119,7 +119,16 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key(
+        [mod, "shift"],
+        "q",
+        lazy.spawn(
+            "rofi -show powermenu -modi powermenu:"
+            + home
+            + "/.local/bin/rofi_powermenu.sh"
+        ),
+        desc="Shutdown Qtile",
+    ),
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating window"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen window"),
     # programs
@@ -235,13 +244,13 @@ caffeine = widget.GenPollText(
     },
     font="UbuntuNerdFont",
     fontsize=16,
-    padding_right=2,
+    padding_right=4,
     padding_left=0,
 )
 powermenu = widget.TextBox(
     text="",
     foreground=red,
-    padding=2,
+    padding=4,
     font="UbuntuNerdFont",
     fontsize=16,
     mouse_callbacks={
@@ -252,6 +261,7 @@ powermenu = widget.TextBox(
         )
     },
 )
+volume = widget.Volume(volume_app="pavucontrol", background=soft, padding=0)
 
 screens = [
     Screen(
@@ -290,7 +300,7 @@ screens = [
                     font="UbuntuNerdFont",
                 ),
                 widget.TextBox(text="vol:", background=soft),
-                widget.Volume(volume_app="pavucontrol", background=soft, padding=0),
+                volume,
                 widget.TextBox(
                     padding=0,
                     text=separator,
@@ -303,6 +313,7 @@ screens = [
                 widget.Battery(
                     format="{char}{percent:2.0%}",
                     unknown_char="",
+                    show_short_text=False,
                     low_foreground=red,
                     notify_below=10,
                     padding=0,
@@ -364,9 +375,7 @@ if screen_count > 1:
                             font="UbuntuNerdFont",
                         ),
                         widget.TextBox(text="vol:", background=soft),
-                        widget.Volume(
-                            volume_app="pavucontrol", background=soft, padding=0
-                        ),
+                        volume,
                         widget.TextBox(
                             padding=0,
                             text=separator,
