@@ -12,6 +12,7 @@ if mountpoint -q -- $mount_point; then
     --exclude 'random.dat' \
     --exclude 'package.json' \
     --exclude 'package-lock.json' \
+    --exclude 'jagexcache' \
     --include '.emacs.d' \
     --include '.emacs.d/.secret.el' \
     --include '.ssh' \

@@ -262,6 +262,21 @@ powermenu = widget.TextBox(
     },
 )
 volume = widget.Volume(volume_app="pavucontrol", background=soft, padding=0)
+battery = widget.Battery(
+    format="{char}{percent:2.0%}",
+    unknown_char="",
+    show_short_text=False,
+    low_foreground=red,
+    notify_below=10,
+    padding=0,
+)
+mpd = widget.Mpd2(
+    idle_message="idle",
+    idle_format="{play_status} [{repeat}{random}{single}{consume}{updating_db}] {idle_message}",
+    status_format="{play_status} [{repeat}{random}{single}{consume}{updating_db}] {artist} - {title}",
+    no_connection="",
+    space="",
+)
 
 screens = [
     Screen(
@@ -285,13 +300,7 @@ screens = [
                     margin_x=0,
                 ),
                 widget.WindowName(for_current_screen=True, padding=6),
-                widget.Mpd2(
-                    idle_message="idle",
-                    idle_format="{play_status} [{repeat}{random}{single}{consume}{updating_db}] {idle_message}",
-                    status_format="{play_status} [{repeat}{random}{single}{consume}{updating_db}] {artist} - {title}",
-                    no_connection="",
-                    space="",
-                ),
+                mpd,
                 widget.TextBox(
                     padding=0,
                     text=separator,
@@ -310,14 +319,7 @@ screens = [
                     font="UbuntuNerdFont",
                 ),
                 widget.TextBox(text="bat:"),
-                widget.Battery(
-                    format="{char}{percent:2.0%}",
-                    unknown_char="",
-                    show_short_text=False,
-                    low_foreground=red,
-                    notify_below=10,
-                    padding=0,
-                ),
+                battery,
                 widget.TextBox(
                     padding=0,
                     text=separator,
@@ -385,13 +387,7 @@ if screen_count > 1:
                             font="UbuntuNerdFont",
                         ),
                         widget.TextBox(text="bat:"),
-                        widget.Battery(
-                            format="{char}{percent:2.0%}",
-                            unknown_char="",
-                            low_foreground=red,
-                            notify_below=10,
-                            padding=0,
-                        ),
+                        battery,
                         widget.TextBox(
                             padding=0,
                             text=separator,
