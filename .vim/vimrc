@@ -190,7 +190,6 @@ nnoremap <leader>u :UndotreeToggle<CR>
 "}}}
 " COC.NVIM{{{
 let g:coc_global_extensions = [
-      \ 'coc-pairs',
       \ 'coc-python',
       \ 'coc-xml',
       \ 'coc-html',
