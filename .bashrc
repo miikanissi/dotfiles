@@ -133,7 +133,7 @@ _gen_fzf_default_opts
 export BROWSER=/usr/bin/brave-browser
 export TERMINAL="/usr/bin/kitty -1 --listen-on=tcp:localhost:12344"
 export EDITOR=/usr/bin/vim
-export LOCATION="Riihimäki"
+export LOCATION="Queens"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
 export PATH=~/.local/bin/statusbar:$PATH
