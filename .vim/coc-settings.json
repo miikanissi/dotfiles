@@ -12,5 +12,6 @@
       }
     }
   },
-  "diagnostic.displayByAle": true
+  "diagnostic.displayByAle": true,
+  "javascript.suggestionActions.enabled": false
 }
