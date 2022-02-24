@@ -133,6 +133,7 @@ keys = [
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen window"),
     # programs
     Key([mod], "d", lazy.spawn("rofi -show run"), desc="Spawn Rofi run prompt"),
+    Key([mod, "control"], "d", lazy.spawn("rofi -show drun"), desc="Spawn Rofi desktop run prompt"),
     Key(
         [mod, "shift"],
         "d",
