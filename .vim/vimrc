@@ -2,7 +2,7 @@
 " by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 " language specific configs at .vim/ftplugin/<language>.vim
 " or .vim/after/syntax/<language>.vim for syntax
-" taken leader shortcuts: f,g,b,r,s,
+" taken leader shortcuts: f,g,b,r,s,u,t
 " PLUGIN MANAGER {{{
 if ! filereadable(system('echo -n "$HOME/.vim/autoload/plug.vim"'))
   echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -38,6 +38,8 @@ Plug 'airblade/vim-rooter'
 Plug 'mbbill/undotree'
 " snippets, define at .vim/UltiSnips
 Plug 'SirVer/ultisnips'
+" tree style file explorer
+Plug 'preservim/nerdtree'
 " tons of predefined snippets for UltiSnips
 Plug 'honza/vim-snippets'
 call plug#end()
@@ -195,6 +197,10 @@ let g:fzf_layout = { 'down': '60%' }
     "}}}
 "UNDOTREE{{{
 nnoremap <leader>u :UndotreeToggle<CR>
+"}}}
+"NERDTREE{{{
+nnoremap <leader>t :NERDTreeToggle<CR>
+let g:NERDTreeQuitOnOpen = 1
 "}}}
 " COC.NVIM{{{
 let g:coc_global_extensions = [
