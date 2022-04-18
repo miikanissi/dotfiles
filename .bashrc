@@ -107,33 +107,6 @@ fd() {
   local dir
   dir=$(find "${1:-.}" -type d 2> /dev/null | fzf +m) && cd "$dir" || exit
 }
-_gen_fzf_default_opts() {
-
-local color00='#000000'
-local color01='#303030'
-local color02='#505050'
-local color03='#b0b0b0'
-local color04='#d0d0d0'
-local color05='#e0e0e0'
-local color06='#f5f5f5'
-local color07='#ffffff'
-local color08='#fb0120'
-local color09='#fc6d24'
-local color0A='#fda331'
-local color0B='#a1c659'
-local color0C='#76c7b7'
-local color0D='#6fb3d2'
-local color0E='#d381c3'
-local color0F='#be643c'
-
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
-" --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
-" --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
-" --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
-
-}
-
-_gen_fzf_default_opts
 
 # exports
 export BROWSER=/usr/bin/brave-browser
