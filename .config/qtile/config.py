@@ -216,20 +216,13 @@ for i in groups:
 
 layouts = [
     layout.Columns(
-        border_focus=[purple],
-        border_normal=[black0],
-        border_width=3,
-        insert_position=1,
+        border_focus=[purple], border_normal=[black0], border_width=3, insert_position=1
     ),
     layout.Max(),
 ]
 
 widget_defaults = dict(
-    font="Ubuntu",
-    fontsize=12,
-    padding=3,
-    background=background,
-    foreground=foreground,
+    font="Ubuntu", fontsize=12, padding=3, background=background, foreground=foreground
 )
 extension_defaults = widget_defaults.copy()
 
@@ -343,8 +336,8 @@ screens = [
             ],
             26,
             background=background,
-        ),
-    ),
+        )
+    )
 ]
 if screen_count > 1:
     for screen in range(0, screen_count):
@@ -413,8 +406,8 @@ if screen_count > 1:
                     ],
                     26,
                     background=background,
-                ),
-            ),
+                )
+            )
         )
 
 # Drag floating layouts.
