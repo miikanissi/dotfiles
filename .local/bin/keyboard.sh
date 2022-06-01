@@ -22,7 +22,7 @@ fi
 # mouse acceleration off
 /usr/bin/xset m 1 1
 # makes key repeat faster
-/usr/bin/xset r rate 200 70
+/usr/bin/xset r rate 200 80
 # sets caps lock to ctrl and holding down right meta key toggles on finnish keyboard (for ä,ö,å)
 /usr/bin/setxkbmap -option 'ctrl:nocaps' -option grp:switch -option grp_led:scroll us,fi
 
