@@ -24,7 +24,6 @@ bspc config focused_border_color "$(xrdb -query | grep focused-border | awk '{pr
 bspc rule -a Gimp state=floating
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
-bspc rule -a kitty:ncmpcpp desktop='^4' state=floating follow=on
 
 dunst --config ~/.config/dunst/dunstrc &
 # BSPWM monitors

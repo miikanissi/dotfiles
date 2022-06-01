@@ -3,57 +3,23 @@
 # https://miikanissi.com
 
 ### PROGRAM LAUNCHERS ###
-super + {Return, w, e, b, s, m}
-    {kitty -1 --listen-on=tcp:localhost:12344, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, kitty -1 --listen-on=tcp:localhost:12344 --name ncmpcpp ncmpcpp}
-# toggle dark/light theme
-super + shift + m
-    ~/.local/bin/toggle-theme.sh
-# print screen script with maim
-super + Print
-    ~/.local/bin/screenshot.sh
-# print screen with flameshot
-super + shift + Print
-    flameshot gui
+super + {Return, Print, w, e, b, s, m}
+    {alacritty, flameshot gui, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, alacritty -e ncmpcpp}
 # launch rofi
 super + d
     rofi -show run
-# launch rofi ssh
-super + alt + d
-    rofi -show ssh
-# launch rofimoji
-super + shift + d
-    rofimoji -c -s light
-# launch rofi window switcher
-super + Tab
-    rofi -show window
-# launch rofi kill script
-super + shift + x
-    ~/.local/bin/rofi_killprocess.sh
+# launch rofi desktop launcher
+super + ctrl + d
+    rofi -show drun
 # launch passmenu
-super + z
+super + shift + d
     ~/.local/bin/rofi_passmenu.sh
-# launch passmenu_otp
-super + shift + z
-    ~/.local/bin/rofi_passmenu_otp.sh
-# launch rofi_mount.sh
+# launch rofi kill script
 super + x
+    ~/.local/bin/rofi_killprocess.sh
+# launch rofi_mount.sh
+super + z
     ~/.local/bin/rofi_dman.sh
-
-### MPC HOTKEYS ###
-# toggle pause/play
-super + p
-    mpc toggle
-# volume up
-super + {_,ctrl} + plus
-    mpc volume +{2,5}
-# volume down
-super + {_,ctrl} + minus
-    mpc volume -{2,5}
-# next song
-super + >
-    mpc next
-super + <
-    mpc prev
 
 ### BSPC HOTKEYS ###
 # restart everything
