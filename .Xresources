@@ -5,10 +5,21 @@
 ! Refresh config 'xrdb ~/.Xresources'.
 
 ! colors
-*background: #f9f5d7
+! Gruvbox light medium
+*background: #fbf1c7
+*background0: #fbf1c7
+*background1: #ebdbb2
+*background2: #d5c4a1
+*background3: #bdae93
+*background4: #a89984
 *foreground: #3c3836
+*foreground0: #282828
+*foreground1: #3c3836
+*foreground2: #504945
+*foreground3: #665c54
+*foreground4: #7c6f64
 *cursorColor: #3c3836
-*color0:  #f9f5d7
+*color0:  #fbf1c7
 *color8:  #928374
 *color1:  #cc241d
 *color9:  #9d0006
@@ -24,6 +35,8 @@
 *color14: #427b58
 *color7:  #7c6f64
 *color15: #3c3836
+*orange1: #d65d0e
+*orange2: #af3a03
 
 sxiv.Background: #f9f5d7
 *bg: #f9f5d7

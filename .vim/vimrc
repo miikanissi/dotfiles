@@ -48,7 +48,7 @@ runtime macros/matchit.vim
 "}}}
 " BASICS{{{
 " colors
-let g:gruvbox_contrast_light = 'hard'
+let g:gruvbox_contrast_light = 'medium'
 colorscheme gruvbox
 let $BAT_THEME='GitHub'
 set t_Co=256                        " use 256 colors
