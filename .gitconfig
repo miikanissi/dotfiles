@@ -1,0 +1,12 @@
+[init]
+    defaultBranch = master
+[user]
+    name = Miika Nissi
+    email = miika@miikanissi.com
+    signingKey = FAF92E7F
+[commit]
+    gpgSign = true
+[tag]
+    gpgSign = true
+[pull]
+    rebase = false
