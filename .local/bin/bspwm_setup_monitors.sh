@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 # hotplug mode for bspwm and polybar with autorandr
+# this script is run on bspwm startup and autorandr monitor change
 
 ## Notify BSPWM to run this script for all xrandr changes by adding it to:
 ## ~/.config/autorandr/postswitch
@@ -10,107 +11,78 @@
 ## rule file: /usr/lib/udev/rules.d/40-monitor-hotplug.rules
 ## autorandr udev rule:
 ##   ACTION=="change", SUBSYSTEM=="drm", RUN+="/bin/systemctl start --no-block autorandr.service"
+
+# Exit script if not on bspwm
 WM=$(wmctrl -m | grep Name: | awk '{print $2}')
 if [[ "${WM}" != "bspwm" ]]; then
   exit 0
 fi
-PRIMARY_MONITOR=$(xrandr | grep primary | cut -d ' ' -f 1)
+
+# Get primary and secondary monitor
 # use mapfile to create arrays of monitors
 mapfile -t MONITORS < <(xrandr | grep " connected " | awk '{ print $1 }')
-mapfile -t BSPWM_MONITORS < <(bspc query -M --names)
 
-_desk_order() {
-  while read -r line; do
-    printf "%s\\n" "$line"
-  done < <(bspc query -D -m "${1:-focused}" --names) | sort -g | paste -d ' ' -s
-}
+PRIMARY_MONITOR=$(xrandr | grep primary | cut -d ' ' -f 1)
+SECONDARY_MONITOR=""
 
-_set_bspwm_config() {
-  # apply the bspwm configs except external_rules_command
-  # or the desktops will look funny if monitors have changed
-  while read -r line ; do
-    $line
-  done < <(grep --color=never -E \
-    '(split_ratio|border_width|window_gap|top_padding|bottom_padding|left_padding|right_padding)' ~/.config/bspwm/bspwmrc)
-  }
-
-# bspwm creates default desktops, remove them
-_remove_default_desktops(){
-  for d in $(bspc query -D --names); do
-    if [[ "${d}" == "Desktop" ]]; then
-      bspc desktop "${d}" --remove
-    fi
-  done
-}
-
-# moves all desktops to main monitor
-_to_main_monitor() {
-  for m in "${BSPWM_MONITORS[@]}"; do
+if [ "${#MONITORS[@]}" -eq 2 ]; then
+  for m in "${MONITORS[@]}"; do
     if [[ "${m}" != "${PRIMARY_MONITOR}" ]]; then
-      bspc monitor "${m}" -a Desktop > /dev/null
-      for desktop in $(bspc query -D -m "${m}" --names); do
-        if [[ "${desktop}" != "Desktop" ]]; then
-          bspc desktop "${desktop}" --to-monitor "${PRIMARY_MONITOR}"
-        fi
-      done
-      _remove_default_desktops
+      SECONDARY_MONITOR="${m}"
     fi
   done
+fi
+
+INTERNAL_MONITOR=eDP
+EXTERNAL_MONITOR=HDMI1
+
+monitor_add() {
+  # Move first 5 desktops to external monitor
+  for desktop in $(bspc query -D --names -m "$INTERNAL_MONITOR" | sed 5q); do
+    bspc desktop "$desktop" --to-monitor "$EXTERNAL_MONITOR"
+  done
+  # Remove default desktop created by bspwm
+  bspc desktop Desktop --remove
 }
 
-# some hacky logic to move desktops around
-case "${#MONITORS[@]}" in
-  1)
-    # if no desktops create them
-    if [[ $(bspc query -d | wc -w) -lt 3 ]]; then
-      bspc monitor "${PRIMARY_MONITOR}" -d 1 2 3 4 5 6
-    # move desktops to single monitor and delete monitors
-    else
-      _to_main_monitor
-      notify-send "main monitor $PRIMARY_MONITOR"
-      for m in "${BSPWM_MONITORS[@]}"; do
-        notify-send "$m"
-        if [[ "{$m}" != "${PRIMARY_MONITOR}" ]]; then
-          bspc monitor "${m}" --remove > /dev/null
-        fi
-      done
-    fi
-    ;;
-  *)
-    # if no desktops present create them
-    if [[ $(bspc query -D | wc -w) -lt 3 ]]; then
-      bspc monitor "${PRIMARY_MONITOR}" -d 1 2 3 4
-      for m in "${MONITORS[@]}"; do
-        if [[ "${m}" != "${PRIMARY_MONITOR}" ]]; then
-          bspc monitor "${m}" -d 5 6
-        fi
-      done
-    else
-      # first move all desktops to primary monitor
-      _to_main_monitor
-      _remove_default_desktops
+monitor_remove() {
+  # Add default temp desktop because a minimum of one desktop is required per monitor
+  bspc monitor "$INTERNAL_MONITOR" -a Desktop
 
-      bspc monitor "${PRIMARY_MONITOR}" -o $(eval _desk_order "${PRIMARY_MONITOR}")
-      # move two desktops to secondary monitor(s)
-      for m in "${MONITORS[@]}"; do
-        if [[ "${m}" != "${PRIMARY_MONITOR}" ]]; then
-          for desktop in $(bspc query -D -m "${PRIMARY_MONITOR}" --names | tac | sed "2"q | tac); do
-            bspc desktop "${desktop}" --to-monitor "${m}"
-          done
-        fi
-      done
-      _remove_default_desktops
-    fi
-    ;;
-esac
+  # Move all desktops except the last default desktop to disconnected
+  # external monitor to reorder desktops
+  for desktop in $(bspc query -D -m "$INTERNAL_MONITOR"); do
+		bspc desktop "$desktop" --to-monitor "$EXTERNAL_MONITOR"
+	done
 
-_remove_default_desktops
-# reorder the desktops for each monitor
-for m in "${BSPWM_MONITORS[@]}"; do
-  bspc monitor "${m}" -o $(eval _desk_order "${m}")
-done
+  # Add default temp desktop because a minimum of one desktop is required per monitor
+  bspc monitor "$EXTERNAL_MONITOR" -a Desktop
 
-_set_bspwm_config
-~/.local/bin/keyboard.sh # set keyboard conf
-~/.local/bin/setbg.sh & # set wallpaper
-~/.local/bin/polybar_launch.sh & # launch polybar
+  # Move all desktops except the last default desktop to internal monitor
+  for desktop in $(bspc query -D -m "$EXTERNAL_MONITOR");	do
+		bspc desktop "$desktop" --to-monitor "$INTERNAL_MONITOR"
+	done
+
+  # delete default desktops
+  bspc desktop Desktop --remove
+  bspc desktop Desktop --remove
+}
+
+if [[ $(xrandr -q | grep -q "${EXTERNAL_MONITOR} connected") ]]; then
+    monitor_add
+else
+    monitor_remove
+fi
+
+# Set wallpaper
+~/.local/bin/setbg.sh &
+
+# Launch polybar
+killall -q polybar
+while pgrep -u $UID -x polybar > /dev/null; do sleep 2; done
+
+polybar --reload primary -c ~/.config/polybar/config.ini </dev/null >/var/tmp/polybar-primary.log 2>&1 200>&- &
+
+if [[ $(xrandr -q | grep -q "${EXTERNAL_MONITOR} connected") ]]; then
+  polybar --reload secondary -c ~/.config/polybar/config.ini </dev/null >/var/tmp/polybar-secondary.log 2>&1 200>&- &
+fi
