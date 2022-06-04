@@ -5,6 +5,7 @@
 export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 
 ### BSPC ###
+bspc monitor eDP -d 1 2 3 4 5 6 7 8 9 10
 bspc config pointer_modifier        mod4
 bspc config border_width            2
 bspc config window_gap              4
@@ -24,10 +25,59 @@ bspc config focused_border_color "$(xrdb -query | grep focused-border | awk '{pr
 bspc rule -a Gimp state=floating
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
-
-dunst --config ~/.config/dunst/dunstrc &
-# BSPWM monitors
-~/.local/bin/bspwm_setup_monitors.sh &
+bspc rule -a Alacritty:ncmpcpp state=floating
 
 # AUTOSTART
-~/.local/bin/bspwm_autostart.sh &
+# Helper function to check for active process, if not found starts program on the background
+_run() {
+    if ! pgrep -x "${1}" &>/dev/null; then
+        "$@" &
+    fi
+}
+
+# Environment
+source ~/.bashrc
+xrdb .Xresources &
+
+# Detect screen layout
+autorandr -c
+
+# Turn on notifications
+_run dunst --config ~/.config/dunst/dunstrc
+
+# Keyboard, mouse, cursor, fonts
+~/.local/bin/keyboard.sh &
+xsetroot -cursor_name left_ptr &
+xset +fp ~/.fonts &
+xset fp rehash &
+fc-cache -fv &
+_run sxhkd -m -1 > /tmp/sxhkd.log
+
+# Music daemon
+_run mpd
+
+# Network Manager applet
+_run nm-applet
+
+# Signal messenger
+_run signal-desktop --start-in-tray --use-tray-icon
+
+# Lock screen
+_run light-locker --lock-on-suspend --lock-after-screensaver=30
+
+# Wallpaper
+~/.local/bin/setbg.sh &
+
+# Redshift to dim screen temperature
+_run redshift
+
+# Compositor
+_run picom --config .config/picom/picom.conf --experimental-backends --vsync
+
+# Setup monitors, polybar and wallpaper. This is run on startup and on autorandr change
+~/.local/bin/bspwm_setup_monitors.sh &
+
+# Polybar (Always restart)
+killall -q polybar
+while pgrep -u $UID -x polybar > /dev/null; do sleep 2; done
+polybar --reload primary -c ~/.config/polybar/config.ini </dev/null >/var/tmp/polybar-primary.log 2>&1 200>&- &

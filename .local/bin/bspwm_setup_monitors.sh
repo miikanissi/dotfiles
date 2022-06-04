@@ -1,36 +1,12 @@
 #!/usr/bin/env bash
-# by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
-# hotplug mode for bspwm and polybar with autorandr
-# this script is run on bspwm startup and autorandr monitor change
-
 ## Notify BSPWM to run this script for all xrandr changes by adding it to:
 ## ~/.config/autorandr/postswitch
 ## See Hook scripts: https://github.com/phillipberndt/autorandr
-##
-## autorandr installs a udev rule which is triggered when monitor state is changed
-## rule file: /usr/lib/udev/rules.d/40-monitor-hotplug.rules
-## autorandr udev rule:
-##   ACTION=="change", SUBSYSTEM=="drm", RUN+="/bin/systemctl start --no-block autorandr.service"
 
 # Exit script if not on bspwm
 WM=$(wmctrl -m | grep Name: | awk '{print $2}')
 if [[ "${WM}" != "bspwm" ]]; then
   exit 0
-fi
-
-# Get primary and secondary monitor
-# use mapfile to create arrays of monitors
-mapfile -t MONITORS < <(xrandr | grep " connected " | awk '{ print $1 }')
-
-PRIMARY_MONITOR=$(xrandr | grep primary | cut -d ' ' -f 1)
-SECONDARY_MONITOR=""
-
-if [ "${#MONITORS[@]}" -eq 2 ]; then
-  for m in "${MONITORS[@]}"; do
-    if [[ "${m}" != "${PRIMARY_MONITOR}" ]]; then
-      SECONDARY_MONITOR="${m}"
-    fi
-  done
 fi
 
 INTERNAL_MONITOR=eDP

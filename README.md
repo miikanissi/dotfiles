@@ -37,7 +37,7 @@ Here are some example scripts:
 To install and integrate with your system you need to checkout the master branch and initialize included submodules.
 
     git --work-tree $HOME --git-dir $HOME/dotfiles init
-    git --work-tree $HOME --git-dir $HOME/dotfiles remote add-t \* -f origin git@github.com:miikanissi/dotfiles.git
+    git --work-tree $HOME --git-dir $HOME/dotfiles remote add -t \* -f origin git@github.com:miikanissi/dotfiles.git
     git --work-tree $HOME --git-dir $HOME/dotfiles checkout master
     git --work-tree $HOME --git-dir $HOME/dotfiles submodule update --init
     git --work-tree $HOME --git-dir $HOME/dotfiles config --local status.showUntrackedFiles no
@@ -64,7 +64,7 @@ Elementary cursor theme requires moving icons to their correct location:
 
 Vimix icon theme needs to be installed with:
 
-    cd ~/.icons/vimix-icon-theme/ && .install.sh -a
+    cd ~/.icons/vimix-icon-theme/ && ./install.sh -a
 
 Qtile installation for Debian:
 
@@ -84,6 +84,10 @@ Suckless program installation:
     cd .local/src/suckless/dmenu && sudo make clean install
     cd .local/src/suckless/dwmblocks && sudo make clean install
     cd .local/src/suckless/st && sudo make clean install
+
+To automatically run my keyboard setup script when keyboard is attached, we need to create a udev rule in `/etc/udev/rules.d/99-keyboard.rules`. You can find the vendor and model id for all usb devices by running the command `lsusb`:
+
+    ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="0510" RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"
 
 ## Links / Credits
 To stay up to date with me visit my [website](https://miikanissi.com).
