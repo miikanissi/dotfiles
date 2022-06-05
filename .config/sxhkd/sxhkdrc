@@ -28,28 +28,18 @@ super + grave
 # close and kill
 super {_,shift + } q
     bspc node -{c,k}
-# close current window
-super + shift + c
-    bspc node -c
 # state of the window
 super + {t,shift + t,shift + f,f}
     bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 # toggle fullscreen
 super + Tab
     bspc node -t \~fullscreen
-# Shrink/grow window
+# Shrink/grow window, uses script from ~/.local/bin/bspwm_grow_windows.sh
 super + ctrl + {h,j,k,l}
-    {bspc node -z right -20 0; \
-    bspc node -z left +20 0, \
-    bspc node -z top 0 -20; \
-    bspc node -z bottom 0 +20, \
-    bspc node -z top 0 +20; \
-    bspc node -z bottom 0 -20, \
-    bspc node -z right +20 0; \
-    bspc node -z left -20 0}
-# Swap current window with biggest window
-super + g
-	bspc node -s biggest.window
+    {~/.local/bin/bspwm_grow_windows.sh west, \
+    ~/.local/bin/bspwm_grow_windows.sh south, \
+    ~/.local/bin/bspwm_grow_windows.sh north, \
+    ~/.local/bin/bspwm_grow_windows.sh east}
 # focus the node in the given direction, shift swaps nodes
 super + {_,shift +}{Left,Down,Up,Right}
     bspc node -{f,s} {west,south,north,east}
