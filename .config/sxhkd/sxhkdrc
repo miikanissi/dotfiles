@@ -11,9 +11,9 @@ super + d
 # launch rofi desktop launcher
 super + ctrl + d
     rofi -show drun
-# launch passmenu
+# launch bwmenu https://github.com/mattydebie/bitwarden-rofi
 super + shift + d
-    ~/.local/bin/rofi_passmenu.sh
+    bwmenu --auto-lock -1
 # launch rofi kill script
 super + x
     ~/.local/bin/rofi_killprocess.sh
