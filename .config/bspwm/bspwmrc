@@ -5,7 +5,18 @@
 export BSPWM_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/bspwm"
 
 ### BSPC ###
-bspc monitor eDP -d 1 2 3 4 5 6 7 8 9 10
+INTERNAL_MONITOR="eDP"
+EXTERNAL_MONITOR="HDMI-A-0"
+# on first load setup default workspaces
+if [[ "$1" = 0 ]]; then
+  if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then
+    bspc monitor "$EXTERNAL_MONITOR" -d 1 2 3 4 5
+    bspc monitor "$INTERNAL_MONITOR" -d 6 7 8 9 10
+    bspc wm -O "$EXTERNAL_MONITOR" "$INTERNAL_MONITOR"
+  else
+    bspc monitor "$INTERNAL_MONITOR" -d 1 2 3 4 5 6 7 8 9 10
+  fi
+fi
 bspc config pointer_modifier        mod4
 bspc config border_width            5
 bspc config window_gap              0
@@ -40,7 +51,7 @@ source ~/.bashrc
 xrdb .Xresources &
 
 # Detect screen layout
-autorandr -c
+# autorandr -c
 
 # Turn on notifications
 _run dunst --config ~/.config/dunst/dunstrc
@@ -74,5 +85,5 @@ _run redshift
 # Compositor
 _run picom --config .config/picom/picom.conf --experimental-backends --vsync
 
-# Setup monitors, polybar and wallpaper. This is run on startup and on autorandr change
+# Setup monitors, polybar and wallpaper
 ~/.local/bin/bspwm_setup_monitors.sh &

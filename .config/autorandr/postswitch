@@ -1,3 +1,0 @@
-#!/bin/sh
-
-~/.local/bin/bspwm_setup_monitors.sh &
