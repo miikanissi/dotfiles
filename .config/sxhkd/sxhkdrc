@@ -4,7 +4,7 @@
 
 ### PROGRAM LAUNCHERS ###
 super + {Return, Print, w, e, b, s, m}
-    {alacritty, flameshot gui, brave-browser, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, alacritty -t ncmpcpp -e ncmpcpp}
+    {alacritty, flameshot gui, firefox, geary, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, alacritty -t ncmpcpp -e ncmpcpp}
 # launch rofi
 super + d
     rofi -show run
@@ -34,6 +34,9 @@ super + {t,shift + t,shift + f,f}
 # toggle fullscreen
 super + Tab
     bspc node -t \~fullscreen
+# rotate the tree from current nodes parent
+super + r
+    bspc node @parent --rotate 90
 # Shrink/grow window, uses script from ~/.local/bin/bspwm_grow_windows.sh
 super + ctrl + {h,j,k,l}
     {~/.local/bin/bspwm_grow_windows.sh west, \

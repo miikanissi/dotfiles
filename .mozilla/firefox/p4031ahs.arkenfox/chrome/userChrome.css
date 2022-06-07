@@ -1,0 +1,4 @@
+/* full screen toolbars */
+#navigator-toolbox[inFullscreen="true"] #PersonalToolbar {
+    visibility: unset !important;
+}
