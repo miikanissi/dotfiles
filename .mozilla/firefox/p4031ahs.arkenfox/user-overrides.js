@@ -22,4 +22,5 @@ user_pref("browser.fullscreen.autohide", false); // 9000
 user_pref("signon.rememberSignons", false); // 9000
 user_pref("browser.toolbars.bookmarks.visibility", always); // 9000
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // 9000
-user_pref("full-screen-api.enabled", false);
+user_pref("full-screen-api.enabled", false); // 9000
+user_pref("media.videocontrols.picture-in-picture.video-toggle.enabled", false); // 9000

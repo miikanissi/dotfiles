@@ -2,3 +2,6 @@
 #navigator-toolbox[inFullscreen="true"] #PersonalToolbar {
     visibility: unset !important;
 }
+#contentAreaContextMenu {
+    margin: 10px 0 0 10px;
+}
