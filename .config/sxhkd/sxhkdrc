@@ -31,9 +31,9 @@ super {_,shift + } q
 # state of the window
 super + {t,shift + t,shift + f,f}
     bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-# toggle fullscreen
+# toggle monocle layout
 super + Tab
-    bspc node -t \~fullscreen
+    bspc desktop -l next
 # rotate the tree from current nodes parent
 super + r
     bspc node @parent --rotate 90
