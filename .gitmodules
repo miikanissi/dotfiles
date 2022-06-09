@@ -1,6 +1,3 @@
-[submodule ".icons/vimix-icon-theme"]
-	path = .icons/vimix-icon-theme
-	url = git@github.com:vinceliuice/vimix-icon-theme.git
 [submodule ".icons/elementary-cursors"]
 	path = .icons/elementary-cursors
 	url = git@github.com:kaesetoast/elementary-cursors.git

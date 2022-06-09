@@ -89,3 +89,4 @@ P,pylint,A code analyser for Python
 ,bc,A command line calculator
 ,libnotify-bin,Allows desktop notifications
 ,ffmpeg,A command-line video manipulation tool
+,gsimplecal,A simple calendar application
