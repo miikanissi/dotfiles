@@ -64,6 +64,9 @@ xset fp rehash &
 fc-cache -fv &
 _run sxhkd -m -1 > /tmp/sxhkd.log
 
+# File browser daemon (automatic mounting etc)
+_run pcmanfm -d
+
 # Music daemon
 _run mpd
 
