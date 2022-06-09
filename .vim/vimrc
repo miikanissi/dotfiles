@@ -50,7 +50,7 @@ runtime macros/matchit.vim
 " colors
 let g:gruvbox_contrast_light = 'medium'
 colorscheme gruvbox
-let $BAT_THEME='GitHub'
+let $BAT_THEME='Monokai Extended Light'
 set t_Co=256                        " use 256 colors
 set termguicolors                   " use gui colors, not supported by every terminal
 let &t_ut=''                        " fixes colors for kitty
