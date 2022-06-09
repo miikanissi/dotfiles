@@ -100,6 +100,8 @@
     padding = 8
     # Horizontal padding.
     horizontal_padding = 8
+    # Corner radius
+    corner_radius = 6
     # Define a color for the separator.
     # possible values are:
     #  * auto: dunst tries to find a color fitting to the background;
@@ -110,7 +112,6 @@
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
     # automatically after a crash.
-    startup_notification = false
     # dmenu path.
     dmenu = /usr/bin/rofi -dmenu -p dunst:
     # Browser for opening urls in context menu.
@@ -119,41 +120,23 @@
     icon_position = off
     # Paths to default icons.
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
-    frame_width = 2
-# LIGHT START
-    frame_color = "#b16286"
-    separator_color = "#b16286"
-[base16_low]
+    frame_width = 4
+    frame_color = "#458588"
+    separator_color = "#458588"
+[low]
     msg_urgency = low
-    background = "#f9f5d7"
+    background = "#fbf1c7"
     foreground = "#3c3836"
-[base16_normal]
+[normal]
     msg_urgency = normal
-    background = "#f9f5d7"
+    background = "#fbf1c7"
     foreground = "#3c3836"
-[base16_critical]
+[critical]
     msg_urgency = critical
-    background = "#f9f5d7"
-    foreground = "#3c3836"
-    frame_color = "#cc231d"
-    separator_color = "#cc231d"
-# LIGHT END
-## DARK START
-#    frame_color = "#5fafd7"
-#    separator_color = "#5fafd7"
-#[base16_low]
-#    msg_urgency = low
-#    background = "#1c1c1c"
-#    foreground = "#d0d0d0"
-#[base16_normal]
-#    msg_urgency = normal
-#    background = "#1c1c1c"
-#    foreground = "#d0d0d0"
-#[base16_critical]
-#    msg_urgency = critical
-#    background = "#1c1c1c"
-#    foreground = "#d0d0d0"
-## DARK END
+    background = "#fbf1c7"
+    foreground = "#9d0006"
+    frame_color = "#9d0006"
+    separator_color = "#9d0006"
 [shortcuts]
     # Shortcuts are specified as [modifier+][modifier+]...key
     # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
