@@ -2,10 +2,9 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/m/.gtkrc-2.0.mine"
-gtk-theme-name="oomox-materia-gruvbox-light-medium"
+gtk-theme-name="oomox-gruvbox-light-medium"
 gtk-icon-theme-name="oomox-materia-gruvbox-light-medium"
 gtk-font-name="Ubuntu Nerd Font 11"
-gtk-cursor-theme-name="elementary"
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_BOTH
 gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
