@@ -1,4 +1,4 @@
-#TAG,NAME IN PACKAGE MANAGER (or git url),PURPOSE
+#TAG (X=no install P=pip install N=npm install),NAME IN PACKAGE MANAGER (or git url),PURPOSE
 ,emacs-gtk,Not a text editor
 ,firmware-linux,Free and non-free drivers
 ,sudo,Run programs as superuser
