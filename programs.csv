@@ -1,92 +1,93 @@
 #TAG (X=no install P=pip install N=npm install),NAME IN PACKAGE MANAGER (or git url),PURPOSE
-,emacs-gtk,Not a text editor
-,firmware-linux,Free and non-free drivers
-,sudo,Run programs as superuser
-,cryptsetup,Manage LUKS encryptions
-,git,A version control system
-,ssh,The Secure Shell Protocol
-,wget,Retrieve files from the internet
-,apt-transport-https,Use repositories via HTTPS
+,alsa-utils,Advanced settings for ALSA
 ,apt-listbugs,Retrieves bug reports from Debian Bug Tracking System
-,zip,Compress files
-,unzip,Uncompress files
+,apt-transport-https,Use repositories via HTTPS
+,arandr,Simple GUI for XRandR
+,bat,Can highlight code output and display files
+,bc,A command line calculator
+,black,A Python code formatter
+,bspwm,A tiling window manager
+,claws-mail,A lightweight and fast email client
+,coreutils,The GNU Core Utilities
+,cowsay,A speaking cow on the command-line
+,cryptsetup,Manage LUKS encryptions
+,curl,A tool to transfer data to or from a server
+,dunst,A notification daemon
+,eject,Eject specified devices
+,emacs-gtk,Not a text editor
+N,eslint-config-prettier,Disables conflicting eslint rules with Prettier
+,feh,A fast and light image viewer
+,ffmpeg,A command-line video manipulation tool
+,firefox-esr,Firefox Extended Support Release
+,firmware-linux,Free and non-free drivers
+,flake8,A Python linter
+,flameshot,A screenshot utility
+,flatpak,Run sandboxed applications
 ,fontconfig,Font configuration
-,fonts-ubuntu,Ubuntu fonts
-,fonts-symbola,Symbola fonts
 ,fonts-font-awesome,Font Awesome fonts
 ,fonts-noto-color-emoji,Noto Color Emoji fonts
-,bspwm,A tiling window manager
-,sxhkd,A keyboard shortcut daemon
-,polybar,A status bar
-,mesa-utils,GL utilities built by Mesa
+,fonts-symbola,Symbola fonts
+,fonts-ubuntu,Ubuntu fonts
+,fuse,A userspace filesystem framework
+,fwupd,Update device firmware
+,fzf,A command-line fuzzy-finder
+,gimp,Graphics and image editor
+,git,A version control system
+,gsimplecal,A simple calendar application
+,htop,An interactive process viewer
+X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulator
+,imagemagick,Convert and edit images
+,jq,A command-line JSON processor
+,keyctl,A set of utilities for managing the key retention facility in the kernel
+,libayatana-appindicator3-1,Application Indicators
+,libnotify-bin,Allows desktop notifications
+,libusbmuxd-tools,USB multiplexor daemon for iPhone
+,libxml2-utils,XML utilities
+,light-locker,A session locker for LightDM
+,ligthdm,A cross-desktop display manager
 ,lm-sensors,A daemon to watch sensor values and log problems
 ,lxappearance,A GTK+ theme switcher
-,pavucontrol,Pulse Audio Volume Control
-,picom,A lightweight compositor for X11
-,ligthdm,A cross-desktop display manager
-,light-locker,A session locker for LightDM
-,network-manager-gnome,Configures network interfaces
-,dunst,A notification daemon
-,sxiv,Simple X Image Viewer
-,xterm,A basic terminal emulator
-X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulator
-,rofi,An application launcher
-,mpd,Music Player Daemon
-,mpc,A client for MPD
-,ncmpcpp,A client for MPD
-,mpv,A media player
-,neofetch,A command-line utility to fetch system information
-,bat,Can highlight code output and display files
-,firefox-esr,Firefox Extended Support Release
-,slick-greeter,A lightDM greeter
-,flameshot,A screenshot utility
-,ripgrep,A line-oriented search tool that recursively searches the current directory for a regex pattern
-,fzf,A command-line fuzzy-finder
-,vim-gtk3,A text editor
-,xdotool,Procides window action utilities on the command line
-,xsel,Retrieve and set X selection
+,lynx,A terminal based web browser
+,mesa-utils,GL utilities built by Mesa
 ,moreutils,A collection of unix tools
-,wmctrl,Control EWMH compatible X window window managers
-,feh,A fast and light image viewer
-,python3,Python Programming Language
-,python3-pip,Package Installer for Python
-,python3-venv,Create Python virtual environments
-,imagemagick,Convert and edit images
-,gimp,Graphics and image editor
-,htop,An interactive process viewer
-,zathura,A PDF viewer
-,flatpak,Run sandboxed applications
+,mpc,A client for MPD
+,mpd,Music Player Daemon
+,mpv,A media player
+,mupdf,A lightweight PDF and E-book viewer
+,ncmpcpp,A client for MPD
+,neofetch,A command-line utility to fetch system information
 ,net-tools,Collection of networking tools
-,alsa-utils,Advanced settings for ALSA
-,shellcheck,Shell script analysis tool
-,libxml2-utils,XML utilities
-,black,A Python code formatter
-N,prettier,An opinionated code formatter
-N,eslint-config-prettier,Disables conflicting eslint rules with Prettier
-N,@prettier/plugin-xml,XML plugin for prettier
-P,pylint,A code analyser for Python
-,jq,A command-line JSON processor
+,network-manager-gnome,Configures network interfaces
 ,nodejs,Back-end JavaScript runtime environment
 ,npm,A package manager for JavaScript
-,lynx,A terminal based web browser
+,pavucontrol,Pulse Audio Volume Control
 ,pcmanfm,A file browser
-,curl,A tool to transfer data to or from a server
-,mupdf,A lightweight PDF and E-book viewer
-,cowsay,A speaking cow on the command-line
-,flake8,A Python linter
-,coreutils,The GNU Core Utilities
-,eject,Eject specified devices
-,fuse,A userspace filesystem framework
-,libayatana-appindicator3-1,Application Indicators
-,arandr,Simple GUI for XRandR
-,fwupd,Update device firmware
-,tlp,Optimize laptop battery life
+,picom,A lightweight compositor for X11
+,polybar,A status bar
+N,prettier,An opinionated code formatter
+N,@prettier/plugin-xml,XML plugin for prettier
+P,pylint,A code analyser for Python
+,python3-pip,Package Installer for Python
+,python3,Python Programming Language
+,python3-venv,Create Python virtual environments
 ,redshift,Adjusts the color temperatur of your screen
-,libusbmuxd-tools,USB multiplexor daemon for iPhone
+,ripgrep,A line-oriented search tool that recursively searches the current directory for a regex pattern
+,rofi,An application launcher
+,shellcheck,Shell script analysis tool
+,slick-greeter,A lightDM greeter
+,ssh,The Secure Shell Protocol
+,sudo,Run programs as superuser
+,sxhkd,A keyboard shortcut daemon
+,sxiv,Simple X Image Viewer
+,tlp,Optimize laptop battery life
+,unzip,Uncompress files
 ,uuid-dev,Universally Unique ID library
+,vim-gtk3,A text editor
+,wget,Retrieve files from the internet
+,wmctrl,Control EWMH compatible X window window managers
 ,xclip,Copy and paste at the command-line
-,keyctl,A set of utilities for managing the key retention facility in the kernel
-,bc,A command line calculator
-,libnotify-bin,Allows desktop notifications
-,ffmpeg,A command-line video manipulation tool
-,gsimplecal,A simple calendar application
+,xdotool,Procides window action utilities on the command line
+,xsel,Retrieve and set X selection
+,xterm,A basic terminal emulator
+,zathura,A PDF viewer
+,zip,Compress files

@@ -3,8 +3,8 @@
 # https://miikanissi.com
 
 ### PROGRAM LAUNCHERS ###
-super + {Return, Print, w, b, s, m}
-    {alacritty, flameshot gui, firefox, pcmanfm, signal-desktop --start-in-tray --use-tray-icon, alacritty -t ncmpcpp -e ncmpcpp}
+super + {Return, Print, w, b, e, s, m}
+    {alacritty, flameshot gui, firefox, pcmanfm, claws-mail, signal-desktop --start-in-tray --use-tray-icon, alacritty -t ncmpcpp -e ncmpcpp}
 # launch rofi
 super + d
     rofi -show run
