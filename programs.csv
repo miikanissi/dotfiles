@@ -48,6 +48,7 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 ,lm-sensors,A daemon to watch sensor values and log problems
 ,lxappearance,A GTK+ theme switcher
 ,lynx,A terminal based web browser
+,markdown,A text-to-HTML conversion tool for markdown files
 ,mesa-utils,GL utilities built by Mesa
 ,moreutils,A collection of unix tools
 ,mpc,A client for MPD
@@ -73,6 +74,7 @@ P,pylint,A code analyser for Python
 ,redshift,Adjusts the color temperatur of your screen
 ,ripgrep,A line-oriented search tool that recursively searches the current directory for a regex pattern
 ,rofi,An application launcher
+,rsync,synchronizes remote and local files
 ,shellcheck,Shell script analysis tool
 ,slick-greeter,A lightDM greeter
 ,ssh,The Secure Shell Protocol

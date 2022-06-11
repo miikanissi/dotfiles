@@ -33,7 +33,6 @@ monitor_remove() {
   bspc desktop Desktop --remove
   # reorder desktops
   bspc monitor "$INTERNAL_MONITOR" -o 1 2 3 4 5 6 7 8 9 10
-
 }
 
 if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then
