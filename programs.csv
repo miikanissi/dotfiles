@@ -5,12 +5,15 @@
 ,arandr,Simple GUI for XRandR
 ,bat,Can highlight code output and display files
 ,bc,A command line calculator
-,black,A Python code formatter
+P,black,A Python code formatter
 ,bspwm,A tiling window manager
+,clang,A C compiler
 ,claws-mail,A lightweight and fast email client
+,cmake,Build automation for C
 ,coreutils,The GNU Core Utilities
 ,cowsay,A speaking cow on the command-line
 ,cryptsetup,Manage LUKS encryptions
+,ctags,Navigate source code with tags
 ,curl,A tool to transfer data to or from a server
 ,dunst,A notification daemon
 ,eject,Eject specified devices
@@ -40,11 +43,13 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 ,jq,A command-line JSON processor
 ,keyctl,A set of utilities for managing the key retention facility in the kernel
 ,libayatana-appindicator3-1,Application Indicators
+,libclang-dev,A common development package
 ,libnotify-bin,Allows desktop notifications
 ,libusbmuxd-tools,USB multiplexor daemon for iPhone
 ,libxml2-utils,XML utilities
 ,light-locker,A session locker for LightDM
 ,ligthdm,A cross-desktop display manager
+,llvm-dev,A collection of modular and reusable compiler and toolchain technologies 
 ,lm-sensors,A daemon to watch sensor values and log problems
 ,lxappearance,A GTK+ theme switcher
 ,lynx,A terminal based web browser
@@ -59,8 +64,9 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 ,neofetch,A command-line utility to fetch system information
 ,net-tools,Collection of networking tools
 ,network-manager-gnome,Configures network interfaces
-,nodejs,Back-end JavaScript runtime environment
+X,nodejs,Back-end JavaScript runtime environment
 ,npm,A package manager for JavaScript
+X,https://github.com/neovim/neovim,An improved Vim
 ,pavucontrol,Pulse Audio Volume Control
 ,pcmanfm,A file browser
 ,picom,A lightweight compositor for X11
@@ -68,9 +74,11 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 N,prettier,An opinionated code formatter
 N,@prettier/plugin-xml,XML plugin for prettier
 P,pylint,A code analyser for Python
+P,pylint-odoo,A Pylint plugin for Odoo
 ,python3-pip,Package Installer for Python
 ,python3,Python Programming Language
 ,python3-venv,Create Python virtual environments
+,rapidson,A JSON parser and generator for C++
 ,redshift,Adjusts the color temperatur of your screen
 ,ripgrep,A line-oriented search tool that recursively searches the current directory for a regex pattern
 ,rofi,An application launcher
@@ -82,6 +90,7 @@ P,pylint,A code analyser for Python
 ,sxhkd,A keyboard shortcut daemon
 ,sxiv,Simple X Image Viewer
 ,tlp,Optimize laptop battery life
+,tree,A recursive directory listing program
 ,unzip,Uncompress files
 ,uuid-dev,Universally Unique ID library
 ,vim-gtk3,A text editor

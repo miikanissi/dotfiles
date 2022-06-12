@@ -77,7 +77,8 @@ alias pubip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip="ip address | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
 alias passmenu='~/.local/bin/rofi_passmenu.sh' # replace passmenu script with rofi passmenu
-alias v='vim'
+alias v='nvim'
+alias vim='nvim'
 ### odoo aliases ###
 alias odoo='/opt/odoo/12/server/odoo-bin'
 alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
