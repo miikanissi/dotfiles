@@ -384,6 +384,7 @@ require("null-ls").setup({
 vim.keymap.set('n', '<leader>bf', vim.lsp.buf.formatting, {})
 -- luasnip setup
 local luasnip = require 'luasnip'
+require("luasnip.loaders.from_snipmate").load()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
