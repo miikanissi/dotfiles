@@ -226,7 +226,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 require("nvim-lsp-installer").setup({
     -- List of servers to automatically install
-    ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'ccls' },
+    ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'clangd' },
     -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     automatic_installation = true,
     ui = {
@@ -344,8 +344,8 @@ lspconfig.pyright.setup {
         },
     },
 }
--- LSPs with default setup: bashls (Bash), cssls (CSS), html (HTML), ccls (C/C++), jsonls (JSON)
-for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'ccls', 'jsonls' } do
+-- LSPs with default setup: bashls (Bash), cssls (CSS), html (HTML), clangd (C/C++), jsonls (JSON)
+for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'clangd', 'jsonls' } do
     lspconfig[lsp].setup {
         on_attach = on_attach,
         capabilities = capabilities,
