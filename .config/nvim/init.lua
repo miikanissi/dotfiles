@@ -380,7 +380,6 @@ require("null-ls").setup({
         }),
         require("null-ls").builtins.formatting.black,
         require("null-ls").builtins.formatting.isort,
-        require("null-ls").builtins.diagnostics.shellcheck,
         require("null-ls").builtins.diagnostics.pylint.with({
             extra_args = { "--load-plugins=pylint_odoo", "-e", "odoolint" }
         }),
