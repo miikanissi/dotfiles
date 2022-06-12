@@ -29,7 +29,7 @@ Here are the details of my setup:
 - **File Manager**: [PCManFM](https://wiki.archlinux.org/index.php/PCManFM) - A basic
   graphical file manager
 - **Hotkeys**: [SXHKD](https://github.com/baskerville/sxhkd)
-- **Text Editor**: [Vim](https://www.vim.org/),
+- **Text Editors**: [Neovim](https://neovim.io/), [Vim](https://www.vim.org/),
   [Emacs](https://www.gnu.org/software/emacs/) - Programming and text editing
 - **Music Player**: [MPD](https://www.musicpd.org/),
   [NCMPCPP](https://github.com/ncmpcpp/ncmpcpp) - Polybar integration
@@ -101,11 +101,18 @@ model id for all usb devices by running the command `lsusb`:
 
     ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="0510" RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"
 
+## Text editors
+
+Currently I have configurations for Neovim ([~/.config/nvim/](./.config/nvim/)), Vim
+([~/.vim/](./.vim/)) and Emacs ([~/.emacs.d/](./.emacs.d/). At this moment I am only
+using Neovim and that is the only configuration I am maintaining. My Emacs configuration
+is written as a self documenting Org file for easier understanding.
+
 ## Links / Credits
 
 To stay up to date with me visit my [website](https://miikanissi.com).
 
-Links:
+Useful Links:
 
 - [Arch Wiki](https://wiki.archlinux.org/) - Arch Wiki is a great Linux resource for
   almost anything.

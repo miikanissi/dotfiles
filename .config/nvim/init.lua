@@ -1,10 +1,9 @@
+-- PACKAGES
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
 end
-
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost',
     { command = 'source <afile> | PackerCompile', group = packer_group, pattern = 'init.lua' })
@@ -13,92 +12,74 @@ vim.api.nvim_create_autocmd('BufWritePost',
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- Package manager
     use 'gruvbox-community/gruvbox' -- Color scheme
-    use 'ap/vim-css-color' -- highlight color codes in code
+    use 'ap/vim-css-color' -- Highlight colors
     use 'tpope/vim-fugitive' -- Git commands in nvim
     use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
+    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Git info in sign column and popups
     use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
     use 'ludovicchabant/vim-gutentags' -- Automatic tags management
-    -- UI to select things (files, grep results, open buffers...)
-    use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } } -- Telescope fuzzy finder
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } -- Fzf port for telescope
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-    -- Add indentation guides even on blank lines
-    use 'lukas-reineke/indent-blankline.nvim'
-    -- Add git related info in the signs columns and popups
-    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-    -- Highlight, edit, and navigate code using a fast incremental parsing library
-    use 'nvim-treesitter/nvim-treesitter'
-    -- Additional textobjects for treesitter
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides
+    use 'nvim-treesitter/nvim-treesitter' -- Highlight and navigate using a parsing library
+    use 'nvim-treesitter/nvim-treesitter-textobjects' -- Additional treesitter objects
+    use 'windwp/nvim-ts-autotag' -- Automatically close tags using treesitter
     use 'williamboman/nvim-lsp-installer' -- Automatically install LSPs
-    use 'jose-elias-alvarez/null-ls.nvim' -- Null ls is used for formatting
-    -- use 'alvan/vim-closetag'
-    use 'windwp/nvim-ts-autotag'
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+    use 'jose-elias-alvarez/null-ls.nvim' -- Null ls is used for code formatting and pylint analysis
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'saadparwaiz1/cmp_luasnip'
+    use 'hrsh7th/cmp-nvim-lsp' -- Autocompletion with LSPs
     use 'L3MON4D3/LuaSnip' -- Snippets plugin
+    use 'saadparwaiz1/cmp_luasnip' -- Snippets autocompletion
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {
             'kyazdani42/nvim-web-devicons',
         },
-    }
+    } -- File tree browser
 end)
--- Theme and colors
-vim.opt.termguicolors = true -- gui colors
-vim.opt.background = "light" -- default to light background
-vim.cmd [[colorscheme gruvbox]]
---Set highlight on search
-vim.o.hlsearch = false
-vim.opt.clipboard = "unnamedplus" -- uses system clipboard
--- Tabs and indent
-vim.opt.tabstop = 4 -- tab stops at 4 spaces
-vim.opt.softtabstop = 4 -- tab stops at 4 spaces
-vim.opt.shiftwidth = 4 -- default shift
-vim.opt.expandtab = true -- default tabs
-vim.opt.smartindent = true -- default tabs
--- Mouse and cursor
-vim.opt.mouse = 'a' -- Enable mouse support
+
+-- SETTINGS
+-- Theme, colors and gui
+vim.opt.termguicolors = true -- Use full colors
+vim.opt.background = "light" -- Default to light background
+vim.cmd [[colorscheme gruvbox]] -- Use gruvbox theme
+vim.o.hlsearch = false -- No highlight on search
+vim.opt.clipboard = "unnamedplus" -- Share system clipboard
 vim.opt.guicursor = "" -- Insert mode cursor
-vim.opt.cursorline = true -- Highlight curosr line
-
-vim.opt.relativenumber = true -- hybrid line numbers
-vim.opt.eb = false -- no error bells
-vim.opt.ignorecase = true -- ignores case in search
-vim.opt.smartcase = true -- uses smartcase in search
-vim.opt.swapfile = false -- no swap file
-vim.opt.backup = false -- no backup file
-vim.opt.undofile = true -- makes undofile for history in undodir
-vim.opt.modelines = 0 -- no modelines
-vim.opt.colorcolumn = "88" -- colorcolumn is 80
-vim.opt.lazyredraw = true -- no redraw
-vim.opt.magic = true -- magic for regex
-vim.opt.scrolloff = 8 -- shows 8 lines under mouse when moving the file
-vim.opt.matchpairs:append { "<:>" } -- highlights matching brackets, '%' to jump between them
-vim.opt.laststatus = 2 -- allows lightline to show
+vim.opt.cursorline = true -- Highlight cursor line
+vim.opt.colorcolumn = "88" -- Colorcolumn is 88
+vim.opt.matchpairs:append { "<:>" } -- Highlights matching brackets - '%' to jump between them
 vim.opt.showmode = false -- -- INSERT -- is not shown as lightline shows it
-vim.opt.updatetime = 100 -- default is 4000
-vim.opt.signcolumn = "yes" -- always show signcolumns
-vim.opt.wildmenu = true
-vim.opt.completeopt = "menuone,noselect"
-vim.opt.incsearch = true
-
---Set statusbar
-require('lualine').setup {
-    options = {
-        icons_enabled = false,
-        theme = 'gruvbox',
-        component_separators = '|',
-        section_separators = '',
-    },
-}
-
--- Enable nvim-tree
-require('nvim-tree').setup()
---Enable Comment.nvim
-require('Comment').setup()
+vim.opt.signcolumn = "yes" -- Always show signcolumn
+vim.opt.relativenumber = true -- Hybrid line numbers
+vim.opt.scrolloff = 8 -- Shows 8 lines under mouse when moving the file
+-- Tabs and indent
+vim.opt.tabstop = 4 -- Tab stops at 4 spaces
+vim.opt.softtabstop = 4 -- Tab stops at 4 spaces
+vim.opt.shiftwidth = 4 -- Default shift
+vim.opt.expandtab = true -- Default tabs
+vim.opt.smartindent = true -- Default tabs
+-- Menus, search and completion
+vim.opt.ignorecase = true -- Ignores case in search
+vim.opt.smartcase = true -- Uses smartcase in search
+vim.opt.incsearch = true -- Search incrementally
+vim.opt.magic = true -- Magic for regex
+vim.opt.wildmenu = true -- Use wildmenu
+vim.opt.wildmode = "longest:full,full" -- First tab completes longest common string
+vim.opt.completeopt = "menuone,noselect" -- Completion menu options
+-- Misc
+vim.opt.foldmethod = "expr" -- Use folding expression
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- Folding provided by treesitter
+vim.opt.foldlevel = 99 -- Never fold by default
+vim.opt.mouse = 'a' -- Enable mouse support
+vim.opt.eb = false -- No error bells
+vim.opt.swapfile = false -- No swap file
+vim.opt.backup = false -- No backup file
+vim.opt.undofile = true -- Makes undofile for history
+vim.opt.lazyredraw = true -- No redraw
+vim.opt.updatetime = 100 -- Default is 4000 - less updates
 
 --Remap space as leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -118,6 +99,23 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = highlight_group,
     pattern = '*',
 })
+
+-- PLUGINS
+-- Lualine
+require('lualine').setup {
+    options = {
+        icons_enabled = false,
+        theme = 'gruvbox',
+        component_separators = '|',
+        section_separators = '',
+    },
+}
+-- Nvim-tree
+require('nvim-tree').setup()
+vim.keymap.set('n', '<leader>t', ":NvimTreeToggle<CR>", { silent = true })
+
+--Enable Comment.nvim
+require('Comment').setup()
 
 -- Indent blankline
 require('indent_blankline').setup {
@@ -147,10 +145,8 @@ require('telescope').setup {
         },
     },
 }
-
 -- Enable telescope fzf native
 require('telescope').load_extension 'fzf'
-
 --Add leader shortcuts
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>sf', function()
@@ -166,16 +162,14 @@ vim.keymap.set('n', '<leader>so', function()
 end)
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
 
--- Treesitter configuration
--- Parsers must be installed manually via :TSInstall
+-- Treesitter
 require('nvim-treesitter.configs').setup {
     ensure_installed = { "c", "html", "javascript", "python", "lua", "css", "bash" },
     autotag = {
         enable = true,
-        filetypes = { "html", "xml" }
     },
     highlight = {
-        enable = true, -- false will disable the whole extension
+        enable = true,
     },
     incremental_selection = {
         enable = true,
@@ -223,12 +217,13 @@ require('nvim-treesitter.configs').setup {
         },
     },
 }
+
+-- LSP PLUGINS AND SETTINGS
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
--- LSP settings
 require("nvim-lsp-installer").setup({
     -- List of servers to automatically install
     ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'ccls' },
@@ -335,7 +330,6 @@ lspconfig.sumneko_lua.setup {
         },
     },
 }
-
 -- pyright (Python)
 lspconfig.pyright.setup {
     on_attach = on_attach,
@@ -357,7 +351,8 @@ for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'ccls', 'jsonls' } do
         capabilities = capabilities,
     }
 end
--- Null ls for automatic formatting
+
+-- Null ls for automatic formatting and additional analysis
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require("null-ls").setup({
     -- you can reuse a shared lspconfig on_attach callback here
@@ -381,7 +376,7 @@ require("null-ls").setup({
         require("null-ls").builtins.formatting.black,
         require("null-ls").builtins.formatting.isort,
         require("null-ls").builtins.diagnostics.pylint.with({
-            extra_args = { "--load-plugins=pylint_odoo", "-e", "odoolint" }
+            extra_args = { "--load-plugins=pylint_odoo", "-e", "odoolint" } -- Load pylint_odoo plugin for pylint
         }),
     },
 })
