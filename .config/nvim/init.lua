@@ -25,6 +25,7 @@ require('packer').startup(function(use)
     use 'nvim-treesitter/nvim-treesitter' -- Highlight and navigate using a parsing library
     use 'nvim-treesitter/nvim-treesitter-textobjects' -- Additional treesitter objects
     use 'windwp/nvim-ts-autotag' -- Automatically close tags using treesitter
+    use 'windwp/nvim-autopairs' -- Automatically close pairs
     use 'williamboman/nvim-lsp-installer' -- Automatically install LSPs
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
     use 'jose-elias-alvarez/null-ls.nvim' -- Null ls is used for code formatting and pylint analysis
@@ -54,6 +55,7 @@ vim.opt.matchpairs:append { "<:>" } -- Highlights matching brackets - '%' to jum
 vim.opt.showmode = false -- -- INSERT -- is not shown as lightline shows it
 vim.opt.signcolumn = "yes" -- Always show signcolumn
 vim.opt.relativenumber = true -- Hybrid line numbers
+vim.opt.number = true -- Hybrid line numbers
 vim.opt.scrolloff = 8 -- Shows 8 lines under mouse when moving the file
 -- Tabs and indent
 vim.opt.tabstop = 4 -- Tab stops at 4 spaces
@@ -116,6 +118,9 @@ vim.keymap.set('n', '<leader>t', ":NvimTreeToggle<CR>", { silent = true })
 
 --Enable Comment.nvim
 require('Comment').setup()
+
+-- Enable nvim-autopairs
+require("nvim-autopairs").setup {}
 
 -- Indent blankline
 require('indent_blankline').setup {
