@@ -13,7 +13,7 @@ This is my personal nvim configuration that is:
 - Ensure the following packages are installed (debian). It is recommended to download
   nodejs from the [NodeSource repository](https://github.com/nodesource/distributions):
 
-        sudo apt install clang cmake libclang-dev python3-pip nodejs \
+        sudo apt install clang cmake libclang-dev python3-pip nodejs ctags \
         && pip3 install --upgrade black pylint pylint-odoo \
         && npm install --save-dev prettier @prettier/plugin-xml
 

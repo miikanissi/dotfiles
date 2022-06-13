@@ -49,9 +49,8 @@ _run() {
 # Environment
 source ~/.bashrc
 xrdb .Xresources &
-
-# Detect screen layout
-# autorandr -c
+# Fixes Java applications
+wmname LG3D &
 
 # Turn on notifications
 _run dunst --config ~/.config/dunst/dunstrc

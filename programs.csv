@@ -63,9 +63,11 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 ,neofetch,A command-line utility to fetch system information
 ,net-tools,Collection of networking tools
 ,network-manager-gnome,Configures network interfaces
+,network-manager-openvpn-gnome,OpenVPN for Network Manager
 X,nodejs,Back-end JavaScript runtime environment
 ,npm,A package manager for JavaScript
 X,https://github.com/neovim/neovim,An improved Vim
+,openvpn,OpenVPN protocol
 ,pavucontrol,Pulse Audio Volume Control
 ,pcmanfm,A file browser
 ,picom,A lightweight compositor for X11
@@ -84,6 +86,7 @@ P,pylint-odoo,A Pylint plugin for Odoo
 ,shellcheck,Shell script analysis tool
 ,slick-greeter,A lightDM greeter
 ,ssh,The Secure Shell Protocol
+,suckless-tools,Tools that suck less
 ,sudo,Run programs as superuser
 ,sxhkd,A keyboard shortcut daemon
 ,sxiv,Simple X Image Viewer

@@ -1,6 +1,6 @@
 configuration {
 	modi: 			"drun,window";
-	width: 			600;
+	width: 			1000;
     sidebar-mode:   true;
 	lines: 			10;
     show-icons:     false;

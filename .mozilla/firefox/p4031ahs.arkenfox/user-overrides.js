@@ -3,14 +3,14 @@
  *
  * ******************/
 user_pref("browser.startup.page", 3); // 0102
-user_pref("privacy.clearOnShutdown.history", false); // 2811
 user_pref("keyword.enabled", true); // 0801
-user_pref("network.http.referer.XOriginPolicy", 2); // 1601
+user_pref("network.auth.subresource-http-auth-allow", 2); // 0905
+user_pref("network.http.referer.XOriginPolicy", 0); // 1601
 user_pref("dom.disable_beforeunload", false); // 2401
 user_pref("browser.download.manager.addToRecentDocs", true); // 2653
 user_pref("network.cookie.lifetimePolicy", 0); //2801
 user_pref("privacy.clearOnShutdown.history", false); // 2811
-user_pref("privacy.clearOnShutdown.sessions", false);  // 2811
+user_pref("privacy.clearOnShutdown.sessions", false); // 2811
 user_pref("privacy.resistFingerprinting", false); //4504
 user_pref("privacy.resistFingerprinting.letterboxing", false); // 4504
 user_pref("browser.display.use_system_colors", true); // 4510
