@@ -50,7 +50,7 @@ _run() {
 source ~/.bashrc
 xrdb .Xresources &
 # Fixes Java applications
-wmname LG3D &
+wmname LG3D
 
 # Turn on notifications
 _run dunst --config ~/.config/dunst/dunstrc

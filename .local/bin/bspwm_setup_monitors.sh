@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# Exit script if not on bspwm
-WM=$(wmctrl -m | grep Name: | awk '{print $2}')
-if [[ "${WM}" != "bspwm" ]]; then
-  exit 0
-fi
-
 INTERNAL_MONITOR="eDP"
 EXTERNAL_MONITOR="HDMI-A-0"
 
