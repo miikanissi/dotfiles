@@ -22,9 +22,9 @@ require('packer').startup(function(use)
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' } -- Fzf port for telescope
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
     use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides
+    use 'alvan/vim-closetag' -- Automatically close html/xml tags
     use 'nvim-treesitter/nvim-treesitter' -- Highlight and navigate using a parsing library
     use 'nvim-treesitter/nvim-treesitter-textobjects' -- Additional treesitter objects
-    use 'windwp/nvim-ts-autotag' -- Automatically close tags using treesitter
     use 'windwp/nvim-autopairs' -- Automatically close pairs
     use 'williamboman/nvim-lsp-installer' -- Automatically install LSPs
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
@@ -112,6 +112,20 @@ require('lualine').setup {
         section_separators = '',
     },
 }
+-- Closetag
+local closetag_regions = {}
+closetag_regions['typescript.tsx'] = 'jsxRegion,tsxRegion'
+closetag_regions['javascript.jsx'] = 'jsxRegion'
+closetag_regions['typescriptreact'] = 'jsxRegion,tsxRegion'
+closetag_regions['javascriptreact'] = 'jsxRegion'
+vim.g['closetag_xhtml_filetypes'] = 'xml,xhtml,javascript.jsx,jsx,typescript.tsx,typescriptreact'
+vim.g['closetag_xhtml_filenames'] = '*.html,*.xml,*.xhtml,*.js,*.jsx,*.tsx'
+vim.g['closetag_filetypes'] = 'html,xml,xhtml,phtml,javascript.jsx,jsx,typescript.tsx,typescriptreact'
+vim.g['closetag_emptyTags_caseSensitive'] = 1
+vim.g['closetag_regions'] = closetag_regions
+vim.g['closetag_shortcut'] = '>'
+vim.g['closetag_close_shortcut'] = '<leader>>'
+
 -- Nvim-tree
 require('nvim-tree').setup()
 vim.keymap.set('n', '<leader>t', ":NvimTreeToggle<CR>", { silent = true })
@@ -170,9 +184,6 @@ vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
 -- Treesitter
 require('nvim-treesitter.configs').setup {
     ensure_installed = { "c", "html", "javascript", "python", "lua", "css", "bash" },
-    autotag = {
-        enable = true,
-    },
     highlight = {
         enable = true,
     },
@@ -231,7 +242,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 require("nvim-lsp-installer").setup({
     -- List of servers to automatically install
-    ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'clangd' },
+    ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'clangd', 'lemminx' },
     -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     automatic_installation = true,
     ui = {
@@ -349,8 +360,19 @@ lspconfig.pyright.setup {
         },
     },
 }
+-- lemminx (XML)
+lspconfig.lemminx.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+        -- Disable formatting v0.7
+        client.resolved_capabilities.document_formatting = false
+        -- Disable formatting v0.8
+        client.server_capabilities.documentFormattingProvider = false
+        on_attach(client, bufnr)
+    end
+}
 -- LSPs with default setup: bashls (Bash), cssls (CSS), html (HTML), clangd (C/C++), jsonls (JSON)
-for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'clangd', 'jsonls' } do
+for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'clangd', 'jsonls'} do
     lspconfig[lsp].setup {
         on_attach = on_attach,
         capabilities = capabilities,
