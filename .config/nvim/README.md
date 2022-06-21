@@ -14,7 +14,7 @@ This is my personal nvim configuration that is:
   nodejs from the [NodeSource repository](https://github.com/nodesource/distributions):
 
         sudo apt install clang cmake libclang-dev python3-pip nodejs ctags \
-        && pip3 install --upgrade black pylint pylint-odoo \
+        && pip3 install --upgrade pynvim debugpy black pylint pylint-odoo \
         && npm install --save-dev prettier @prettier/plugin-xml
 
 - Copy and paste the `init.lua` file into `$HOME/.config/nvim/init.lua`
@@ -26,6 +26,10 @@ This is my personal nvim configuration that is:
 | Keymap            | List                                                                                                                    |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `<space>`         | The leader key `<leader>`                                                                                               |
+| `<C-J>`           | Switch to window below `<C-W>j`                                                                                         |
+| `<C-K>`           | Switch to window above `<C-W>k`                                                                                         |
+| `<C-H>`           | Switch to window left `<C-W>h`                                                                                          |
+| `<C-L>`           | Switch to window right `<C-W>l`                                                                                         |
 | `<leader>t`       | Nvim-tree: Toggles nvim-tree (`:NvimTreeToggle<CR>`)                                                                    |
 | `<leader><space>` | Telescope: Buffers `require('telescope.builtin').buffers`                                                               |
 | `<leader>sf`      | Telescope: Files `require('telescope.builtin').find_files`                                                              |
@@ -54,3 +58,10 @@ This is my personal nvim configuration that is:
 | `<leader>ca`      | LSP: Selects a code action available at the current cursor position `vim.lsp.buf.code_action`                           |
 | `<leader>so`      | LSP / Telescope: Lists LSP document symbols in the current buffer `require('telescope.builtin').lsp_document_symbols`   |
 | `<leader>bf`      | LSP: Format the current buffer `vim.lsp.buf.formatting`                                                                 |
+| `<leader>db`      | DAP: Toggle a breakpoint `require('dap').toggle_breakpoint`                                                             |
+| `<leader>dk`      | DAP: Step out `require('dap').step_out`                                                                                 |
+| `<leader>dj`      | DAP: Step over `require('dap').step_over`                                                                               |
+| `<leader>dl`      | DAP: Step into `require('dap').step_into`                                                                               |
+| `<leader>dn`      | DAP: Start / Continue `require('dap').continue`                                                                         |
+| `<leader>dp`      | DAP: Run last option `require('dap').run_last`                                                                          |
+| `<leader>dk`      | DAP: Open repl `require('dap').repl.open`                                                                               |

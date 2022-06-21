@@ -39,6 +39,8 @@ require('packer').startup(function(use)
             'kyazdani42/nvim-web-devicons',
         },
     } -- File tree browser
+    use 'mfussenegger/nvim-dap' -- A debugger frontend
+    use 'mfussenegger/nvim-dap-python' -- Python configuration for nvim-dap
 end)
 
 -- SETTINGS
@@ -91,6 +93,12 @@ vim.g.maplocalleader = ' '
 --Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Remap to switch windows with Ctrl + hjkl
+vim.keymap.set('n', '<C-J>', "<C-W>j", { silent = true })
+vim.keymap.set('n', '<C-K>', "<C-W>k", { silent = true })
+vim.keymap.set('n', '<C-L>', "<C-W>l", { silent = true })
+vim.keymap.set('n', '<C-H>', "<C-W>h", { silent = true })
 
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -262,7 +270,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<leader>sh', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
     vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
     vim.keymap.set('n', '<leader>wl', function()
@@ -453,3 +461,18 @@ cmp.setup {
         { name = 'luasnip' },
     },
 }
+
+-- nvim-dap for debugging
+require('dap')
+vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
+vim.keymap.set('n', '<leader>db', require('dap').toggle_breakpoint)
+vim.keymap.set('n', '<leader>dk', require('dap').step_out)
+vim.keymap.set('n', '<leader>dj', require('dap').step_over)
+vim.keymap.set('n', '<leader>dl', require('dap').step_into)
+vim.keymap.set('n', '<leader>dn', require('dap').continue)
+vim.keymap.set('n', '<leader>dp', require('dap').run_last)
+vim.keymap.set('n', '<leader>dr', require('dap').repl.open)
+
+-- nvim-dap-python for python debugging
+require('dap-python').setup('python3')

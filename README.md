@@ -104,7 +104,7 @@ model id for all usb devices by running the command `lsusb`:
 ## Text editors
 
 Currently I have configurations for Neovim ([~/.config/nvim/](./.config/nvim/)), Vim
-([~/.vim/](./.vim/)) and Emacs ([~/.emacs.d/](./.emacs.d/). At this moment I am only
+([~/.vim/](./.vim/)) and Emacs ([~/.emacs.d/](./.emacs.d/)). At this moment I am only
 using Neovim and that is the only configuration I am maintaining. My Emacs configuration
 is written as a self documenting Org file for easier understanding.
 
