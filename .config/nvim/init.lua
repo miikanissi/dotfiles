@@ -472,7 +472,8 @@ vim.keymap.set('n', '<leader>dj', require('dap').step_over)
 vim.keymap.set('n', '<leader>dl', require('dap').step_into)
 vim.keymap.set('n', '<leader>dn', require('dap').continue)
 vim.keymap.set('n', '<leader>dp', require('dap').run_last)
-vim.keymap.set('n', '<leader>dr', require('dap').repl.open)
+vim.keymap.set('n', '<leader>dr', require('dap').repl.toggle)
+vim.keymap.set('n', '<leader>di', require('dap.ui.widgets').hover)
 
 -- nvim-dap-python for python debugging
 require('dap-python').setup('python3')

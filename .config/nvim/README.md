@@ -64,4 +64,5 @@ This is my personal nvim configuration that is:
 | `<leader>dl`      | DAP: Step into `require('dap').step_into`                                                                               |
 | `<leader>dn`      | DAP: Start / Continue `require('dap').continue`                                                                         |
 | `<leader>dp`      | DAP: Run last option `require('dap').run_last`                                                                          |
-| `<leader>dk`      | DAP: Open repl `require('dap').repl.open`                                                                               |
+| `<leader>dk`      | DAP: Toggle repl `require('dap').repl.toggle`                                                                           |
+| `<leader>di`      | DAP: Show evaluation of string under cursor `require('dap.ui.widgets').hover`                                           |
