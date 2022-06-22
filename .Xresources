@@ -7,6 +7,7 @@
 ! colors
 ! Gruvbox light medium
 *background: #fbf1c7
+*background1: #ebdbb2
 *foreground: #3c3836
 *cursorColor: #3c3836
 *color0:  #fbf1c7
