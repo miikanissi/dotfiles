@@ -22,6 +22,7 @@ N,eslint-config-prettier,Disables conflicting eslint rules with Prettier
 ,feh,A fast and light image viewer
 ,ffmpeg,A command-line video manipulation tool
 ,firefox-esr,Firefox Extended Support Release
+,firmware-iwlwifi,Drivers for Intel wifi cards
 ,firmware-linux,Free and non-free drivers
 ,flake8,A Python linter
 ,flameshot,A screenshot utility

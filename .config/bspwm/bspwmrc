@@ -51,7 +51,8 @@ source ~/.bashrc
 xrdb .Xresources &
 # Fixes Java applications
 wmname LG3D
-
+# for bitwarden
+keyctl link @u @s
 # Turn on notifications
 _run dunst --config ~/.config/dunst/dunstrc
 
