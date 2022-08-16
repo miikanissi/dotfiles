@@ -191,7 +191,7 @@ vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
 
 -- Treesitter
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "html", "javascript", "python", "lua", "css", "bash" },
+    ensure_installed = { "c", "html", "javascript", "python", "lua", "css", "bash", "go", "gomod" },
     highlight = {
         enable = true,
     },
@@ -250,7 +250,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 require("nvim-lsp-installer").setup({
     -- List of servers to automatically install
-    ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'clangd', 'lemminx' },
+    ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'clangd', 'lemminx', 'gopls' },
     -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     automatic_installation = true,
     ui = {
@@ -380,7 +380,7 @@ lspconfig.lemminx.setup {
     end
 }
 -- LSPs with default setup: bashls (Bash), cssls (CSS), html (HTML), clangd (C/C++), jsonls (JSON)
-for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'clangd', 'jsonls'} do
+for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'clangd', 'jsonls', 'gopls'} do
     lspconfig[lsp].setup {
         on_attach = on_attach,
         capabilities = capabilities,

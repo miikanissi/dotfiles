@@ -68,6 +68,7 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 X,nodejs,Back-end JavaScript runtime environment
 ,npm,A package manager for JavaScript
 X,https://github.com/neovim/neovim,An improved Vim
+,onboard,Onscreen keyboard
 ,openvpn,OpenVPN protocol
 ,pavucontrol,Pulse Audio Volume Control
 ,pcmanfm,A file browser

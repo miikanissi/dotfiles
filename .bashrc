@@ -152,6 +152,7 @@ export PATH=~/.local/bin:$PATH
 export PATH=~/.local/bin/statusbar:$PATH
 export PATH=~/go/bin:$PATH
 export PATH=~/node_modules/.bin:$PATH
+export PATH=$PATH:/usr/local/go/bin
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden' # use ripgrep
 export FZF_DEFAULT_OPTS="--layout=reverse --height=60% --preview-window=down:99%:wrap"
 export SESSION_MANAGER=

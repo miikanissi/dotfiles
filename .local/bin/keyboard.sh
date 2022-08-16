@@ -24,6 +24,6 @@ fi
 # makes key repeat faster
 /usr/bin/xset r rate 200 80
 # sets caps lock to ctrl and holding down right meta key toggles on finnish keyboard (for ä,ö,å)
-/usr/bin/setxkbmap -option 'ctrl:nocaps' -option grp:switch -option grp_led:scroll us,fi
+/usr/bin/setxkbmap -option shift:both_shiftlock -option ctrl:nocaps -option grp:switch -option grp_led:scroll us,fi
 
 # lock file will be unlocked when the script ends
