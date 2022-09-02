@@ -4,7 +4,7 @@
 
 ### PROGRAM LAUNCHERS ###
 super + {Return, Print, w, b, e, s, m}
-    {alacritty, flameshot gui, brave-browser, pcmanfm, claws-mail, signal-desktop --start-in-tray --use-tray-icon, alacritty -t ncmpcpp -e ncmpcpp}
+    {alacritty, flameshot gui, gtk-launch browser.desktop, pcmanfm, claws-mail, signal-desktop --start-in-tray --use-tray-icon, alacritty -t ncmpcpp -e ncmpcpp}
 # launch rofi
 super + d
     rofi -show run
