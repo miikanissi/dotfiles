@@ -25,6 +25,7 @@ require('packer').startup(function(use)
     use 'alvan/vim-closetag' -- Automatically close html/xml tags
     use 'nvim-treesitter/nvim-treesitter' -- Highlight and navigate using a parsing library
     use 'nvim-treesitter/nvim-treesitter-textobjects' -- Additional treesitter objects
+    use 'nvim-treesitter/nvim-treesitter-context' -- Show context of current buffer ie sticky definition
     use 'windwp/nvim-autopairs' -- Automatically close pairs
     use 'williamboman/nvim-lsp-installer' -- Automatically install LSPs
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
@@ -112,14 +113,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- PLUGINS
 -- Lualine
-require('lualine').setup {
+require('lualine').setup({
     options = {
         icons_enabled = false,
         theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
     },
-}
+})
 -- Closetag
 local closetag_regions = {}
 closetag_regions['typescript.tsx'] = 'jsxRegion,tsxRegion'
@@ -142,16 +143,16 @@ vim.keymap.set('n', '<leader>t', ":NvimTreeToggle<CR>", { silent = true })
 require('Comment').setup()
 
 -- Enable nvim-autopairs
-require("nvim-autopairs").setup {}
+require("nvim-autopairs").setup()
 
 -- Indent blankline
-require('indent_blankline').setup {
+require('indent_blankline').setup({
     char = '┊',
     show_trailing_blankline_indent = false,
-}
+})
 
 -- Gitsigns
-require('gitsigns').setup {
+require('gitsigns').setup({
     signs = {
         add = { text = '+' },
         change = { text = '~' },
@@ -159,10 +160,10 @@ require('gitsigns').setup {
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
     },
-}
+})
 
 -- Telescope
-require('telescope').setup {
+require('telescope').setup({
     defaults = {
         mappings = {
             i = {
@@ -171,7 +172,7 @@ require('telescope').setup {
             },
         },
     },
-}
+})
 -- Enable telescope fzf native
 require('telescope').load_extension 'fzf'
 --Add leader shortcuts
@@ -190,7 +191,7 @@ end)
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
 
 -- Treesitter
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter.configs').setup({
     ensure_installed = { "c", "html", "javascript", "python", "lua", "css", "bash", "go", "gomod" },
     highlight = {
         enable = true,
@@ -240,7 +241,28 @@ require('nvim-treesitter.configs').setup {
             },
         },
     },
-}
+})
+require("treesitter-context").setup({
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+    patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+        -- For all filetypes
+        -- Note that setting an entry here replaces all other patterns for this entry.
+        -- By setting the 'default' entry below, you can control which nodes you want to
+        -- appear in the context window.
+        default = {
+            "class",
+            "function",
+            "method",
+            "for",
+            "while",
+            "if",
+            "switch",
+            "case",
+        },
+    },
+})
 
 -- LSP PLUGINS AND SETTINGS
 -- Diagnostic keymaps
@@ -250,7 +272,8 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 require("nvim-lsp-installer").setup({
     -- List of servers to automatically install
-    ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'clangd', 'lemminx', 'gopls' },
+    ensure_installed = { 'pyright', 'tsserver', 'eslint', 'bashls', 'cssls', 'html', 'sumneko_lua', 'jsonls', 'clangd',
+        'lemminx', 'gopls' },
     -- automatically detect which servers to install (based on which servers are set up via lspconfig)
     automatic_installation = true,
     ui = {
@@ -289,7 +312,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers. Order matters
 -- tsserver (TypeScript, JavaScript)
-lspconfig.tsserver.setup {
+lspconfig.tsserver.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
         -- Disable formatting v0.7
@@ -298,9 +321,9 @@ lspconfig.tsserver.setup {
         client.server_capabilities.documentFormattingProvider = false
         on_attach(client, bufnr)
     end
-}
+})
 -- eslint (JavaScript)
-lspconfig.eslint.setup {
+lspconfig.eslint.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
         -- Disable formatting v0.7
@@ -336,9 +359,9 @@ lspconfig.eslint.setup {
             mode = "location"
         }
     }
-}
+})
 -- sumneko_lua (Lua)
-lspconfig.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -353,9 +376,9 @@ lspconfig.sumneko_lua.setup {
             },
         },
     },
-}
+})
 -- pyright (Python)
-lspconfig.pyright.setup {
+lspconfig.pyright.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -367,9 +390,9 @@ lspconfig.pyright.setup {
             },
         },
     },
-}
+})
 -- lemminx (XML)
-lspconfig.lemminx.setup {
+lspconfig.lemminx.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
         -- Disable formatting v0.7
@@ -378,13 +401,13 @@ lspconfig.lemminx.setup {
         client.server_capabilities.documentFormattingProvider = false
         on_attach(client, bufnr)
     end
-}
+})
 -- LSPs with default setup: bashls (Bash), cssls (CSS), html (HTML), clangd (C/C++), jsonls (JSON)
-for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'clangd', 'jsonls', 'gopls'} do
-    lspconfig[lsp].setup {
+for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'clangd', 'jsonls', 'gopls' } do
+    lspconfig[lsp].setup({
         on_attach = on_attach,
         capabilities = capabilities,
-    }
+    })
 end
 
 -- Null ls for automatic formatting and additional analysis
@@ -423,7 +446,7 @@ require("luasnip.loaders.from_snipmate").load()
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
-cmp.setup {
+cmp.setup({
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -460,12 +483,12 @@ cmp.setup {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
     },
-}
+})
 
 -- nvim-dap for debugging
 require('dap')
-vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapStopped', { text = '🟢', texthl = '', linehl = '', numhl = '' })
 vim.keymap.set('n', '<leader>db', require('dap').toggle_breakpoint)
 vim.keymap.set('n', '<leader>dk', require('dap').step_out)
 vim.keymap.set('n', '<leader>dj', require('dap').step_over)
