@@ -51,7 +51,6 @@ vim.opt.background = "light" -- Default to light background
 vim.cmd [[colorscheme gruvbox]] -- Use gruvbox theme
 vim.o.hlsearch = false -- No highlight on search
 vim.opt.clipboard = "unnamedplus" -- Share system clipboard
-vim.opt.guicursor = "" -- Insert mode cursor
 vim.opt.cursorline = true -- Highlight cursor line
 vim.opt.colorcolumn = "88" -- Colorcolumn is 88
 vim.opt.matchpairs:append { "<:>" } -- Highlights matching brackets - '%' to jump between them
