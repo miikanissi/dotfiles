@@ -145,7 +145,7 @@ fd() {
 # exports
 export BROWSER=/usr/bin/brave-browser
 export TERMINAL="/usr/bin/kitty -1 --listen-on=tcp:localhost:12344"
-export EDITOR=/usr/bin/vim
+export EDITOR=/usr/bin/nvim
 export LOCATION="Queens"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH

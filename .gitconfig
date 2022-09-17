@@ -6,6 +6,8 @@
     signingKey = FAF92E7F
 [commit]
     gpgSign = true
+	verbose = true
+	template = /home/m/.gitmessage
 [tag]
     gpgSign = true
 [pull]
