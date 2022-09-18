@@ -428,10 +428,12 @@ require("null-ls").setup({
     end,
     sources = {
         require("null-ls").builtins.formatting.prettier.with({
-            extra_filetypes = { "xml", "htmldjango" }
+            extra_filetypes = { "xml" }
         }),
         require("null-ls").builtins.formatting.black,
+        require("null-ls").builtins.formatting.djlint,
         require("null-ls").builtins.formatting.isort,
+        require("null-ls").builtins.diagnostics.djlint,
         require("null-ls").builtins.diagnostics.pylint.with({
             extra_args = { "--load-plugins=pylint_odoo", "-e", "odoolint" } -- Load pylint_odoo plugin for pylint
         }),

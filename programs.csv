@@ -15,6 +15,7 @@ P,black,A Python code formatter
 ,cryptsetup,Manage LUKS encryptions
 ,ctags,Navigate source code with tags
 ,curl,A tool to transfer data to or from a server
+P,djlint,A Django/Jinja template linter
 ,dunst,A notification daemon
 ,eject,Eject specified devices
 ,emacs-gtk,Not a text editor
