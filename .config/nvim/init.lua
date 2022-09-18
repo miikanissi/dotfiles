@@ -128,7 +128,7 @@ closetag_regions['typescriptreact'] = 'jsxRegion,tsxRegion'
 closetag_regions['javascriptreact'] = 'jsxRegion'
 vim.g['closetag_xhtml_filetypes'] = 'xml,xhtml,javascript.jsx,jsx,typescript.tsx,typescriptreact'
 vim.g['closetag_xhtml_filenames'] = '*.html,*.xml,*.xhtml,*.js,*.jsx,*.tsx'
-vim.g['closetag_filetypes'] = 'html,xml,xhtml,phtml,javascript.jsx,jsx,typescript.tsx,typescriptreact'
+vim.g['closetag_filetypes'] = 'html,htmldjango,xml,xhtml,phtml,javascript.jsx,jsx,typescript.tsx,typescriptreact'
 vim.g['closetag_emptyTags_caseSensitive'] = 1
 vim.g['closetag_regions'] = closetag_regions
 vim.g['closetag_shortcut'] = '>'
@@ -428,7 +428,7 @@ require("null-ls").setup({
     end,
     sources = {
         require("null-ls").builtins.formatting.prettier.with({
-            extra_filetypes = { "xml" }
+            extra_filetypes = { "xml", "htmldjango" }
         }),
         require("null-ls").builtins.formatting.black,
         require("null-ls").builtins.formatting.isort,
