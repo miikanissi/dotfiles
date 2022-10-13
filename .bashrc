@@ -88,6 +88,7 @@ alias odoo14_run='odoo14 -c /opt/odoo/14/conf/odoo-14-all-dev-modules.conf'
 alias mpg='cd /opt/odoo/12/addons/mpg-dev/'
 alias mpg14='cd /opt/odoo/14/addons/mpg-dev/'
 alias pro='cd ~/Documents/Projects'
+alias docker='sudo docker'
 
 branchall () {
   for i in */; do

@@ -100,6 +100,12 @@ vim.keymap.set('n', '<C-K>', "<C-W>k", { silent = true })
 vim.keymap.set('n', '<C-L>', "<C-W>l", { silent = true })
 vim.keymap.set('n', '<C-H>', "<C-W>h", { silent = true })
 
+-- Location list mappings
+vim.keymap.set('n', '<leader>lo', ":lopen<CR>")
+vim.keymap.set('n', '<leader>lc', ":lclose<CR>")
+vim.keymap.set('n', '<leader>lj', ":lnext<CR>")
+vim.keymap.set('n', '<leader>lk', ":lprev<CR>")
+
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -263,6 +269,9 @@ require("treesitter-context").setup({
     },
 })
 
+-- Gutentags cache dir
+vim.g.gutentags_cache_dir = "~/.config/nvim/gutentags"
+
 -- LSP PLUGINS AND SETTINGS
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
@@ -303,6 +312,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
+    vim.diagnostic.config({virtual_text = false})
 end
 
 -- nvim-cmp supports additional completion capabilities
