@@ -1,0 +1,20 @@
+#!/bin/bash
+
+COMPOSE_FILE=~/odoo/14/docker-compose.yml
+
+usage(){
+  printf "usage: odoo_docker [options]\\n  --: Run odoo in Docker\\n  -u: <MODULE>: Run odoo in Docker with module update\\n  -h: Show help message\\n"
+}
+
+while getopts "u:h" o; do case "${o}" in
+    h) usage && exit 1;;
+    u) update=${OPTARG} ;;
+    *) printf "Invalid option: -%s\\n -h: To show help\\n" "$OPTARG" && exit 1 ;;
+esac done
+
+if [[ -n $update ]]; then
+    sed -i '/command: odoo*/s/'odoo.*'/'"odoo -u $update"'/' $COMPOSE_FILE
+else
+    sed -i '/command: odoo*/s/'odoo.*'/'"odoo"'/' $COMPOSE_FILE
+fi
+docker compose -f $COMPOSE_FILE up -d --force-recreate
