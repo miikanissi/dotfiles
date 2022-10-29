@@ -1,6 +1,6 @@
 <p align="center"><a name="top" href="#my-dotfiles"><img height="60%" width="100%" src="./.local/share/miikas-dotfiles.png" alt="Miika's Dotfiles Header"></a></p>
 
-## My dotfiles
+## My Dotfiles
 
 <p><a href="https://miikanissi.com"><img src="./.local/share/desktop.png" alt="Desktop screenshot" align="right" width="400px"></a></p>
 
