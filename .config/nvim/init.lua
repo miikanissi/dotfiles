@@ -47,10 +47,8 @@ end)
 -- SETTINGS
 -- Theme, colors and gui
 vim.opt.termguicolors = true -- Use full colors
--- vim.opt.background = "dark" -- Default to dark background
-vim.opt.background = "light" -- Default to light background
--- vim.cmd('colorscheme modus-vivendi') -- Dark
-vim.cmd('colorscheme modus-operandi') -- Light
+vim.opt.background = "light" -- Background color
+vim.cmd('colorscheme modus-operandi') -- Theme
 vim.o.hlsearch = false -- No highlight on search
 vim.opt.clipboard = "unnamedplus" -- Share system clipboard
 vim.opt.cursorline = true -- Highlight cursor line

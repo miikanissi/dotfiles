@@ -52,9 +52,13 @@ Here are some example scripts:
 ## Colors
 
 <p align="center"><a href="https://protesilaos.com/emacs/modus-themes">Modus Themes</a></p>
+
 #### Modus Operandi
+
 <p align="center"><img src="./.local/share/theme-light-template.png" height="60%" width="100%" alt="Modus Operandi"/></p>
+
 #### Modus Vivendi
+
 <p align="center"><img src="./.local/share/theme-dark-template.png" height="60%" width="100%" alt="Modus Vivendi"/></p>
 
 ## Installation
@@ -104,12 +108,21 @@ model ID for all USB devices by running the command `lsusb`:
 
     ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="0510" RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"
 
-## Text editors
+## Text Editors
 
 Currently, I have configurations for Neovim ([~/.config/nvim/](./.config/nvim/)), Vim
 ([~/.vim/](./.vim/)) and Emacs ([~/.emacs.d/](./.emacs.d/)). At this moment I am only
 using Neovim and that is the only configuration I am maintaining. My Emacs configuration
 is written as a self documenting Org file for easier understanding.
+
+## Light / Dark Mode Toggle
+
+I switch between dark and light mode depending on the ambient light conditions. In order
+to do that conveniently I have created a script
+[toggle-theme.sh](./.local/bin/toggle-theme.sh), which automatically changes the color
+theme on my most used applications (i.e. Neovim, Alacritty, Polybar, GTK).
+
+<p align="center"><img src="./.local/share/desktop-dark-light.png" width="100%" alt="Dark and Light Mode Comparison"/></p>
 
 ## Links / Credits
 

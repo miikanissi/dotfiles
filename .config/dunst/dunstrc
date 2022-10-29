@@ -121,6 +121,7 @@
     # Paths to default icons.
     icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
     frame_width = 4
+# BEGIN LIGHT
     frame_color = "#00538b"
     separator_color = "#00538b"
 [low]
@@ -134,9 +135,28 @@
 [critical]
     msg_urgency = critical
     background = "#ffffff"
-    foreground = "#a60000"
+    foreground = "#000000"
     frame_color = "#a60000"
     separator_color = "#a60000"
+# END LIGHT
+## BEGIN DARK
+#    frame_color = "#00d3d0"
+#    separator_color = "#00d3d0"
+#[low]
+#    msg_urgency = low
+#    background = "#000000"
+#    foreground = "#ffffff"
+#[normal]
+#    msg_urgency = normal
+#    background = "#000000"
+#    foreground = "#ffffff"
+#[critical]
+#    msg_urgency = critical
+#    background = "#000000"
+#    foreground = "#ffffff"
+#    frame_color = "#ff8059"
+#    separator_color = "#ff8059"
+## END DARK
 [shortcuts]
     # Shortcuts are specified as [modifier+][modifier+]...key
     # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",

@@ -9,12 +9,12 @@ do
     echo ""
   elif [ "$arg" == "--off" ]; then
     xset s on s blank -dpms
-    echo ""
+    echo "鈴"
   elif [ "$arg" == "--toggle" ]; then
     timeout=$(xset q | grep timeout | awk '{print $2}')
     if [ "$timeout" = "0" ]; then
       xset s on s blank -dpms
-      echo ""
+      echo "鈴"
     else
       xset s off s noblank -dpms
       echo ""

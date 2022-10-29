@@ -6,6 +6,7 @@
 
 ! colors
 ! modus-operandi
+! BEGIN LIGHT
 *background: #ffffff
 *background1: #efefef
 *foreground: #000000
@@ -26,8 +27,11 @@
 *color14: #005a5f
 *color7:  #bfbfbf
 *color15: #ffffff
+sxiv.Background: #ffffff
+! END LIGHT
 
 ! modus-vivendi
+!! BEGIN DARK
 ! *background: #000000
 ! *background1: #000000
 ! *foreground: #ffffff
@@ -48,8 +52,9 @@
 ! *color14: #6ae4b9
 ! *color7:  #bfbfbf
 ! *color15: #000000
+!! END DARK
 
-sxiv.Background: #ffffff
+
 ! dwm colors
 dwm.normbordercolor: #bfbfbf
 dwm.normbgcolor: #ffffff

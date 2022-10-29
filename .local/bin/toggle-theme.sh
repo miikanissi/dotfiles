@@ -1,73 +1,86 @@
 #!/usr/bin/env bash
 # Toggles theme from dark mode to light mode
 
-# sed to comment/uncomment ~/.Xresources. Make sure the file is formatted correctly
-COMMENT_DARK_X=(sed -e '/DARK START/,/DARK END/ s/^/!/' -i ~/.Xresources)
-UNCOMMENT_DARK_X=(sed -e '/DARK START/,/DARK END/ s/^.//' -i ~/.Xresources)
-COMMENT_LIGHT_X=(sed -e '/LIGHT START/,/LIGHT END/ s/^/!/' -i ~/.Xresources)
-UNCOMMENT_LIGHT_X=(sed -e '/LIGHT START/,/LIGHT END/ s/^.//' -i ~/.Xresources)
-COMMENT_DARK_KITTY=(sed -e '/DARK START/,/DARK END/ s/^/#/' -i ~/.config/kitty/kitty.conf)
-UNCOMMENT_DARK_KITTY=(sed -e '/DARK START/,/DARK END/ s/^.//' -i ~/.config/kitty/kitty.conf)
-COMMENT_LIGHT_KITTY=(sed -e '/LIGHT START/,/LIGHT END/ s/^/#/' -i ~/.config/kitty/kitty.conf)
-UNCOMMENT_LIGHT_KITTY=(sed -e '/LIGHT START/,/LIGHT END/ s/^.//' -i ~/.config/kitty/kitty.conf)
-COMMENT_DARK_DUNST=(sed -e '/DARK START/,/DARK END/ s/^/#/' -i ~/.config/dunst/dunstrc)
-UNCOMMENT_DARK_DUNST=(sed -e '/DARK START/,/DARK END/ s/^.//' -i ~/.config/dunst/dunstrc)
-COMMENT_LIGHT_DUNST=(sed -e '/LIGHT START/,/LIGHT END/ s/^/#/' -i ~/.config/dunst/dunstrc)
-UNCOMMENT_LIGHT_DUNST=(sed -e '/LIGHT START/,/LIGHT END/ s/^.//' -i ~/.config/dunst/dunstrc)
-LIGHT_GTK_THEME=Adwaita
-DARK_GTK_THEME=Adwaita-dark
-LIGHT_ROFI_THEME=base16-papercolor-light.rasi
-DARK_ROFI_THEME=base16-papercolor-dark.rasi
+ALACRITTY_DARK=(sed -i 's/modus-operandi.yml/modus-vivendi.yml/g' ~/.config/alacritty/theme.yml)
+ALACRITTY_LIGHT=(sed -i 's/modus-vivendi.yml/modus-operandi.yml/g' ~/.config/alacritty/theme.yml)
+DUNST_DARK_COMMENT=(sed -i '/^# BEGIN DARK$/,/^# END DARK$/ s/^/#/' ~/.config/dunst/dunstrc)
+DUNST_DARK_UNCOMMENT=(sed -i '/^## BEGIN DARK$/,/^## END DARK$/ s/^#//' ~/.config/dunst/dunstrc)
+DUNST_LIGHT_COMMENT=(sed -i '/^# BEGIN LIGHT$/,/^# END LIGHT$/ s/^/#/' ~/.config/dunst/dunstrc)
+DUNST_LIGHT_UNCOMMENT=(sed -i '/^## BEGIN LIGHT$/,/^## END LIGHT$/ s/^#//' ~/.config/dunst/dunstrc)
+X_DARK_COMMENT=(sed -i '/^! BEGIN DARK$/,/^! END DARK$/ s/^/!/' ~/.Xresources)
+X_DARK_UNCOMMENT=(sed -i '/^!! BEGIN DARK$/,/^!! END DARK$/ s/^!//' ~/.Xresources)
+X_LIGHT_COMMENT=(sed -i '/^! BEGIN LIGHT$/,/^! END LIGHT$/ s/^/!/' ~/.Xresources)
+X_LIGHT_UNCOMMENT=(sed -i '/^!! BEGIN LIGHT$/,/^!! END LIGHT$/ s/^!//' ~/.Xresources)
+GTK2_DARK=(sed -i 's/"oomox-modus-operandi"/"oomox-modus-vivendi"/g' ~/.gtkrc-2.0)
+GTK2_LIGHT=(sed -i 's/"oomox-modus-vivendi"/"oomox-modus-operandi"/g' ~/.gtkrc-2.0)
+GTK3_DARK=(sed -i 's/oomox-modus-operandi/oomox-modus-vivendi/g' ~/.config/gtk-3.0/settings.ini)
+GTK3_LIGHT=(sed -i 's/oomox-modus-vivendi/oomox-modus-operandi/g' ~/.config/gtk-3.0/settings.ini)
+ROFI_DARK=(sed -i 's/"modus-operandi"/"modus-vivendi"/g' ~/.config/rofi/config.rasi)
+ROFI_LIGHT=(sed -i 's/"modus-vivendi"/"modus-operandi"/g' ~/.config/rofi/config.rasi)
+NVIM_LIGHT=(sed -i 's/modus-vivendi/modus-operandi/g ; s/"dark"/"light"/g' ~/.config/nvim/init.lua)
+NVIM_DARK=(sed -i 's/modus-operandi/modus-vivendi/g ; s/"light"/"dark"/g' ~/.config/nvim/init.lua)
 
-# Check .Xresources, if light mode, change to dark mode
-if grep -q '^!! DARK START$' ~/.Xresources && grep -q '^! LIGHT START$' ~/.Xresources && grep -q '^## DARK START$' ~/.config/kitty/kitty.conf && grep -q '^# LIGHT START$' ~/.config/kitty/kitty.conf && grep -q '^## DARK START$' ~/.config/dunst/dunstrc && grep -q '^# LIGHT START$' ~/.config/dunst/dunstrc; then
-  "${COMMENT_LIGHT_X[@]}"
-  "${UNCOMMENT_DARK_X[@]}"
-  "${COMMENT_LIGHT_KITTY[@]}"
-  "${UNCOMMENT_DARK_KITTY[@]}"
-  "${COMMENT_LIGHT_DUNST[@]}"
-  "${UNCOMMENT_DARK_DUNST[@]}"
+usage () {
+    printf "Usage: toggle-theme.sh [OPTION]\nOptions:\n  -d     Turn dark mode on\n  -l     Turn light mode on\n  -t     Toggles dark/light mode\n  -q     Query the current mode\n"
+}
+query (){
+  if grep -q '^!! BEGIN DARK$' ~/.Xresources; then
+    echo ""
+  else
+    echo ""
+  fi
+}
+refresh (){
   xrdb ~/.Xresources
-  sed -i "/gtk-theme-name=/c\gtk-theme-name=$DARK_GTK_THEME" ~/.config/gtk-3.0/settings.ini
-  sed -i "/gtk-theme-name=/c\gtk-theme-name=\"$DARK_GTK_THEME\"" ~/.gtkrc-2.0
-  sed -i "/set background=/c\set background=dark" ~/.vim/vimrc
-  sed -i "/theme:/c\    theme: \"$DARK_ROFI_THEME\";" ~/.config/rofi/config.rasi
-  kitty @ --to=tcp:localhost:12344 set-colors --all --configured ~/.config/kitty/kitty.conf
   killall dunst && dunst --config ~/.config/dunst/dunstrc &
-  if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "bspwm" ]]; then
+  killall pcmanfm
+  if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "LG3D" ]]; then
     bspc wm -r
   fi
-  xdotool key "Super+F5"
-  # signal st to reload
-  kill -USR1 $(pidof st)
-  # sleep as dunst restarts
-  sleep 2
-  notify-send "Dark Mode enabled"
-  exit 1;
-fi
-# Check .Xresources, if dark mode, change to light mode
-if grep -q '^! DARK START$' ~/.Xresources | grep -q '^!! LIGHT START$' ~/.Xresources && grep -q '^# DARK START$' ~/.config/kitty/kitty.conf && grep -q '^## LIGHT START$' ~/.config/kitty/kitty.conf && grep -q '^# DARK START$' ~/.config/dunst/dunstrc && grep -q '^## LIGHT START$' ~/.config/dunst/dunstrc; then
-  "${COMMENT_DARK_X[@]}"
-  "${UNCOMMENT_LIGHT_X[@]}"
-  "${COMMENT_DARK_KITTY[@]}"
-  "${UNCOMMENT_LIGHT_KITTY[@]}"
-  "${COMMENT_DARK_DUNST[@]}"
-  "${UNCOMMENT_LIGHT_DUNST[@]}"
-  xrdb ~/.Xresources
-  sed -i "/gtk-theme-name=/c\gtk-theme-name=$LIGHT_GTK_THEME" ~/.config/gtk-3.0/settings.ini
-  sed -i "/gtk-theme-name=/c\gtk-theme-name=\"$LIGHT_GTK_THEME\"" ~/.gtkrc-2.0
-  sed -i "/set background=/c\set background=light" ~/.vim/vimrc
-  sed -i "/theme:/c\    theme: \"$LIGHT_ROFI_THEME\";" ~/.config/rofi/config.rasi
-  kitty @ --to=tcp:localhost:12344 set-colors --all --configured ~/.config/kitty/kitty.conf
-  killall dunst && dunst --config ~/.config/dunst/dunstrc &
-  if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "bspwm" ]]; then
-    bspc wm -r
+}
+dark () {
+  if grep -q '^!! BEGIN DARK$' ~/.Xresources; then
+    "${DUNST_DARK_UNCOMMENT[@]}"
+    "${DUNST_LIGHT_COMMENT[@]}"
+    "${X_DARK_UNCOMMENT[@]}"
+    "${X_LIGHT_COMMENT[@]}"
+    "${GTK3_DARK[@]}"
+    "${GTK2_DARK[@]}"
+    "${ROFI_DARK[@]}"
+    "${NVIM_DARK[@]}"
+    "${ALACRITTY_DARK[@]}"
+    refresh
   fi
-  xdotool key "Super+F5"
-  # signal st to reload
-  kill -USR1 $(pidof st)
-  # sleep as dunst restarts
-  sleep 2
-  notify-send "Light Mode enabled"
-  exit 1;
-fi
+  echo ""
+}
+light () {
+  if grep -q '^!! BEGIN LIGHT$' ~/.Xresources; then
+    "${DUNST_LIGHT_UNCOMMENT[@]}"
+    "${DUNST_DARK_COMMENT[@]}"
+    "${X_LIGHT_UNCOMMENT[@]}"
+    "${X_DARK_COMMENT[@]}"
+    "${GTK3_LIGHT[@]}"
+    "${GTK2_LIGHT[@]}"
+    "${ROFI_LIGHT[@]}"
+    "${NVIM_LIGHT[@]}"
+    "${ALACRITTY_LIGHT[@]}"
+    refresh
+  fi
+  echo ""
+}
+toggle () {
+  if grep -q '^!! BEGIN DARK$' ~/.Xresources; then
+    dark
+  else
+    light
+  fi
+}
+
+while getopts "tldqh" o; do case "${o}" in
+  h) usage && exit 1;;
+  t) toggle ;;
+  l) light ;;
+  d) dark ;;
+  q) query ;;
+  *) printf "Invalid option: -%s\\n  -h: To show help\\n" "$OPTARG" && exit 1 ;;
+esac done
