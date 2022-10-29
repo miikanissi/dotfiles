@@ -6,7 +6,7 @@
 
 This is my personal configuration for a custom Debian Desktop Environment, including
 useful scripts, a list of all the programs I use and installation instructions. This
-mainly works as a reference for myself but anyone else is also welcome to enjoy and
+mainly works as a reference for myself, but anyone else is also welcome to enjoy and
 extend upon my configurations.
 
 Here are the details of my setup:
@@ -42,21 +42,24 @@ Here are some example scripts:
 
 - [rofi_dman.sh](./.local/bin/rofi_dman.sh) is a script to manage devices with
   rofi/dmenu. Features include mounting, unmounting, ejecting and listing devices.
-- [ff.sh](./.local/bin/ff.sh) is a script that uses FZF to find files by name, filetype
+- [ff.sh](./.local/bin/ff.sh) is a script that uses FZF to find files by name, file type
   and/or content.
 - [bspwm_setup_monitors.sh](./.local/bin/bspwm_setup_monitors.sh) is a script that
-  allows hotplugging external monitors for BSPWM and Polybar.
+  allows hot plugging external monitors for BSPWM and Polybar.
 - [rofi_killprocess.sh](./.local/bin/killprocess.sh) is a script to kill running
   processes with rofi/dmenu.
 
 ## Colors
 
-<p align="center"><a href="https://github.com/gruvbox-community">Gruvbox Community Light Medium</a></p>
-<p align="center"><img src="./.local/share/gruvbox-light-medium-template.png" height="60%" width="100%" alt="Gruvbox Light Medium Template"/></p>
+<p align="center"><a href="https://protesilaos.com/emacs/modus-themes">Modus Themes</a></p>
+#### Modus Operandi
+<p align="center"><img src="./.local/share/theme-light-template.png" height="60%" width="100%" alt="Modus Operandi"/></p>
+#### Modus Vivendi
+<p align="center"><img src="./.local/share/theme-dark-template.png" height="60%" width="100%" alt="Modus Vivendi"/></p>
 
 ## Installation
 
-To install and integrate with your system you need to checkout the master branch and
+To install and integrate with your system, you need to checkout the master branch and
 initialize included submodules.
 
     git --work-tree $HOME --git-dir $HOME/dotfiles init
@@ -65,9 +68,9 @@ initialize included submodules.
     git --work-tree $HOME --git-dir $HOME/dotfiles submodule update --init
     git --work-tree $HOME --git-dir $HOME/dotfiles config --local status.showUntrackedFiles no
 
-Alternatively you can clone the repository with submodules and move the files manually.
+Alternatively, you can clone the repository with submodules and move the files manually.
 
-To install all of my packages you can run my installation script:
+To install all of my packages, you can run my installation script:
 
     ./.local/bin/install_programs.sh
 
@@ -97,30 +100,27 @@ Suckless program installation:
 
 To automatically run my keyboard setup script when keyboard is attached, we need to
 create a udev rule in `/etc/udev/rules.d/99-keyboard.rules`. You can find the vendor and
-model id for all usb devices by running the command `lsusb`:
+model ID for all USB devices by running the command `lsusb`:
 
     ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="0510" RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"
 
 ## Text editors
 
-Currently I have configurations for Neovim ([~/.config/nvim/](./.config/nvim/)), Vim
+Currently, I have configurations for Neovim ([~/.config/nvim/](./.config/nvim/)), Vim
 ([~/.vim/](./.vim/)) and Emacs ([~/.emacs.d/](./.emacs.d/)). At this moment I am only
 using Neovim and that is the only configuration I am maintaining. My Emacs configuration
 is written as a self documenting Org file for easier understanding.
 
 ## Links / Credits
 
-To stay up to date with me visit my [website](https://miikanissi.com).
+To stay up to date with me, visit my [website](https://miikanissi.com).
 
 Useful Links:
 
-- [Arch Wiki](https://wiki.archlinux.org/) - Arch Wiki is a great Linux resource for
-  almost anything.
-- [Uncle Dave](https://github.com/daedreth/UncleDavesEmacs) - He has a great youtube
-  series on configuring Emacs from scratch.
-- [Luke Smith](https://github.com/LukeSmithxyz) - He has nice dotfiles and good youtube
-  tutorials on minimalist software.
-- [Protesilaos Stavrou](https://gitlab.com/protesilaos/dotfiles) - He goes very in-depth
-  on Emacs configuration on his youtube channel.
-- [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) - A great starting point
-  for a neovim "IDE" configuration
+- [Arch Wiki](https://wiki.archlinux.org/) — A great Linux resource for almost anything
+- [Uncle Dave](https://github.com/daedreth/UncleDavesEmacs) — Great YouTube series on
+  configuring Emacs from scratch
+- [Protesilaos Stavrou](https://gitlab.com/protesilaos/dotfiles) — In-depth Emacs
+  content, awesome color themes modus-operandi & modus-vivendi
+- [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) — A great starting point
+  for a Neovim "IDE" configuration

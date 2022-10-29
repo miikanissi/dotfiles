@@ -5,46 +5,58 @@
 ! Refresh config 'xrdb ~/.Xresources'.
 
 ! colors
-! Gruvbox light medium
-*background: #fbf1c7
-*background1: #ebdbb2
-*foreground: #3c3836
-*cursorColor: #3c3836
-*color0:  #fbf1c7
-*color8:  #928374
-*color1:  #cc241d
-*color9:  #9d0006
-*color2:  #98971a
-*color10: #79740e
-*color3:  #d79921
-*color11: #b57614
-*color4:  #458588
-*color12: #076678
-*color5:  #b16286
-*color13: #8f3f71
-*color6:  #689d6a
-*color14: #427b58
-*color7:  #7c6f64
-*color15: #3c3836
-*orange1: #d65d0e
-*orange2: #af3a03
+! modus-operandi
+*background: #ffffff
+*background1: #efefef
+*foreground: #000000
+*cursorColor: #000000
+*color0:  #000000
+*color8:  #595959
+*color1:  #a60000
+*color9:  #972500
+*color2:  #005e00
+*color10: #315b00
+*color3:  #813e00
+*color11: #70480f
+*color4:  #0031a9
+*color12: #2544bb
+*color5:  #721045
+*color13: #5317ac
+*color6:  #00538b
+*color14: #005a5f
+*color7:  #bfbfbf
+*color15: #ffffff
 
-sxiv.Background: #f9f5d7
-*bg: #f9f5d7
-*bg-alt: #928374
-*fg: #3c3836
-*fg-alt: #7c6f64
-*icon: #b16286
-*warn: #cc241d
-*normal-border: #f9f5d7
-*focused-border: #b16286
+! modus-vivendi
+! *background: #000000
+! *background1: #000000
+! *foreground: #ffffff
+! *cursorColor: #ffffff
+! *color0:  #ffffff
+! *color8:  #595959
+! *color1:  #ff8059
+! *color9:  #ef8b50
+! *color2:  #44bc44
+! *color10: #70b900
+! *color3:  #d0bc00
+! *color11: #c0c530
+! *color4:  #2fafff
+! *color12: #79a8ff
+! *color5:  #feacd0
+! *color13: #b6a0ff
+! *color6:  #00d3d0
+! *color14: #6ae4b9
+! *color7:  #bfbfbf
+! *color15: #000000
+
+sxiv.Background: #ffffff
 ! dwm colors
-dwm.normbordercolor: #928374
-dwm.normbgcolor: #f9f5d7
-dwm.normfgcolor: #3c3836
-dwm.selbordercolor: #b16286
-dwm.selbgcolor: #b16286
-dwm.selfgcolor: #f9f5d7
+dwm.normbordercolor: #bfbfbf
+dwm.normbgcolor: #ffffff
+dwm.normfgcolor: #000000
+dwm.selbordercolor: #00538b
+dwm.selbgcolor: #00538b
+dwm.selfgcolor: #ffffff
 
 !!! st settings !!!
 st.termname: st-256color

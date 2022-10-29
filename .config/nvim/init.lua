@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd('BufWritePost',
 -- Install packages
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- Package manager
-    use 'gruvbox-community/gruvbox' -- Color scheme
+    use 'ishan9299/modus-theme-vim' -- Vim port of Modus theme
     use 'ap/vim-css-color' -- Highlight colors
     use 'tpope/vim-fugitive' -- Git commands in nvim
     use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
@@ -47,8 +47,10 @@ end)
 -- SETTINGS
 -- Theme, colors and gui
 vim.opt.termguicolors = true -- Use full colors
+-- vim.opt.background = "dark" -- Default to dark background
 vim.opt.background = "light" -- Default to light background
-vim.cmd [[colorscheme gruvbox]] -- Use gruvbox theme
+-- vim.cmd('colorscheme modus-vivendi') -- Dark
+vim.cmd('colorscheme modus-operandi') -- Light
 vim.o.hlsearch = false -- No highlight on search
 vim.opt.clipboard = "unnamedplus" -- Share system clipboard
 vim.opt.cursorline = true -- Highlight cursor line
@@ -121,7 +123,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup({
     options = {
         icons_enabled = false,
-        theme = 'gruvbox',
+        theme = 'auto',
         component_separators = '|',
         section_separators = '',
     },

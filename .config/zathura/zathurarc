@@ -1,35 +1,32 @@
-# Base16 Gruvbox light, medium
-# Author: Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+set default-bg                  "#ffffff"
+set default-fg                  "#000000"
 
-set default-bg                  "#fbf1c7"
-set default-fg                  "#ebdbb2"
+set statusbar-fg                "#595959"
+set statusbar-bg                "#ffffff"
 
-set statusbar-fg                "#665c54"
-set statusbar-bg                "#d5c4a1"
+set inputbar-bg                 "#ffffff"
+set inputbar-fg                 "#000000"
 
-set inputbar-bg                 "#fbf1c7"
-set inputbar-fg                 "#282828"
+set notification-bg             "#ffffff"
+set notification-fg             "#000000"
 
-set notification-bg             "#fbf1c7"
-set notification-fg             "#282828"
+set notification-error-bg       "#ffffff"
+set notification-error-fg       "#a60000"
 
-set notification-error-bg       "#fbf1c7"
-set notification-error-fg       "#9d0006"
+set notification-warning-bg     "#ffffff"
+set notification-warning-fg     "#a60000"
 
-set notification-warning-bg     "#fbf1c7"
-set notification-warning-fg     "#9d0006"
+set highlight-color             "#00538b"
+set highlight-active-color      "#0031a9"
 
-set highlight-color             "#b57614"
-set highlight-active-color      "#076678"
+set completion-bg               "#ffffff"
+set completion-fg               "#595959"
 
-set completion-bg               "#ebdbb2"
-set completion-fg               "#076678"
+set completion-highlight-fg     "#595959"
+set completion-highlight-bg     "#595959"
 
-set completion-highlight-fg     "#282828"
-set completion-highlight-bg     "#076678"
-
-set recolor-lightcolor          "#fbf1c7"
-set recolor-darkcolor           "#3c3836"
+set recolor-lightcolor          "#ffffff"
+set recolor-darkcolor           "#000000"
 
 set recolor                     "false"
 set recolor-keephue             "false"
