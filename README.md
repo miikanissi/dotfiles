@@ -51,7 +51,7 @@ Here are some example scripts:
 
 ## Colors
 
-<p align="center"><a href="https://protesilaos.com/emacs/modus-themes">Modus Themes</a></p>
+### [Modus Themes](https://protesilaos.com/emacs/modus-themes)
 
 #### Modus Operandi
 
