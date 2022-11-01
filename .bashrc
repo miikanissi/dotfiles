@@ -79,14 +79,6 @@ alias localip="ip address | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep 
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
 alias passmenu='~/.local/bin/rofi_passmenu.sh' # replace passmenu script with rofi passmenu
 alias v='nvim'
-alias vim='nvim'
-### odoo aliases ###
-alias odoo='/opt/odoo/12/server/odoo-bin'
-alias odoo_run='odoo -c /opt/odoo/12/conf/odoo-12-all-dev-modules.conf'
-alias odoo14='/opt/odoo/14/server/odoo-bin'
-alias odoo14_run='odoo14 -c /opt/odoo/14/conf/odoo-14-all-dev-modules.conf'
-alias mpg='cd /opt/odoo/12/addons/mpg-dev/'
-alias mpg14='cd /opt/odoo/14/addons/mpg-dev/'
 alias docker='sudo docker'
 
 branchall () {
