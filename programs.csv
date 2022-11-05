@@ -18,6 +18,7 @@ P,black,A Python code formatter
 ,curl,A tool to transfer data to or from a server
 P,djlint,A Django/Jinja template linter
 ,dunst,A notification daemon
+,easytag,A program to add tags to songs
 ,eject,Eject specified devices
 ,emacs-gtk,Not a text editor
 N,eslint-config-prettier,Disables conflicting eslint rules with Prettier

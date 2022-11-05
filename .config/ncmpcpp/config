@@ -22,13 +22,13 @@ visualizer_color = blue, cyan, green, yellow, magenta, red
 
 #### format
 song_list_format = {$4%a - }{%t}|{$8%f$9}$R{$3(%l)$9}
-song_status_format = $b{{$8"%t"}} $3by {$4%a{ $3in $7%b{ (%y)}} $3}|{$8%f}
+song_status_format = $b{{$8"%t"}} $1by {$7%a{ $1in $7%b{ (%y)}} $1}|{$8%f}
 song_library_format = {%n - }{%t}|{%f}
 alternative_header_first_line_format = $b$1$aqqu$/a$9 {%t}|{%f} $1$atqq$/a$9$/b
 alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}}|{%D}
-current_item_prefix = $(cyan)$r$b
+current_item_prefix = $(7)$r
 current_item_suffix = $/r$(end)$/b
-current_item_inactive_column_prefix = $(magenta)$r
+current_item_inactive_column_prefix = $(9)$r
 current_item_inactive_column_suffix = $/r$(end)
 
 message_delay_time = 5
@@ -63,13 +63,14 @@ header_window_color = default
 volume_color = default
 state_line_color = default
 state_flags_color = default:b
-main_window_color = white
+main_window_color = 1_16
+color1 = 1
+color2 = 13
 progressbar_color = black:b
-progressbar_elapsed_color = blue:b
-statusbar_color = red
-statusbar_time_color = cyan:b
+progressbar_elapsed_color = green:b
+statusbar_color = default
+statusbar_time_color = default:b
 player_state_color = default:b
 alternative_ui_separator_color = black:b
 window_border_color = green
 active_window_border = red
-

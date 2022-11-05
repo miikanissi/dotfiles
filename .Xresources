@@ -8,7 +8,6 @@
 ! modus-operandi
 ! BEGIN LIGHT
 *background: #ffffff
-*background1: #efefef
 *foreground: #000000
 *cursorColor: #000000
 *color0:  #000000
@@ -37,7 +36,7 @@ sxiv.Background: #ffffff
 ! *foreground: #ffffff
 ! *cursorColor: #ffffff
 ! *color0:  #ffffff
-! *color8:  #595959
+! *color8:  #bfbfbf
 ! *color1:  #ff8059
 ! *color9:  #ef8b50
 ! *color2:  #44bc44
@@ -50,7 +49,7 @@ sxiv.Background: #ffffff
 ! *color13: #b6a0ff
 ! *color6:  #00d3d0
 ! *color14: #6ae4b9
-! *color7:  #bfbfbf
+! *color7:  #595959
 ! *color15: #000000
 !! END DARK
 
