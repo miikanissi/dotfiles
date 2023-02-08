@@ -24,5 +24,6 @@ x-scheme-handler/https=browser.desktop
 application/xhtml+xml=browser.desktop
 application/x-shellscript=text.desktop
 x-scheme-handler/discord-409416265891971072=discord-409416265891971072.desktop
+x-scheme-handler/msteams=teams.desktop
 
 [Added Associations]

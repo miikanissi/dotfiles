@@ -346,8 +346,6 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 lspconfig.tsserver.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
-        -- Disable formatting v0.7
-        client.resolved_capabilities.document_formatting = false
         -- Disable formatting v0.8
         client.server_capabilities.documentFormattingProvider = false
         on_attach(client, bufnr)
@@ -357,8 +355,6 @@ lspconfig.tsserver.setup({
 lspconfig.eslint.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
-        -- Disable formatting v0.7
-        client.resolved_capabilities.document_formatting = false
         -- Disable formatting v0.8
         client.server_capabilities.documentFormattingProvider = false
         on_attach(client, bufnr)
@@ -426,8 +422,6 @@ lspconfig.pyright.setup({
 lspconfig.lemminx.setup({
     capabilities = capabilities,
     on_attach = function(client, bufnr)
-        -- Disable formatting v0.7
-        client.resolved_capabilities.document_formatting = false
         -- Disable formatting v0.8
         client.server_capabilities.documentFormattingProvider = false
         on_attach(client, bufnr)

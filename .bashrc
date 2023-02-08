@@ -80,6 +80,8 @@ alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pul
 alias passmenu='~/.local/bin/rofi_passmenu.sh' # replace passmenu script with rofi passmenu
 alias v='nvim'
 alias docker='sudo docker'
+alias wi='cd ~/Documents/odoo/16/addons/wildleaf'
+alias wi14='cd ~/Documents/odoo/14/addons/wildleaf'
 
 branchall () {
   for i in */; do
