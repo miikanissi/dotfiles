@@ -58,11 +58,3 @@ This is my personal nvim configuration that is:
 | `<leader>ca`      | LSP: Selects a code action available at the current cursor position `vim.lsp.buf.code_action`                           |
 | `<leader>so`      | LSP / Telescope: Lists LSP document symbols in the current buffer `require('telescope.builtin').lsp_document_symbols`   |
 | `<leader>bf`      | LSP: Format the current buffer `vim.lsp.buf.formatting`                                                                 |
-| `<leader>db`      | DAP: Toggle a breakpoint `require('dap').toggle_breakpoint`                                                             |
-| `<leader>dk`      | DAP: Step out `require('dap').step_out`                                                                                 |
-| `<leader>dj`      | DAP: Step over `require('dap').step_over`                                                                               |
-| `<leader>dl`      | DAP: Step into `require('dap').step_into`                                                                               |
-| `<leader>dn`      | DAP: Start / Continue `require('dap').continue`                                                                         |
-| `<leader>dp`      | DAP: Run last option `require('dap').run_last`                                                                          |
-| `<leader>dk`      | DAP: Toggle repl `require('dap').repl.toggle`                                                                           |
-| `<leader>di`      | DAP: Show evaluation of string under cursor `require('dap.ui.widgets').hover`                                           |

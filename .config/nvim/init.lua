@@ -50,14 +50,13 @@ require('packer').startup(function(use)
     use 'nvim-treesitter/nvim-treesitter-context' -- Show context of current buffer ie sticky definition
     use 'windwp/nvim-autopairs' -- Automatically close pairs
     use 'williamboman/nvim-lsp-installer' -- Automatically install LSPs
-    -- Collection of configurations for built-in LSP client
     use {
         'neovim/nvim-lspconfig',
         requires= {
             -- Useful status updates for LSP
             'j-hui/fidget.nvim',
         },
-    }
+    } -- Collection of configurations for built-in LSP client
     use 'jose-elias-alvarez/null-ls.nvim' -- Null ls is used for code formatting and pylint analysis
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp' -- Autocompletion with LSPs
@@ -69,8 +68,6 @@ require('packer').startup(function(use)
             'kyazdani42/nvim-web-devicons',
         },
     } -- File tree browser
-    use 'mfussenegger/nvim-dap' -- A debugger frontend
-    use 'mfussenegger/nvim-dap-python' -- Python configuration for nvim-dap
 
     if is_bootstrap then
         require('packer').sync()
@@ -550,19 +547,3 @@ cmp.setup({
         { name = 'luasnip' },
     },
 })
-
--- nvim-dap for debugging
-require('dap')
-vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', numhl = '' })
-vim.fn.sign_define('DapStopped', { text = '🟢', texthl = '', linehl = '', numhl = '' })
-vim.keymap.set('n', '<leader>db', require('dap').toggle_breakpoint)
-vim.keymap.set('n', '<leader>dk', require('dap').step_out)
-vim.keymap.set('n', '<leader>dj', require('dap').step_over)
-vim.keymap.set('n', '<leader>dl', require('dap').step_into)
-vim.keymap.set('n', '<leader>dn', require('dap').continue)
-vim.keymap.set('n', '<leader>dp', require('dap').run_last)
-vim.keymap.set('n', '<leader>dr', require('dap').repl.toggle)
-vim.keymap.set('n', '<leader>di', require('dap.ui.widgets').hover)
-
--- nvim-dap-python for python debugging
-require('dap-python').setup('python3')
