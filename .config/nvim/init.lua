@@ -1,12 +1,12 @@
 -- PACKAGES
 -- Ensure Packer (plugin manager) is installed
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  is_bootstrap = true
+  vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+  vim.cmd [[packadd packer.nvim]]
 end
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost',
-    { command = 'source <afile> | PackerCompile', group = packer_group, pattern = 'init.lua' })
 
 -- Install plugins with Packer
 require('packer').startup(function(use)
@@ -50,7 +50,14 @@ require('packer').startup(function(use)
     use 'nvim-treesitter/nvim-treesitter-context' -- Show context of current buffer ie sticky definition
     use 'windwp/nvim-autopairs' -- Automatically close pairs
     use 'williamboman/nvim-lsp-installer' -- Automatically install LSPs
-    use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+    -- Collection of configurations for built-in LSP client
+    use {
+        'neovim/nvim-lspconfig',
+        requires= {
+            -- Useful status updates for LSP
+            'j-hui/fidget.nvim',
+        },
+    }
     use 'jose-elias-alvarez/null-ls.nvim' -- Null ls is used for code formatting and pylint analysis
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp' -- Autocompletion with LSPs
@@ -64,7 +71,32 @@ require('packer').startup(function(use)
     } -- File tree browser
     use 'mfussenegger/nvim-dap' -- A debugger frontend
     use 'mfussenegger/nvim-dap-python' -- Python configuration for nvim-dap
+
+    if is_bootstrap then
+        require('packer').sync()
+    end
 end)
+
+-- When we are bootstrapping a configuration, it doesn't
+-- make sense to execute the rest of the init.lua.
+-- You'll need to restart nvim, and then it will work.
+if is_bootstrap then
+  print '=================================='
+  print '    Plugins are being installed'
+  print '    Wait until Packer completes,'
+  print '       then restart nvim'
+  print '=================================='
+  return
+end
+
+-- Automatically source and re-compile packer whenever you save this init.lua
+local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePost', {
+  command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
+  group = packer_group,
+  pattern = vim.fn.expand '$MYVIMRC',
+})
+
 
 -- SETTINGS
 -- Theme, colors and gui
@@ -203,7 +235,9 @@ require('telescope').setup({
     },
 })
 -- Enable telescope fzf native
-require('telescope').load_extension 'fzf'
+-- Enable telescope fzf native, if installed
+pcall(require('telescope').load_extension, 'fzf')
+
 --Add leader shortcuts
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>sf', function()
@@ -243,6 +277,8 @@ require('nvim-treesitter.configs').setup({
             lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
             keymaps = {
                 -- You can use the capture groups defined in textobjects.scm
+                ['aa'] = '@parameter.outer',
+                ['ia'] = '@parameter.inner',
                 ['af'] = '@function.outer',
                 ['if'] = '@function.inner',
                 ['ac'] = '@class.outer',
@@ -336,6 +372,9 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
     vim.diagnostic.config({virtual_text = false})
 end
+
+-- Turn on lsp status information
+require('fidget').setup()
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
