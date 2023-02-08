@@ -62,6 +62,7 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 ,mpc,A client for MPD
 ,mpd,Music Player Daemon
 ,mpv,A media player
+,multitail,Ncurses style logging tool
 ,mupdf,A lightweight PDF and E-book viewer
 ,ncmpcpp,A client for MPD
 ,neofetch,A command-line utility to fetch system information
