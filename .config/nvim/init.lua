@@ -501,7 +501,6 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.stylua,
 		require("null-ls").builtins.diagnostics.djlint,
 		require("null-ls").builtins.diagnostics.flake8,
-		require("null-ls").builtins.diagnostics.codespell,
 		require("null-ls").builtins.diagnostics.pylint.with({
 			extra_args = { "--load-plugins=pylint_odoo", "-e", "odoolint" }, -- Load pylint_odoo plugin for pylint
 		}),
