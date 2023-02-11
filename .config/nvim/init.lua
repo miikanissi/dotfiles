@@ -100,6 +100,7 @@ vim.opt.backup = false -- No backup file
 vim.opt.undofile = true -- Makes undofile for history
 vim.opt.lazyredraw = true -- No redraw
 vim.opt.updatetime = 100 -- Default is 4000 - less updates
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
 --Remap space as leader key
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
@@ -146,6 +147,7 @@ vim.diagnostic.config({
 	virtual_text = false,
 })
 
+--
 -- PLUGIN SETTINGS
 -- LUALINE.NVIM
 require("lualine").setup({
@@ -259,6 +261,7 @@ require("nvim-treesitter.configs").setup({
 		"dockerfile",
 		"gitcommit",
 		"json",
+		"latex",
 		"rst",
 		"markdown",
 		"yaml",
@@ -372,6 +375,12 @@ local on_attach = function(_, bufnr)
 	end, { desc = "Format current buffer with LSP" })
 end
 
+-- Create dictionary word list for ltex lsp from vim spellfile
+local words = {}
+for word in io.open(vim.fn.stdpath("config") .. "/spell/en.utf-8.add", "r"):lines() do
+	table.insert(words, word)
+end
+
 local servers = {
 	pyright = {},
 	eslint = {
@@ -406,6 +415,13 @@ local servers = {
 	html = {},
 	jsonls = {},
 	lemminx = {},
+	ltex = {
+		ltex = {
+			dictionary = {
+				["en-US"] = words,
+			},
+		},
+	},
 	gopls = {},
 	sumneko_lua = {
 		Lua = {
