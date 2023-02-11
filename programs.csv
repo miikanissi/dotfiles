@@ -11,6 +11,7 @@ P,black,A Python code formatter
 ,clang,A C compiler
 ,claws-mail,A lightweight and fast email client
 ,cmake,Build automation for C
+P,codespell,Check text for common spelling mistakes
 ,coreutils,The GNU Core Utilities
 ,cowsay,A speaking cow on the command-line
 ,cryptsetup,Manage LUKS encryptions
@@ -85,7 +86,7 @@ P,pylint-odoo,A Pylint plugin for Odoo
 ,python3-pip,Package Installer for Python
 ,python3,Python Programming Language
 ,python3-venv,Create Python virtual environments
-,redshift,Adjusts the color temperatur of your screen
+,redshift,Adjusts the color temperature of your screen
 ,ripgrep,A line-oriented search tool that recursively searches the current directory for a regex pattern
 ,rofi,An application launcher
 ,rsync,synchronizes remote and local files
@@ -104,7 +105,7 @@ P,pylint-odoo,A Pylint plugin for Odoo
 ,wget,Retrieve files from the internet
 ,wmctrl,Control EWMH compatible X window window managers
 ,xclip,Copy and paste at the command-line
-,xdotool,Procides window action utilities on the command line
+,xdotool,Provides window action utilities on the command line
 ,xsel,Retrieve and set X selection
 ,xterm,A basic terminal emulator
 ,zathura,A PDF viewer

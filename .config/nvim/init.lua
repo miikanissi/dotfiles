@@ -1,4 +1,4 @@
--- PACKAGES
+-- PLUGIN INSTALL
 -- Ensure Packer (plugin manager) is installed
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -10,23 +10,7 @@ end
 require("packer").startup(function(use)
 	use("wbthomason/packer.nvim") -- Package manager
 	use("ishan9299/modus-theme-vim") -- Vim port of Modus themes
-	use("norcalli/nvim-colorizer.lua") -- Highlight colors
-	-- A note taking plugin
-	use({
-		"vimwiki/vimwiki",
-		config = function()
-			vim.g.vimwiki_list = {
-				{
-					path = "~/Documents/vimwiki/",
-					syntax = "markdown",
-					ext = ".md",
-					auto_diary_index = 1,
-					auto_generate_links = 1,
-				},
-			}
-			vim.g.vimwiki_global_ext = 0
-		end,
-	})
+	use("norcalli/nvim-colorizer.lua") -- Highlight colors and colorcodes
 	use("tpope/vim-fugitive") -- Git commands in nvim
 	use("tpope/vim-rhubarb") -- Fugitive-companion to interact with github
 	use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- Git info in sign column and popups
@@ -43,14 +27,20 @@ require("packer").startup(function(use)
 	use("nvim-lualine/lualine.nvim") -- Fancier statusline
 	use("lukas-reineke/indent-blankline.nvim") -- Add indentation guides
 	use("alvan/vim-closetag") -- Automatically close html/xml tags
-	use("nvim-treesitter/nvim-treesitter") -- Highlight and navigate using a parsing library
-	use("nvim-treesitter/nvim-treesitter-textobjects") -- Additional treesitter objects
-	use("nvim-treesitter/nvim-treesitter-context") -- Show context of current buffer ie sticky definition
+	use({ -- Highlight, edit, and navigate code
+		"nvim-treesitter/nvim-treesitter",
+		run = function()
+			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+		end,
+	})
+	use({ -- Additional text objects via treesitter
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+	})
 	use("windwp/nvim-autopairs") -- Automatically close pairs
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
-
 			-- Automatically install LSPs to stdpath for neovim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -72,6 +62,14 @@ require("packer").startup(function(use)
 end)
 
 -- SETTINGS
+local nmap = function(keys, func, desc)
+	if desc then
+		desc = "LSP: " .. desc
+	end
+
+	vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+end
+
 -- Theme, colors and gui
 vim.opt.termguicolors = true -- Use full colors
 vim.opt.background = "light" -- Background color
@@ -142,14 +140,23 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = highlight_group,
 	pattern = "*",
 })
+
+-- Diagnostic keymaps
+nmap("<leader>e", vim.diagnostic.open_float)
+nmap("[d", vim.diagnostic.goto_prev)
+nmap("]d", vim.diagnostic.goto_next)
+nmap("<leader>q", vim.diagnostic.setloclist)
+
+-- Show diagnostic source on diagnostic window
 vim.diagnostic.config({
 	float = {
 		source = "always",
 	},
 	virtual_text = false,
 })
--- PLUGINS
--- Lualine
+
+-- PLUGIN SETTINGS
+-- LUALINE.NVIM
 require("lualine").setup({
 	options = {
 		icons_enabled = false,
@@ -157,10 +164,20 @@ require("lualine").setup({
 		component_separators = "|",
 		section_separators = "",
 	},
+	winbar = {
+		lualine_a = {},
+		lualine_b = {},
+		lualine_c = { { "filename", file_status = true, path = 1 } },
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = {},
+	},
 })
--- nvim-colorizer.lua
+
+-- NVIM-COLORIZER.LUA
 require("colorizer").setup()
--- Closetag
+
+-- VIM-CLOSETAG
 local closetag_regions = {}
 closetag_regions["typescript.tsx"] = "jsxRegion,tsxRegion"
 closetag_regions["javascript.jsx"] = "jsxRegion"
@@ -174,23 +191,23 @@ vim.g["closetag_regions"] = closetag_regions
 vim.g["closetag_shortcut"] = ">"
 vim.g["closetag_close_shortcut"] = "<leader>>"
 
--- Nvim-tree
+-- NVIM-TREE
 require("nvim-tree").setup()
 vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", { silent = true })
 
---Enable Comment.nvim
+-- COMMENT.NVIM
 require("Comment").setup()
 
--- Enable nvim-autopairs
+-- NVIM-AUTOPAIRS
 require("nvim-autopairs").setup()
 
--- Indent blankline
+-- INDENT-BLANKLINE.NVIM
 require("indent_blankline").setup({
 	char = "┊",
 	show_trailing_blankline_indent = false,
 })
 
--- Gitsigns
+-- GITSIGNS.NVIM
 require("gitsigns").setup({
 	signs = {
 		add = { text = "+" },
@@ -201,8 +218,16 @@ require("gitsigns").setup({
 	},
 })
 
--- Telescope
+-- TELESCOPE.NVIM
 require("telescope").setup({
+	extensions = {
+		fzf = {
+			fuzzy = true, -- false will only do exact matching
+			override_generic_sorter = true, -- override the generic sorter
+			override_file_sorter = true, -- override the file sorter
+			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+		},
+	},
 	defaults = {
 		mappings = {
 			i = {
@@ -212,9 +237,7 @@ require("telescope").setup({
 		},
 	},
 })
--- Enable telescope fzf native
--- Enable telescope fzf native, if installed
-pcall(require("telescope").load_extension, "fzf")
+require("telescope").load_extension("fzf")
 
 --Add leader shortcuts
 vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers)
@@ -231,9 +254,26 @@ vim.keymap.set("n", "<leader>so", function()
 end)
 vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles)
 
--- Treesitter
+-- NVIM-TREESITTER
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "c", "html", "javascript", "python", "lua", "css", "bash", "go", "gomod" },
+	ensure_installed = {
+		"html",
+		"javascript",
+		"python",
+		"lua",
+		"css",
+		"bash",
+		"go",
+		"gomod",
+		"dockerfile",
+		"gitcommit",
+		"json",
+		"rst",
+		"markdown",
+		"yaml",
+		"help",
+		"vim",
+	},
 	highlight = {
 		enable = true,
 	},
@@ -283,46 +323,27 @@ require("nvim-treesitter.configs").setup({
 				["[]"] = "@class.outer",
 			},
 		},
-	},
-})
-require("treesitter-context").setup({
-	enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-	trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-	max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-	patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-		-- For all filetypes
-		-- Note that setting an entry here replaces all other patterns for this entry.
-		-- By setting the 'default' entry below, you can control which nodes you want to
-		-- appear in the context window.
-		default = {
-			"class",
-			"function",
-			"method",
-			"for",
-			"while",
-			"if",
-			"switch",
-			"case",
+		swap = {
+			enable = true,
+			swap_next = {
+				["<leader>a"] = "@parameter.inner",
+			},
+			swap_previous = {
+				["<leader>A"] = "@parameter.inner",
+			},
 		},
 	},
 })
 
--- luasnip setup
+-- LUASNIP
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_snipmate").load()
 
 -- LSP PLUGINS AND SETTINGS
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
 local on_attach = function(_, bufnr)
-	local nmap = function(keys, func, desc)
-		if desc then
-			desc = "LSP: " .. desc
-		end
-
-		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-	end
-
 	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
@@ -344,12 +365,6 @@ local on_attach = function(_, bufnr)
 	nmap("<leader>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, "[W]orkspace [L]ist Folders")
-
-	-- Diagnostic keymaps
-	nmap("<leader>e", vim.diagnostic.open_float)
-	nmap("[d", vim.diagnostic.goto_prev)
-	nmap("]d", vim.diagnostic.goto_next)
-	nmap("<leader>q", vim.diagnostic.setloclist)
 
 	-- Create a command `:Format` local to the LSP buffer
 	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
@@ -411,12 +426,11 @@ local servers = {
 	},
 }
 
--- Setup mason so it can manage external tooling
+-- MASON.NVIM
 require("mason").setup()
 
--- Ensure the servers above are installed
+-- MASON-LSPCONFIG.NVIM
 local mason_lspconfig = require("mason-lspconfig")
-
 mason_lspconfig.setup({
 	ensure_installed = vim.tbl_keys(servers),
 })
@@ -431,78 +445,10 @@ mason_lspconfig.setup_handlers({
 	end,
 })
 
--- Turn on lsp status information
+-- FIDGET.NVIM
 require("fidget").setup()
 
--- -- eslint (JavaScript)
--- lspconfig.eslint.setup({
---     capabilities = capabilities,
---     on_attach = function(client, bufnr)
---         -- Disable formatting v0.8
---         client.server_capabilities.documentFormattingProvider = false
---         on_attach(client, bufnr)
---     end,
---     settings = {
---         codeAction = {
---             disableRuleComment = {
---                 enable = true,
---                 location = "separateLine"
---             },
---             showDocumentation = {
---                 enable = true
---             }
---         },
---         codeActionOnSave = {
---             enable = false,
---             mode = "all"
---         },
---         format = false,
---         nodePath = "",
---         onIgnoredFiles = "off",
---         packageManager = "npm",
---         quiet = false,
---         rulesCustomizations = {},
---         run = "onType",
---         useESLintClass = false,
---         validate = "on",
---         workingDirectory = {
---             mode = "location"
---         }
---     }
--- })
--- -- pyright (Python)
--- lspconfig.pyright.setup({
---     on_attach = on_attach,
---     capabilities = capabilities,
---     settings = {
---         python = {
---             analysis = {
---                 diagnosticSeverityOverrides = {
---                     reportMissingImports = "none",
---                 },
---             },
---         },
---     },
--- })
--- -- lemminx (XML)
--- lspconfig.lemminx.setup({
---     capabilities = capabilities,
---     on_attach = function(client, bufnr)
---         -- Disable formatting v0.8
---         client.server_capabilities.documentFormattingProvider = false
---         on_attach(client, bufnr)
---     end
--- })
--- -- LSPs with default setup: bashls (Bash), cssls (CSS), html (HTML), clangd (C/C++), jsonls (JSON)
--- for _, lsp in ipairs { 'bashls', 'cssls', 'html', 'clangd', 'jsonls', 'gopls' } do
---     lspconfig[lsp].setup({
---         on_attach = on_attach,
---         capabilities = capabilities,
---     })
--- end
---
-
--- Null ls for automatic formatting and additional analysis
+-- NULL-LS.NVIM
 -- LSP formatting filter
 local lsp_formatting = function(bufnr)
 	vim.lsp.buf.format({
@@ -521,6 +467,7 @@ local lsp_formatting = function(bufnr)
 		bufnr = bufnr,
 	})
 end
+
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require("null-ls").setup({
 	-- you can reuse a shared lspconfig on_attach callback here
@@ -545,13 +492,15 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.isort,
 		require("null-ls").builtins.formatting.stylua,
 		require("null-ls").builtins.diagnostics.djlint,
+		require("null-ls").builtins.diagnostics.flake8,
+		require("null-ls").builtins.diagnostics.codespell,
 		require("null-ls").builtins.diagnostics.pylint.with({
 			extra_args = { "--load-plugins=pylint_odoo", "-e", "odoolint" }, -- Load pylint_odoo plugin for pylint
 		}),
 	},
 })
 
--- nvim-cmp setup
+-- NVIM-CMP
 local cmp = require("cmp")
 cmp.setup({
 	snippet = {
