@@ -62,15 +62,6 @@ require("packer").startup(function(use)
 end)
 
 -- SETTINGS
-local nmap = function(keys, func, desc)
-	if desc then
-		desc = "LSP: " .. desc
-	end
-
-	vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-end
-
--- Theme, colors and gui
 vim.opt.termguicolors = true -- Use full colors
 vim.opt.background = "light" -- Background color
 vim.cmd("colorscheme modus-operandi") -- Theme
@@ -142,10 +133,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Diagnostic keymaps
-nmap("<leader>e", vim.diagnostic.open_float)
-nmap("[d", vim.diagnostic.goto_prev)
-nmap("]d", vim.diagnostic.goto_next)
-nmap("<leader>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 -- Show diagnostic source on diagnostic window
 vim.diagnostic.config({
@@ -344,6 +335,15 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local on_attach = function(_, bufnr)
+	local nmap = function(keys, func, desc)
+		if desc then
+			desc = "LSP: " .. desc
+		end
+
+		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+	end
+
+	-- Theme, colors and gui
 	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
@@ -373,15 +373,7 @@ local on_attach = function(_, bufnr)
 end
 
 local servers = {
-	pyright = {
-		python = {
-			analysis = {
-				diagnosticSeverityOverrides = {
-					reportMissingImports = "none",
-				},
-			},
-		},
-	},
+	pyright = {},
 	eslint = {
 		codeAction = {
 			disableRuleComment = {
