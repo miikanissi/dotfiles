@@ -501,7 +501,26 @@ require("fidget").setup()
 --     })
 -- end
 --
+
 -- Null ls for automatic formatting and additional analysis
+-- LSP formatting filter
+local lsp_formatting = function(bufnr)
+	vim.lsp.buf.format({
+		filter = function(client)
+			-- Ignore formatting from these LSPs
+			local lsp_formatting_denylist = {
+				eslint = true,
+				lemminx = true,
+				sumneko_lua = true,
+			}
+			if lsp_formatting_denylist[client.name] then
+				return false
+			end
+			return true
+		end,
+		bufnr = bufnr,
+	})
+end
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require("null-ls").setup({
 	-- you can reuse a shared lspconfig on_attach callback here
@@ -512,7 +531,7 @@ require("null-ls").setup({
 				group = augroup,
 				buffer = bufnr,
 				callback = function()
-					vim.lsp.buf.format({ bufnr = bufnr })
+					lsp_formatting(bufnr)
 				end,
 			})
 		end
