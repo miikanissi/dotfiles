@@ -50,6 +50,8 @@ require("packer").startup(function(use)
 	}) -- Collection of configurations for built-in LSP client
 	use("jose-elias-alvarez/null-ls.nvim") -- Null ls is used for code formatting and pylint analysis
 	use("hrsh7th/nvim-cmp") -- Autocompletion plugin
+	use("hrsh7th/cmp-buffer") -- Autocompletion from words in buffer
+	use("hrsh7th/cmp-path") -- Autocompletion from files
 	use("hrsh7th/cmp-nvim-lsp") -- Autocompletion with LSPs
 	use("L3MON4D3/LuaSnip") -- Snippets plugin
 	use("saadparwaiz1/cmp_luasnip") -- Snippets autocompletion
@@ -510,11 +512,6 @@ require("null-ls").setup({
 -- NVIM-CMP
 local cmp = require("cmp")
 cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -544,6 +541,13 @@ cmp.setup({
 	}),
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "path" },
 		{ name = "luasnip" },
+		{ name = "buffer", keyword_length = 4 },
+	},
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end,
 	},
 })
