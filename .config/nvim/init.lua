@@ -11,8 +11,6 @@ require("packer").startup(function(use)
 	use("wbthomason/packer.nvim") -- Package manager
 	use("ishan9299/modus-theme-vim") -- Vim port of Modus themes
 	use("norcalli/nvim-colorizer.lua") -- Highlight colors and colorcodes
-	use("tpope/vim-fugitive") -- Git commands in nvim
-	use("tpope/vim-rhubarb") -- Fugitive-companion to interact with github
 	use({ "lewis6991/gitsigns.nvim", requires = { "nvim-lua/plenary.nvim" } }) -- Git info in sign column and popups
 	use("numToStr/Comment.nvim") -- "gc" to comment visual regions/lines
 	-- Automatic tags management
@@ -27,13 +25,15 @@ require("packer").startup(function(use)
 	use("nvim-lualine/lualine.nvim") -- Fancier statusline
 	use("lukas-reineke/indent-blankline.nvim") -- Add indentation guides
 	use("alvan/vim-closetag") -- Automatically close html/xml tags
-	use({ -- Highlight, edit, and navigate code
+	use({
+		-- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
 			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
 		end,
 	})
-	use({ -- Additional text objects via treesitter
+	use({
+		-- Additional text objects via treesitter
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		after = "nvim-treesitter",
 	})
@@ -117,11 +117,11 @@ vim.keymap.set("n", "<C-K>", "<C-W>k", { silent = true })
 vim.keymap.set("n", "<C-L>", "<C-W>l", { silent = true })
 vim.keymap.set("n", "<C-H>", "<C-W>h", { silent = true })
 
--- Location list mappings
-vim.keymap.set("n", "<leader>lo", ":lopen<CR>")
-vim.keymap.set("n", "<leader>lc", ":lclose<CR>")
-vim.keymap.set("n", "<leader>lj", ":lnext<CR>")
-vim.keymap.set("n", "<leader>lk", ":lprev<CR>")
+-- Quickfix list mappings
+vim.keymap.set("n", "<leader>co", ":copen<CR>")
+vim.keymap.set("n", "<leader>cc", ":cclose<CR>")
+vim.keymap.set("n", "<leader>cj", ":cnext<CR>")
+vim.keymap.set("n", "<leader>ck", ":cprev<CR>")
 
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -135,9 +135,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>[", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "<leader>]", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist)
 
 -- Show diagnostic source on diagnostic window
 vim.diagnostic.config({
