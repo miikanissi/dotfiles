@@ -104,6 +104,10 @@ vim.opt.lazyredraw = true -- No redraw
 vim.opt.updatetime = 100 -- Default is 4000 - less updates
 vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 --Remap space as leader key
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
@@ -187,7 +191,11 @@ vim.g["closetag_shortcut"] = ">"
 vim.g["closetag_close_shortcut"] = "<leader>>"
 
 -- NVIM-TREE
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+	filters = {
+		dotfiles = true,
+	},
+})
 vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", { silent = true })
 
 -- COMMENT.NVIM
