@@ -497,7 +497,9 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.prettier.with({
 			extra_filetypes = { "xml" },
 		}),
-		require("null-ls").builtins.formatting.black,
+		require("null-ls").builtins.formatting.black.with({
+			extra_args = { "--experimental-string-processing" }, -- Enable experimental split long strings flag
+		}),
 		require("null-ls").builtins.formatting.djlint,
 		require("null-ls").builtins.formatting.isort,
 		require("null-ls").builtins.formatting.stylua,
