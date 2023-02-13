@@ -131,9 +131,9 @@ To stay up to date with me, visit my [website](https://miikanissi.com).
 Useful Links:
 
 - [Arch Wiki](https://wiki.archlinux.org/) — A great Linux resource for almost anything
+- [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) — A great starting point
+  for a Neovim "IDE" configuration
 - [Uncle Dave](https://github.com/daedreth/UncleDavesEmacs) — Great YouTube series on
   configuring Emacs from scratch
 - [Protesilaos Stavrou](https://gitlab.com/protesilaos/dotfiles) — In-depth Emacs
   content, awesome color themes modus-operandi & modus-vivendi
-- [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) — A great starting point
-  for a Neovim "IDE" configuration
