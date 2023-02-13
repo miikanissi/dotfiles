@@ -425,7 +425,7 @@ local servers = {
 		},
 	},
 	gopls = {},
-	sumneko_lua = {
+	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = false },
 			telemetry = { enable = false },
@@ -467,7 +467,7 @@ local lsp_formatting = function(bufnr)
 			local lsp_formatting_denylist = {
 				eslint = true,
 				lemminx = true,
-				sumneko_lua = true,
+				lua_ls = true,
 			}
 			if lsp_formatting_denylist[client.name] then
 				return false
