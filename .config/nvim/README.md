@@ -12,11 +12,13 @@ This is my personal Nvim configuration that is:
 ## Installation
 
 - Ensure the following packages are installed (Debian). It is recommended to download
-  Node.js from the [NodeSource repository](https://github.com/nodesource/distributions):
+  Node.js from the [NodeSource repository](https://github.com/nodesource/distributions)
+  and Go from [go.dev](https://go.dev/dl/):
 
-        sudo apt install clang cmake libclang-dev python3-pip nodejs ctags \
+        sudo apt install clang cmake libclang-dev python3-pip nodejs ctags golang \
         && pip3 install --upgrade pynvim black pylint pylint-odoo \
-        && npm install --save-dev prettier @prettier/plugin-xml
+        && npm install --save-dev prettier @prettier/plugin-xml \
+        && go install mvdan.cc/sh/v3/cmd/shfmt@latest
 
 - Copy and paste the `init.lua` file into `$HOME/.config/nvim/init.lua`
 - Start Neovim (`nvim`) and run `PackerSync`

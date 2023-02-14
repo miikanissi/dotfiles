@@ -90,6 +90,7 @@ P,pylint-odoo,A Pylint plugin for Odoo
 ,rofi,An application launcher
 ,rsync,synchronizes remote and local files
 ,shellcheck,Shell script analysis tool
+X,shfmt,Shell script formatter
 ,slick-greeter,A lightDM greeter
 ,ssh,The Secure Shell Protocol
 ,suckless-tools,Tools that suck less
