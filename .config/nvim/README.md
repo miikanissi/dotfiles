@@ -21,8 +21,7 @@ This is my personal Nvim configuration that is:
         && go install mvdan.cc/sh/v3/cmd/shfmt@latest
 
 - Copy and paste the `init.lua` file into `$HOME/.config/nvim/init.lua`
-- Start Neovim (`nvim`) and run `PackerSync`
-- Restart Neovim
+- Start Neovim (`nvim`)
 
 ## Custom Keymaps Cheatsheet
 
