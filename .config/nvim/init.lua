@@ -511,6 +511,7 @@ require("null-ls").setup({
 		require("null-ls").builtins.formatting.djlint,
 		require("null-ls").builtins.formatting.isort,
 		require("null-ls").builtins.formatting.stylua,
+		require("null-ls").builtins.formatting.shfmt,
 		require("null-ls").builtins.diagnostics.djlint,
 		require("null-ls").builtins.diagnostics.flake8,
 		require("null-ls").builtins.diagnostics.pylint.with({
