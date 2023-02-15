@@ -25,40 +25,34 @@ This is my personal Nvim configuration that is:
 
 ## Custom Keymaps Cheatsheet
 
-| Keymap            | List                                                                                                                    |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `<space>`         | The leader key `<leader>`                                                                                               |
-| `<C-J>`           | Switch to window below `<C-W>j`                                                                                         |
-| `<C-K>`           | Switch to window above `<C-W>k`                                                                                         |
-| `<C-H>`           | Switch to window left `<C-W>h`                                                                                          |
-| `<C-L>`           | Switch to window right `<C-W>l`                                                                                         |
-| `<leader>qo`      | Open quickfix list `:copen<CR>`                                                                                         |
-| `<leader>qc`      | Close quickfix list `:cclose<CR>`                                                                                       |
-| `<leader>qj`      | Go to next item on quickfix list `:cnext<CR>`                                                                           |
-| `<leader>qk`      | Go to previous item on quickfix list `:cprev<CR>`                                                                       |
-| `<leader>t`       | Nvim-tree: Toggles nvim-tree `:NvimTreeToggle<CR>`                                                                      |
-| `<leader><space>` | Telescope: Buffers `require('telescope.builtin').buffers`                                                               |
-| `<leader>sf`      | Telescope: Files `require('telescope.builtin').find_files`                                                              |
-| `<leader>sb`      | Telescope: Fuzzy find buffer contents `require('telescope.builtin').current_buffer_fuzzy_find`                          |
-| `<leader>sh`      | Telescope: List available help tags `require('telescope.builtin').help_tags`                                            |
-| `<leader>st`      | Telescope: List tags in current directory `require('telescope.builtin').tags`                                           |
-| `<leader>ss`      | Telescope: Search for string under your cursor in current directory `require('telescope.builtin').grep_string`          |
-| `<leader>sl`      | Telescope: Search for string in current directory as you type `require('telescope.builtin').live_grep`                  |
-| `<leader>?`       | Telescope: List previously opened files `require('telescope.builtin').oldfiles`                                         |
-| `<leader>de`      | Diagnostics: Show diagnostics in a floating window `vim.diagnostics.open_float`                                         |
-| `<leader>dq`      | Diagnostics: Add buffer diagnostics to the quickfix list `vim.diagnostics.setqflist`                                    |
-| `<leader>dk`      | Diagnostics: Go to previous diagnostic `vim.diagnostics.goto_prev`                                                      |
-| `<leader>dj`      | Diagnostics: Go to next diagnostic `vim.diagnostics.goto_next`                                                          |
-| `gD`              | LSP: Jump to the declaration of the symbol under cursor `vim.lsp.buf.declaration`                                       |
-| `gd`              | LSP: Jump to the definition of the symbol under cursor `vim.lsp.buf.definition`                                         |
-| `K`               | LSP: Displays hover information about the symbol under the cursor in a floating window `vim.lsp.buf.definition`         |
-| `gi`              | LSP: Lists all the implementations of the symbol under cursor `vim.lsp.buf.implementation`                              |
-| `<C-k>`           | LSP: Displays signature information about the symbol under the cursor in a floating window `vim.lsp.buf.signature_help` |
-| `<leader>wa`      | LSP: Add the folder at path to the workspace folders `vim.lsp.buf.add_workspace_folder`                                 |
-| `<leader>wr`      | LSP: Remove the folder at path from the workspace folders `vim.lsp.buf.remove_workspace_folder`                         |
-| `<leader>wl`      | LSP: List the workspace folders `vim.lsp.buf.list_workspace_folders`                                                    |
-| `<leader>D`       | LSP: Jump to the definition of the type of the symbol under cursor `vim.lsp.buf.type_definition`                        |
-| `<leader>rn`      | LSP: Renames all references to the symbol under cursor `vim.lsp.buf.rename`                                             |
-| `gr`              | LSP: List all the references to the symbol under cursor `vim.lsp.buf.references`                                        |
-| `<leader>ca`      | LSP: Selects a code action available at the current cursor position `vim.lsp.buf.code_action`                           |
-| `<leader>so`      | LSP / Telescope: Lists LSP document symbols in the current buffer `require('telescope.builtin').lsp_document_symbols`   |
+| Keymap            | List                                                                                                                  |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `<space>`         | The leader key `<leader>`                                                                                             |
+| `<C-J>`           | Switch to window below `<C-W>j`                                                                                       |
+| `<C-K>`           | Switch to window above `<C-W>k`                                                                                       |
+| `<C-H>`           | Switch to window left `<C-W>h`                                                                                        |
+| `<C-L>`           | Switch to window right `<C-W>l`                                                                                       |
+| `<leader>qo`      | Open quickfix list `:copen<CR>`                                                                                       |
+| `<leader>qc`      | Close quickfix list `:cclose<CR>`                                                                                     |
+| `<leader>qj`      | Go to next item on quickfix list `:cnext<CR>`                                                                         |
+| `<leader>qk`      | Go to previous item on quickfix list `:cprev<CR>`                                                                     |
+| `<leader>de`      | Diagnostics: Show diagnostics in a floating window `vim.diagnostics.open_float`                                       |
+| `<leader>dq`      | Diagnostics: Add buffer diagnostics to the quickfix list `vim.diagnostics.setqflist`                                  |
+| `<leader>dk`      | Diagnostics: Go to previous diagnostic `vim.diagnostics.goto_prev`                                                    |
+| `<leader>dj`      | Diagnostics: Go to next diagnostic `vim.diagnostics.goto_next`                                                        |
+| `<leader><space>` | Telescope: Buffers `require('telescope.builtin').buffers`                                                             |
+| `<leader>?`       | Telescope: List previously opened files `require('telescope.builtin').oldfiles`                                       |
+| `<leader>sf`      | Telescope: Files `require('telescope.builtin').find_files`                                                            |
+| `<leader>sb`      | Telescope: Fuzzy find buffer contents `require('telescope.builtin').current_buffer_fuzzy_find`                        |
+| `<leader>sh`      | Telescope: List available help tags `require('telescope.builtin').help_tags`                                          |
+| `<leader>st`      | Telescope: List tags in current directory `require('telescope.builtin').tags`                                         |
+| `<leader>ss`      | Telescope: Search for string under your cursor in current directory `require('telescope.builtin').grep_string`        |
+| `<leader>sl`      | Telescope: Search for string in current directory as you type `require('telescope.builtin').live_grep`                |
+| `<leader>sd`      | LSP / Telescope: Lists LSP document symbols in the current buffer `require('telescope.builtin').lsp_document_symbols` |
+| `<leader>sr`      | LSP / Telescope: Lists LSP references of the symbol under the cursor `require('telescope.builtin').lsp_references`    |
+| `<leader>cr`      | LSP: Renames all references to the symbol under cursor `vim.lsp.buf.rename`                                           |
+| `<leader>ca`      | LSP: Selects a code action available at the current cursor position `vim.lsp.buf.code_action`                         |
+| `<leader>cd`      | LSP: Jump to the definition of the symbol under cursor `vim.lsp.buf.definition`                                       |
+| `<leader>ct`      | LSP: Jump to the definition of the type of the symbol under cursor `vim.lsp.buf.type_definition`                      |
+| `<leader>ch`      | LSP: Displays hover information about the symbol under the cursor in a floating window `vim.lsp.buf.definition`       |
+| `<leader>t`       | Nvim-tree: Toggles nvim-tree `:NvimTreeToggle<CR>`                                                                    |
