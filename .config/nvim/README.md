@@ -32,6 +32,9 @@ This is my personal Nvim configuration that is:
 | `<C-K>`           | Switch to window above `<C-W>k`                                                                                       |
 | `<C-H>`           | Switch to window left `<C-W>h`                                                                                        |
 | `<C-L>`           | Switch to window right `<C-W>l`                                                                                       |
+| `gl`              | Go to end of line `$`                                                                                                 |
+| `gh`              | Go to beginning of line `0`                                                                                           |
+| `U`               | Redo `<C-R>`                                                                                                          |
 | `<leader>qo`      | Open quickfix list `:copen<CR>`                                                                                       |
 | `<leader>qc`      | Close quickfix list `:cclose<CR>`                                                                                     |
 | `<leader>qj`      | Go to next item on quickfix list `:cnext<CR>`                                                                         |

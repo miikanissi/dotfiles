@@ -56,6 +56,11 @@ vim.keymap.set("n", "<C-K>", "<C-W>k", { silent = true })
 vim.keymap.set("n", "<C-L>", "<C-W>l", { silent = true })
 vim.keymap.set("n", "<C-H>", "<C-W>h", { silent = true })
 
+-- Helix inspired keybindings
+vim.keymap.set("n", "gh", "0", { desc = "[G]oto Beginning of Line [H]", silent = true })
+vim.keymap.set("n", "gl", "$", { desc = "[G]oto End of Line [L]", silent = true })
+vim.keymap.set("n", "U", "<C-R>", { desc = "Redo", silent = true })
+
 -- Quickfix list mappings
 vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "[Q]uickfix [O]pen" })
 vim.keymap.set("n", "<leader>qc", ":cclose<CR>", { desc = "[Q]uickfix [C]lose" })
