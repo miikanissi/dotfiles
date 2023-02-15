@@ -46,7 +46,7 @@ vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add" -- locatio
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
---Remap for dealing with word wrap
+-- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
@@ -57,10 +57,10 @@ vim.keymap.set("n", "<C-L>", "<C-W>l", { silent = true })
 vim.keymap.set("n", "<C-H>", "<C-W>h", { silent = true })
 
 -- Quickfix list mappings
-vim.keymap.set("n", "<leader>co", ":copen<CR>")
-vim.keymap.set("n", "<leader>cc", ":cclose<CR>")
-vim.keymap.set("n", "<leader>cj", ":cnext<CR>")
-vim.keymap.set("n", "<leader>ck", ":cprev<CR>")
+vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "[Q]uickfix [O]pen" })
+vim.keymap.set("n", "<leader>qc", ":cclose<CR>", { desc = "[Q]uickfix [C]lose" })
+vim.keymap.set("n", "<leader>qj", ":cnext<CR>", { desc = "[Q]uickfix Next [J]" })
+vim.keymap.set("n", "<leader>qk", ":cprev<CR>", { desc = "[Q]uickfix Previous [K]" })
 
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -73,10 +73,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>[", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "<leader>]", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setqflist)
+vim.keymap.set("n", "<leader>de", vim.diagnostic.open_float, { desc = "[D]iagnostics: Open [E]rrors" })
+vim.keymap.set("n", "<leader>dk", vim.diagnostic.goto_prev, { desc = "[D]iagnostics: Goto Previous [K]" })
+vim.keymap.set("n", "<leader>dj", vim.diagnostic.goto_next, { desc = "[D]iagnostics: Goto Next [J]]" })
+vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "[D]iagnostics: Set [Q]uickfix" })
 
 -- Show diagnostic source on diagnostic window
 vim.diagnostic.config({
@@ -188,6 +188,19 @@ require("lazy").setup({
 	},
 
 	{
+		"folke/which-key.nvim",
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			require("which-key").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	},
+
+	{
 		"nvim-telescope/telescope.nvim", -- Telescope fuzzy finder
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -218,19 +231,51 @@ require("lazy").setup({
 			require("telescope").load_extension("fzf")
 
 			--Add leader shortcuts
-			vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers)
+			vim.keymap.set(
+				"n",
+				"<leader><space>",
+				require("telescope.builtin").buffers,
+				{ desc = "Telescope: Show Buffers" }
+			)
 			vim.keymap.set("n", "<leader>sf", function()
 				require("telescope.builtin").find_files({ previewer = false })
-			end)
-			vim.keymap.set("n", "<leader>sb", require("telescope.builtin").current_buffer_fuzzy_find)
-			vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags)
-			vim.keymap.set("n", "<leader>st", require("telescope.builtin").tags)
-			vim.keymap.set("n", "<leader>sd", require("telescope.builtin").grep_string)
-			vim.keymap.set("n", "<leader>sp", require("telescope.builtin").live_grep)
-			vim.keymap.set("n", "<leader>so", function()
-				require("telescope.builtin").tags({ only_current_buffer = true })
-			end)
-			vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles)
+			end, { desc = "Telescope: [S]earch [F]iles" })
+			vim.keymap.set(
+				"n",
+				"<leader>sb",
+				require("telescope.builtin").current_buffer_fuzzy_find,
+				{ desc = "Telescope: [S]earch in [B]uffers" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>sh",
+				require("telescope.builtin").help_tags,
+				{ desc = "Telescope: [S]earch [H]elp Tags" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>st",
+				require("telescope.builtin").tags,
+				{ desc = "Telescope: [S]earch [T]ags" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>ss",
+				require("telescope.builtin").grep_string,
+				{ desc = "Telescope: [S]earch [S]tring Under Cursor" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>sl",
+				require("telescope.builtin").live_grep,
+				{ desc = "Telescope: [S]earch [L]ive Grep" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>?",
+				require("telescope.builtin").oldfiles,
+				{ desc = "Telescope: [S]earch Recently Open Files [?]" }
+			)
 		end,
 	},
 
@@ -371,7 +416,7 @@ require("lazy").setup({
 		config = function()
 			-- NVIM-TREE
 			require("nvim-tree").setup()
-			vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", { desc = "Open Nvim [T]ree", silent = true })
 		end,
 	},
 })
@@ -385,41 +430,48 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local on_attach = function(_, bufnr)
-	local nmap = function(keys, func, desc)
-		if desc then
-			desc = "LSP: " .. desc
-		end
-
-		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-	end
-
 	-- Theme, colors and gui
-	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP: [R]e[n]ame" })
+	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: [C]ode [A]ction" })
 
-	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-	nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-	nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-	nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: [G]oto [D]efinition" })
+	vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, { desc = "LSP: [G]oto [R]eferences" })
+	vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { desc = "LSP: [G]oto [I]mplementation" })
+	vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "LSP: Type [D]efinition" })
+	vim.keymap.set(
+		"n",
+		"<leader>ds",
+		require("telescope.builtin").lsp_document_symbols,
+		{ desc = "[D]ocument [S]ymbols" }
+	)
+	vim.keymap.set(
+		"n",
+		"<leader>ws",
+		require("telescope.builtin").lsp_dynamic_workspace_symbols,
+		{ desc = "[W]orkspace [S]ymbols" }
+	)
 
 	-- See `:help K` for why this keymap
-	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-	nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP: Hover Documentation" })
+	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "LSP: Signature Documentation" })
 
 	-- Lesser used LSP functionality
-	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-	nmap("<leader>wl", function()
+	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP: [G]oto [D]eclaration" })
+	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "LSP: [W]orkspace [A]dd Folder" })
+	vim.keymap.set(
+		"n",
+		"<leader>wr",
+		vim.lsp.buf.remove_workspace_folder,
+		{ desc = "LSP: [W]orkspace [R]emove Folder" }
+	)
+	vim.keymap.set("n", "<leader>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, "[W]orkspace [L]ist Folders")
+	end, { desc = "LSP: [W]orkspace [L]ist Folders" })
 
 	-- Create a command `:Format` local to the LSP buffer
 	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 		vim.lsp.buf.format()
-	end, { desc = "Format current buffer with LSP" })
+	end, { desc = "LSP: Format Current Buffer" })
 end
 
 -- Create dictionary word list for ltex lsp from vim spellfile

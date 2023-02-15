@@ -32,24 +32,23 @@ This is my personal Nvim configuration that is:
 | `<C-K>`           | Switch to window above `<C-W>k`                                                                                         |
 | `<C-H>`           | Switch to window left `<C-W>h`                                                                                          |
 | `<C-L>`           | Switch to window right `<C-W>l`                                                                                         |
-| `<leader>co`      | Open quickfix list `:copen<CR>`                                                                                         |
-| `<leader>cc`      | Close quickfix list `:cclose<CR>`                                                                                       |
-| `<leader>cj`      | Go to next item on quickfix list `:cnext<CR>`                                                                           |
-| `<leader>ck`      | Go to previous item on quickfix list `:cprev<CR>`                                                                       |
+| `<leader>qo`      | Open quickfix list `:copen<CR>`                                                                                         |
+| `<leader>qc`      | Close quickfix list `:cclose<CR>`                                                                                       |
+| `<leader>qj`      | Go to next item on quickfix list `:cnext<CR>`                                                                           |
+| `<leader>qk`      | Go to previous item on quickfix list `:cprev<CR>`                                                                       |
 | `<leader>t`       | Nvim-tree: Toggles nvim-tree `:NvimTreeToggle<CR>`                                                                      |
 | `<leader><space>` | Telescope: Buffers `require('telescope.builtin').buffers`                                                               |
 | `<leader>sf`      | Telescope: Files `require('telescope.builtin').find_files`                                                              |
 | `<leader>sb`      | Telescope: Fuzzy find buffer contents `require('telescope.builtin').current_buffer_fuzzy_find`                          |
 | `<leader>sh`      | Telescope: List available help tags `require('telescope.builtin').help_tags`                                            |
 | `<leader>st`      | Telescope: List tags in current directory `require('telescope.builtin').tags`                                           |
-| `<leader>so`      | Telescope: List tags in current buffer `require('telescope.builtin').tags { only_current_buffer = true }`               |
-| `<leader>sd`      | Telescope: Search for string under your cursor in current directory `require('telescope.builtin').grep_string`          |
-| `<leader>sp`      | Telescope: Search for string in current directory as you type `require('telescope.builtin').live_grep`                  |
+| `<leader>ss`      | Telescope: Search for string under your cursor in current directory `require('telescope.builtin').grep_string`          |
+| `<leader>sl`      | Telescope: Search for string in current directory as you type `require('telescope.builtin').live_grep`                  |
 | `<leader>?`       | Telescope: List previously opened files `require('telescope.builtin').oldfiles`                                         |
-| `<leader>e`       | Diagnostics: Show diagnostics in a floating window `vim.diagnostics.open_float`                                         |
-| `<leader>q`       | Diagnostics: Add buffer diagnostics to the quickfix list `vim.diagnostics.setqflist`                                    |
-| `<leader>[`       | Diagnostics: Go to previous diagnostic `vim.diagnostics.goto_prev`                                                      |
-| `<leader>]`       | Diagnostics: Go to next diagnostic `vim.diagnostics.goto_next`                                                          |
+| `<leader>de`      | Diagnostics: Show diagnostics in a floating window `vim.diagnostics.open_float`                                         |
+| `<leader>dq`      | Diagnostics: Add buffer diagnostics to the quickfix list `vim.diagnostics.setqflist`                                    |
+| `<leader>dk`      | Diagnostics: Go to previous diagnostic `vim.diagnostics.goto_prev`                                                      |
+| `<leader>dj`      | Diagnostics: Go to next diagnostic `vim.diagnostics.goto_next`                                                          |
 | `gD`              | LSP: Jump to the declaration of the symbol under cursor `vim.lsp.buf.declaration`                                       |
 | `gd`              | LSP: Jump to the definition of the symbol under cursor `vim.lsp.buf.definition`                                         |
 | `K`               | LSP: Displays hover information about the symbol under the cursor in a floating window `vim.lsp.buf.definition`         |
@@ -63,4 +62,3 @@ This is my personal Nvim configuration that is:
 | `gr`              | LSP: List all the references to the symbol under cursor `vim.lsp.buf.references`                                        |
 | `<leader>ca`      | LSP: Selects a code action available at the current cursor position `vim.lsp.buf.code_action`                           |
 | `<leader>so`      | LSP / Telescope: Lists LSP document symbols in the current buffer `require('telescope.builtin').lsp_document_symbols`   |
-| `<leader>bf`      | LSP: Format the current buffer `vim.lsp.buf.formatting`                                                                 |
