@@ -163,26 +163,6 @@ require("lazy").setup({
 	},
 
 	{
-		"alvan/vim-closetag", -- Automatically close html/xml tags
-		event = "InsertEnter",
-		config = function()
-			local closetag_regions = {}
-			closetag_regions["typescript.tsx"] = "jsxRegion,tsxRegion"
-			closetag_regions["javascript.jsx"] = "jsxRegion"
-			closetag_regions["typescriptreact"] = "jsxRegion,tsxRegion"
-			closetag_regions["javascriptreact"] = "jsxRegion"
-			vim.g["closetag_xhtml_filetypes"] = "xml,xhtml,javascript.jsx,jsx,typescript.tsx,typescriptreact"
-			vim.g["closetag_xhtml_filenames"] = "*.html,*.xml,*.xhtml,*.js,*.jsx,*.tsx"
-			vim.g["closetag_filetypes"] =
-				"html,htmldjango,xml,xhtml,phtml,javascript.jsx,jsx,typescript.tsx,typescriptreact"
-			vim.g["closetag_emptyTags_caseSensitive"] = 1
-			vim.g["closetag_regions"] = closetag_regions
-			vim.g["closetag_shortcut"] = ">"
-			vim.g["closetag_close_shortcut"] = "<leader>>"
-		end,
-	},
-
-	{
 		"lewis6991/gitsigns.nvim", -- Git info in sign column and popups
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -261,6 +241,7 @@ require("lazy").setup({
 		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects", -- Additional text objects via treesitter
+			"windwp/nvim-ts-autotag", -- Automatically close html/xml tags
 		},
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -285,6 +266,10 @@ require("lazy").setup({
 				},
 				highlight = {
 					enable = true,
+				},
+				autotag = {
+					enable = true,
+					filetypes = { "html", "xml" },
 				},
 				incremental_selection = {
 					enable = true,
@@ -344,6 +329,8 @@ require("lazy").setup({
 				},
 			})
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- Folding provided by treesitter
+			-- Treesitter has no native xml parser so fallback to html
+			require("nvim-treesitter.parsers").filetype_to_parsername.xml = "html"
 		end,
 	},
 
