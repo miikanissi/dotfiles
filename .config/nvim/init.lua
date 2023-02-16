@@ -91,6 +91,9 @@ vim.diagnostic.config({
 	virtual_text = false,
 })
 
+-- Keymap to jump to my notes file
+vim.keymap.set("n", "<leader>n", ":edit ~/Documents/notes.md<CR>G", { desc = "Jump to [N]otes" })
+
 -- PLUGIN SETTINGS
 -- Ensure lazy.nvim (plugin manager) is installed
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -252,7 +255,7 @@ require("lazy").setup({
 				"n",
 				"<leader>sb",
 				require("telescope.builtin").current_buffer_fuzzy_find,
-				{ desc = "Telescope: [S]earch in [B]uffers" }
+				{ desc = "Telescope: [S]earch Current [B]uffer" }
 			)
 			vim.keymap.set(
 				"n",

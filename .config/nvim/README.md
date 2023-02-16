@@ -35,6 +35,7 @@ This is my personal Nvim configuration that is:
 | `gl`              | Go to end of line `$`                                                                                                 |
 | `gh`              | Go to beginning of line `0`                                                                                           |
 | `U`               | Redo `<C-R>`                                                                                                          |
+| `<leader>n`       | Jump to notes file at `~/Documents/notes.md`                                                                          |
 | `<leader>qo`      | Open quickfix list `:copen<CR>`                                                                                       |
 | `<leader>qc`      | Close quickfix list `:cclose<CR>`                                                                                     |
 | `<leader>qj`      | Go to next item on quickfix list `:cnext<CR>`                                                                         |
