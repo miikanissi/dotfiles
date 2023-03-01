@@ -1,6 +1,6 @@
 #!/bin/bash
 
-_odoo_docker() {
+_odoo-docker() {
 	core_odoo_addons_path="$HOME/Documents/odoo/16/odoo/addons"
 	custom_odoo_addons_path="$HOME/Documents/odoo/16/addons"
 	local cur prev split
@@ -33,4 +33,4 @@ _odoo_docker() {
 		;;
 	esac
 } &&
-	complete -F _odoo_docker -o nospace odoo_docker
+	complete -F _odoo-docker -o nospace odoo-docker
