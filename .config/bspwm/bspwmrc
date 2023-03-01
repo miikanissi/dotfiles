@@ -9,25 +9,25 @@ INTERNAL_MONITOR="eDP"
 EXTERNAL_MONITOR="HDMI-A-0"
 # on first load setup default workspaces
 if [[ "$1" = 0 ]]; then
-  if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then
-    bspc monitor "$EXTERNAL_MONITOR" -d 1 2 3 4 5
-    bspc monitor "$INTERNAL_MONITOR" -d 6 7 8 9 10
-    bspc wm -O "$EXTERNAL_MONITOR" "$INTERNAL_MONITOR"
-  else
-    bspc monitor "$INTERNAL_MONITOR" -d 1 2 3 4 5 6 7 8 9 10
-  fi
+	if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then
+		bspc monitor "$EXTERNAL_MONITOR" -d 1 2 3 4 5
+		bspc monitor "$INTERNAL_MONITOR" -d 6 7 8 9 10
+		bspc wm -O "$EXTERNAL_MONITOR" "$INTERNAL_MONITOR"
+	else
+		bspc monitor "$INTERNAL_MONITOR" -d 1 2 3 4 5 6 7 8 9 10
+	fi
 fi
-bspc config pointer_modifier        mod4
-bspc config border_width            5
-bspc config window_gap              0
-bspc config automatic_scheme        longest_side # longest_side, alternate or spiral
+bspc config pointer_modifier mod4
+bspc config border_width 5
+bspc config window_gap 0
+bspc config automatic_scheme longest_side # longest_side, alternate or spiral
 
-bspc config split_ratio             0.52
-bspc config top_padding             32
-bspc config borderless_monocle      true
-bspc config gapless_monocle         true
-bspc config single_monocle          true
-bspc config focus_follows_pointer   true
+bspc config split_ratio 0.52
+bspc config top_padding 32
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config single_monocle true
+bspc config focus_follows_pointer true
 
 bspc config normal_border_color "$(xrdb -query | grep color7 | awk '{print $2}')"
 bspc config focused_border_color "$(xrdb -query | grep color6 | awk '{print $2}')"
@@ -38,14 +38,15 @@ bspc rule -a Onboard state=floating
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a Alacritty:Alacritty:ncmpcpp state=floating
-bspc rule -a Alacritty:Alacritty:odoo_logs state=tiled
+bspc rule -a Alacritty:Alacritty:odoo-logs state=floating
+bspc rule -a \* rectangle=1020x720+0+0 center=true
 
 # AUTOSTART
 # Helper function to check for active process, if not found starts program on the background
 _run() {
-    if ! pgrep -x "${1}" &>/dev/null; then
-        "$@" &
-    fi
+	if ! pgrep -x "${1}" &>/dev/null; then
+		"$@" &
+	fi
 }
 
 # Environment
@@ -64,7 +65,7 @@ xsetroot -cursor_name left_ptr &
 xset +fp ~/.fonts &
 xset fp rehash &
 fc-cache -fv &
-_run sxhkd -m -1 > /tmp/sxhkd.log
+_run sxhkd -m -1 >/tmp/sxhkd.log
 
 # File browser daemon (automatic mounting etc)
 _run pcmanfm -d

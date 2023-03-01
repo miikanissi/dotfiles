@@ -1,0 +1,15 @@
+#!/bin/bash
+
+version=16
+
+usage() {
+	printf "usage: odoo-logs [options]\\n  --: Run Odoo in Docker\\n  -V: <VERSION>: Run a specific version of Odoo\\n  -h: Show help message\\n"
+}
+
+while getopts "V:h" o; do case "${o}" in
+	h) usage && exit 1 ;;
+	V) version=${OPTARG} ;;
+	*) printf "Invalid option: -%s\\n -h: To show help\\n" "$OPTARG" && exit 1 ;;
+	esac done
+
+sudo docker logs -f --tail=500 odoo"$version" 2>&1 | multitail -cS python-log -j -f

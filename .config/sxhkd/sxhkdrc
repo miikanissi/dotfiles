@@ -18,7 +18,7 @@ super + x
 super + z
     ~/.local/bin/rofi_dman.sh
 super + o   
-    alacritty -t odoo_logs -e odoo_logs
+    alacritty -t odoo-logs -e odoo-logs
 
 ### BSPC HOTKEYS ###
 # restart bspwm

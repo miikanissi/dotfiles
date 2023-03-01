@@ -1,0 +1,36 @@
+#!/bin/bash
+
+_odoo_docker() {
+	core_odoo_addons_path="$HOME/Documents/odoo/16/odoo/addons"
+	custom_odoo_addons_path="$HOME/Documents/odoo/16/addons"
+	local cur prev split
+	_init_completion -s -n : || return
+
+	case $prev in
+	-u)
+		compopt +o nospace
+		core_odoo_modules="$(find "$core_odoo_addons_path" -name '__manifest__.py' -printf '%h\n' | rev | cut -d/ -f1 | rev | sort -u)"
+		custom_odoo_modules="$(find "$custom_odoo_addons_path" -name '__manifest__.py' -printf '%h\n' | rev | cut -d/ -f1 | rev | sort -u)"
+		odoo_modules="$core_odoo_modules\n$custom_odoo_modules"
+		mapfile -t COMPREPLY < <(compgen -W "$odoo_modules" -- "$cur")
+		return
+		;;
+	-V)
+		compopt +o nospace
+		mapfile -t COMPREPLY < <(compgen -W "12 13 14 15 16" -- "$cur")
+		return
+		;;
+	esac
+
+	$split && return
+
+	_expand || return
+
+	case $cur in
+	-*)
+		mapfile -t COMPREPLY < <(compgen -W "-h -v -u -V" -- "$cur")
+		[[ ${COMPREPLY-} == *= ]] || compopt +o nospace
+		;;
+	esac
+} &&
+	complete -F _odoo_docker -o nospace odoo_docker
