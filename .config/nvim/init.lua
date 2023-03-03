@@ -160,8 +160,6 @@ require("lazy").setup({
 		end,
 	},
 
-	"jose-elias-alvarez/null-ls.nvim", -- Null ls is used for code formatting and pylint analysis
-
 	"L3MON4D3/LuaSnip", -- Snippets plugin
 
 	{
@@ -396,6 +394,7 @@ require("lazy").setup({
 			-- Automatically install LSPs to stdpath for neovim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			"jose-elias-alvarez/null-ls.nvim", -- Null ls is used for code formatting and pylint analysis
 			{
 				"j-hui/fidget.nvim", -- Useful status updates for LSP
 				config = true,
@@ -473,7 +472,21 @@ end
 
 -- Server list for LSP
 local servers = {
-	pyright = {},
+	pylsp = {
+		pylsp = {
+			plugins = {
+				pycodestyle = {
+					enabled = false,
+				},
+				mccabe = {
+					enabled = false,
+				},
+				pyflakes = {
+					enabled = false,
+				},
+			},
+		},
+	},
 	eslint = {
 		codeAction = {
 			disableRuleComment = {
@@ -552,8 +565,10 @@ local lsp_formatting = function(bufnr)
 			-- Ignore formatting from these LSPs
 			local lsp_formatting_denylist = {
 				eslint = true,
+				tsserver = true,
 				lemminx = true,
 				lua_ls = true,
+				pylsp = true,
 			}
 			if lsp_formatting_denylist[client.name] then
 				return false
@@ -580,21 +595,20 @@ require("null-ls").setup({
 		end
 	end,
 	sources = {
+		-- Make sure these sources are installed - Null.ls won't automatically install them
 		require("null-ls").builtins.formatting.prettier.with({
 			extra_filetypes = { "xml" },
 		}),
 		require("null-ls").builtins.formatting.black.with({
-			extra_args = { "--experimental-string-processing" }, -- Enable experimental split long strings flag
+			extra_args = { "--preview" },
 		}),
-		require("null-ls").builtins.formatting.djlint,
 		require("null-ls").builtins.formatting.isort,
 		require("null-ls").builtins.formatting.stylua,
 		require("null-ls").builtins.formatting.shfmt,
+		require("null-ls").builtins.formatting.djlint,
 		require("null-ls").builtins.diagnostics.djlint,
+		require("null-ls").builtins.diagnostics.pylint,
 		require("null-ls").builtins.diagnostics.flake8,
-		require("null-ls").builtins.diagnostics.pylint.with({
-			extra_args = { "--load-plugins=pylint_odoo", "-e", "odoolint" }, -- Load pylint_odoo plugin for pylint
-		}),
 	},
 })
 
@@ -658,3 +672,4 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline", keyword_length = 3 },
 	}),
 })
+vim.lsp.set_log_level("debug")

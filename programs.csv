@@ -3,6 +3,7 @@
 ,apt-listbugs,Retrieves bug reports from Debian Bug Tracking System
 ,apt-transport-https,Use repositories via HTTPS
 ,arandr,Simple GUI for XRandR
+P,autoflake,Python code formatter
 ,bat,Can highlight code output and display files
 ,bc,A command line calculator
 P,black,A Python code formatter
@@ -27,7 +28,8 @@ N,eslint-config-prettier,Disables conflicting eslint rules with Prettier
 ,firefox-esr,Firefox Extended Support Release
 ,firmware-iwlwifi,Drivers for Intel wifi cards
 ,firmware-linux,Free and non-free drivers
-,flake8,A Python linter
+P,flake8,A Python linter
+P,flake8-bugbear,A plugin for flake8 python linter
 ,flameshot,A screenshot utility
 ,flatpak,Run sandboxed applications
 ,fontconfig,Font configuration

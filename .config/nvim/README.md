@@ -16,7 +16,7 @@ This is my personal Nvim configuration that is:
   and Go from [go.dev](https://go.dev/dl/):
 
         sudo apt install clang cmake libclang-dev python3-pip nodejs ctags golang \
-        && pip3 install --upgrade pynvim black pylint pylint-odoo \
+        && pip3 install --upgrade pynvim black pylint pylint-odoo flake8 flake8-bugbear djlint \
         && npm install --save-dev prettier @prettier/plugin-xml \
         && go install mvdan.cc/sh/v3/cmd/shfmt@latest
 

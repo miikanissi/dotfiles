@@ -38,8 +38,7 @@ bspc rule -a Onboard state=floating
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a Alacritty:Alacritty:ncmpcpp state=floating
-bspc rule -a Alacritty:Alacritty:odoo-logs state=floating
-bspc rule -a \* rectangle=1020x720+0+0 center=true
+bspc rule -a Alacritty:Alacritty:odoo-logs state=floating rectangle=1020x720+0+0 center=true
 
 # AUTOSTART
 # Helper function to check for active process, if not found starts program on the background
