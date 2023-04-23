@@ -6,7 +6,7 @@
 stty -ixon
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-  . /etc/bash_completion
+	. /etc/bash_completion
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -42,16 +42,16 @@ bind 'set bell-style none'
 
 # color man pages
 man() {
-  env \
-    LESS_TERMCAP_mb="$(printf "\e[1;31m")" \
-    LESS_TERMCAP_md="$(printf "\e[1;31m")" \
-    LESS_TERMCAP_me="$(printf "\e[0m")" \
-    LESS_TERMCAP_se="$(printf "\e[0m")" \
-    LESS_TERMCAP_so="$(printf "\e[1;44;30m")" \
-    LESS_TERMCAP_ue="$(printf "\e[0m")" \
-    LESS_TERMCAP_us="$(printf "\e[1;32m")" \
-    man "$@"
-  }
+	env \
+		LESS_TERMCAP_mb="$(printf "\e[1;31m")" \
+		LESS_TERMCAP_md="$(printf "\e[1;31m")" \
+		LESS_TERMCAP_me="$(printf "\e[0m")" \
+		LESS_TERMCAP_se="$(printf "\e[0m")" \
+		LESS_TERMCAP_so="$(printf "\e[1;44;30m")" \
+		LESS_TERMCAP_ue="$(printf "\e[0m")" \
+		LESS_TERMCAP_us="$(printf "\e[1;32m")" \
+		man "$@"
+}
 
 ### aliases ###
 # colors to commands
@@ -77,24 +77,26 @@ alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias pubip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip="ip address | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
-alias passmenu='~/.local/bin/rofi_passmenu.sh' # replace passmenu script with rofi passmenu
-alias v='nvim'
+alias passmenu='~/.local/bin/rofi_passmenu.sh'                                        # replace passmenu script with rofi passmenu
+alias v='~/Applications/nvim.appimage'
 alias docker='sudo docker'
 alias wi='cd ~/Documents/odoo/16/addons/wildleaf'
 alias wi14='cd ~/Documents/odoo/14/addons/wildleaf'
+alias odoo='cd ~/Documents/odoo/16/odoo'
+alias enterprise='cd ~/Documents/odoo/16/addons/enterprise'
 
-branchall () {
-  for i in */; do
-    (cd $i && echo -n "${i}: " && git rev-parse --abbrev-ref HEAD);
-  done
+branchall() {
+	for i in */; do
+		(cd $i && echo -n "${i}: " && git rev-parse --abbrev-ref HEAD)
+	done
 }
 
 # view markdown file in terminal via lynx and pandoc
-md () {
-  pandoc "$1" | lynx -stdin
+md() {
+	pandoc "$1" | lynx -stdin
 }
-pyclean () {
-    find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+pyclean() {
+	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 }
 
 ### fzf
@@ -103,27 +105,27 @@ pyclean () {
 
 _gen_fzf_default_opts() {
 
-local color00='#fbf1c7'
-local color01='#ebdbb2'
-local color02='#d5c4a1'
-local color03='#bdae93'
-local color04='#665c54'
-local color05='#504945'
-local color06='#3c3836'
-local color07='#282828'
-local color08='#9d0006'
-local color09='#af3a03'
-local color0A='#b57614'
-local color0B='#79740e'
-local color0C='#427b58'
-local color0D='#076678'
-local color0E='#8f3f71'
-local color0F='#d65d0e'
+	local color00='#fbf1c7'
+	local color01='#ebdbb2'
+	local color02='#d5c4a1'
+	local color03='#bdae93'
+	local color04='#665c54'
+	local color05='#504945'
+	local color06='#3c3836'
+	local color07='#282828'
+	local color08='#9d0006'
+	local color09='#af3a03'
+	local color0A='#b57614'
+	local color0B='#79740e'
+	local color0C='#427b58'
+	local color0D='#076678'
+	local color0E='#8f3f71'
+	local color0F='#d65d0e'
 
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
-" --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
-" --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
-" --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
+	export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS""\
+ --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D""\
+ --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C""\
+ --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
 
 }
 
@@ -132,14 +134,14 @@ _gen_fzf_default_opts
 alias fe='~/.local/bin/fe.sh'
 alias ff='~/.local/bin/ff.sh'
 fd() {
-  local dir
-  dir=$(find "${1:-.}" -type d 2> /dev/null | fzf +m) && cd "$dir" || exit
+	local dir
+	dir=$(find "${1:-.}" -type d 2>/dev/null | fzf +m) && cd "$dir" || exit
 }
 
 # exports
 export BROWSER=/usr/bin/brave-browser
 export TERMINAL="/usr/bin/kitty -1 --listen-on=tcp:localhost:12344"
-export EDITOR=/usr/bin/nvim
+export EDITOR=~/Applications/nvim.appimage
 export LOCATION="Queens"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH

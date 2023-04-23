@@ -235,6 +235,7 @@ require("lazy").setup({
 							["<C-d>"] = false,
 						},
 					},
+					file_ignore_patterns = { "i18n" },
 				},
 			})
 			require("telescope").load_extension("fzf")
@@ -384,7 +385,7 @@ require("lazy").setup({
 			})
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- Folding provided by treesitter
 			-- Treesitter has no native xml parser so fallback to html
-			require("nvim-treesitter.parsers").filetype_to_parsername.xml = "html"
+			vim.treesitter.language.register("html", "xml")
 		end,
 	},
 
