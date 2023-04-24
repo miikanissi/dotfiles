@@ -7,6 +7,7 @@ P,autoflake,Python code formatter
 ,bat,Can highlight code output and display files
 ,bc,A command line calculator
 P,black,A Python code formatter
+X,brave-browser,Le Lion Browser
 ,bspwm,A tiling window manager
 ,cifs-utils,Mount SMB shares
 ,clang,A C compiler
