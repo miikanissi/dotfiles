@@ -1,6 +1,5 @@
 #TAG (X=no install P=pip install N=npm install),NAME IN PACKAGE MANAGER (or git url),PURPOSE
 ,alsa-utils,Advanced settings for ALSA
-,apt-listbugs,Retrieves bug reports from Debian Bug Tracking System
 ,apt-transport-https,Use repositories via HTTPS
 ,arandr,Simple GUI for XRandR
 P,autoflake,Python code formatter
@@ -19,6 +18,7 @@ X,brave-browser,Le Lion Browser
 ,ctags,Navigate source code with tags
 ,curl,A tool to transfer data to or from a server
 P,djlint,A Django/Jinja template linter
+X,docker,Containers for dev
 ,dunst,A notification daemon
 ,easytag,A program to add tags to songs
 ,eject,Eject specified devices
@@ -29,6 +29,8 @@ N,eslint-config-prettier,Disables conflicting eslint rules with Prettier
 ,firefox-esr,Firefox Extended Support Release
 ,firmware-iwlwifi,Drivers for Intel wifi cards
 ,firmware-linux,Free and non-free drivers
+,firmware-amd-graphics,Free and non-free drivers for AMD GPU
+,firmware-realtek,Free and non-free drivers for Realtek
 P,flake8,A Python linter
 P,flake8-bugbear,A plugin for flake8 python linter
 ,flameshot,A screenshot utility
@@ -43,6 +45,7 @@ P,flake8-bugbear,A plugin for flake8 python linter
 ,fzf,A command-line fuzzy-finder
 ,gimp,Graphics and image editor
 ,git,A version control system
+X,go,Golang programming language
 ,gsimplecal,A simple calendar application
 ,htop,An interactive process viewer
 X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulator
@@ -80,7 +83,10 @@ X,https://github.com/neovim/neovim,An improved Vim
 ,pavucontrol,Pulse Audio Volume Control
 ,pcmanfm,A file browser
 ,picom,A lightweight compositor for X11
+,plymouth,Graphical boot splash
+,plymouth-themes,Graphical boot splash themes
 ,polybar,A status bar
+P,pre-commit,Git hook scripts
 N,prettier,An opinionated code formatter
 N,@prettier/plugin-xml,XML plugin for prettier
 P,pylint,A code analyser for Python
@@ -107,6 +113,7 @@ X,shfmt,Shell script formatter
 ,vim-gtk3,A text editor
 ,wget,Retrieve files from the internet
 ,wmctrl,Control EWMH compatible X window window managers
+,x11-xkb-utils,X11 keyboard utilities
 ,xclip,Copy and paste at the command-line
 ,xdotool,Provides window action utilities on the command line
 ,xsel,Retrieve and set X selection

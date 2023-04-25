@@ -187,13 +187,6 @@ require("lazy").setup({
 	},
 
 	{
-		"ludovicchabant/vim-gutentags", -- Automatic tags management
-		config = function()
-			vim.g.gutentags_cache_dir = vim.fn.stdpath("config") .. "/gutentags"
-		end,
-	},
-
-	{
 		"folke/which-key.nvim",
 		config = function()
 			vim.o.timeout = true
@@ -316,7 +309,7 @@ require("lazy").setup({
 					"rst",
 					"markdown",
 					"yaml",
-					"help",
+					"vimdoc",
 					"vim",
 				},
 				highlight = {

@@ -79,6 +79,7 @@ alias localip="ip address | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep 
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
 alias passmenu='~/.local/bin/rofi_passmenu.sh'                                        # replace passmenu script with rofi passmenu
 alias v='~/Applications/nvim.appimage'
+alias nvim='~/Applications/nvim.appimage'
 alias docker='sudo docker'
 alias wi='cd ~/Documents/odoo/16/addons/wildleaf'
 alias wi14='cd ~/Documents/odoo/14/addons/wildleaf'

@@ -1,1 +1,3 @@
 *.pyc
+.smbcredentials
+id_rsa
