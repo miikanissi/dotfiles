@@ -49,6 +49,7 @@ X,go,Golang programming language
 ,gsimplecal,A simple calendar application
 ,htop,An interactive process viewer
 X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulator
+,ifuse,Mount Apple devices
 ,imagemagick,Convert and edit images
 ,jq,A command-line JSON processor
 ,keyctl,A set of utilities for managing the key retention facility in the kernel
@@ -106,6 +107,7 @@ X,shfmt,Shell script formatter
 ,sudo,Run programs as superuser
 ,sxhkd,A keyboard shortcut daemon
 ,sxiv,Simple X Image Viewer
+,tidy,Html/Xml parser
 ,tlp,Optimize laptop battery life
 ,tree,A recursive directory listing program
 ,unzip,Uncompress files

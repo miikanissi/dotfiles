@@ -9,6 +9,7 @@ if mountpoint -q -- $mount_point; then
 		/home/m/Music \
 		/home/m/Pictures \
 		/home/m/Videos \
+		/home/m/dotfiles \
 		/home/m/.ssh \
 		/home/m/.gnupg \
 		$mount_point/miika-backup
