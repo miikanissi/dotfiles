@@ -22,9 +22,9 @@ done
 COMPOSE_FILE=~/Documents/odoo/"$ODOO_VERSION"/docker-compose.yml
 
 if [[ -n $UPDATE ]]; then
-	sed -i '/command: odoo*/s/'odoo.*'/'"odoo --dev all -u $UPDATE"'/' "$COMPOSE_FILE"
+	sed -i '/command: odoo*/s/'odoo.*'/'"odoo -u $UPDATE"'/' "$COMPOSE_FILE"
 else
-	sed -i '/command: odoo*/s/'odoo.*'/'"odoo --dev all"'/' "$COMPOSE_FILE"
+	sed -i '/command: odoo*/s/'odoo.*'/'"odoo"'/' "$COMPOSE_FILE"
 fi
 
 sudo docker compose -f "$COMPOSE_FILE" up -d --force-recreate

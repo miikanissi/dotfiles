@@ -15,8 +15,8 @@ lock="/tmp/keyboard.lock"
 # lock the file
 exec 9>"$lock"
 if ! flock -n 9; then
-    # script already running
-    exit 1
+	# script already running
+	exit 1
 fi
 
 # mouse acceleration off
@@ -26,4 +26,10 @@ fi
 # sets caps lock to ctrl and holding down right meta key toggles on finnish keyboard (for ä,ö,å)
 /usr/bin/setxkbmap -option shift:both_shiftlock -option ctrl:nocaps -option grp:switch -option grp_led:scroll us,fi
 
+# enable mousekeys
+/usr/bin/xkbset m
+# remap print key to click
+/usr/bin/xmodmap -e "keycode 135 = Pointer_Button1"
+
+/usr/bin/xbindkeys -f /home/m/.config/xbindkeysrc
 # lock file will be unlocked when the script ends
