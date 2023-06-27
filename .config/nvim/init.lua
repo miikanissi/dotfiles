@@ -391,6 +391,7 @@ require("lazy").setup({
 			"jose-elias-alvarez/null-ls.nvim", -- Null ls is used for code formatting and pylint analysis
 			{
 				"j-hui/fidget.nvim", -- Useful status updates for LSP
+				branch = "legacy",
 				config = true,
 			},
 		},
@@ -512,7 +513,6 @@ local servers = {
 	cssls = {},
 	html = {},
 	jsonls = {},
-	["lemminx@0.24.0"] = {},
 	ltex = {
 		ltex = {
 			dictionary = {

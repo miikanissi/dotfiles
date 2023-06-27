@@ -8,6 +8,7 @@ P,autoflake,Python code formatter
 P,black,A Python code formatter
 X,brave-browser,Le Lion Browser
 ,bspwm,A tiling window manager
+,byzanz,A screenrecording utility
 ,cifs-utils,Mount SMB shares
 ,clang,A C compiler
 ,claws-mail,A lightweight and fast email client
@@ -102,6 +103,7 @@ P,pylint-odoo,A Pylint plugin for Odoo
 ,shellcheck,Shell script analysis tool
 X,shfmt,Shell script formatter
 ,slick-greeter,A lightDM greeter
+,slop,A utility tool to use in scripts to select an area of the screen
 ,ssh,The Secure Shell Protocol
 ,suckless-tools,Tools that suck less
 ,sudo,Run programs as superuser
@@ -120,6 +122,7 @@ X,shfmt,Shell script formatter
 ,xbindkeys,X11 keyboard mapping
 ,xclip,Copy and paste at the command-line
 ,xdotool,Provides window action utilities on the command line
+,xinput,Control input devices
 ,xsel,Retrieve and set X selection
 ,xterm,A basic terminal emulator
 ,zathura,A PDF viewer

@@ -21,6 +21,9 @@ fi
 
 # mouse acceleration off
 /usr/bin/xset m 1 1
+/usr/bin/xinput --set-prop "Logitech MX518 Gaming Mouse" "libinput Accel Profile Enabled" 0, 1
+# dpi
+/usr/bin/xinput --set-prop "Logitech MX518 Gaming Mouse" "libinput Accel Speed" 0.3
 # makes key repeat faster
 /usr/bin/xset r rate 200 80
 # sets caps lock to ctrl and holding down right meta key toggles on finnish keyboard (for ä,ö,å)
@@ -28,6 +31,8 @@ fi
 
 # enable mousekeys
 /usr/bin/xkbset m
+# prevent mousekeys expiration
+/usr/bin/xkbset exp =m
 # remap print key to click
 /usr/bin/xmodmap -e "keycode 135 = Pointer_Button1"
 

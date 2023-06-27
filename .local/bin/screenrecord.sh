@@ -3,25 +3,25 @@
 # Dependencies: byzanz, slop, notify-send
 
 filename=$(date +%F_%T).gif
-filepath=~/Pictures/ss/$filename
+filepath=~/Pictures/Screenshots/$filename
 
 # slop to get region, exit if cancelled
 read -r X Y W H < <(slop -f "%x %y %w %h")
 [ -z "$X" ] && exit 1
 
 # uses slop to select a region for byzanz to capture
-byzanz-record   \
-  --cursor      \
-  --verbose     \
-  --delay=1     \
-  --duration=5  \
-  --x="$X"      \
-  --y="$Y"      \
-  --width="$W"  \
-  --height="$H" \
-  "$filepath"                                       \
+byzanz-record \
+	--cursor \
+	--verbose \
+	--delay=1 \
+	--duration=8 \
+	--x="$X" \
+	--y="$Y" \
+	--width="$W" \
+	--height="$H" \
+	"$filepath"
 
 # sends notification if saved succesfully.
 if [ -f "$filepath" ]; then
-    notify-send "Gif saved."
+	notify-send "Gif saved."
 fi
