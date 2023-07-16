@@ -32,10 +32,10 @@ query() {
 }
 refresh() {
 	xrdb ~/.Xresources
-	killall dunst && dunst --config ~/.config/dunst/dunstrc &
-	killall pcmanfm
+	killall -q dunst && dunst --config ~/.config/dunst/dunstrc >/dev/null 2>&1 &
+	killall -q pcmanfm
 	if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "LG3D" ]]; then
-		bspc wm -r
+		bspc wm -r >/dev/null 2>&1
 	fi
 }
 dark() {
