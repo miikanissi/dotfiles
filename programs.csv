@@ -118,6 +118,7 @@ X,shfmt,Shell script formatter
 ,wget,Retrieve files from the internet
 ,wmctrl,Control EWMH compatible X window window managers
 ,x11-xkb-utils,X11 keyboard utilities
+,xarchiver,GTK+ frontend to various CLI archivers
 ,xautomation,X11 mousekeys
 ,xbindkeys,X11 keyboard mapping
 ,xclip,Copy and paste at the command-line

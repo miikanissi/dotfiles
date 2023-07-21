@@ -42,15 +42,22 @@ super + ctrl + {h,j,k,l}
     ~/.local/bin/bspwm_grow_windows.sh south, \
     ~/.local/bin/bspwm_grow_windows.sh north, \
     ~/.local/bin/bspwm_grow_windows.sh east}
-# focus the node in the given direction, shift swaps nodes
+# focus the node in the given direction, shift swaps nodes, use script from ~/.local/bin/bspwm_follow_windows.sh
 super + {_,shift +}{Left,Down,Up,Right}
-    bspc node -{f,s} {west,south,north,east}
-# focus the node in the given direction, shift swaps nodes
+    m='.local.!hidden.window'; \
+    ~/.local/bin/bspwm_follow_windows.sh {f,s} {west$m next$m,south$m prev$m,north$m next$m,east$m prev$m}
+# focus the node in the given direction, shift swaps nodes, use script from ~/.local/bin/bspwm_follow_windows.sh
 super + {_,shift +}{h,j,k,l}
-    bspc node -{f,s} {west,south,north,east}
+    m='.local.!hidden.window'; \
+    ~/.local/bin/bspwm_follow_windows.sh {f,s} {west$m next$m,south$m prev$m,north$m next$m,east$m prev$m}
+super + {n,p}
+    bspc node -{f,s} {next, prev}
 # focus or send to the given desktop
 super + {_,shift +}{1-9,0}
     bspc {desktop -f,node -d} '^{1-9,10}' --follow
 # focus or send to desktop up, down
 super + {_,shift +}{Next, Prior}
     bspc {desktop -f,node -d} {prev, next} --follow
+# Focus the next/previous node in the current desktop
+super + {_, shift + }c
+        bspc node -f {next, prev}.local.!hidden.window

@@ -32,13 +32,16 @@ bspc config focus_follows_pointer true
 bspc config normal_border_color "$(xrdb -query | grep color7 | awk '{print $2}')"
 bspc config focused_border_color "$(xrdb -query | grep color6 | awk '{print $2}')"
 
+bspc config honor_size_hints true
+
 # BSPWM window rules
 bspc rule -a Gimp state=floating
 bspc rule -a Onboard state=floating
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a Alacritty:Alacritty:ncmpcpp state=floating
-bspc rule -a Alacritty:Alacritty:odoo-logs state=floating rectangle=1020x720+0+0 center=true
+bspc rule -a Alacritty:Alacritty:odoo-logs state=floating rectangle=1020x720+0+0 center=on
+bspc rule -a *:net-runelite-launcher-Launcher state=pseudo_tiled layer=above rectangle=765*503+0+0 private=on
 
 # AUTOSTART
 # Helper function to check for active process, if not found starts program on the background
