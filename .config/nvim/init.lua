@@ -152,10 +152,11 @@ require("lazy").setup({
 
 	{
 		"lukas-reineke/indent-blankline.nvim", -- Add indentation guides
+		main = "ibl",
+		opts = {},
 		config = function()
-			require("indent_blankline").setup({
-				char = "┊",
-				show_trailing_blankline_indent = false,
+			require("ibl").setup({
+				indent = { char = "┊" },
 			})
 		end,
 	},
@@ -247,7 +248,7 @@ require("lazy").setup({
 				"n",
 				"<leader>sb",
 				require("telescope.builtin").current_buffer_fuzzy_find,
-				{ desc = "Telescope: [S]earch Current [B]uffer" }
+				{ desc = "Telescope: [S]earch Current [B]buffer" }
 			)
 			vim.keymap.set(
 				"n",
@@ -388,13 +389,45 @@ require("lazy").setup({
 			-- Automatically install LSPs to stdpath for neovim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			"jose-elias-alvarez/null-ls.nvim", -- Null ls is used for code formatting and pylint analysis
-			{
-				"j-hui/fidget.nvim", -- Useful status updates for LSP
-				branch = "legacy",
-				config = true,
-			},
 		},
+	},
+
+	{
+		"mfussenegger/nvim-lint",
+		event = {
+			"BufReadPre",
+			"BufNewFile",
+		},
+		config = function()
+			local lint = require("lint")
+
+			lint.linters_by_ft = {
+				python = { "pylint", "flake8" },
+				htmldjango = { "djlint" },
+				rst = { "rstcheck" },
+			}
+			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+				group = lint_augroup,
+				callback = function()
+					lint.try_lint()
+				end,
+			})
+		end,
+	},
+
+	{
+		"stevearc/conform.nvim", -- Non LSP code formatting
+		opts = {},
+	},
+
+	{
+		"j-hui/fidget.nvim", -- LSP status visualization
+		tag = "legacy",
+		event = "LspAttach",
+		opts = {},
+		config = true,
 	},
 
 	{
@@ -467,21 +500,6 @@ end
 
 -- Server list for LSP
 local servers = {
-	pylsp = {
-		pylsp = {
-			plugins = {
-				pycodestyle = {
-					enabled = false,
-				},
-				mccabe = {
-					enabled = false,
-				},
-				pyflakes = {
-					enabled = false,
-				},
-			},
-		},
-	},
 	eslint = {
 		codeAction = {
 			disableRuleComment = {
@@ -551,58 +569,35 @@ mason_lspconfig.setup_handlers({
 	end,
 })
 
--- NULL-LS.NVIM
--- LSP formatting filter
-local lsp_formatting = function(bufnr)
-	vim.lsp.buf.format({
-		filter = function(client)
-			-- Ignore formatting from these LSPs
-			local lsp_formatting_denylist = {
-				eslint = true,
-				tsserver = true,
-				lemminx = true,
-				lua_ls = true,
-				pylsp = true,
-			}
-			if lsp_formatting_denylist[client.name] then
-				return false
-			end
-			return true
-		end,
-		bufnr = bufnr,
-	})
-end
-
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-require("null-ls").setup({
-	-- you can reuse a shared lspconfig on_attach callback here
-	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					lsp_formatting(bufnr)
-				end,
-			})
-		end
-	end,
-	sources = {
-		-- Make sure these sources are installed - Null.ls won't automatically install them
-		require("null-ls").builtins.formatting.prettier.with({
-			extra_filetypes = { "xml" },
-		}),
-		require("null-ls").builtins.formatting.black.with({
-			extra_args = { "--preview" },
-		}),
-		require("null-ls").builtins.formatting.isort,
-		require("null-ls").builtins.formatting.stylua,
-		require("null-ls").builtins.formatting.shfmt,
-		require("null-ls").builtins.formatting.djlint,
-		require("null-ls").builtins.diagnostics.djlint,
-		require("null-ls").builtins.diagnostics.pylint,
-		require("null-ls").builtins.diagnostics.flake8,
+-- CONFORM
+require("conform").setup({
+	formatters = {
+		black = {
+			prepend_args = { "--preview" },
+		},
+	},
+	formatters_by_ft = {
+		lua = { "stylua" },
+		-- Conform will run multiple formatters sequentially
+		python = { "isort", "black" },
+		-- Use a sub-list to run only the first available formatter
+		javascript = { { "prettierd", "prettier" } },
+		html = { { "prettierd", "prettier" } },
+		htmldjango = { "djlint" },
+		xml = { { "prettierd", "prettier" } },
+		css = { { "prettierd", "prettier" } },
+		scss = { { "prettierd", "prettier" } },
+		sh = { "shfmt" },
+		markdown = { { "prettierd", "prettier" } },
+		["*"] = { "codespell" },
+		-- Use the "_" filetype to run formatters on filetypes that don't
+		-- have other formatters configured.
+		["_"] = { "trim_whitespace" },
+	},
+	format_on_save = {
+		-- These options will be passed to conform.format()
+		timeout_ms = 5000,
+		lsp_fallback = true,
 	},
 })
 
@@ -666,4 +661,5 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline", keyword_length = 3 },
 	}),
 })
+
 vim.lsp.set_log_level("debug")

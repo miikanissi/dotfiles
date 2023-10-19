@@ -13,6 +13,7 @@ X,brave-browser,Le Lion Browser
 ,clang,A C compiler
 ,claws-mail,A lightweight and fast email client
 ,cmake,Build automation for C
+P,codespell,Fix spelling mistakes in source code
 ,coreutils,The GNU Core Utilities
 ,cowsay,A speaking cow on the command-line
 ,cryptsetup,Manage LUKS encryptions
@@ -126,5 +127,6 @@ X,shfmt,Shell script formatter
 ,xinput,Control input devices
 ,xsel,Retrieve and set X selection
 ,xterm,A basic terminal emulator
+,xserver-xorg-input-synaptics,Synaptics drivers for trackpad
 ,zathura,A PDF viewer
 ,zip,Compress files
