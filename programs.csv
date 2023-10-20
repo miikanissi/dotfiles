@@ -130,3 +130,4 @@ X,shfmt,Shell script formatter
 ,xserver-xorg-input-synaptics,Synaptics drivers for trackpad
 ,zathura,A PDF viewer
 ,zip,Compress files
+X,zk,CLI tool to take Zettelkasten notes

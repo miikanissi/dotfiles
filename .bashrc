@@ -143,6 +143,7 @@ fd() {
 export BROWSER=/usr/bin/brave-browser
 export TERMINAL="/usr/bin/kitty -1 --listen-on=tcp:localhost:12344"
 export EDITOR=~/Applications/nvim.appimage
+export ZK_NOTEBOOK_DIR=~/Documents/notes/
 export LOCATION="Queens"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
