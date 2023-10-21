@@ -1,4 +1,4 @@
--- Remap space as leader key
+--Remap space as leader key
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -41,10 +41,6 @@ vim.opt.undofile = true -- Makes undofile for history
 vim.opt.lazyredraw = true -- No redraw
 vim.opt.updatetime = 100 -- Default is 4000 - less updates
 vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add" -- location of spellfile
-
--- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -204,82 +200,23 @@ require("lazy").setup({
 	},
 
 	{
-		"nvim-telescope/telescope.nvim", -- Telescope fuzzy finder
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{
-				"nvim-telescope/telescope-fzf-native.nvim", -- Fzf port for telescope
-				build = "make",
-			},
-		},
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("telescope").setup({
-				extensions = {
-					fzf = {
-						fuzzy = true, -- false will only do exact matching
-						override_generic_sorter = true, -- override the generic sorter
-						override_file_sorter = true, -- override the file sorter
-						case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-					},
-				},
-				defaults = {
-					mappings = {
-						i = {
-							["<C-u>"] = false,
-							["<C-d>"] = false,
-						},
-					},
-					file_ignore_patterns = { "i18n" },
-				},
-			})
-			require("telescope").load_extension("fzf")
+			require("fzf-lua").setup({})
 
 			--Add leader shortcuts
-			vim.keymap.set(
-				"n",
-				"<leader><space>",
-				require("telescope.builtin").buffers,
-				{ desc = "Telescope: Show Buffers" }
-			)
-			vim.keymap.set("n", "<leader>sf", function()
-				require("telescope.builtin").find_files({ previewer = false })
-			end, { desc = "Telescope: [S]earch [F]iles" })
-			vim.keymap.set(
-				"n",
-				"<leader>sb",
-				require("telescope.builtin").current_buffer_fuzzy_find,
-				{ desc = "Telescope: [S]earch Current [B]buffer" }
-			)
-			vim.keymap.set(
-				"n",
-				"<leader>sh",
-				require("telescope.builtin").help_tags,
-				{ desc = "Telescope: [S]earch [H]elp Tags" }
-			)
-			vim.keymap.set(
-				"n",
-				"<leader>st",
-				require("telescope.builtin").tags,
-				{ desc = "Telescope: [S]earch [T]ags" }
-			)
+			vim.keymap.set("n", "<leader><space>", require("fzf-lua").buffers, { desc = "Fzf: Open Buffers" })
+			vim.keymap.set("n", "<leader>sf", require("fzf-lua").files, { desc = "Fzf: [S]earch [F]iles" })
+			vim.keymap.set("n", "<leader>sh", require("fzf-lua").help_tags, { desc = "Fzf: [S]earch [H]elp Tags" })
 			vim.keymap.set(
 				"n",
 				"<leader>ss",
-				require("telescope.builtin").grep_string,
-				{ desc = "Telescope: [S]earch [S]tring Under Cursor" }
+				require("fzf-lua").grep_cword,
+				{ desc = "Fzf: [S]earch [S]tring Under Cursor" }
 			)
-			vim.keymap.set(
-				"n",
-				"<leader>sl",
-				require("telescope.builtin").live_grep,
-				{ desc = "Telescope: [S]earch [L]ive Grep" }
-			)
-			vim.keymap.set(
-				"n",
-				"<leader>?",
-				require("telescope.builtin").oldfiles,
-				{ desc = "Telescope: [S]earch Recently Open Files [?]" }
-			)
+			vim.keymap.set("n", "<leader>sl", require("fzf-lua").live_grep, { desc = "Fzf: [S]earch [L]ive Grep" })
+			vim.keymap.set("n", "<leader>so", require("fzf-lua").oldfiles, { desc = "Fzf: [S]earch [O]ld Files" })
 		end,
 	},
 
@@ -405,6 +342,7 @@ require("lazy").setup({
 				python = { "pylint", "flake8" },
 				htmldjango = { "djlint" },
 				rst = { "rstcheck" },
+				sh = { "shellcheck" },
 			}
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
@@ -435,17 +373,20 @@ require("lazy").setup({
 	},
 
 	{
-		"kyazdani42/nvim-tree.lua", -- File tree browser
+		"nvim-tree/nvim-tree.lua", -- File tree browser
 		cmd = "NvimTreeToggle",
 		keys = {
 			{ "<leader>t", "<cmd>NvimTreeToggle", desc = "nvim-tree" },
 		},
 		dependencies = {
-			"kyazdani42/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
 			-- NVIM-TREE
-			require("nvim-tree").setup()
+			require("nvim-tree").setup({
+				disable_netrw = false,
+				hijack_netrw = true,
+			})
 			vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", { desc = "Open Nvim [T]ree", silent = true })
 		end,
 	},
@@ -454,7 +395,7 @@ require("lazy").setup({
 		"mickael-menu/zk-nvim", -- Note taking with Zettelkasten method
 		config = function()
 			require("zk").setup({
-				picker = "telescope",
+				picker = "fzf",
 
 				lsp = {
 					config = {
@@ -506,79 +447,6 @@ require("lazy").setup({
 				":'<,'>ZkMatch<CR>",
 				{ noremap = true, silent = false, desc = "[Z]k [F]ind Notes" }
 			)
-
-			-- Add the key mappings only for Markdown files in a zk notebook.
-			if require("zk.util").notebook_root(vim.fn.expand("%:p")) ~= nil then
-				local function map(...)
-					vim.api.nvim_buf_set_keymap(0, ...)
-				end
-
-				-- Open the link under the caret.
-				map(
-					"n",
-					"<CR>",
-					"<Cmd>lua vim.lsp.buf.definition()<CR>",
-					{ noremap = true, silent = false, desc = "Open Link Under Caret" }
-				)
-
-				-- Create a new note after asking for its title.
-				-- This overrides the global `<leader>zn` mapping to create the note in the same directory as the current buffer.
-				map(
-					"n",
-					"<leader>zn",
-					"<Cmd>ZkNew { dir = vim.fn.expand('%:p:h'), title = vim.fn.input('Title: ') }<CR>",
-					{ noremap = true, silent = false, desc = "[Z]k [N]ew Note in Current Directory" }
-				)
-				-- Create a new note in the same directory as the current buffer, using the current selection for title.
-				map("v", "<leader>znt", ":'<,'>ZkNewFromTitleSelection { dir = vim.fn.expand('%:p:h') }<CR>", {
-					noremap = true,
-					silent = false,
-					desc = "[Z]k [N]ew Note in Current Directory with Selection as [T]itle",
-				})
-				-- Create a new note in the same directory as the current buffer, using the current selection for note content and asking for its title.
-				map(
-					"v",
-					"<leader>znc",
-					":'<,'>ZkNewFromContentSelection { dir = vim.fn.expand('%:p:h'), title = vim.fn.input('Title: ') }<CR>",
-					{
-						noremap = true,
-						silent = false,
-						desc = "[Z]k [N]ew Note in Current Directory with Selection as [C]ontent",
-					}
-				)
-
-				-- Open notes linking to the current buffer.
-				map(
-					"n",
-					"<leader>zb",
-					"<Cmd>ZkBacklinks<CR>",
-					{ noremap = true, silent = false, desc = "[Z]k Open [B]acklinks" }
-				)
-				-- Alternative for backlinks using pure LSP and showing the source context.
-				--map('n', '<leader>zb', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
-				-- Open notes linked by the current buffer.
-				map(
-					"n",
-					"<leader>zl",
-					"<Cmd>ZkLinks<CR>",
-					{ noremap = true, silent = false, desc = "[Z]k Open Back[L]inks with LSP" }
-				)
-
-				-- Preview a linked note.
-				map(
-					"n",
-					"<leader>zp",
-					"<Cmd>lua vim.lsp.buf.hover()<CR>",
-					{ noremap = true, silent = false, desc = "[Z]k [P]review Linked Note" }
-				)
-				-- Open the code actions for a visual selection.
-				map(
-					"v",
-					"<leader>za",
-					":'<,'>lua vim.lsp.buf.range_code_action()<CR>",
-					{ noremap = true, silent = false, desc = "[Z]k Code [A]ctions" }
-				)
-			end
 		end,
 	},
 })
@@ -597,17 +465,12 @@ local on_attach = function(_, bufnr)
 	vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "LSP [C]: Goto [D]efinition" })
 	vim.keymap.set("n", "<leader>ct", vim.lsp.buf.type_definition, { desc = "LSP [C]: [T]ype Definition" })
 	vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "LSP [C]: [H]over Documentation" })
-	vim.keymap.set(
-		"n",
-		"<leader>sr",
-		require("telescope.builtin").lsp_references,
-		{ desc = "Telescope: Search [R]eferences" }
-	)
+	vim.keymap.set("n", "<leader>sr", require("fzf-lua").lsp_references, { desc = "Fzf: [S]earch [R]eferences" })
 	vim.keymap.set(
 		"n",
 		"<leader>sd",
-		require("telescope.builtin").lsp_document_symbols,
-		{ desc = "Telescope: Search [D]ocument Symbols" }
+		require("fzf-lua").lsp_document_symbols,
+		{ desc = "Fzf: [S]earch [D]ocument Symbols" }
 	)
 
 	-- Create a command `:Format` local to the LSP buffer
@@ -699,6 +562,9 @@ require("conform").setup({
 		black = {
 			prepend_args = { "--preview" },
 		},
+		injected = {
+			options = { ignore_errors = true },
+		},
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
@@ -713,7 +579,7 @@ require("conform").setup({
 		json = { "prettier" },
 		yaml = { "prettier" },
 		sh = { "shfmt" },
-		markdown = { "prettier" },
+		markdown = { "prettier", "injected" },
 		["*"] = { "codespell" },
 		-- Use the "_" filetype to run formatters on filetypes that don't
 		-- have other formatters configured.
