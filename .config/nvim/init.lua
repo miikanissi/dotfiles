@@ -380,7 +380,7 @@ require("lazy").setup({
 		"mickael-menu/zk-nvim", -- Note taking with Zettelkasten method
 		config = function()
 			require("zk").setup({
-				picker = "fzf",
+				picker = "fzf_lua",
 
 				lsp = {
 					config = {

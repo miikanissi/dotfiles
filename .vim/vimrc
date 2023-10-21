@@ -8,7 +8,7 @@ runtime macros/matchit.vim
 
 " settings
 set t_Co=256                                " use 256 colors
-highlight ColorColumn ctermbg=7 guibg=grey  " color column 
+highlight ColorColumn ctermbg=7 guibg=grey  " color column
 set colorcolumn=88                          " colorcolumn is 88 chars
 set background=light                        " light background
 syntax on                                   " syntax highlighting on
@@ -57,3 +57,6 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
+nnoremap gh 0
+nnoremap gl $
+nnoremap U <C-R>
