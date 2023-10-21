@@ -5,9 +5,8 @@ This is my personal Nvim configuration that is:
 - Single-file
 - Documented
 - As minimal as possible for my needs - unused plugins and features are removed
-- Used for JavaScript, Python, Bash, HTML, XML, CSS, JSON, and Lua
-- Used on my job as an Odoo developer
-- Used on writing documents (Markdown, LaTeX, reStructuredText)
+- Used for JavaScript, Python, Go, Bash, HTML, XML, CSS, JSON, and Lua
+- Used for writing documents (Markdown, LaTeX, reStructuredText)
 
 ## Installation
 
@@ -15,10 +14,12 @@ This is my personal Nvim configuration that is:
   Node.js from the [NodeSource repository](https://github.com/nodesource/distributions)
   and Go from [go.dev](https://go.dev/dl/):
 
-        sudo apt install clang cmake libclang-dev python3-pip nodejs ctags golang \
-        && pip3 install --upgrade pynvim black pylint pylint-odoo flake8 flake8-bugbear djlint \
-        && npm install --save-dev prettier @prettier/plugin-xml \
-        && go install mvdan.cc/sh/v3/cmd/shfmt@latest
+```bash
+sudo apt install clang cmake libclang-dev python3-pip nodejs golang shellcheck \
+&& pip3 install --upgrade --break-system-packages pynvim black pylint pylint-odoo flake8 flake8-bugbear djlint codespell \
+&& npm install --save-dev prettier @prettier/plugin-xml \
+&& go install mvdan.cc/sh/v3/cmd/shfmt@latest
+```
 
 - Copy and paste the `init.lua` file into `$HOME/.config/nvim/init.lua`
 - Start Neovim (`nvim`)
@@ -57,7 +58,6 @@ This is my personal Nvim configuration that is:
 | `<leader>cd`      | LSP: Jump to the definition of the symbol under cursor `vim.lsp.buf.definition`                                 |
 | `<leader>ct`      | LSP: Jump to the definition of the type of the symbol under cursor `vim.lsp.buf.type_definition`                |
 | `<leader>ch`      | LSP: Displays hover information about the symbol under the cursor in a floating window `vim.lsp.buf.definition` |
-| `<leader>t`       | Nvim-tree: Toggles nvim-tree `:NvimTreeToggle<CR>`                                                              |
 | `<leader>zn`      | Zk: Create a new note                                                                                           |
 | `<leader>zo`      | Zk: Open a note                                                                                                 |
 | `<leader>zf`      | Zk: Find notes by query                                                                                         |

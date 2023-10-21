@@ -373,22 +373,7 @@ require("lazy").setup({
 	},
 
 	{
-		"nvim-tree/nvim-tree.lua", -- File tree browser
-		cmd = "NvimTreeToggle",
-		keys = {
-			{ "<leader>t", "<cmd>NvimTreeToggle", desc = "nvim-tree" },
-		},
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			-- NVIM-TREE
-			require("nvim-tree").setup({
-				disable_netrw = false,
-				hijack_netrw = true,
-			})
-			vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>", { desc = "Open Nvim [T]ree", silent = true })
-		end,
+		"tpope/vim-vinegar", -- Netrw file navigation made easier
 	},
 
 	{
