@@ -6,14 +6,6 @@ window:
     x: 4
     y: 4
 
-  title: Alacritty
-  class:
-    instance: Alacritty
-    general: Alacritty
-
-scrolling:
-  history: 10000
-
 font:
   normal:
     family: UbuntuMonoNerdFontMono
@@ -30,15 +22,11 @@ font:
 
   size: 12.0
 
-  offset:
-    x: 0
-    y: 0
-
 # Colors
 import:
   - ~/.config/alacritty/theme.yml
 
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
 key_bindings:
   - {key: Paste, action: Paste}

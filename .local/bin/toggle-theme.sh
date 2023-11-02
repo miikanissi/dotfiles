@@ -17,8 +17,8 @@ GTK3_DARK=(sed -i 's/oomox-modus-operandi/oomox-modus-vivendi/g' ~/.config/gtk-3
 GTK3_LIGHT=(sed -i 's/oomox-modus-vivendi/oomox-modus-operandi/g' ~/.config/gtk-3.0/settings.ini)
 ROFI_DARK=(sed -i 's/"modus-operandi"/"modus-vivendi"/g' ~/.config/rofi/config.rasi)
 ROFI_LIGHT=(sed -i 's/"modus-vivendi"/"modus-operandi"/g' ~/.config/rofi/config.rasi)
-NVIM_LIGHT=(sed -i 's/modus-vivendi/modus-operandi/g ; s/"dark"/"light"/g' ~/.config/nvim/init.lua)
-NVIM_DARK=(sed -i 's/modus-operandi/modus-vivendi/g ; s/"light"/"dark"/g' ~/.config/nvim/init.lua)
+NVIM_LIGHT=(sed -i 's/"dark"/"light"/g' ~/.config/nvim/init.lua)
+NVIM_DARK=(sed -i 's/"light"/"dark"/g' ~/.config/nvim/init.lua)
 
 usage() {
 	printf "Usage: toggle-theme.sh [OPTION]\nOptions:\n  -d     Turn dark mode on\n  -l     Turn light mode on\n  -t     Toggles dark/light mode\n  -q     Query the current mode\n"

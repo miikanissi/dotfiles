@@ -5,9 +5,9 @@
 <p><a href="https://miikanissi.com"><img src="./.local/share/desktop.png" alt="Desktop screenshot" align="right" width="400px"></a></p>
 
 This is my personal configuration for a custom Debian Desktop Environment, including
-useful scripts, a list of all the programs I use and installation instructions. This
-mainly works as a reference for myself, but anyone else is also welcome to enjoy and
-extend upon my configurations.
+useful scripts, a list of all the programs I use and installation instructions, and my
+personal color scheme. This mainly works as a reference for myself, but anyone else is
+also welcome to enjoy and extend upon my configurations.
 
 Here are the details of my setup:
 
@@ -51,7 +51,7 @@ Here are some example scripts:
 
 ## Colors
 
-### [Modus Themes](https://protesilaos.com/emacs/modus-themes)
+### [Modus Themes](https://github.com/miikanissi/modus-themes.nvim)
 
 #### Modus Operandi
 
@@ -123,13 +123,9 @@ to do that conveniently I have created a script
 theme on my most used applications (i.e. Neovim, Alacritty, Polybar, GTK).
 
 <p align="center"><img src="./.local/share/desktop-dark-light.png" width="100%" alt="Dark and Light Mode Comparison"/></p>
-
 ## Links / Credits
-
 To stay up to date with me, visit my [website](https://miikanissi.com).
-
 Useful Links:
-
 - [Arch Wiki](https://wiki.archlinux.org/) — A great Linux resource for almost anything
 - [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) — A great starting point
   for a Neovim "IDE" configuration

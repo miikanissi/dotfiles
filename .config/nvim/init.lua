@@ -108,9 +108,10 @@ vim.opt.rtp:prepend(lazypath)
 -- Install and setup plugins with lazy.nvim
 require("lazy").setup({
 	{
-		"ishan9299/modus-theme-vim", -- Vim port of Modus themes
+		"miikanissi/modus-themes.nvim",
+		priority = 1000,
 		config = function()
-			vim.cmd("colorscheme modus-operandi")
+			vim.cmd([[colorscheme modus]])
 		end,
 	},
 
@@ -121,7 +122,9 @@ require("lazy").setup({
 
 	{
 		"norcalli/nvim-colorizer.lua", -- Highlight colors and colorcodes
-		config = true,
+		config = function()
+			require("colorizer").setup()
+		end,
 	},
 
 	{
@@ -134,13 +137,8 @@ require("lazy").setup({
 					component_separators = "|",
 					section_separators = "",
 				},
-				winbar = {
-					lualine_a = {},
-					lualine_b = {},
+				sections = {
 					lualine_c = { { "filename", file_status = true, path = 1 } },
-					lualine_x = {},
-					lualine_y = {},
-					lualine_z = {},
 				},
 			})
 		end,
@@ -565,7 +563,6 @@ require("conform").setup({
 		yaml = { "prettier" },
 		sh = { "shfmt" },
 		markdown = { "prettier", "injected" },
-		["*"] = { "codespell" },
 		-- Use the "_" filetype to run formatters on filetypes that don't
 		-- have other formatters configured.
 		["_"] = { "trim_whitespace" },
