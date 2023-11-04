@@ -1,12 +1,11 @@
 colorscheme:python-log
-cs_re_s:blue:[DEBUG|INFO|WARNING|CRITICAL|ERROR] ([a-z\.0-9\_]+):
-cs_re_s:white,magenta,bold:(\sDEBUG\s)
-cs_re:magenta:.*DEBUG.*
-cs_re_s:white,green,bold:(\sINFO\s)
-cs_re:green:.*INFO.*
-cs_re_s:white,yellow,bold:(\sWARNING\s)
+cs_re_s:black,cyan,bold:(\sDEBUG\s)
+cs_re:cyan:.*DEBUG.*
+cs_re_s:black,blue,bold:(\sINFO\s)
+cs_re:blue:.*INFO.*
+cs_re_s:black,yellow,bold:(\sWARNING\s)
 cs_re:yellow:.*WARNING.*
-cs_re_s:white,red,bold:(\sCRITICAL\s)
+cs_re_s:black,red,bold:(\sCRITICAL\s)
 cs_re:red:.*CRITICAL.*
-cs_re_s:white,red,bold:(\sERROR\s)
+cs_re_s:black,red,bold:(\sERROR\s)
 cs_re:red:.*ERROR.*
