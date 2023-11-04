@@ -60,7 +60,7 @@ Here are some example scripts:
 
 #### Modus Operandi
 
-![Modus Operandi](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/share/theme-ligt-template.png)
+![Modus Operandi](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/share/theme-light-template.png)
 
 #### Modus Vivendi
 
@@ -69,47 +69,61 @@ Here are some example scripts:
 ## Installation
 
 To install and integrate with your system, you need to checkout the master branch and
-initialize included submodules. git --work-tree $HOME --git-dir $HOME/dotfiles init git
---work-tree $HOME --git-dir $HOME/dotfiles remote add -t \* -f origin
-git@github.com:miikanissi/dotfiles.git git --work-tree $HOME --git-dir $HOME/dotfiles
-checkout master git --work-tree $HOME --git-dir $HOME/dotfiles submodule update --init
-git --work-tree $HOME --git-dir $HOME/dotfiles config --local status.showUntrackedFiles
-no Alternatively, you can clone the repository with submodules and move the files
-manually.
+initialize included submodules.
+
+```bash
+git --work-tree $HOME --git-dir $HOME/dotfiles init
+git --work-tree $HOME --git-dir $HOME/dotfiles remote add -t \* -f origin git@github.com:miikanissi/dotfiles.git
+git --work-tree $HOME --git-dir $HOME/dotfiles checkout master
+git --work-tree $HOME --git-dir $HOME/dotfiles submodule update --init
+git --work-tree $HOME --git-dir $HOME/dotfiles config --local status.showUntrackedFiles no
+```
+
+Alternatively, you can clone the repository with submodules and move the files manually.
 
 To install all of my packages, you can run my installation script:
 
-    ./.local/bin/install_programs.sh
+```bash
+./.local/bin/install_programs.sh
+```
 
 I use Ubuntu Mono Nerd Font as my main font. You can use my script to download and
 install it for your system:
 
-    chmod +x ~/.local/bin/install_nerd_fonts_ubuntu_mono.sh
-    ~/.local/bin/install_nerd_fonts_ubuntu_mono.sh
+```bash
+chmod +x ~/.local/bin/install_nerd_fonts_ubuntu_mono.sh
+~/.local/bin/install_nerd_fonts_ubuntu_mono.sh
+```
 
 Elementary cursor theme requires moving icons to their correct location:
 
-    cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
+```bash
+cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
+```
 
 Suckless program installation:
 
-    sudo echo "[Desktop Entry]
-    Encoding=UTF-8
-    Name=dwm
-    Comment=Dynamic window manager
-    Exec=dwm
-    Icon=dwm
-    Type=XSession" > /usr/share/xsessions/dwm.desktop
-    cd .local/src/suckless/dwm && sudo make clean install
-    cd .local/src/suckless/dmenu && sudo make clean install
-    cd .local/src/suckless/dwmblocks && sudo make clean install
-    cd .local/src/suckless/st && sudo make clean install
+```bash
+sudo echo "[Desktop Entry]
+Encoding=UTF-8
+Name=dwm
+Comment=Dynamic window manager
+Exec=dwm
+Icon=dwm
+Type=XSession" > /usr/share/xsessions/dwm.desktop
+cd .local/src/suckless/dwm && sudo make clean install
+cd .local/src/suckless/dmenu && sudo make clean install
+cd .local/src/suckless/dwmblocks && sudo make clean install
+cd .local/src/suckless/st && sudo make clean install
+```
 
 To automatically run my keyboard setup script when keyboard is attached, we need to
 create a udev rule in `/etc/udev/rules.d/99-keyboard.rules`. You can find the vendor and
 model ID for all USB devices by running the command `lsusb`:
 
-    ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="0510" RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"
+```
+ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="0510" RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"
+```
 
 ## Text Editors
 
