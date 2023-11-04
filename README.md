@@ -44,14 +44,14 @@ Most of my useful shell scripts are included in
 
 Here are some example scripts:
 
-- [rofi_dman.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/rofi_dman.sh)
+- [rofi_dman.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/rofi_dman.sh)
   is a script to manage devices with rofi/dmenu. Features include mounting, unmounting,
   ejecting and listing devices.
-- [ff.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/ff.sh) is a
+- [ff.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/ff.sh) is a
   script that uses FZF to find files by name, file type and/or content.
-- [bspwm_setup_monitors.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/bspwm_setup_monitors.sh)
+- [bspwm_setup_monitors.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/bspwm_setup_monitors.sh)
   is a script that allows hot plugging external monitors for BSPWM and Polybar.
-- [rofi_killprocess.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/killprocess.sh)
+- [rofi_killprocess.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/killprocess.sh)
   is a script to kill running processes with rofi/dmenu.
 
 ## Colors
@@ -138,7 +138,7 @@ Emacs configuration is written as a self documenting Org file for easier underst
 
 I switch between dark and light mode depending on the ambient light conditions. In order
 to do that conveniently I have created a script
-[toggle-theme.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/toggle-theme.sh),
+[toggle-theme.sh](https://github.com/miikanissi/dotfiles/blob/master/.local/bin/toggle-theme.sh),
 which automatically changes the color theme on my most used applications (i.e. Neovim,
 Alacritty, Polybar, GTK).
 
