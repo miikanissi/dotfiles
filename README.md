@@ -1,4 +1,4 @@
-[![Miika's Dotfiles](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/share/theme-ligt-template.png)](#my-dotfiles)
+[![Miika's Dotfiles](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/share/miikas-dotfiles.png)](#my-dotfiles)
 
 ## My Dotfiles
 
@@ -40,18 +40,18 @@ setup:
 ## Scripts
 
 Most of my useful shell scripts are included in
-[~/.local/bin/](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/bin/).
+[~/.local/bin/](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/).
 
 Here are some example scripts:
 
-- [rofi_dman.sh](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/bin/rofi_dman.sh)
+- [rofi_dman.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/rofi_dman.sh)
   is a script to manage devices with rofi/dmenu. Features include mounting, unmounting,
   ejecting and listing devices.
-- [ff.sh](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/bin/ff.sh)
-  is a script that uses FZF to find files by name, file type and/or content.
-- [bspwm_setup_monitors.sh](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/bin/bspwm_setup_monitors.sh)
+- [ff.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/ff.sh) is a
+  script that uses FZF to find files by name, file type and/or content.
+- [bspwm_setup_monitors.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/bspwm_setup_monitors.sh)
   is a script that allows hot plugging external monitors for BSPWM and Polybar.
-- [rofi_killprocess.sh](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/bin/killprocess.sh)
+- [rofi_killprocess.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/killprocess.sh)
   is a script to kill running processes with rofi/dmenu.
 
 ## Colors
@@ -128,19 +128,17 @@ ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="
 ## Text Editors
 
 Currently, I have configurations for Neovim
-([~/.config/nvim/](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.config/nvim/)),
-Vim ([~/.vim/](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.vim/)) and
-Emacs
-([~/.emacs.d/](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.emacs.d/)).
-At this moment I am only using Neovim and that is the only configuration I am
-maintaining. My Emacs configuration is written as a self documenting Org file for easier
-understanding.
+([~/.config/nvim/](https://github.com/miikanissi/dotfiles/tree/master/.config/nvim/)),
+Vim ([~/.vim/](https://github.com/miikanissi/dotfiles/tree/master/.vim/)) and Emacs
+([~/.emacs.d/](https://github.com/miikanissi/dotfiles/tree/master/.emacs.d/)). At this
+moment I am only using Neovim and that is the only configuration I am maintaining. My
+Emacs configuration is written as a self documenting Org file for easier understanding.
 
 ## Light / Dark Mode Toggle
 
 I switch between dark and light mode depending on the ambient light conditions. In order
 to do that conveniently I have created a script
-[toggle-theme.sh](https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/bin/toggle-theme.sh),
+[toggle-theme.sh](https://github.com/miikanissi/dotfiles/tree/master/.local/bin/toggle-theme.sh),
 which automatically changes the color theme on my most used applications (i.e. Neovim,
 Alacritty, Polybar, GTK).
 
