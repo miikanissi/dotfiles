@@ -3,7 +3,7 @@ Name=oomox-modus-operandi
 
 Comment=Icon theme from Numix Project
 
-Inherits=gnome,hicolor
+Inherits=Adwaita,Breeze,gnome,hicolor
 
 Example=folder
 

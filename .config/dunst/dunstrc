@@ -303,12 +303,12 @@
 [urgency_low]
     background = "#ffffff"
     foreground = "#000000"
-    frame_color = "#0031a9"
+    frame_color = "#3548cf"
 
 [urgency_normal]
     background = "#ffffff"
     foreground = "#000000"
-    frame_color = "#0031a9"
+    frame_color = "#3548cf"
 
 [urgency_critical]
     background = "#ffffff"
@@ -322,12 +322,12 @@ icon_theme = oomox-modus-operandi
 #[urgency_low]
 #    background = "#000000"
 #    foreground = "#ffffff"
-#    frame_color = "#2fafff"
+#    frame_color = "#79a8ff"
 #
 #[urgency_normal]
 #    background = "#000000"
 #    foreground = "#ffffff"
-#    frame_color = "#2fafff"
+#    frame_color = "#79a8ff"
 #
 #[urgency_critical]
 #    background = "#000000"

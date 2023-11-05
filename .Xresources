@@ -9,6 +9,10 @@
 ! BEGIN LIGHT
 *background: #ffffff
 *foreground: #000000
+*accent_light: #003497
+*accent: #3548cf
+*accent_darker: #0031a9
+*accent_dark: #0000ff
 
 *color0: #ffffff
 *color1: #a60000
@@ -34,6 +38,10 @@ sxiv.Background: #ffffff
 !! BEGIN DARK
 !*background: #000000
 !*foreground: #ffffff
+!*accent_light: #82b0ec
+!*accent: #79a8ff
+!*accent_darker: #2fafff
+!*accent_dark: #338fff
 !
 !*color0: #000000
 !*color1: #ff5f59

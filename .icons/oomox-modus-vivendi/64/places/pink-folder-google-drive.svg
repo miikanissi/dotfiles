@@ -1,17 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
- <defs>
-  <radialGradient r="24" cy="40.5" cx="24" gradientTransform="matrix(1.6666667,0,0,0.2777777,-8,1030.4456)" gradientUnits="userSpaceOnUse" id="radialGradient3216">
-   <stop style="stop-color:#000;stop-opacity:1"/>
-   <stop offset="1" style="stop-color:#000;stop-opacity:0.196"/>
-  </radialGradient>
- </defs>
  <g transform="translate(0,-988.3622)">
-  <path d="m 32 1035.03 c -13.1 0 -24.704 1.044 -32 2.667 l 0 8 c 7.296 1.622 18.898 2.667 32 2.667 13.1 0 24.704 -1.044 32 -2.667 l 0 -8 c -7.296 -1.623 -18.898 -2.667 -32 -2.667 z" style="fill:url(#radialGradient3216);opacity:0.1;fill-opacity:1;stroke:none"/>
-  <rect width="60" height="42" x="2" y="1002.36" rx="6.522" ry="6.562" style="fill:#ec407a;fill-opacity:1;stroke:none"/>
-  <path d="m 8.522 1001.7 c -3.613 0 -6.522 2.973 -6.522 6.667 l 0 2.667 c 0 -3.693 2.909 -6.667 6.522 -6.667 l 46.957 0 c 3.613 0 6.522 2.973 6.522 6.667 l 0 -2.667 c 0 -3.693 -2.909 -6.667 -6.522 -6.667 l -46.957 0 z" style="fill:#fff;opacity:0.2;fill-opacity:1;stroke:none"/>
-  <path d="m 8.522 1012.36 10.435 0 c 14.348 -1.333 11.739 -16 20.87 -16 l 15.652 0 c 3.613 0 6.522 2.973 6.522 6.667 l 0 34.667 c 0 3.693 -2.909 6.667 -6.522 6.667 l -46.957 0 c -3.613 0 -6.522 -2.973 -6.522 -6.667 l 0 -18.667 c 0 -4 2.609 -6.667 6.522 -6.667 z" style="fill:#f06292;fill-opacity:1;stroke:none"/>
-  <path d="m 2 1035.03 0 2.667 c 0 3.693 2.909 6.667 6.522 6.667 l 46.957 0 c 3.613 0 6.522 -2.973 6.522 -6.667 l 0 -2.667 c 0 3.693 -2.909 7.333 -6.522 7.333 l -46.957 0 c -3.613 0 -6.522 -3.64 -6.522 -7.333 z" style="fill:#000;opacity:0.15;fill-opacity:1;stroke:none"/>
-  <path d="m 14.09 1020.36 6.06 11 6.094 0 -6.094 -11 -6.06 0 z m -0.969 0.969 -6.03 9.75 2.813 5.656 5.875 -10.313 -2.656 -5.094 z m 0.844 11.03 -3.094 5 12.281 0 3.094 -5 -12.281 0 z" style="fill:#000;fill-opacity:0.098;fill-rule:evenodd"/>
-  <path d="m 14.09 1018.36 6.06 11 6.094 0 -6.094 -11 -6.06 0 z m -0.969 0.969 -6.03 9.75 2.813 5.656 5.875 -10.313 -2.656 -5.094 z m 0.844 11.03 -3.094 5 12.281 0 3.094 -5 -12.281 0 z" style="fill:#fff8e1;fill-opacity:1;fill-rule:evenodd"/>
+  <rect width="52" height="20" x="6" y="1000.36" style="fill:#ec407a;fill-opacity:1;stroke:none"/>
+  <path d="m 12 1000.36 c 0 -2 0 -4 2.909 -4 l 10.182 0 c 2.909 0 2.909 2 2.909 4 l 0 2 -16 0 z" style="fill:#ec407a;fill-opacity:1;stroke:none"/>
+  <path d="m 10 1004.36 44 0 0 9.935 -44 0 z" style="fill:#95989f;fill-opacity:1;stroke:none"/>
+  <rect y="1002.36" x="14" height="26" width="38" style="fill:#d8d8da;fill-opacity:1;stroke:none"/>
+  <rect width="38" height="26" x="12" y="1006.36" style="fill:#f9f9f9;fill-opacity:1;stroke:none"/>
+  <path d="m 2 1008.36 60 0 -4.286 36 -51.43 0 z" style="fill:#f06292;fill-opacity:1;stroke:none"/>
+  <polygon transform="matrix(1.791016e-4,0,0,1.560571e-4,20.54378,1019.3624)" points="44385,76894 133156,76894 110963,115341 22194,115341 " style="fill:#c64077;opacity:1;fill-opacity:1;fill-rule:evenodd"/>
+  <polygon transform="matrix(1.770215e-4,0,0,1.8206965e-4,20.820758,1015.3621)" points="88772,76894 133156,76894 88772,0 44385,0 " style="fill:#c64077;opacity:1;fill-opacity:1;fill-rule:evenodd"/>
+  <path d="m 27.421 1016.62 -7.821 12.612 3.662 7.331 7.616 -13.343 z" style="fill:#c64077;opacity:1;fill-opacity:1;fill-rule:evenodd"/>
  </g>
 </svg>
