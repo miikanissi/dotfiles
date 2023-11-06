@@ -33,13 +33,13 @@ visualizer_type = "spectrum"
 visualizer_look = "▋▋"
 
 #### format
-current_item_prefix = "$(7)$r"
+current_item_prefix = "$(5)$r"
 current_item_suffix = "$/r$(end)$/b"
-current_item_inactive_column_prefix = "$(9)$r"
+current_item_inactive_column_prefix = "$(16)$r"
 current_item_inactive_column_suffix = "$/r$(end)"
 now_playing_prefix = "$b ➥ "
 now_playing_suffix = "$/b"
-selected_item_prefix = "$(7)$r"
+selected_item_prefix = "$(5)$r"
 selected_item_suffix = "$/r$(end)$/b"
 
 message_delay_time = 5
@@ -57,29 +57,11 @@ use_console_editor = yes
 mouse_support = no
 
 #### colors
-visualizer_color = "7"
-progressbar_color = "black"
+visualizer_color = "5"
+progressbar_color = "white"
 progressbar_elapsed_color = "green"
 statusbar_color = "5"
-empty_tag_color = "black"
+empty_tag_color = "white"
 main_window_color = "default"
 centered_cursor = "yes"
 enable_window_title = "yes"
-
-# colors_enabled = yes
-# empty_tag_color = cyan
-# header_window_color = default
-# volume_color = default
-# state_line_color = default
-# state_flags_color = default:b
-# main_window_color = 1_16
-# color1 = 1
-# color2 = 13
-# progressbar_color = black:b
-# progressbar_elapsed_color = green:b
-# statusbar_color = default
-# statusbar_time_color = default:b
-# player_state_color = default:b
-# alternative_ui_separator_color = black:b
-# window_border_color = green
-# active_window_border = red
