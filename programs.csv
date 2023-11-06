@@ -112,6 +112,7 @@ X,shfmt,Shell script formatter
 ,sxiv,Simple X Image Viewer
 ,tidy,Html/Xml parser
 ,tlp,Optimize laptop battery life
+,tmux,Terminal multiplexer
 ,tree,A recursive directory listing program
 ,unzip,Uncompress files
 ,uuid-dev,Universally Unique ID library

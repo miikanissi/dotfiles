@@ -7,6 +7,10 @@ DUNST_DARK_COMMENT=(sed -i '/^# BEGIN DARK$/,/^# END DARK$/ s/^/#/' ~/.config/du
 DUNST_DARK_UNCOMMENT=(sed -i '/^## BEGIN DARK$/,/^## END DARK$/ s/^#//' ~/.config/dunst/dunstrc)
 DUNST_LIGHT_COMMENT=(sed -i '/^# BEGIN LIGHT$/,/^# END LIGHT$/ s/^/#/' ~/.config/dunst/dunstrc)
 DUNST_LIGHT_UNCOMMENT=(sed -i '/^## BEGIN LIGHT$/,/^## END LIGHT$/ s/^#//' ~/.config/dunst/dunstrc)
+TMUX_DARK_COMMENT=(sed -i '/^# BEGIN DARK$/,/^# END DARK$/ s/^/#/' ~/.config/tmux/tmux.conf)
+TMUX_DARK_UNCOMMENT=(sed -i '/^## BEGIN DARK$/,/^## END DARK$/ s/^#//' ~/.config/tmux/tmux.conf)
+TMUX_LIGHT_COMMENT=(sed -i '/^# BEGIN LIGHT$/,/^# END LIGHT$/ s/^/#/' ~/.config/tmux/tmux.conf)
+TMUX_LIGHT_UNCOMMENT=(sed -i '/^## BEGIN LIGHT$/,/^## END LIGHT$/ s/^#//' ~/.config/tmux/tmux.conf)
 X_DARK_COMMENT=(sed -i '/^! BEGIN DARK$/,/^! END DARK$/ s/^/!/' ~/.Xresources)
 X_DARK_UNCOMMENT=(sed -i '/^!! BEGIN DARK$/,/^!! END DARK$/ s/^!//' ~/.Xresources)
 X_LIGHT_COMMENT=(sed -i '/^! BEGIN LIGHT$/,/^! END LIGHT$/ s/^/!/' ~/.Xresources)
@@ -42,6 +46,8 @@ dark() {
 	if grep -q '^!! BEGIN DARK$' ~/.Xresources; then
 		"${DUNST_DARK_UNCOMMENT[@]}"
 		"${DUNST_LIGHT_COMMENT[@]}"
+		"${TMUX_DARK_UNCOMMENT[@]}"
+		"${TMUX_LIGHT_COMMENT[@]}"
 		"${X_DARK_UNCOMMENT[@]}"
 		"${X_LIGHT_COMMENT[@]}"
 		"${GTK3_DARK[@]}"
@@ -57,6 +63,8 @@ light() {
 	if grep -q '^!! BEGIN LIGHT$' ~/.Xresources; then
 		"${DUNST_LIGHT_UNCOMMENT[@]}"
 		"${DUNST_DARK_COMMENT[@]}"
+		"${TMUX_LIGHT_UNCOMMENT[@]}"
+		"${TMUX_DARK_COMMENT[@]}"
 		"${X_LIGHT_UNCOMMENT[@]}"
 		"${X_DARK_COMMENT[@]}"
 		"${GTK3_LIGHT[@]}"
