@@ -97,6 +97,7 @@ P,pylint-odoo,A Pylint plugin for Odoo
 ,python3-pip,Package Installer for Python
 ,python3,Python Programming Language
 ,python3-venv,Create Python virtual environments
+,qt5ct,Customize QT5 theme
 ,redshift,Adjusts the color temperature of your screen
 ,ripgrep,A line-oriented search tool that recursively searches the current directory for a regex pattern
 ,rofi,An application launcher

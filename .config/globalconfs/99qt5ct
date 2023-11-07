@@ -1,0 +1,5 @@
+# Enable qt5ct by default KDE is running.
+if [ "$XDG_CURRENT_DESKTOP" != "KDE" ]
+then
+        export QT_QPA_PLATFORMTHEME=qt5ct
+fi

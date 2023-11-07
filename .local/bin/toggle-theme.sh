@@ -15,6 +15,10 @@ X_DARK_COMMENT=(sed -i '/^! BEGIN DARK$/,/^! END DARK$/ s/^/!/' ~/.Xresources)
 X_DARK_UNCOMMENT=(sed -i '/^!! BEGIN DARK$/,/^!! END DARK$/ s/^!//' ~/.Xresources)
 X_LIGHT_COMMENT=(sed -i '/^! BEGIN LIGHT$/,/^! END LIGHT$/ s/^/!/' ~/.Xresources)
 X_LIGHT_UNCOMMENT=(sed -i '/^!! BEGIN LIGHT$/,/^!! END LIGHT$/ s/^!//' ~/.Xresources)
+QT5_ICON_DARK=(sed -i 's/oomox-modus-operandi/oomox-modus-vivendi/g' ~/.config/qt5ct/qt5ct.conf)
+QT5_ICON_LIGHT=(sed -i 's/oomox-modus-vivendi/oomox-modus-operandi/g' ~/.config/qt5ct/qt5ct.conf)
+QT5_DARK=(sed -i 's/modus-operandi.conf/modus-vivendi.conf/g' ~/.config/qt5ct/qt5ct.conf)
+QT5_LIGHT=(sed -i 's/modus-vivendi.conf/modus-operandi.conf/g' ~/.config/qt5ct/qt5ct.conf)
 GTK2_DARK=(sed -i 's/"oomox-modus-operandi"/"oomox-modus-vivendi"/g' ~/.gtkrc-2.0)
 GTK2_LIGHT=(sed -i 's/"oomox-modus-vivendi"/"oomox-modus-operandi"/g' ~/.gtkrc-2.0)
 GTK3_DARK=(sed -i 's/oomox-modus-operandi/oomox-modus-vivendi/g' ~/.config/gtk-3.0/settings.ini)
@@ -52,6 +56,8 @@ dark() {
 		"${X_LIGHT_COMMENT[@]}"
 		"${GTK3_DARK[@]}"
 		"${GTK2_DARK[@]}"
+		"${QT5_DARK[@]}"
+		"${QT5_ICON_DARK[@]}"
 		"${ROFI_DARK[@]}"
 		"${NVIM_DARK[@]}"
 		"${ALACRITTY_DARK[@]}"
@@ -69,6 +75,8 @@ light() {
 		"${X_DARK_COMMENT[@]}"
 		"${GTK3_LIGHT[@]}"
 		"${GTK2_LIGHT[@]}"
+		"${QT5_LIGHT[@]}"
+		"${QT5_ICON_LIGHT[@]}"
 		"${ROFI_LIGHT[@]}"
 		"${NVIM_LIGHT[@]}"
 		"${ALACRITTY_LIGHT[@]}"
