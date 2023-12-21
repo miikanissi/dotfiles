@@ -518,6 +518,13 @@ local servers = {
 			},
 		},
 	},
+	jedi_language_server = {},
+}
+
+local server_init = {
+	jedi_language_server = {
+		diagnostics = { enable = false },
+	},
 }
 
 -- MASON.NVIM
@@ -535,6 +542,7 @@ mason_lspconfig.setup_handlers({
 			capabilities = capabilities,
 			on_attach = on_attach,
 			settings = servers[server_name],
+			init_options = server_init[server_name],
 		})
 	end,
 })
