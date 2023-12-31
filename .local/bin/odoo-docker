@@ -3,17 +3,18 @@
 ODOO_VERSION=16
 
 usage() {
-	printf "usage: odoo-docker [options]\\n  --: Run Odoo in Docker\\n  -u: <MODULE>: Run Odoo in Docker with module update\\n  -V: <VERSION>: Run a specific version of Odoo\\n  -h: Show help message\\n  -v: Show current odoo-docker version\\n"
+	printf "usage: odoo-docker [options]\\n  --: Run Odoo in Docker\\n  -u: <MODULE>: Run with module update\\n  -d: <DEV OPTIONS>: Run with dev options\\n  -V: <VERSION>: Run a specific version of Odoo\\n  -h: Show help message\\n  -v: Show current odoo-docker version\\n"
 }
 version() {
-	printf "odoo-docker 0.1.0"
+	printf "odoo-docker 0.1.1"
 }
 
-while getopts "hvu:V:" o; do
+while getopts "hvu:d:V:" o; do
 	case "${o}" in
 	h) usage && exit 1 ;;
 	v) version && exit 1 ;;
 	u) UPDATE=${OPTARG} ;;
+	d) DEV=${OPTARG} ;;
 	V) ODOO_VERSION=${OPTARG} ;;
 	*) printf "Invalid option: -%s\\n -h: To show help\\n" "$OPTARG" && exit 1 ;;
 	esac
@@ -21,10 +22,14 @@ done
 
 COMPOSE_FILE=~/Documents/odoo/"$ODOO_VERSION"/docker-compose.yml
 
+ODOO_COMMAND="odoo"
 if [[ -n $UPDATE ]]; then
-	sed -i '/command: odoo*/s/'odoo.*'/'"odoo -u $UPDATE"'/' "$COMPOSE_FILE"
-else
-	sed -i '/command: odoo*/s/'odoo.*'/'"odoo"'/' "$COMPOSE_FILE"
+	ODOO_COMMAND+=" -u $UPDATE"
 fi
+if [[ -n $DEV ]]; then
+	ODOO_COMMAND+=" --dev $DEV"
+fi
+
+sed -i '/command: odoo*/s/'odoo.*'/'"$ODOO_COMMAND"'/' "$COMPOSE_FILE"
 
 sudo docker compose -f "$COMPOSE_FILE" up -d --force-recreate

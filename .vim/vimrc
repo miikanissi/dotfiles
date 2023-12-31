@@ -47,6 +47,8 @@ set showcmd                                 " shows the typed command
 set updatetime=300                          " default is 4000
 set shortmess+=c                            " no messages to ins completion
 set signcolumn=yes                          " always show signcolumns
+set foldlevelstart=99                       " disable default folding
+set foldlevel=99                            " disable default folding
 
 let mapleader = " "
 
