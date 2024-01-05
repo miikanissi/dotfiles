@@ -46,6 +46,11 @@ vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add" -- locatio
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Remap window splits to Ctrl + vsq
+vim.keymap.set("n", "<C-s>", "<C-W>s", { silent = true })
+vim.keymap.set("n", "<C-v>", "<C-W>v", { silent = true })
+vim.keymap.set("n", "<C-q>", "<C-W>q", { silent = true })
+
 -- Remap to switch windows with Ctrl + hjkl
 vim.keymap.set("n", "<C-J>", "<C-W>j", { silent = true })
 vim.keymap.set("n", "<C-K>", "<C-W>k", { silent = true })
@@ -162,7 +167,6 @@ require("lazy").setup({
 		event = "InsertEnter",
 		config = true,
 	},
-
 	{
 		"lewis6991/gitsigns.nvim", -- Git info in sign column and popups
 		dependencies = {
@@ -179,6 +183,23 @@ require("lazy").setup({
 				},
 			})
 		end,
+	},
+
+	{
+		"romgrk/barbar.nvim", -- Tab bar with buffers
+		dependencies = {
+			"lewis6991/gitsigns.nvim",
+			"nvim-tree/nvim-web-devicons",
+		},
+		init = function()
+			vim.g.barbar_auto_setup = false
+			vim.keymap.set("n", "<A-k>", "<Cmd>BufferPrevious<CR>", { desc = "Move to Previous Buffer" })
+			vim.keymap.set("n", "<A-j>", "<Cmd>BufferNext<CR>", { desc = "Move to Next Buffer" })
+			vim.keymap.set("n", "<A-p>", "<Cmd>BufferPin<CR>", { desc = "Pin/Unpin Buffer" })
+			vim.keymap.set("n", "<A-q>", "<Cmd>BufferClose<CR>", { desc = "Close Buffer" })
+			vim.keymap.set("n", "<A-u>", "<Cmd>BufferRestore<CR>", { desc = "Restore Closed Buffer" })
+		end,
+		opts = {},
 	},
 
 	{
@@ -642,5 +663,3 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline", keyword_length = 3 },
 	}),
 })
-
-vim.lsp.set_log_level("info")

@@ -4,7 +4,15 @@
 
 <!-- prettier-ignore-start -->
 
-<p><a href="https://miikanissi.com"><img src="https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/share/desktop.png" alt="Desktop Screenshot" align="right" width="400px"></a></p>
+<p>
+  <a href="https://miikanissi.com"
+    ><img
+      src="https://raw.githubusercontent.com/miikanissi/dotfiles/master/.local/share/desktop.png"
+      alt="Desktop Screenshot"
+      align="right"
+      width="400px"
+  /></a>
+</p>
 
 <!-- prettier-ignore-end -->
 
