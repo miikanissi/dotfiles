@@ -3,21 +3,23 @@
 # FZF search tool
 
 usage() {
-	printf "usage: ff [options]    edit selected file(s)\\n  --: Default fzf search\\n  -s: Search from file contents\\n  -f <FILETYPE>: Limit search to a specified filetype\\n  -h: Show help message\\n"
+	printf "usage: ff [options]    edit selected file(s)\\n  --: Default fzf search\\n  -s: Search from file contents\\n  -i: Search with hidden files included\\n  -f <FILETYPE>: Limit search to a specified filetype\\n  -h: Show help message\\n"
 }
 
-while getopts "sf:h" o; do case "${o}" in
+while getopts "sif:h" o; do case "${o}" in
 	h) usage && exit 1 ;;
-	s) search="s" ;;
+	s) search="1" ;;
+	i) hidden="1" ;;
 	f) filetype=${OPTARG} ;;
 	*) printf "Invalid option: -%s\\n  -h: To show help\\n" "$OPTARG" && exit 1 ;;
 	esac done
 
-RG_DEFAULT_COMMAND="rg --no-messages --ignore-case --hidden --no-ignore-vcs"
+RG_DEFAULT_COMMAND="rg --no-messages --ignore-case"
 
-[[ ! -z $filetype ]] && RG_DEFAULT_COMMAND+=" --type=$filetype"
+[[ -n $filetype ]] && RG_DEFAULT_COMMAND+=" --type=$filetype"
+[[ -n $hidden ]] && RG_DEFAULT_COMMAND+=" --hidden"
 
-if [[ ! -z $search ]]; then
+if [[ -n $search ]]; then
 	files=$(
 		FZF_DEFAULT_COMMAND="$RG_DEFAULT_COMMAND --files" fzf \
 			-m \
@@ -36,4 +38,4 @@ else
 	)
 fi
 
-[[ -n $files ]] && ${EDITOR:-vim} $files
+[[ -n $files ]] && ${EDITOR:-vi} "$files"

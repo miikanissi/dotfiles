@@ -9,9 +9,9 @@ filepath=~/Pictures/ss/$filename
 # pipes into ifne which checks if output is empty
 # if not empty tee saves image and passes standard output onto
 # xclip for easy pasting
-maim -s -u -q | ifne tee $filepath | xclip -selection clipboard -t image/png
+maim -s -u -q | ifne tee "$filepath" | xclip -selection clipboard -t image/png
 
 # sends notification if saved succesfully.
-if [ -f $filepath ]; then
-    notify-send "Screenshot saved."
+if [ -f "$filepath" ]; then
+	notify-send "Screenshot saved."
 fi
