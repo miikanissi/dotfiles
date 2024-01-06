@@ -361,7 +361,6 @@ require("lazy").setup({
 				python = { "pylint", "flake8" },
 				htmldjango = { "djlint" },
 				rst = { "rstcheck" },
-				sh = { "shellcheck" },
 			}
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
@@ -392,7 +391,32 @@ require("lazy").setup({
 	},
 
 	{
-		"tpope/vim-vinegar", -- Netrw file navigation made easier
+		"stevearc/oil.nvim",
+		opts = {},
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("oil").setup({
+				default_file_explorer = true,
+				delete_to_trash = true,
+				keymaps = {
+					["g?"] = "actions.show_help",
+					["<CR>"] = "actions.select",
+					["<C-p>"] = "actions.preview",
+					["<C-c>"] = "actions.close",
+					["<C-l>"] = "actions.refresh",
+					["-"] = "actions.parent",
+					["_"] = "actions.open_cwd",
+					["`"] = "actions.cd",
+					["~"] = "actions.tcd",
+					["gs"] = "actions.change_sort",
+					["gx"] = "actions.open_external",
+					["g."] = "actions.toggle_hidden",
+					["g\\"] = "actions.toggle_trash",
+				},
+				use_default_keymaps = false,
+			})
+			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+		end,
 	},
 
 	{
