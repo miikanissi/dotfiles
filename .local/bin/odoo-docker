@@ -3,19 +3,20 @@
 ODOO_VERSION=16
 
 usage() {
-	printf "usage: odoo-docker [options]\\n  --: Run Odoo in Docker\\n  -u: <MODULE>: Run with module update\\n  -d: <DEV OPTIONS>: Run with dev options\\n  -V: <VERSION>: Run a specific version of Odoo\\n  -h: Show help message\\n  -v: Show current odoo-docker version\\n"
+	printf "usage: odoo-docker [options]\\n  --: Run Odoo in Docker\\n  -u: <MODULE>: Run with module update\\n  -d: <DEV OPTIONS>: Run with dev options\\n  -V: <VERSION>: Run a specific version of Odoo\\n  -t: Run with tests\\n  -h: Show help message\\n  -v: Show current odoo-docker version\\n"
 }
 version() {
 	printf "odoo-docker 0.1.1"
 }
 
-while getopts "hvu:d:V:" o; do
+while getopts "hvu:d:V:t" o; do
 	case "${o}" in
 	h) usage && exit 1 ;;
 	v) version && exit 1 ;;
 	u) UPDATE=${OPTARG} ;;
 	d) DEV=${OPTARG} ;;
 	V) ODOO_VERSION=${OPTARG} ;;
+	t) TEST=" --test-enable" ;;
 	*) printf "Invalid option: -%s\\n -h: To show help\\n" "$OPTARG" && exit 1 ;;
 	esac
 done
@@ -28,6 +29,9 @@ if [[ -n $UPDATE ]]; then
 fi
 if [[ -n $DEV ]]; then
 	ODOO_COMMAND+=" --dev $DEV"
+fi
+if [[ -n $TEST ]]; then
+	ODOO_COMMAND+="$TEST"
 fi
 
 sed -i '/command: odoo*/s/'odoo.*'/'"$ODOO_COMMAND"'/' "$COMPOSE_FILE"

@@ -29,7 +29,7 @@ if [[ -n $search ]]; then
 			--bind "ctrl-a:select-all" \
 			--bind "f12:execute-silent:(subl -b {})" \
 			--bind "change:reload:$RG_DEFAULT_COMMAND -l {q} || true" \
-			--preview "rg -i --pretty --context 8 {q} {}" | cut -d":" -f1,2
+			--preview "rg -i --pretty --before-context 4 --after-context 12 {q} {}" | cut -d":" -f1,2
 	)
 else
 	files=$(

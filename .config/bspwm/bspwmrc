@@ -93,7 +93,7 @@ _run light-locker --lock-on-suspend --lock-after-screensaver=30
 _run redshift
 
 # Compositor
-_run picom --config .config/picom/picom.conf --experimental-backends --vsync
+_run picom --config .config/picom/picom.conf --vsync
 
 # Setup monitors, polybar and wallpaper
 ~/.local/bin/bspwm_setup_monitors.sh &
