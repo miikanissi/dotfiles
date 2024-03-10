@@ -12,6 +12,8 @@ monitor_add() {
 	bspc desktop Desktop --remove
 	# reorder monitors
 	bspc wm -O "$EXTERNAL_MONITOR" "$INTERNAL_MONITOR"
+	# Decrease font size for terminal when using both monitors
+	sed -i 's/^ *size:.*/  size: 12.0/' ~/.config/alacritty/alacritty.yml
 }
 
 monitor_remove() {
@@ -27,6 +29,8 @@ monitor_remove() {
 	bspc desktop Desktop --remove
 	# reorder desktops
 	bspc monitor "$INTERNAL_MONITOR" -o 1 2 3 4 5 6 7 8 9 10
+	# Increase font size for terminal when using internal monitor
+	sed -i 's/^ *size:.*/  size: 16.0/' ~/.config/alacritty/alacritty.yml
 }
 
 if [[ $(xrandr -q | grep "${EXTERNAL_MONITOR} connected") ]]; then

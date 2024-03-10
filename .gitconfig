@@ -12,3 +12,5 @@
     gpgSign = true
 [pull]
     rebase = false
+[submodule]
+	recurse = true
