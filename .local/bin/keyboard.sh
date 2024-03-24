@@ -19,6 +19,9 @@ if ! flock -n 9; then
 	exit 1
 fi
 
+# disable trackpad (it do be broken)
+/usr/bin/xinput --disable "SynPS/2 Synaptics TouchPad"
+
 # mouse acceleration off
 /usr/bin/xset m 1 1
 /usr/bin/xinput --set-prop "Logitech MX518 Gaming Mouse" "libinput Accel Profile Enabled" 0, 1
@@ -37,4 +40,5 @@ fi
 /usr/bin/xmodmap -e "keycode 135 = Pointer_Button1"
 
 /usr/bin/xbindkeys -f /home/m/.config/xbindkeysrc
+
 # lock file will be unlocked when the script ends

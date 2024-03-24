@@ -3,13 +3,14 @@
 # FZF search tool
 
 usage() {
-	printf "usage: ff [options]    edit selected file(s)\\n  --: Default fzf search\\n  -s: Search from file contents\\n  -i: Search with hidden files included\\n  -f <FILETYPE>: Limit search to a specified filetype\\n  -h: Show help message\\n"
+	printf "usage: ff [options]    edit selected file(s)\\n  --: Default fzf search\\n  -s: Search from file contents\\n  -i: Search with hidden files included\\n  -m: Search with multiline option\\n  -f <FILETYPE>: Limit search to a specified filetype\\n  -h: Show help message\\n"
 }
 
-while getopts "sif:h" o; do case "${o}" in
+while getopts "simf:h" o; do case "${o}" in
 	h) usage && exit 1 ;;
 	s) search="1" ;;
 	i) hidden="1" ;;
+	m) multiline="1" ;;
 	f) filetype=${OPTARG} ;;
 	*) printf "Invalid option: -%s\\n  -h: To show help\\n" "$OPTARG" && exit 1 ;;
 	esac done
@@ -18,6 +19,7 @@ RG_DEFAULT_COMMAND="rg --no-messages --ignore-case"
 
 [[ -n $filetype ]] && RG_DEFAULT_COMMAND+=" --type=$filetype"
 [[ -n $hidden ]] && RG_DEFAULT_COMMAND+=" --hidden"
+[[ -n $multiline ]] && RG_DEFAULT_COMMAND+=" --multiline --multiline-dotall"
 
 if [[ -n $search ]]; then
 	files=$(

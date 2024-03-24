@@ -1,3 +1,30 @@
+snippet mpy "Miika Nissi Odoo Python File Template"
+	# Copyright 2024 Miika Nissi (https://miikanissi.com)
+	# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+	from odoo import fields, models
+
+	class ${1:ModelName}(models.Model):
+		${0}
+
+snippet mman "Miika Nissi Odoo Manifest"
+	# Copyright 2024 Miika Nissi (https://miikanissi.com)
+	# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
+	{
+		"name": "$1",
+		"summary": "$2",
+		"version": "16.0.1.0.0",
+		"category": "$3",
+		"website": "https://github.com/miikanissi/odoo-addons",
+		"author": "Miika Nissi",
+		"license": "AGPL-3",
+		"installable": True,
+		"application": False,
+		"depends": [],
+		"data": [],
+	}
+
 snippet wpy "Wildpack Python File Template"
 	##############################################################################
 	#

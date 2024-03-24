@@ -221,8 +221,34 @@ require("lazy").setup({
 	{
 		"github/copilot.vim",
 		config = function()
-			vim.keymap.set("i", "<C-r>", "copilot#Accept('<CR>')", { expr = true, replace_keycodes = false })
 			vim.g.copilot_no_tab_map = true
+			vim.g.copilot_assume_mapped = true
+			vim.keymap.set("i", "<C-h>", "copilot#Accept('\\<CR>')", {
+				silent = true,
+				expr = true,
+				replace_keycodes = false,
+				desc = "Accept Copilot Suggestion",
+			})
+			vim.keymap.set("i", "<C-l>", "copilot#AcceptLine()", {
+				silent = true,
+				expr = true,
+				replace_keycodes = false,
+				desc = "Accept Copilot Suggestion Line",
+			})
+			vim.keymap.set("i", "<C-j>", "copilot#Next()", {
+				silent = true,
+				expr = true,
+				replace_keycodes = false,
+				desc = "Next Copilot Suggestion",
+			})
+			vim.keymap.set("i", "<C-k>", "copilot#Previous()", {
+				silent = true,
+				expr = true,
+				replace_keycodes = false,
+				desc = "Previous Copilot Suggestion",
+			})
+			-- Need this to remove the default tab completion keybind
+			vim.keymap.del("i", "<Tab>")
 		end,
 	},
 
@@ -366,7 +392,7 @@ require("lazy").setup({
 			local lint = require("lint")
 
 			lint.linters_by_ft = {
-				python = { "pylint", "flake8" },
+				python = { "pylint" },
 				htmldjango = { "djlint" },
 				rst = { "rstcheck" },
 			}
@@ -572,6 +598,7 @@ local servers = {
 		},
 	},
 	jedi_language_server = {},
+	ruff_lsp = {},
 }
 
 local server_init = {
@@ -603,16 +630,12 @@ mason_lspconfig.setup_handlers({
 -- CONFORM
 require("conform").setup({
 	formatters = {
-		black = {
-			prepend_args = { "--preview" },
-		},
 		injected = {
 			options = { ignore_errors = true },
 		},
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
-		python = { "isort", "black" },
 		javascript = { "prettier" },
 		typescript = { "prettier" },
 		html = { "prettier" },

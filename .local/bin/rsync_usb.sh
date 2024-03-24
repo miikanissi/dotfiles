@@ -6,9 +6,6 @@ if mountpoint -q -- $mount_point; then
 		/home/m/Applications \
 		/home/m/Documents \
 		/home/m/Mail \
-		/home/m/Music \
-		/home/m/Pictures \
-		/home/m/Videos \
 		/home/m/dotfiles \
 		/home/m/.ssh \
 		/home/m/.gnupg \
