@@ -68,20 +68,27 @@ alias mv='mv -vi'
 alias rm='rm -v'
 alias mkdir='mkdir -pv'
 alias df='df -h'
+# git
+alias gps='git push'
+alias gpl='git pull'
+alias gc='git commit'
+alias ga='git add'
+alias gs='git status'
+alias gd='git diff'
+alias gl='git log --pretty="format:%C(yellow)%h %Cred%ar %Cblue%an%Cgreen%d %Creset%s" --graph --date=short'
+alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
 # others
 alias psg='\ps -e --forest | grep' # grep for a running process
 alias em='emacsclient -nw'
 alias yt='yt-dlp --add-metadata -ic'
 alias yta='yt --extract-audio --audio-format mp3 --audio-quality 0'
-alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias pubip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias localip="ip address | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
-alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
 alias v='nvim'
 alias docker='sudo docker' # always run docker in sudo, cba with docker permissions
 # personal shortcuts for often used dirs
 alias wi='cd ~/Documents/odoo/16/addons/wildleaf'
-alias wi14='cd ~/Documents/odoo/14/addons/wildleaf'
 alias odoo='cd ~/Documents/odoo/16/odoo'
 alias enterprise='cd ~/Documents/odoo/16/addons/enterprise'
 
@@ -107,6 +114,20 @@ fd() {
 	local dir
 	dir=$(find "${1:-.}" -type d -not -path '*/[@.]*' 2>/dev/null | fzf +m) && cd "$dir" || exit
 }
+
+# completion aliases
+if [ -f "$HOME"/.local/bin/complete_alias ] && ! shopt -oq posix; then
+	. "$HOME"/.local/bin/complete_alias
+
+	complete -F _complete_alias gps
+	complete -F _complete_alias gpl
+	complete -F _complete_alias gc
+	complete -F _complete_alias ga
+	complete -F _complete_alias gs
+	complete -F _complete_alias gd
+	complete -F _complete_alias gl
+	complete -F _complete_alias dotfiles
+fi
 
 # exports
 export BROWSER=/usr/bin/brave-browser
