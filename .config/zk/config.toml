@@ -19,7 +19,7 @@ language = "en"
 #default-title = "Untitled"
 
 # Template used to generate a note's filename, without extension.
-filename = "{{format-date now 'timestamp'}}"
+filename = "{{format-date now 'timestamp'}}-{{slug title}}"
 
 # The file extension used for the notes.
 extension = "md"
@@ -94,7 +94,7 @@ email = "miika@miikanissi.com"
 #link-drop-extension = true
 
 # Enable support for #hashtags.
-hashtags = false
+hashtags = true
 # Enable support for :colon:separated:tags:.
 colon-tags = false
 # Enable support for Bear's #multi-word tags#

@@ -16,7 +16,7 @@ This is my personal Nvim configuration that is:
 
 ```bash
 sudo apt install clang cmake libclang-dev python3-pip nodejs golang shellcheck \
-&& pip3 install --upgrade --break-system-packages pynvim black pylint pylint-odoo flake8 flake8-bugbear djlint codespell \
+&& pip3 install --upgrade --break-system-packages pynvim pylint pylint-odoo djlint \
 && npm install --save-dev prettier @prettier/plugin-xml \
 && go install mvdan.cc/sh/v3/cmd/shfmt@latest
 ```

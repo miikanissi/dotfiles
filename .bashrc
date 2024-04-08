@@ -26,7 +26,8 @@ shopt -s autocd
 set -o vi
 
 # prompt
-PS1='\[\e[0;34m\][\[\e[0m\]\u\[\e[0;34m\]@\[\e[0m\]\h\[\e[0;34m\]: \[\e[0;1;31m\]\W\[\e[0;34m\]]\[\e[0m\]$ \[\e[0m\]'
+PS1='\[\e[34m\][\[\e[0m\]\u\[\e[34m\]@\[\e[0m\]\h\[\e[34m\]: \[\e[31;1m\]\w\[\e[0;34m\]]\[\e[0m\]\$ '
+PROMPT_DIRTRIM=2
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -88,9 +89,9 @@ alias localip="ip address | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep 
 alias v='nvim'
 alias docker='sudo docker' # always run docker in sudo, cba with docker permissions
 # personal shortcuts for often used dirs
-alias wi='cd ~/Documents/odoo/16/addons/wildleaf'
-alias odoo='cd ~/Documents/odoo/16/odoo'
-alias enterprise='cd ~/Documents/odoo/16/addons/enterprise'
+alias odoo-src='cd ~/Documents/odoo/odoo.git'
+alias odoo-enterprise='cd ~/Documents/odoo/addons/enterprise'
+alias odoo-addons='cd ~/Documents/odoo/addons'
 
 branchall() {
 	for i in */; do
@@ -98,6 +99,10 @@ branchall() {
 	done
 }
 
+# Generate a pdf from markdown file
+md2pdf() {
+	pandoc -s -V colorlinks=true -V linkcolor=blue -V urlcolor=red -V toccolor=gray -o "${1%.md}.pdf" "$1"
+}
 # view markdown file in terminal via lynx and pandoc
 md() {
 	pandoc "$1" | lynx -stdin
@@ -138,7 +143,6 @@ export LOCATION="Queens"
 export QT_QPA_PLATFORMTHEME=gtk2
 export PATH=~/.local/bin:$PATH
 export PATH=~/.local/bin/statusbar:$PATH
-export PATH=~/go/bin:$PATH
 export PATH=~/node_modules/.bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export FZF_DEFAULT_COMMAND='rg --files' # use ripgrep with fzf

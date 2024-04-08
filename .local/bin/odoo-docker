@@ -21,7 +21,7 @@ while getopts "hvu:d:V:t" o; do
 	esac
 done
 
-COMPOSE_FILE=~/Documents/odoo/"$ODOO_VERSION"/docker-compose.yml
+COMPOSE_FILE=~/Documents/odoo/config/"$ODOO_VERSION"/docker-compose.yml
 
 ODOO_COMMAND="odoo"
 if [[ -n $UPDATE ]]; then
