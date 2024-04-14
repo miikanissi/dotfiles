@@ -1,23 +1,25 @@
 #!/bin/bash
 
+odoo_addons_path="$HOME/Documents/odoo/addons/16"
+
 _odoo-docker() {
-	core_odoo_addons_path="$HOME/Documents/odoo/16/odoo/addons"
-	custom_odoo_addons_path="$HOME/Documents/odoo/16/addons"
 	local cur prev split
 	_init_completion -s -n : || return
 
 	case $prev in
 	-u)
 		compopt +o nospace
-		core_odoo_modules="$(find "$core_odoo_addons_path" -name '__manifest__.py' -printf '%h\n' | rev | cut -d/ -f1 | rev | sort -u)"
-		custom_odoo_modules="$(find "$custom_odoo_addons_path" -name '__manifest__.py' -printf '%h\n' | rev | cut -d/ -f1 | rev | sort -u)"
-		odoo_modules="$core_odoo_modules\n$custom_odoo_modules"
+		if [ ! -e "$odoo_addons_path" ]; then
+			return
+		fi
+		odoo_modules="$(find "$odoo_addons_path" -name '__manifest__.py' -printf '%h\n' | rev | cut -d/ -f1 | rev | sort -u)"
 		mapfile -t COMPREPLY < <(compgen -W "$odoo_modules" -- "$cur")
 		return
 		;;
 	-V)
 		compopt +o nospace
-		mapfile -t COMPREPLY < <(compgen -W "12 13 14 15 16" -- "$cur")
+		odoo_addons_path="$HOME/Documents/odoo/addons/$cur"
+		mapfile -t COMPREPLY < <(compgen -W "12 13 14 15 16 17" -- "$cur")
 		return
 		;;
 	esac

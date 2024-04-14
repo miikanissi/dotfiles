@@ -89,8 +89,6 @@ alias localip="ip address | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep 
 alias v='nvim'
 alias docker='sudo docker' # always run docker in sudo, cba with docker permissions
 # personal shortcuts for often used dirs
-alias odoo-src='cd ~/Documents/odoo/odoo.git'
-alias odoo-enterprise='cd ~/Documents/odoo/addons/enterprise'
 alias odoo-addons='cd ~/Documents/odoo/addons'
 
 branchall() {

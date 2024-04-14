@@ -449,6 +449,14 @@ require("lazy").setup({
 			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 		end,
 	},
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		opts = {
+			open_mapping = [[<M-Enter>]],
+			direction = "float",
+		},
+	},
 
 	{
 		"mickael-menu/zk-nvim", -- Note taking with Zettelkasten method
