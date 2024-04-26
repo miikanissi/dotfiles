@@ -3,12 +3,16 @@ mount_point=/mnt/usb
 
 if mountpoint -q -- $mount_point; then
 	sudo rsync --archive --verbose --human-readable --partial --progress --relative --delete-after \
-		/home/m/./Applications \
 		/home/m/./Documents \
 		/home/m/./Mail \
 		/home/m/./dotfiles \
+		/home/m/./.claws-mail \
+		/home/m/./.runelite \
 		/home/m/./.ssh \
 		/home/m/./.gnupg \
+		/home/m/./.bashrc \
+		/home/m/./.smbcredentials \
+		/home/m/./programs.csv \
 		/home/m/./.config/alacritty \
 		/home/m/./.config/bspwm \
 		/home/m/./.config/dunst \

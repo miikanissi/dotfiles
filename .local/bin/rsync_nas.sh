@@ -7,8 +7,16 @@ sudo rsync --archive --verbose --human-readable --partial --progress --relative 
 	/home/m/./Pictures \
 	/home/m/./Videos \
 	/home/m/./dotfiles \
+	/home/m/./.claws-mail \
+	/home/m/./.emacs.d \
+	/home/m/./.icons \
+	/home/m/./.runelite \
+	/home/m/./.themes \
 	/home/m/./.ssh \
 	/home/m/./.gnupg \
+	/home/m/./.bashrc \
+	/home/m/./.smbcredentials \
+	/home/m/./programs.csv \
 	/home/m/./.config/alacritty \
 	/home/m/./.config/bspwm \
 	/home/m/./.config/dunst \
