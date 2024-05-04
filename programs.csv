@@ -2,10 +2,8 @@
 ,alsa-utils,Advanced settings for ALSA
 ,apt-transport-https,Use repositories via HTTPS
 ,arandr,Simple GUI for XRandR
-P,autoflake,Python code formatter
 ,bat,Can highlight code output and display files
 ,bc,A command line calculator
-P,black,A Python code formatter
 X,brave-browser,Le Lion Browser
 ,bspwm,A tiling window manager
 ,byzanz,A screenrecording utility
@@ -13,19 +11,16 @@ X,brave-browser,Le Lion Browser
 ,clang,A C compiler
 ,claws-mail,A lightweight and fast email client
 ,cmake,Build automation for C
-P,codespell,Fix spelling mistakes in source code
 ,coreutils,The GNU Core Utilities
 ,cowsay,A speaking cow on the command-line
 ,cryptsetup,Manage LUKS encryptions
 ,ctags,Navigate source code with tags
 ,curl,A tool to transfer data to or from a server
-P,djlint,A Django/Jinja template linter
 X,docker,Containers for dev
 ,dunst,A notification daemon
 ,easytag,A program to add tags to songs
 ,eject,Eject specified devices
 ,emacs-gtk,Not a text editor
-N,eslint-config-prettier,Disables conflicting eslint rules with Prettier
 ,feh,A fast and light image viewer
 ,ffmpeg,A command-line video manipulation tool
 ,firefox-esr,Firefox Extended Support Release
@@ -33,8 +28,6 @@ N,eslint-config-prettier,Disables conflicting eslint rules with Prettier
 ,firmware-linux,Free and non-free drivers
 ,firmware-amd-graphics,Free and non-free drivers for AMD GPU
 ,firmware-realtek,Free and non-free drivers for Realtek
-P,flake8,A Python linter
-P,flake8-bugbear,A plugin for flake8 python linter
 ,flameshot,A screenshot utility
 ,flatpak,Run sandboxed applications
 ,fontconfig,Font configuration
@@ -90,10 +83,6 @@ X,https://github.com/neovim/neovim,An improved Vim
 ,plymouth-themes,Graphical boot splash themes
 ,polybar,A status bar
 P,pre-commit,Git hook scripts
-N,prettier,An opinionated code formatter
-N,@prettier/plugin-xml,XML plugin for prettier
-P,pylint,A code analyser for Python
-P,pylint-odoo,A Pylint plugin for Odoo
 ,python3-pip,Package Installer for Python
 ,python3,Python Programming Language
 ,python3-venv,Create Python virtual environments
@@ -103,7 +92,6 @@ P,pylint-odoo,A Pylint plugin for Odoo
 ,rofi,An application launcher
 ,rsync,synchronizes remote and local files
 ,shellcheck,Shell script analysis tool
-X,shfmt,Shell script formatter
 ,slick-greeter,A lightDM greeter
 ,slop,A utility tool to use in scripts to select an area of the screen
 ,ssh,The Secure Shell Protocol

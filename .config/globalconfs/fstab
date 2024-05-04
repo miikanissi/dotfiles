@@ -1,0 +1,21 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+/dev/mapper/deb--vg-root /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/nvme0n1p2 during installation
+UUID=37fd933b-f838-48b0-9bf4-b9be9638eb72 /boot           ext2    defaults        0       2
+# /boot/efi was on /dev/nvme0n1p1 during installation
+UUID=9F87-B1AA  /boot/efi       vfat    umask=0077      0       1
+/dev/mapper/deb--vg-swap_1 none            swap    sw              0       0
+# nas auto mount samba shares
+//192.168.1.12/shared /mnt/nas/shared cifs uid=m,gid=m,credentials=/home/m/.smbcredentials,iocharset=utf8 0 0
+//192.168.1.12/Media /mnt/nas/media cifs uid=m,gid=m,credentials=/home/m/.smbcredentials,iocharset=utf8 0 0
+# auto mount veracrypt
+/dev/mapper/veracrypt /mnt/veracrypt ext4 nosuid,nodev,nofail 0 0

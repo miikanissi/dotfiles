@@ -1,0 +1,2 @@
+nvme0n1p3_crypt UUID=233f4fe7-dd12-4a5c-afb6-0fd8d057734a none luks,discard
+veracrypt /home/m/Documents/Personal/veracrypt.hc /etc/veracrypt.passwd tcrypt-veracrypt

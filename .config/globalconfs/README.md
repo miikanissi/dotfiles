@@ -1,4 +1,4 @@
-## Global configruation files
+# Global Configuration Files
 
 Files in this directory are only used as a reference. The original files are located in:
 
@@ -8,3 +8,6 @@ Files in this directory are only used as a reference. The original files are loc
 - /etc/plymouth/plymouthd.conf
 - /etc/lightdm/lightdm.conf
 - /etc/lightdm/slick-greeter.conf
+- /etc/X11/xorg.conf.d/20-amdgpu.conf
+- /etc/fstab
+- /etc/crypttab

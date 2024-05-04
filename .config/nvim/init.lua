@@ -372,7 +372,6 @@ require("lazy").setup({
 					"css",
 					"csv",
 					"diff",
-					"dockerfile",
 					"go",
 					"gomod",
 					"git_config",
@@ -470,8 +469,7 @@ require("lazy").setup({
 			-- Automatically install LSPs and tools to stdpath for neovim
 			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-
+			"nvim-lua/plenary.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
@@ -573,7 +571,7 @@ require("lazy").setup({
 							workspace = { checkThirdParty = false },
 							telemetry = { enable = false },
 							diagnostics = {
-								globals = { "vim" },
+								globals = { "vim", "awesome" },
 							},
 						},
 					},
@@ -586,14 +584,59 @@ require("lazy").setup({
 				ruff_lsp = {},
 			}
 
-			-- MASON.NVIM
-			require("mason").setup()
+			local tools = {
+				{ "stylua" },
+				{ "shfmt" },
+				{ "prettier", version = "2.7.1" },
+				{ "djlint" },
+				{ "pylint" },
+				{ "rstcheck" },
+			}
 
-			local ensure_installed = vim.tbl_keys(servers or {})
+			-- MASON.NVIM
+			require("mason").setup({
+				ensure_installed = tools, -- not an option from mason.nvim, we install these manually below
+				max_concurrent_installers = 10,
+			})
+
+			-- Install tools
+			require("mason-registry").refresh(function()
+				for _, tool in ipairs(tools) do
+					local pkg_name = tool[1]
+					local version = tool.version
+					local pkg = require("mason-registry").get_package(pkg_name)
+					if not pkg:is_installed() then
+						pkg:install({ version = version }):once("closed", function()
+							if pkg_name == "pylint" then
+								-- Install additional tool not provided by mason-registry for pylint
+								require("plenary.job")
+									:new({
+										command = vim.fn.resolve(
+											vim.fn.stdpath("data") .. "/mason/packages/pylint/venv/bin/pip"
+										),
+										args = { "install", "pylint-odoo" },
+										cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/pylint"),
+									})
+									:start()
+							end
+							-- Install additional tool not provided by mason-registry for prettier
+							if pkg_name == "prettier" then
+								require("plenary.job")
+									:new({
+										command = "npm",
+										args = { "install", "@prettier/plugin-xml@2.2.0" },
+										cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/prettier"),
+									})
+									:start()
+							end
+						end)
+					end
+				end
+			end)
 
 			-- MASON-LSPCONFIG.NVIM
 			require("mason-lspconfig").setup({
-				ensure_installed = ensure_installed,
+				ensure_installed = vim.tbl_keys(servers or {}),
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
