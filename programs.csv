@@ -66,6 +66,7 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 ,mpv,A media player
 ,multitail,Ncurses style logging tool
 ,mupdf,A lightweight PDF and E-book viewer
+,murrine-themes,Themes for GTK2
 ,ncmpcpp,A client for MPD
 ,neofetch,A command-line utility to fetch system information
 ,net-tools,Collection of networking tools
