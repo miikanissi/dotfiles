@@ -3,7 +3,7 @@
 # by Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
 
 # disable ctrl-s and ctrl-q
-stty -ixon
+[[ $- == *i* ]] && stty -ixon
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	. /etc/bash_completion
@@ -99,7 +99,7 @@ branchall() {
 
 # Generate a pdf from markdown file
 md2pdf() {
-	pandoc -s -V colorlinks=true -V linkcolor=blue -V urlcolor=red -V toccolor=gray -o "${1%.md}.pdf" "$1"
+	pandoc -s --highlight-style=tango -V colorlinks=true -V linkcolor=blue -V urlcolor=red -V toccolor=gray -o "${1%.md}.pdf" "$1"
 }
 # view markdown file in terminal via lynx and pandoc
 md() {
