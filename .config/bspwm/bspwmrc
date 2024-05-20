@@ -66,8 +66,6 @@ _run dunst --config ~/.config/dunst/dunstrc
 # Keyboard, mouse, cursor, fonts
 ~/.local/bin/keyboard.sh &
 xsetroot -cursor_name left_ptr &
-xset +fp ~/.fonts &
-xset fp rehash &
 fc-cache -fv &
 _run sxhkd -m -1 >/tmp/sxhkd.log
 
@@ -79,6 +77,9 @@ _run mpd
 
 # Network Manager applet
 _run nm-applet
+
+# Battery monitoring
+~/.local/bin/battery_notifier.sh &
 
 # Signal messenger
 _run signal-desktop --start-in-tray --use-tray-icon
@@ -93,6 +94,7 @@ _run light-locker --lock-on-suspend --lock-after-screensaver=30
 _run redshift
 
 # Compositor
+# disabled due to freezing issues and unnecessary battery drain
 # _run picom --config .config/picom/picom.conf --vsync
 
 # Setup monitors, polybar and wallpaper
