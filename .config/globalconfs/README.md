@@ -11,3 +11,4 @@ Files in this directory are only used as a reference. The original files are loc
 - /etc/X11/xorg.conf.d/20-amdgpu.conf
 - /etc/fstab
 - /etc/crypttab
+- /usr/share/xsessions/bspwm.desktop
