@@ -15,10 +15,10 @@ font:
     style: Bold
   italic:
     family: UbuntuMonoNerdFontMono
-    style: Oblique
+    style: Italic
   bold_italic:
     family: UbuntuMonoNerdFontMono
-    style: Bold Oplique
+    style: Bold Italic
 
   size: 12.0
 
