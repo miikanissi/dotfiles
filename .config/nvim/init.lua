@@ -30,7 +30,7 @@ vim.opt.incsearch = true -- Search incrementally
 vim.opt.magic = true -- Magic for regex
 vim.opt.wildmenu = true -- Use wildmenu
 vim.opt.wildmode = "longest:full,full" -- First tab completes longest common string
-vim.opt.completeopt = "menuone,noselect" -- Completion menu options
+vim.opt.completeopt = "menuone,noselect,popup" -- Completion menu options
 -- Misc
 vim.opt.foldmethod = "expr" -- Use folding expression
 vim.opt.foldlevel = 99 -- Never fold by default
@@ -43,6 +43,8 @@ vim.opt.lazyredraw = true -- No redraw
 vim.opt.updatetime = 200 -- Default is 4000 - more updates
 vim.opt.timeoutlen = 300 -- Default is 1000 - faster
 vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add" -- location of spellfile
+vim.opt.splitbelow = true -- Split opened below instead of above
+vim.opt.splitright = true -- Split opened to the right instead of left
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -120,27 +122,38 @@ require("lazy").setup({
 	},
 
 	{
-		"numToStr/Comment.nvim", -- "gc" to comment visual regions/lines
-		opts = {},
-	},
-
-	{
 		"NvChad/nvim-colorizer.lua", -- Highlight colors and colorcodes
-		opts = {},
+		opts = { user_default_options = { names = false } },
 	},
 
 	{
 		"nvim-lualine/lualine.nvim", -- Fancier statusline
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		event = "VimEnter",
 		opts = {
 			options = {
-				icons_enabled = false,
+				icons_enabled = true,
 				theme = "auto",
 				component_separators = "|",
 				section_separators = "",
 			},
 			sections = {
-				lualine_c = { { "filename", file_status = true, path = 1 } },
+				lualine_c = {
+					{
+						"filename",
+						file_status = false,
+						path = 3,
+					},
+				},
+			},
+			inactive_sections = {
+				lualine_c = {
+					{
+						"filename",
+						file_status = false,
+						path = 1,
+					},
+				},
 			},
 		},
 	},
@@ -344,9 +357,25 @@ require("lazy").setup({
 	{
 		"ibhagwan/fzf-lua", -- Fuzzy finder / search
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "VimEnter",
 		config = function()
-			require("fzf-lua").setup({})
-
+			require("fzf-lua").setup({
+				fzf_colors = {
+					["fg"] = { "fg", "CursorLine" },
+					["bg"] = { "bg", "Normal" },
+					["hl"] = { "fg", "Comment" },
+					["fg+"] = { "fg", "Normal" },
+					["bg+"] = { "bg", "CursorLine" },
+					["hl+"] = { "fg", "Statement" },
+					["info"] = { "fg", "PreProc" },
+					["prompt"] = { "fg", "Conditional" },
+					["pointer"] = { "fg", "Exception" },
+					["marker"] = { "fg", "Keyword" },
+					["spinner"] = { "fg", "Label" },
+					["header"] = { "fg", "Comment" },
+					["gutter"] = "-1",
+				},
+			})
 			--Add leader shortcuts
 			vim.keymap.set("n", "<leader>sb", require("fzf-lua").buffers, { desc = "Fzf: [B]uffers" })
 			vim.keymap.set("n", "<leader>sf", require("fzf-lua").files, { desc = "Fzf: [F]iles" })
@@ -354,6 +383,8 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>ss", require("fzf-lua").grep_cword, { desc = "Fzf: [S]tring Under Cursor" })
 			vim.keymap.set("n", "<leader>sl", require("fzf-lua").live_grep, { desc = "Fzf: [L]ive Grep" })
 			vim.keymap.set("n", "<leader>so", require("fzf-lua").oldfiles, { desc = "Fzf: [O]ld Files" })
+			vim.keymap.set("n", "<leader>so", require("fzf-lua").oldfiles, { desc = "Fzf: [O]ld Files" })
+			vim.keymap.set("n", "<leader>s.", require("fzf-lua").resume, { desc = "Fzf: Resume" })
 		end,
 	},
 
@@ -382,10 +413,10 @@ require("lazy").setup({
 					"htmldjango",
 					"javascript",
 					"json",
-					"latex",
 					"lua",
 					"luadoc",
 					"markdown",
+					"markdown_inline",
 					"python",
 					"rst",
 					"scss",
@@ -470,7 +501,6 @@ require("lazy").setup({
 			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",
 			"nvim-lua/plenary.nvim",
-			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -605,30 +635,56 @@ require("lazy").setup({
 					local pkg_name = tool[1]
 					local version = tool.version
 					local pkg = require("mason-registry").get_package(pkg_name)
-					if not pkg:is_installed() then
+
+					-- Define a callback function to run additional actions after installing the tool
+					local function post_tool_install_actions(installed_pkg)
+						-- Install additional tool not provided by mason-registry for pylint
+						if installed_pkg == "pylint" then
+							require("plenary.job")
+								:new({
+									command = vim.fn.resolve(
+										vim.fn.stdpath("data") .. "/mason/packages/pylint/venv/bin/pip"
+									),
+									args = { "install", "pylint-odoo" },
+									cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/pylint"),
+								})
+								:start()
+						end
+						-- Install additional tool not provided by mason-registry for prettier
+						if installed_pkg == "prettier" then
+							require("plenary.job")
+								:new({
+									command = "npm",
+									args = { "install", "@prettier/plugin-xml@2.2.0" },
+									cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/prettier"),
+								})
+								:start()
+						end
+					end
+
+					-- Define a callback function to handle the result of get_installed_version
+					local function ensure_installed_version(success, installed_version_or_err)
+						if success then
+							-- If the installed version is different from the desired version, install the package with the desired version
+							if version and installed_version_or_err ~= version then
+								pkg:install({ version = version }):once("closed", function()
+									post_tool_install_actions(pkg_name)
+								end)
+							end
+						else
+							print(
+								"Error getting installed version for " .. pkg_name .. ": " .. installed_version_or_err
+							)
+						end
+					end
+
+					-- Check if the package is installed and ensure it is the correct version
+					if pkg:is_installed() then
+						pkg:get_installed_version(ensure_installed_version)
+					-- If the package is not installed, install it
+					else
 						pkg:install({ version = version }):once("closed", function()
-							if pkg_name == "pylint" then
-								-- Install additional tool not provided by mason-registry for pylint
-								require("plenary.job")
-									:new({
-										command = vim.fn.resolve(
-											vim.fn.stdpath("data") .. "/mason/packages/pylint/venv/bin/pip"
-										),
-										args = { "install", "pylint-odoo" },
-										cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/pylint"),
-									})
-									:start()
-							end
-							-- Install additional tool not provided by mason-registry for prettier
-							if pkg_name == "prettier" then
-								require("plenary.job")
-									:new({
-										command = "npm",
-										args = { "install", "@prettier/plugin-xml@2.2.0" },
-										cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/prettier"),
-									})
-									:start()
-							end
+							post_tool_install_actions(pkg_name)
 						end)
 					end
 				end
@@ -654,17 +710,22 @@ require("lazy").setup({
 			"BufReadPre",
 			"BufNewFile",
 		},
-		config = function()
-			local lint = require("lint")
-
-			lint.linters_by_ft = {
+		opts = {
+			events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+			linters_by_ft = {
 				python = { "pylint" },
 				htmldjango = { "djlint" },
 				rst = { "rstcheck" },
-			}
+			},
+		},
+		config = function(_, opts)
+			local lint = require("lint")
+
+			lint.linters_by_ft = opts.linters_by_ft
+
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+			vim.api.nvim_create_autocmd(opts.events, {
 				group = lint_augroup,
 				callback = function()
 					lint.try_lint()
@@ -806,12 +867,42 @@ require("lazy").setup({
 		opts = {},
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
+			-- Custom select function to open oil and close it after opening a split
+			-- @param opts nil | table
+			--      vertical boolean Open in vertical split
+			--      horizontal boolean Open in horizontal split
+			local select = function(opts)
+				local oil = require("oil")
+				if opts.horizontal then
+					oil.select({ horizontal = true })
+				elseif opts.vertical then
+					oil.select({ vertical = true })
+				else
+					oil.select()
+				end
+				vim.cmd.wincmd({ args = { "p" } })
+				oil.close()
+				vim.cmd.wincmd({ args = { "p" } })
+			end
+
 			require("oil").setup({
 				default_file_explorer = true,
 				delete_to_trash = true,
 				keymaps = {
 					["g?"] = "actions.show_help",
 					["<CR>"] = "actions.select",
+					["<C-s>"] = {
+						callback = function()
+							select({ horizontal = true })
+						end,
+						mode = "n",
+					},
+					["<C-v>"] = {
+						callback = function()
+							select({ vertical = true })
+						end,
+						mode = "n",
+					},
 					["<C-p>"] = "actions.preview",
 					["<C-c>"] = "actions.close",
 					["<C-l>"] = "actions.refresh",
