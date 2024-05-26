@@ -114,8 +114,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Install and setup plugins with lazy.nvim
 require("lazy").setup({
 	{
-		dir = "~/Documents/modus-themes.nvim",
-		-- "miikanissi/modus-themes.nvim", -- Modus themes
+		"miikanissi/modus-themes.nvim", -- Modus themes
 		priority = 1000,
 		config = function()
 			vim.cmd.colorscheme("modus")
