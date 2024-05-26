@@ -114,7 +114,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Install and setup plugins with lazy.nvim
 require("lazy").setup({
 	{
-		"miikanissi/modus-themes.nvim", -- Modus themes
+		dir = "~/Documents/modus-themes.nvim",
+		-- "miikanissi/modus-themes.nvim", -- Modus themes
 		priority = 1000,
 		config = function()
 			vim.cmd.colorscheme("modus")
@@ -204,6 +205,7 @@ require("lazy").setup({
 			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},
+
 	{
 		"lewis6991/gitsigns.nvim", -- Git info in sign column and popups
 		dependencies = {
@@ -216,6 +218,7 @@ require("lazy").setup({
 				delete = { text = "_" },
 				topdelete = { text = "‾" },
 				changedelete = { text = "~" },
+				untracked = { text = "┆" },
 			},
 			on_attach = function(bufnr)
 				local gitsigns = require("gitsigns")
@@ -283,8 +286,10 @@ require("lazy").setup({
 		},
 		init = function()
 			vim.g.barbar_auto_setup = false
-			vim.keymap.set("n", "<A-k>", "<Cmd>BufferPrevious<CR>", { desc = "Move to Previous Buffer" })
-			vim.keymap.set("n", "<A-j>", "<Cmd>BufferNext<CR>", { desc = "Move to Next Buffer" })
+			vim.keymap.set("n", "<A-k>", "<Cmd>BufferPrevious<CR>", { desc = "Go to Previous Buffer" })
+			vim.keymap.set("n", "<A-j>", "<Cmd>BufferNext<CR>", { desc = "Go to Next Buffer" })
+			vim.keymap.set("n", "<A-K>", "<Cmd>BufferMovePrevious<CR>", { desc = "Move Buffer to Previous" })
+			vim.keymap.set("n", "<A-J>", "<Cmd>BufferMoveNext<CR>", { desc = "Move Buffer to Next" })
 			vim.keymap.set("n", "<A-p>", "<Cmd>BufferPin<CR>", { desc = "Pin/Unpin Buffer" })
 			vim.keymap.set("n", "<A-q>", "<Cmd>BufferClose<CR>", { desc = "Close Buffer" })
 			vim.keymap.set("n", "<A-u>", "<Cmd>BufferRestore<CR>", { desc = "Restore Closed Buffer" })
@@ -429,10 +434,6 @@ require("lazy").setup({
 				highlight = {
 					enable = true,
 				},
-				autotag = {
-					enable = true,
-					filetypes = { "html", "xml" },
-				},
 				incremental_selection = {
 					enable = true,
 					keymaps = {
@@ -490,6 +491,7 @@ require("lazy").setup({
 					},
 				},
 			})
+			require("nvim-ts-autotag").setup({})
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- Folding provided by treesitter
 		end,
 	},
@@ -629,47 +631,59 @@ require("lazy").setup({
 				max_concurrent_installers = 10,
 			})
 
+			local mason_registry = require("mason-registry")
+
+			-- Install additional tools not provided by mason-registry after installing the main tools
+			mason_registry:on("package:install:success", function(pkg)
+				-- Install additional tool for pylint
+				if pkg.name == "pylint" then
+					require("plenary.job")
+						:new({
+							command = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/pylint/venv/bin/pip"),
+							args = { "install", "pylint-odoo" },
+							cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/pylint"),
+							on_exit = function(_, return_val)
+								if return_val == 0 then
+									vim.print("pylint-odoo was successfully installed")
+								else
+									vim.print("failed to install pylint-odoo")
+								end
+							end,
+						})
+						:start()
+				end
+				-- Install additional tool for prettier
+				if pkg.name == "prettier" then
+					require("plenary.job")
+						:new({
+							command = "npm",
+							args = { "install", "@prettier/plugin-xml@2.2.0" },
+							cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/prettier"),
+							on_exit = function(_, return_val)
+								if return_val == 0 then
+									vim.print("@prettier/plugin-xml was successfully installed")
+								else
+									vim.print("failed to install @prettier/plugin-xml")
+								end
+							end,
+						})
+						:start()
+				end
+			end)
+
 			-- Install tools
-			require("mason-registry").refresh(function()
+			mason_registry.refresh(function()
 				for _, tool in ipairs(tools) do
 					local pkg_name = tool[1]
 					local version = tool.version
 					local pkg = require("mason-registry").get_package(pkg_name)
-
-					-- Define a callback function to run additional actions after installing the tool
-					local function post_tool_install_actions(installed_pkg)
-						-- Install additional tool not provided by mason-registry for pylint
-						if installed_pkg == "pylint" then
-							require("plenary.job")
-								:new({
-									command = vim.fn.resolve(
-										vim.fn.stdpath("data") .. "/mason/packages/pylint/venv/bin/pip"
-									),
-									args = { "install", "pylint-odoo" },
-									cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/pylint"),
-								})
-								:start()
-						end
-						-- Install additional tool not provided by mason-registry for prettier
-						if installed_pkg == "prettier" then
-							require("plenary.job")
-								:new({
-									command = "npm",
-									args = { "install", "@prettier/plugin-xml@2.2.0" },
-									cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/prettier"),
-								})
-								:start()
-						end
-					end
 
 					-- Define a callback function to handle the result of get_installed_version
 					local function ensure_installed_version(success, installed_version_or_err)
 						if success then
 							-- If the installed version is different from the desired version, install the package with the desired version
 							if version and installed_version_or_err ~= version then
-								pkg:install({ version = version }):once("closed", function()
-									post_tool_install_actions(pkg_name)
-								end)
+								pkg:install({ version = version })
 							end
 						else
 							print(
@@ -683,9 +697,7 @@ require("lazy").setup({
 						pkg:get_installed_version(ensure_installed_version)
 					-- If the package is not installed, install it
 					else
-						pkg:install({ version = version }):once("closed", function()
-							post_tool_install_actions(pkg_name)
-						end)
+						pkg:install({ version = version })
 					end
 				end
 			end)
@@ -792,13 +804,13 @@ require("lazy").setup({
 			"hrsh7th/cmp-buffer", -- Autocompletion from words in buffer
 			"hrsh7th/cmp-path", -- Autocompletion from files
 			"hrsh7th/cmp-cmdline", -- Autocompletion for nvim commands
-			"L3MON4D3/LuaSnip", -- Snippets plugin
+			{ "L3MON4D3/LuaSnip", version = "v2.*" }, -- Snippets plugin
 			"saadparwaiz1/cmp_luasnip", -- Snippets autocompletion
 		},
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
-			require("luasnip.loaders.from_snipmate").load()
+			require("luasnip.loaders.from_snipmate").lazy_load()
 			luasnip.config.setup({})
 
 			cmp.setup({
