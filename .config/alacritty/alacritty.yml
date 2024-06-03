@@ -29,6 +29,11 @@ import:
 draw_bold_text_with_bright_colors: false
 
 key_bindings:
+  # Separate keychord for ctrl + shift + hjkl, from ctrl + hjkl
+  - {key: J, mods: Control|Shift, chars: "\x1b[74;5u"} #
+  - {key: K, mods: Control|Shift, chars: "\x1b[75;5u"} #
+  - {key: H, mods: Control|Shift, chars: "\x1b[72;5u"} #
+  - {key: L, mods: Control|Shift, chars: "\x1b[76;5u"} #
   - {key: Paste, action: Paste}
   - {key: Copy, action: Copy}
   - {key: L, mods: Control, action: ClearLogNotice}
