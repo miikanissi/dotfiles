@@ -17,6 +17,7 @@ vim.opt.signcolumn = "yes" -- Always show signcolumn
 vim.opt.relativenumber = true -- Hybrid line numbers
 vim.opt.number = true -- Hybrid line numbers
 vim.opt.scrolloff = 8 -- Shows 8 lines under mouse when moving the file
+
 -- Tabs and indent
 vim.opt.tabstop = 4 -- Tab stops at 4 spaces
 vim.opt.softtabstop = 4 -- Tab stops at 4 spaces
@@ -49,17 +50,6 @@ vim.opt.splitright = true -- Split opened to the right instead of left
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- Remap window splits to Ctrl + vsq
-vim.keymap.set("n", "<C-s>", "<C-W>s", { silent = true })
-vim.keymap.set("n", "<C-v>", "<C-W>v", { silent = true })
-vim.keymap.set("n", "<C-q>", "<C-W>q", { silent = true })
-
--- Remap to switch windows with Ctrl + hjkl
-vim.keymap.set("n", "<C-J>", "<C-W>j", { silent = true })
-vim.keymap.set("n", "<C-K>", "<C-W>k", { silent = true })
-vim.keymap.set("n", "<C-L>", "<C-W>l", { silent = true })
-vim.keymap.set("n", "<C-H>", "<C-W>h", { silent = true })
 
 -- Helix inspired keybindings
 vim.keymap.set("n", "gh", "0", { desc = "[G]oto Beginning of Line [H]", silent = true })
@@ -117,6 +107,9 @@ require("lazy").setup({
 		"miikanissi/modus-themes.nvim", -- Modus themes
 		priority = 1000,
 		config = function()
+			require("modus-themes").setup({
+				hide_inactive_statusline = true,
+			})
 			vim.cmd.colorscheme("modus")
 		end,
 	},
@@ -193,23 +186,11 @@ require("lazy").setup({
 	},
 
 	{
-		"windwp/nvim-autopairs", -- Automatically close pairs
-		event = "InsertEnter",
-		dependencies = { "hrsh7th/nvim-cmp" },
-		config = function()
-			require("nvim-autopairs").setup({})
-			-- Automatically add `(` after selecting a function or method
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local cmp = require("cmp")
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-		end,
-	},
-
-	{
-		"lewis6991/gitsigns.nvim", -- Git info in sign column and popups
+		"lewis6991/gitsigns.nvim", -- Git tools and info in sign column and popups
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
+		event = "VimEnter",
 		opts = {
 			signs = {
 				add = { text = "+" },
@@ -285,15 +266,29 @@ require("lazy").setup({
 		},
 		init = function()
 			vim.g.barbar_auto_setup = false
-			vim.keymap.set("n", "<A-k>", "<Cmd>BufferPrevious<CR>", { desc = "Go to Previous Buffer" })
-			vim.keymap.set("n", "<A-j>", "<Cmd>BufferNext<CR>", { desc = "Go to Next Buffer" })
-			vim.keymap.set("n", "<A-K>", "<Cmd>BufferMovePrevious<CR>", { desc = "Move Buffer to Previous" })
-			vim.keymap.set("n", "<A-J>", "<Cmd>BufferMoveNext<CR>", { desc = "Move Buffer to Next" })
-			vim.keymap.set("n", "<A-p>", "<Cmd>BufferPin<CR>", { desc = "Pin/Unpin Buffer" })
-			vim.keymap.set("n", "<A-q>", "<Cmd>BufferClose<CR>", { desc = "Close Buffer" })
-			vim.keymap.set("n", "<A-u>", "<Cmd>BufferRestore<CR>", { desc = "Restore Closed Buffer" })
+			-- Move to next/previous
+			vim.keymap.set("n", "<A-.>", "<Cmd>BufferNext<CR>", { desc = "Go to Next Buffer" })
+			vim.keymap.set("n", "<A-,>", "<Cmd>BufferPrevious<CR>", { desc = "Go to Previous Buffer" })
+			-- Re-order to next/preivous
+			vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", { desc = "Re-order Buffer to Previous" })
+			vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<CR>", { desc = "Re-order Buffer to Next" })
+			-- Goto buffer in position...
+			vim.keymap.set("n", "<A-1>", "<Cmd>BufferGoto 1<CR>", { desc = "Go to Buffer 1" })
+			vim.keymap.set("n", "<A-2>", "<Cmd>BufferGoto 2<CR>", { desc = "Go to Buffer 2" })
+			vim.keymap.set("n", "<A-3>", "<Cmd>BufferGoto 3<CR>", { desc = "Go to Buffer 3" })
+			vim.keymap.set("n", "<A-4>", "<Cmd>BufferGoto 4<CR>", { desc = "Go to Buffer 4" })
+			vim.keymap.set("n", "<A-5>", "<Cmd>BufferGoto 5<CR>", { desc = "Go to Buffer 5" })
+			vim.keymap.set("n", "<A-6>", "<Cmd>BufferGoto 6<CR>", { desc = "Go to Buffer 6" })
+			vim.keymap.set("n", "<A-7>", "<Cmd>BufferGoto 7<CR>", { desc = "Go to Buffer 7" })
+			vim.keymap.set("n", "<A-8>", "<Cmd>BufferGoto 8<CR>", { desc = "Go to Buffer 8" })
+			vim.keymap.set("n", "<A-9>", "<Cmd>BufferGoto 9<CR>", { desc = "Go to Buffer 9" })
+			vim.keymap.set("n", "<A-0>", "<Cmd>BufferLast<CR>", { desc = "Go to Last Buffer" })
+			-- Toggle buffer pin/unpin
+			vim.keymap.set("n", "<A-p>", "<Cmd>BufferPin<CR>", { desc = "Toggle Buffer [P]in" })
+			vim.keymap.set("n", "<A-S-q>", "<Cmd>BufferClose<CR>", { desc = "[Q]uit Buffer" })
+			vim.keymap.set("n", "<A-u>", "<Cmd>BufferRestore<CR>", { desc = "[U]ndo/Restore Closed Buffer" })
 		end,
-		opts = {},
+		opts = { icons = { buffer_index = true } },
 	},
 
 	{
@@ -316,45 +311,12 @@ require("lazy").setup({
 				["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
 				["<leader>q"] = { name = "[Q]uickfix", _ = "which_key_ignore" },
 				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-				["<leader>z"] = { name = "[Z]k", _ = "which_key_ignore" },
+				["<leader>h"] = { name = "[H]elp / Copilot", _ = "which_key_ignore" },
+				["<leader>z"] = { name = "[Z]k Notes", _ = "which_key_ignore" },
 			})
 			require("which-key").register({
 				["<leader>g"] = { "[G]it" },
 			}, { mode = "v" })
-		end,
-	},
-
-	{
-		"github/copilot.vim", -- GitHub Copilot integration
-		config = function()
-			vim.g.copilot_no_tab_map = true
-			vim.g.copilot_assume_mapped = true
-			vim.keymap.set("i", "<C-h>", "copilot#Accept('\\<CR>')", {
-				silent = true,
-				expr = true,
-				replace_keycodes = false,
-				desc = "Accept Copilot Suggestion",
-			})
-			vim.keymap.set("i", "<C-l>", "copilot#AcceptLine()", {
-				silent = true,
-				expr = true,
-				replace_keycodes = false,
-				desc = "Accept Copilot Suggestion Line",
-			})
-			vim.keymap.set("i", "<C-j>", "copilot#Next()", {
-				silent = true,
-				expr = true,
-				replace_keycodes = false,
-				desc = "Next Copilot Suggestion",
-			})
-			vim.keymap.set("i", "<C-k>", "copilot#Previous()", {
-				silent = true,
-				expr = true,
-				replace_keycodes = false,
-				desc = "Previous Copilot Suggestion",
-			})
-			-- Need this to remove the default tab completion keybind
-			vim.keymap.del("i", "<Tab>")
 		end,
 	},
 
@@ -437,9 +399,9 @@ require("lazy").setup({
 					enable = true,
 					keymaps = {
 						init_selection = "gnn",
-						node_incremental = "grn",
 						scope_incremental = "grc",
-						node_decremental = "grm",
+						node_incremental = "v",
+						node_decremental = "V",
 					},
 				},
 				indent = {
@@ -504,8 +466,9 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
+			local lsp_group = vim.api.nvim_create_augroup("mn-lsp-attach", { clear = true })
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("mn-lsp-attach", { clear = true }),
+				group = lsp_group,
 				callback = function(event)
 					local map = function(keys, func, desc)
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
@@ -534,6 +497,21 @@ require("lazy").setup({
 							callback = vim.lsp.buf.clear_references,
 						})
 					end
+					-- Enable inlay hints on insert mode
+					-- vim.api.nvim_create_autocmd("InsertEnter", {
+					-- 	buffer = event.buf,
+					-- 	callback = function()
+					-- 		vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+					-- 	end,
+					-- 	group = lsp_group,
+					-- })
+					-- vim.api.nvim_create_autocmd("InsertLeave", {
+					-- 	buffer = event.buf,
+					-- 	callback = function()
+					-- 		vim.lsp.inlay_hint.enable(false, { bufnr = event.buf })
+					-- 	end,
+					-- 	group = lsp_group,
+					-- })
 				end,
 			})
 			vim.api.nvim_create_autocmd("LspDetach", {
@@ -604,6 +582,7 @@ require("lazy").setup({
 							diagnostics = {
 								globals = { "vim", "awesome" },
 							},
+							hint = { enable = true },
 						},
 					},
 				},
@@ -805,46 +784,141 @@ require("lazy").setup({
 			"hrsh7th/cmp-cmdline", -- Autocompletion for nvim commands
 			{ "L3MON4D3/LuaSnip", version = "v2.*" }, -- Snippets plugin
 			"saadparwaiz1/cmp_luasnip", -- Snippets autocompletion
+			"windwp/nvim-autopairs", -- Automatically close pairs
+			"zbirenbaum/copilot.lua", -- GitHub Copilot integration
+			"zbirenbaum/copilot-cmp", -- GitHub Copilot as a completion source
+			{ "CopilotC-Nvim/CopilotChat.nvim", branch = "canary" }, -- GitHub Copilot chat
+			"nvim-lua/plenary.nvim",
 		},
 		config = function()
 			local cmp = require("cmp")
+
+			-- Copilot setup
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+			require("copilot_cmp").setup()
+			require("CopilotChat.integrations.cmp").setup()
+			require("CopilotChat").setup({
+				question_header = "## Miika",
+				context = "buffers",
+				-- default mappings
+				mappings = {
+					complete = {
+						insert = "",
+					},
+					close = {
+						normal = "q",
+						insert = "",
+					},
+					reset = {
+						normal = "<C-l>",
+						insert = "",
+					},
+					submit_prompt = {
+						normal = "<CR>",
+						insert = "<C-s>",
+					},
+					accept_diff = {
+						normal = "<C-y>",
+						insert = "<C-y>",
+					},
+					yank_diff = {
+						normal = "gy",
+					},
+					show_diff = {
+						normal = "gd",
+					},
+					show_system_prompt = {
+						normal = "gp",
+					},
+					show_user_selection = {
+						normal = "gs",
+					},
+				},
+			})
+
+			local copilot_map = function(keys, func, desc)
+				vim.keymap.set({ "n", "v" }, keys, func, { desc = "Copilot: " .. desc })
+			end
+
+			copilot_map("<leader>ho", ":CopilotChat<CR>", "[O]pen")
+			copilot_map("<leader>he", ":CopilotChatExplain<CR>", "[E]xplain Selection")
+			copilot_map("<leader>hr", ":CopilotChatReview<CR>", "[R]eview Selection")
+			copilot_map("<leader>hf", ":CopilotChatFix<CR>", "[F]ix Selection")
+			copilot_map("<leader>hi", ":CopilotChatFix<CR>", "[I]mprove / Optimize Selection")
+			copilot_map("<leader>hd", ":CopilotChatDocs<CR>", "Create [D]ocumentation for Selection")
+			copilot_map("<leader>ht", ":CopilotChatTests<CR>", "Create [T]ests for Selection")
+
+			-- LuaSnip setup
 			local luasnip = require("luasnip")
 			require("luasnip.loaders.from_snipmate").lazy_load()
-			luasnip.config.setup({})
+			local luasnip_types = require("luasnip.util.types")
+			luasnip.config.setup({
+				ext_opts = {
+					[luasnip_types.choiceNode] = {
+						active = {
+							virt_text = { { "●", "TSRainbowOrange" } },
+						},
+					},
+					[luasnip_types.insertNode] = {
+						active = {
+							virt_text = { { "●", "TSRainbowGreen" } },
+						},
+					},
+				},
+			})
 
 			cmp.setup({
-				mapping = cmp.mapping.preset.insert({
+				mapping = {
 					["<C-d>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<CR>"] = cmp.mapping.confirm({
-						behavior = cmp.ConfirmBehavior.Replace,
-						select = true,
-					}),
-					["<Tab>"] = cmp.mapping(function(fallback)
+					["<C-j>"] = cmp.mapping(function()
 						if cmp.visible() then
 							cmp.select_next_item()
-						elseif luasnip.expand_or_jumpable() then
+						else
+							cmp.complete()
+						end
+					end, { "i", "s" }),
+					["<C-k>"] = cmp.mapping(function()
+						if cmp.visible() then
+							cmp.select_prev_item()
+						else
+							cmp.complete()
+						end
+					end, { "i", "s" }),
+					["<C-h>"] = cmp.mapping.confirm({ select = true }),
+					["<C-c>"] = cmp.mapping.abort(),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
 						else
 							fallback()
 						end
 					end, { "i", "s" }),
 					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
+						if luasnip.jumpable(-1) then
 							luasnip.jump(-1)
 						else
 							fallback()
 						end
 					end, { "i", "s" }),
-				}),
+				},
 				sources = {
 					{ name = "nvim_lsp" },
 					{ name = "path" },
 					{ name = "luasnip" },
-					{ name = "buffer", keyword_length = 4 },
+					{
+						name = "buffer",
+						keyword_length = 4,
+						option = {
+							get_bufnrs = function()
+								return vim.api.nvim_list_bufs()
+							end,
+						},
+					},
+					{ name = "copilot" },
 				},
 				snippet = {
 					expand = function(args)
@@ -870,6 +944,11 @@ require("lazy").setup({
 					{ name = "cmdline", keyword_length = 3 },
 				}),
 			})
+
+			-- Autopairs setup, automatically close pairs
+			require("nvim-autopairs").setup({})
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},
 
@@ -934,6 +1013,7 @@ require("lazy").setup({
 	{
 		"akinsho/toggleterm.nvim", -- Terminal inside Neovim
 		version = "*",
+		event = "VimEnter",
 		opts = {
 			open_mapping = [[<M-Enter>]],
 			direction = "float",
@@ -941,7 +1021,7 @@ require("lazy").setup({
 	},
 
 	{
-		"mickael-menu/zk-nvim", -- Note taking with Zettelkasten method
+		"zk-org/zk-nvim", -- Note taking with Zettelkasten method
 		config = function()
 			require("zk").setup({
 				picker = "fzf_lua",
@@ -996,6 +1076,42 @@ require("lazy").setup({
 				":'<,'>ZkMatch<CR>",
 				{ noremap = true, silent = false, desc = "[Z]k [F]ind Notes" }
 			)
+		end,
+	},
+	{
+		"mrjones2014/smart-splits.nvim", -- Better window navigation
+		config = function()
+			require("smart-splits").setup({
+				default_amount = 1,
+				at_edge = "stop",
+			})
+			-- Open/close splits
+			vim.keymap.set("n", "<A-s>", "<C-W>s", { silent = true })
+			vim.keymap.set("n", "<A-v>", "<C-W>v", { silent = true })
+			vim.keymap.set("n", "<A-q>", ":close<CR>", { silent = true })
+			-- moving between splits
+			vim.keymap.set("n", "<A-h>", require("smart-splits").move_cursor_left)
+			vim.keymap.set("n", "<A-j>", require("smart-splits").move_cursor_down)
+			vim.keymap.set("n", "<A-k>", require("smart-splits").move_cursor_up)
+			vim.keymap.set("n", "<A-l>", require("smart-splits").move_cursor_right)
+			-- resizing splits
+			vim.keymap.set("n", "<A-C-h>", require("smart-splits").resize_left)
+			vim.keymap.set("n", "<A-C-j>", require("smart-splits").resize_down)
+			vim.keymap.set("n", "<A-C-k>", require("smart-splits").resize_up)
+			vim.keymap.set("n", "<A-C-l>", require("smart-splits").resize_right)
+			-- swapping buffers between windows
+			vim.keymap.set("n", "<A-S-h>", require("smart-splits").swap_buf_left)
+			vim.keymap.set("n", "<A-S-j>", require("smart-splits").swap_buf_down)
+			vim.keymap.set("n", "<A-S-k>", require("smart-splits").swap_buf_up)
+			vim.keymap.set("n", "<A-S-l>", require("smart-splits").swap_buf_right)
+		end,
+	},
+	{
+		"iamcco/markdown-preview.nvim", -- Preview markdown files in browser
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
 		end,
 	},
 })
