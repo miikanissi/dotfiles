@@ -11,6 +11,10 @@ TMUX_DARK_COMMENT=(sed -i '/^# BEGIN DARK$/,/^# END DARK$/ s/^/#/' ~/.config/tmu
 TMUX_DARK_UNCOMMENT=(sed -i '/^## BEGIN DARK$/,/^## END DARK$/ s/^#//' ~/.config/tmux/tmux.conf)
 TMUX_LIGHT_COMMENT=(sed -i '/^# BEGIN LIGHT$/,/^# END LIGHT$/ s/^/#/' ~/.config/tmux/tmux.conf)
 TMUX_LIGHT_UNCOMMENT=(sed -i '/^## BEGIN LIGHT$/,/^## END LIGHT$/ s/^#//' ~/.config/tmux/tmux.conf)
+BAT_DARK_COMMENT=(sed -i '/^# BEGIN DARK$/,/^# END DARK$/ s/^/#/' ~/.config/bat/config)
+BAT_DARK_UNCOMMENT=(sed -i '/^## BEGIN DARK$/,/^## END DARK$/ s/^#//' ~/.config/bat/config)
+BAT_LIGHT_COMMENT=(sed -i '/^# BEGIN LIGHT$/,/^# END LIGHT$/ s/^/#/' ~/.config/bat/config)
+BAT_LIGHT_UNCOMMENT=(sed -i '/^## BEGIN LIGHT$/,/^## END LIGHT$/ s/^#//' ~/.config/bat/config)
 X_DARK_COMMENT=(sed -i '/^! BEGIN DARK$/,/^! END DARK$/ s/^/!/' ~/.Xresources)
 X_DARK_UNCOMMENT=(sed -i '/^!! BEGIN DARK$/,/^!! END DARK$/ s/^!//' ~/.Xresources)
 X_LIGHT_COMMENT=(sed -i '/^! BEGIN LIGHT$/,/^! END LIGHT$/ s/^/!/' ~/.Xresources)
@@ -42,6 +46,7 @@ refresh() {
 	xrdb ~/.Xresources
 	killall -q dunst && dunst --config ~/.config/dunst/dunstrc >/dev/null 2>&1 &
 	killall -q pcmanfm
+	bat cache --build
 	if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "LG3D" ]]; then
 		bspc wm -r >/dev/null 2>&1
 	fi
@@ -52,6 +57,8 @@ dark() {
 		"${DUNST_LIGHT_COMMENT[@]}"
 		"${TMUX_DARK_UNCOMMENT[@]}"
 		"${TMUX_LIGHT_COMMENT[@]}"
+		"${BAT_DARK_UNCOMMENT[@]}"
+		"${BAT_LIGHT_COMMENT[@]}"
 		"${X_DARK_UNCOMMENT[@]}"
 		"${X_LIGHT_COMMENT[@]}"
 		"${GTK3_DARK[@]}"
@@ -71,6 +78,8 @@ light() {
 		"${DUNST_DARK_COMMENT[@]}"
 		"${TMUX_LIGHT_UNCOMMENT[@]}"
 		"${TMUX_DARK_COMMENT[@]}"
+		"${BAT_LIGHT_UNCOMMENT[@]}"
+		"${BAT_DARK_COMMENT[@]}"
 		"${X_LIGHT_UNCOMMENT[@]}"
 		"${X_DARK_COMMENT[@]}"
 		"${GTK3_LIGHT[@]}"

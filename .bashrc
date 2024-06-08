@@ -80,6 +80,8 @@ alias gl='git log --pretty="format:%C(yellow)%h %Cred%ar %Cblue%an%Cgreen%d %Cre
 alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
 # others
+alias cat='batcat'
+alias bat='batcat'
 alias psg='\ps -e --forest | grep' # grep for a running process
 alias em='emacsclient -nw'
 alias yt='yt-dlp --add-metadata -ic'
