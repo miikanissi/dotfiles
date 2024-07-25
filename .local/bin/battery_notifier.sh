@@ -3,7 +3,7 @@
 lock_file="/tmp/low_battery_notification.lock"
 
 if [ -e "$lock_file" ]; then
-	echo "Script is already running."
+	echo "Battery notifier script is already running."
 	exit 1
 fi
 

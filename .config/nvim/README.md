@@ -31,7 +31,7 @@ sudo apt install clang cmake libclang-dev python3-pip nodejs golang shellcheck \
 | `<space>`    | The leader key `<leader>`                                                              | Normal, Visual |
 | `<A-s>`      | Open horizontal split                                                                  | Normal         |
 | `<A-v>`      | Open vertical split                                                                    | Normal         |
-| `<A-q>`      | Close current split                                                                    | Normal         |
+| `<A-c>`      | Close current split                                                                    | Normal         |
 | `<A-h>`      | Move cursor to the left split                                                          | Normal         |
 | `<A-j>`      | Move cursor to the down split                                                          | Normal         |
 | `<A-k>`      | Move cursor to the up split                                                            | Normal         |
@@ -95,7 +95,7 @@ sudo apt install clang cmake libclang-dev python3-pip nodejs golang shellcheck \
 | `<A-9>`      | Go to Buffer 9                                                                         | Normal         |
 | `<A-0>`      | Go to Last Buffer                                                                      | Normal         |
 | `<A-p>`      | Toggle Buffer [P]in                                                                    | Normal         |
-| `<A-S-q>`    | [Q]uit Buffer                                                                          | Normal         |
+| `<A-S-c>`    | [Q]uit Buffer                                                                          | Normal         |
 | `<A-u>`      | [U]ndo/Restore Closed Buffer                                                           | Normal         |
 | `<leader>qo` | Open quickfix list                                                                     | Normal         |
 | `<leader>qc` | Close quickfix list                                                                    | Normal         |

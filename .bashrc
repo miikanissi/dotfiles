@@ -80,6 +80,7 @@ alias gl='git log --pretty="format:%C(yellow)%h %Cred%ar %Cblue%an%Cgreen%d %Cre
 alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias pullall='find . -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;' # gitpull all subdirectories
 # others
+alias python='python3'
 alias cat='batcat'
 alias bat='batcat'
 alias psg='\ps -e --forest | grep' # grep for a running process
@@ -141,6 +142,7 @@ export EDITOR=/usr/bin/nvim
 export ZK_NOTEBOOK_DIR=~/Documents/notes/
 export LOCATION="Queens"
 export QT_QPA_PLATFORMTHEME=gtk2
+export _JAVA_AWT_WM_NONREPARENTING=1
 export PATH=~/.local/bin:$PATH
 export PATH=~/.local/bin/statusbar:$PATH
 export PATH=~/node_modules/.bin:$PATH

@@ -1,0 +1,31 @@
+{
+  "name": "custom-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "all"
+        ],
+        "path": "./all/all.json"
+      },
+      {
+        "language": [
+          "python"
+        ],
+        "path": "./python/python.json"
+      },
+      {
+        "language": [
+          "xml"
+        ],
+        "path": "./xml/xml.json"
+      },
+      {
+        "language": [
+          "rst"
+        ],
+        "path": "./rst/rst.json"
+      }
+    ]
+  }
+}

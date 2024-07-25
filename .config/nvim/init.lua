@@ -285,7 +285,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<A-0>", "<Cmd>BufferLast<CR>", { desc = "Go to Last Buffer" })
 			-- Toggle buffer pin/unpin
 			vim.keymap.set("n", "<A-p>", "<Cmd>BufferPin<CR>", { desc = "Toggle Buffer [P]in" })
-			vim.keymap.set("n", "<A-S-q>", "<Cmd>BufferClose<CR>", { desc = "[Q]uit Buffer" })
+			vim.keymap.set("n", "<A-S-c>", "<Cmd>BufferClose<CR>", { desc = "[Q]uit Buffer" })
 			vim.keymap.set("n", "<A-u>", "<Cmd>BufferRestore<CR>", { desc = "[U]ndo/Restore Closed Buffer" })
 		end,
 		opts = { icons = { buffer_index = true } },
@@ -739,16 +739,6 @@ require("lazy").setup({
 		},
 		opts = {
 			notify_on_error = false,
-			format_on_save = function(bufnr)
-				-- Disable "format_on_save lsp_fallback" for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
-				return {
-					timeout_ms = 500,
-					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-				}
-			end,
 			formatters = {
 				injected = {
 					options = { ignore_errors = true },
@@ -847,13 +837,13 @@ require("lazy").setup({
 			copilot_map("<leader>he", ":CopilotChatExplain<CR>", "[E]xplain Selection")
 			copilot_map("<leader>hr", ":CopilotChatReview<CR>", "[R]eview Selection")
 			copilot_map("<leader>hf", ":CopilotChatFix<CR>", "[F]ix Selection")
-			copilot_map("<leader>hi", ":CopilotChatFix<CR>", "[I]mprove / Optimize Selection")
+			copilot_map("<leader>hi", ":CopilotChatOptimize<CR>", "[I]mprove / Optimize Selection")
 			copilot_map("<leader>hd", ":CopilotChatDocs<CR>", "Create [D]ocumentation for Selection")
 			copilot_map("<leader>ht", ":CopilotChatTests<CR>", "Create [T]ests for Selection")
 
 			-- LuaSnip setup
 			local luasnip = require("luasnip")
-			require("luasnip.loaders.from_snipmate").lazy_load()
+			require("luasnip.loaders.from_vscode").lazy_load({ paths = "./vscode-snippets/" })
 			local luasnip_types = require("luasnip.util.types")
 			luasnip.config.setup({
 				ext_opts = {
@@ -978,6 +968,15 @@ require("lazy").setup({
 			require("oil").setup({
 				default_file_explorer = true,
 				delete_to_trash = true,
+				view_options = {
+					show_hidden = true,
+					natural_order = true,
+					is_always_hidden = function(name, _)
+						return name == ".." or name == ".git"
+					end,
+				},
+				win_options = { wrap = true },
+				use_default_keymaps = false,
 				keymaps = {
 					["g?"] = "actions.show_help",
 					["<CR>"] = "actions.select",
@@ -1005,7 +1004,6 @@ require("lazy").setup({
 					["g."] = "actions.toggle_hidden",
 					["g\\"] = "actions.toggle_trash",
 				},
-				use_default_keymaps = false,
 			})
 			vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 		end,
@@ -1088,7 +1086,7 @@ require("lazy").setup({
 			-- Open/close splits
 			vim.keymap.set("n", "<A-s>", "<C-W>s", { silent = true })
 			vim.keymap.set("n", "<A-v>", "<C-W>v", { silent = true })
-			vim.keymap.set("n", "<A-q>", ":close<CR>", { silent = true })
+			vim.keymap.set("n", "<A-c>", ":close<CR>", { silent = true })
 			-- moving between splits
 			vim.keymap.set("n", "<A-h>", require("smart-splits").move_cursor_left)
 			vim.keymap.set("n", "<A-j>", require("smart-splits").move_cursor_down)

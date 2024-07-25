@@ -41,7 +41,7 @@ bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a Alacritty:Alacritty:ncmpcpp state=floating
 bspc rule -a Alacritty:Alacritty:odoo-logs state=floating rectangle=1020x720+0+0 center=on
-bspc rule -a *:net-runelite-launcher-Launcher state=pseudo_tiled rectangle=765*503+0+0 layer=above split_dir=north
+bspc rule -a *:net-runelite-launcher-Launcher state=floating rectangle=1148*754+0+0 layer=above split_dir=north
 
 # AUTOSTART
 # Helper function to check for active process, if not found starts program on the background
@@ -80,6 +80,9 @@ _run nm-applet
 
 # Battery monitoring
 ~/.local/bin/battery_notifier.sh &
+
+# Set floating desktop
+~/.local/bin/bspwm_floating.sh &
 
 # Signal messenger
 _run signal-desktop --start-in-tray --use-tray-icon
