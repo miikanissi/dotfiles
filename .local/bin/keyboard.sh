@@ -24,9 +24,13 @@ fi
 
 # mouse acceleration off
 /usr/bin/xset m 1 1
-/usr/bin/xinput --set-prop "Logitech MX518 Gaming Mouse" "libinput Accel Profile Enabled" 0, 1
+/usr/bin/xinput --set-prop "pointer:Logitech MX518 Gaming Mouse" "libinput Accel Profile Enabled" 0 1
+/usr/bin/xinput --set-prop "pointer:Logitech M720 Triathlon Multi-Device Mouse" "libinput Accel Profile Enabled" 0 1
+/usr/bin/xinput --set-prop "pointer:TPPS/2 Elan TrackPoint" "libinput Accel Profile Enabled" 0 1
 # dpi
-/usr/bin/xinput --set-prop "Logitech MX518 Gaming Mouse" "libinput Accel Speed" 0.3
+/usr/bin/xinput --set-prop "pointer:Logitech MX518 Gaming Mouse" "libinput Accel Speed" 0.5
+/usr/bin/xinput --set-prop "pointer:Logitech M720 Triathlon Multi-Device Mouse" "libinput Accel Speed" 0.5
+/usr/bin/xinput --set-prop "pointer:TPPS/2 Elan TrackPoint" "libinput Accel Speed" 0.3
 # makes key repeat faster
 /usr/bin/xset r rate 200 80
 # sets caps lock to ctrl and holding down right meta key toggles on finnish keyboard (for ä,ö,å)

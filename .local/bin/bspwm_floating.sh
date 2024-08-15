@@ -20,12 +20,10 @@ echo "$$" > "$lock_file"
 
 trap 'rm -f "$lock_file"' EXIT
 
-# Desktop number to set as floating
-FLOATING_DESKTOP_ID=$(bspc query -D -d '^3')
-
 bspc subscribe node_add | while read -ra msg; do
+    float_desk_id=$(bspc query -D -d '^3')
     desk_id=${msg[2]}
     wid=${msg[4]}
-    [ "$FLOATING_DESKTOP_ID" = "$desk_id" ] && bspc node "$wid" -t floating
+    [ "$float_desk_id" = "$desk_id" ] && bspc node "$wid" -t floating
 done
 

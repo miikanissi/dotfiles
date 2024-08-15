@@ -7,6 +7,6 @@
       "\t${1}",
       "</odoo>"
     ],
-    "description": "Wildpack Odoo Python File"
+    "description": "Odoo XML File"
   }
 }

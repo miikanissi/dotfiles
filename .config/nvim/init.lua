@@ -293,31 +293,31 @@ require("lazy").setup({
 
 	{
 		"folke/which-key.nvim", -- Document keybinds
-		event = "VimEnter",
-		config = function()
-			require("which-key").setup({
-				plugins = {
-					spelling = {
-						enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-						suggestions = 20, -- how many suggestions should be shown in the list?
-					},
+		event = "VeryLazy",
+		opts = {
+			plugins = {
+				spelling = {
+					enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+					suggestions = 20, -- how many suggestions should be shown in the list?
 				},
-			})
-
-			-- Document key chains
-			require("which-key").register({
-				["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-				["<leader>d"] = { name = "[D]iagnostics", _ = "which_key_ignore" },
-				["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
-				["<leader>q"] = { name = "[Q]uickfix", _ = "which_key_ignore" },
-				["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-				["<leader>h"] = { name = "[H]elp / Copilot", _ = "which_key_ignore" },
-				["<leader>z"] = { name = "[Z]k Notes", _ = "which_key_ignore" },
-			})
-			require("which-key").register({
-				["<leader>g"] = { "[G]it" },
-			}, { mode = "v" })
-		end,
+			},
+			spec = {
+				{ "<leader>c", group = "[C]ode" },
+				{ "<leader>c_", hidden = true },
+				{ "<leader>d", group = "[D]iagnostics" },
+				{ "<leader>d_", hidden = true },
+				{ "<leader>g", group = "[G]it", mode = { "n", "v" } },
+				{ "<leader>g_", hidden = true },
+				{ "<leader>h", group = "[H]elp / Copilot" },
+				{ "<leader>h_", hidden = true },
+				{ "<leader>q", group = "[Q]uickfix" },
+				{ "<leader>q_", hidden = true },
+				{ "<leader>s", group = "[S]earch" },
+				{ "<leader>s_", hidden = true },
+				{ "<leader>z", group = "[Z]k Notes" },
+				{ "<leader>z_", hidden = true },
+			},
+		},
 	},
 
 	{

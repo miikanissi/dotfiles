@@ -30,9 +30,9 @@ super {_,shift + } q
 # state of the window
 super + {t,shift + t,shift + f,f}
     bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-# toggle monocle layout
+# toggle monocle layout or fullscreen mode
 super + Tab
-    bspc desktop -l next
+    ~/.local/bin/bspwm_toggle_layout.sh
 # rotate the tree from current nodes parent
 super + r
     bspc node @parent --rotate 90
