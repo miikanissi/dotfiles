@@ -1,1 +1,4 @@
-ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="0510" RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh'"
+ACTION=="bind", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04b4", ENV{ID_MODEL_ID}=="0510" RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh' &"
+
+# When an input device is added run this
+ACTION=="add", SUBSYSTEM=="input", RUN+="/bin/su m --command='/home/m/.local/bin/keyboard.sh &'"
