@@ -69,7 +69,7 @@ _run dunst --config ~/.config/dunst/dunstrc
 ~/.local/bin/keyboard.sh &
 xsetroot -cursor_name left_ptr &
 fc-cache -fv &
-_run sxhkd -m -1 >/tmp/sxhkd.log
+_run sxhkd -m -1 >> ~/.local/share/sxhkd.log 2>&1
 
 # File browser daemon (automatic mounting etc)
 _run pcmanfm -d
