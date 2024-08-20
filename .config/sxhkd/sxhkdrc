@@ -42,6 +42,13 @@ super + ctrl + {h,j,k,l}
     ~/.local/bin/bspwm_grow_windows.sh south, \
     ~/.local/bin/bspwm_grow_windows.sh north, \
     ~/.local/bin/bspwm_grow_windows.sh east}
+# Snap floating window to direction, uses script from ~/.local/bin/bspwm_floating_move.sh
+super + ctrl + shift + {h,j,k,l,c}
+    {~/.local/bin/bspwm_floating_move.sh -w, \
+    ~/.local/bin/bspwm_floating_move.sh -s, \
+    ~/.local/bin/bspwm_floating_move.sh -n, \
+    ~/.local/bin/bspwm_floating_move.sh -e, \
+    ~/.local/bin/bspwm_floating_move.sh -c}
 # focus the node in the given direction, shift swaps nodes, use script from ~/.local/bin/bspwm_follow_windows.sh
 super + {_,shift +}{Left,Down,Up,Right}
     m='.local.!hidden.window'; \
