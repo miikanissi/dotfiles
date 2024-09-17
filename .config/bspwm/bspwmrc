@@ -80,6 +80,9 @@ _run mpd
 # Network Manager applet
 _run nm-applet
 
+# Bluetooth Manager applet
+_run blueman-applet
+
 # Battery monitoring
 ~/.local/bin/battery_notifier.sh &
 

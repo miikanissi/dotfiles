@@ -414,7 +414,12 @@ icon_theme = oomox-modus-operandi
 #    msg_urgency = critical
 #    fullscreen = show
 
-#[espeak]
+
+# [play_sound]
+#     summary = "*"
+#     script = ~/.local/bin/notification_sound.sh
+#
+# #[espeak]
 #    summary = "*"
 #    script = dunst_espeak.sh
 

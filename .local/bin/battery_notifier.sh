@@ -15,23 +15,25 @@ fi
 trap 'rm -f "$lock_file"' EXIT
 
 while true; do
-	if ! battery_info=$(acpi -b); then
-		echo "Failed to get battery information."
+	if ! battery_level=$(cat /sys/class/power_supply/BAT0/capacity); then
+		echo "Failed to get battery level."
 		sleep 300
 		continue
 	fi
-
-    battery_level=$(echo "$battery_info" | grep 'Battery 0' | grep -P -o '[0-9]+(?=%)')
 
 	if ! [[ "$battery_level" =~ ^[0-9]+$ ]]; then
 		echo "Invalid battery level: $battery_level"
 		sleep 300
 		continue
 	fi
+	
+    if ! battery_status=$(cat /sys/class/power_supply/BAT0/status); then
+		echo "Failed to get battery status."
+		sleep 300
+		continue
+	fi
 
-    charging_status=$(echo "$battery_info" | grep 'Battery 0' | grep -o "Charging")
-
-	if [ "${battery_level}" -le 20 ] && [ -z "${charging_status}" ]; then
+	if [ "${battery_level}" -le 20 ] && [ "${battery_status}" != "Charging" ]; then
 		notify-send "Low Battery" "Battery level is at ${battery_level}%" -u critical
 	fi
 

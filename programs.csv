@@ -1,11 +1,15 @@
 #TAG (X=no install P=pip install N=npm install),NAME IN PACKAGE MANAGER (or git url),PURPOSE
+X,alacritty,A cross-platform OpenGL terminal emulator
 ,alsa-utils,Advanced settings for ALSA
+,apt-listchanges,Show important information on package changes
 ,apt-transport-https,Use repositories via HTTPS
 ,arandr,Simple GUI for XRandR
 ,bat,Can highlight code output and display files
 ,bc,A command line calculator
+,blueman,Bluetooth manager
 X,brave-browser,Le Lion Browser
 ,bspwm,A tiling window manager
+,btop,Better htop
 ,byzanz,A screenrecording utility
 ,cifs-utils,Mount SMB shares
 ,clang,A C compiler
@@ -14,7 +18,7 @@ X,brave-browser,Le Lion Browser
 ,coreutils,The GNU Core Utilities
 ,cowsay,A speaking cow on the command-line
 ,cryptsetup,Manage LUKS encryptions
-,ctags,Navigate source code with tags
+,cryptsetup-initramfs, Manage LUKS encryptions
 ,curl,A tool to transfer data to or from a server
 X,docker,Containers for dev
 ,dunst,A notification daemon
@@ -24,9 +28,9 @@ X,docker,Containers for dev
 ,feh,A fast and light image viewer
 ,ffmpeg,A command-line video manipulation tool
 ,firefox-esr,Firefox Extended Support Release
+,firmware-amd-graphics,Free and non-free drivers for AMD GPU
 ,firmware-iwlwifi,Drivers for Intel wifi cards
 ,firmware-linux,Free and non-free drivers
-,firmware-amd-graphics,Free and non-free drivers for AMD GPU
 ,firmware-realtek,Free and non-free drivers for Realtek
 ,flameshot,A screenshot utility
 ,flatpak,Run sandboxed applications
@@ -35,15 +39,15 @@ X,docker,Containers for dev
 ,fonts-noto-color-emoji,Noto Color Emoji fonts
 ,fonts-symbola,Symbola fonts
 ,fonts-ubuntu,Ubuntu fonts
-,fuse,A userspace filesystem framework
 ,fwupd,Update device firmware
 ,fzf,A command-line fuzzy-finder
 ,gimp,Graphics and image editor
 ,git,A version control system
 X,go,Golang programming language
 ,gsimplecal,A simple calendar application
+,gzip,Compress files
 ,htop,An interactive process viewer
-X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulator
+,hugo,Static site generator framework
 ,ifuse,Mount Apple devices
 ,imagemagick,Convert and edit images
 ,jq,A command-line JSON processor
@@ -69,14 +73,15 @@ X,https://github.com/alacritty/alacritty,A cross-platform OpenGL terminal emulat
 ,murrine-themes,Themes for GTK2
 ,ncmpcpp,A client for MPD
 ,neofetch,A command-line utility to fetch system information
+X,neovim,An improved Vim
 ,net-tools,Collection of networking tools
 ,network-manager-gnome,Configures network interfaces
 ,network-manager-openvpn-gnome,OpenVPN for Network Manager
 X,nodejs,Back-end JavaScript runtime environment
-,npm,A package manager for JavaScript
-X,https://github.com/neovim/neovim,An improved Vim
+,obs-studio,Screen recording tool
 ,onboard,Onscreen keyboard
 ,openvpn,OpenVPN protocol
+,pandoc,Latex document rendering
 ,pavucontrol,Pulse Audio Volume Control
 ,pcmanfm,A file browser
 ,picom,A lightweight compositor for X11
@@ -84,9 +89,10 @@ X,https://github.com/neovim/neovim,An improved Vim
 ,plymouth-themes,Graphical boot splash themes
 ,polybar,A status bar
 P,pre-commit,Git hook scripts
-,python3-pip,Package Installer for Python
 ,python3,Python Programming Language
+,python3-pip,Package Installer for Python
 ,python3-venv,Create Python virtual environments
+,qbittorrent,Share files legally
 ,qt5ct,Customize QT5 theme
 ,redshift,Adjusts the color temperature of your screen
 ,ripgrep,A line-oriented search tool that recursively searches the current directory for a regex pattern
@@ -101,11 +107,17 @@ P,pre-commit,Git hook scripts
 ,sxhkd,A keyboard shortcut daemon
 ,sxiv,Simple X Image Viewer
 ,tidy,Html/Xml parser
+,texlive-extra-utils,Latex utilities
+,texlive-fonts-utils,Latex utilities
+,texlive-latex-extra,Latex utilities
+,texlive-latex-recommended,Latex utilities
 ,tlp,Optimize laptop battery life
 ,tmux,Terminal multiplexer
 ,tree,A recursive directory listing program
+,unrar,Uncompress files
 ,unzip,Uncompress files
 ,uuid-dev,Universally Unique ID library
+,veracrypt,Encrypted files
 ,vim-gtk3,A text editor
 ,wget,Retrieve files from the internet
 ,wmctrl,Control EWMH compatible X window window managers
@@ -117,8 +129,8 @@ P,pre-commit,Git hook scripts
 ,xdotool,Provides window action utilities on the command line
 ,xinput,Control input devices
 ,xsel,Retrieve and set X selection
-,xterm,A basic terminal emulator
 ,xserver-xorg-input-synaptics,Synaptics drivers for trackpad
+,xterm,A basic terminal emulator
 ,zathura,A PDF viewer
 ,zip,Compress files
 X,zk,CLI tool to take Zettelkasten notes
