@@ -4,7 +4,7 @@
     "body": [
       "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>",
       "<odoo>",
-      "\t${1}",
+      "\t${0}",
       "</odoo>"
     ],
     "description": "Odoo XML File"

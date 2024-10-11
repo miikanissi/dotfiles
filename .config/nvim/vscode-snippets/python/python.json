@@ -9,7 +9,7 @@
       "",
       "",
       "class ${1:ModelName}(models.Model):",
-      "\t${2}"
+      "\t${0}"
     ],
     "description": "Miika Odoo Python File"
   },
@@ -31,7 +31,7 @@
       "\t\"installable\": True,",
       "\t\"application\": False,",
       "\t\"depends\": [${4}],",
-      "\t\"data\": [${5}],",
+      "\t\"data\": [${0}],",
       "}"
     ],
     "description": "Wildpack Odoo Manifest"
@@ -47,7 +47,7 @@
       "",
       "def migrate(cr, version):",
       "\tenv = util.env(cr)",
-      "\t${1}"
+      "\t${0}"
     ],
     "description": "Wildpack Odoo Migrate Script"
   },
@@ -81,7 +81,7 @@
       "",
       "class ${1:ModelName}(models.Model):",
       "\t# 1. Private attributes",
-      "\t${2}",
+      "\t${0}",
       "",
       "\t# 2. Fields declaration",
       "",
@@ -125,7 +125,7 @@
       "\t\"installable\": True,",
       "\t\"application\": False,",
       "\t\"depends\": [${4}],",
-      "\t\"data\": [${5}],",
+      "\t\"data\": [${0}],",
       "}"
     ],
     "description": "Wildpack Odoo Manifest"
@@ -149,7 +149,7 @@
       "",
       "def migrate(cr, version):",
       "\tenv = util.env(cr)",
-      "\t${1}"
+      "\t${0}"
     ],
     "description": "Wildpack Odoo Migrate Script"
   }

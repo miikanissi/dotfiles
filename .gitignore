@@ -1,3 +1,4 @@
 *.pyc
 .smbcredentials
 id_rsa
+accounts.conf

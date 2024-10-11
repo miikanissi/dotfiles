@@ -40,7 +40,7 @@ X,docker,Containers for dev
 ,fonts-symbola,Symbola fonts
 ,fonts-ubuntu,Ubuntu fonts
 ,fwupd,Update device firmware
-,fzf,A command-line fuzzy-finder
+X,fzf,A command-line fuzzy-finder
 ,gimp,Graphics and image editor
 ,git,A version control system
 X,go,Golang programming language

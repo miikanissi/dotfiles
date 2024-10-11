@@ -516,9 +516,13 @@ require("lazy").setup({
 			})
 			vim.api.nvim_create_autocmd("LspDetach", {
 				group = vim.api.nvim_create_augroup("mn-lsp-detach", { clear = true }),
+
 				callback = function(event)
 					vim.lsp.buf.clear_references()
-					vim.api.nvim_clear_autocmds({ group = "mn-lsp-highlight", buffer = event.buf })
+
+					local _, _ = pcall(function()
+						vim.api.nvim_clear_autocmds({ group = "mn-lsp-highlight", buffer = event.buf })
+					end)
 				end,
 			})
 
