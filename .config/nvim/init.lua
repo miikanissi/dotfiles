@@ -459,6 +459,7 @@ require("lazy").setup({
 
 	{
 		"neovim/nvim-lspconfig", -- Collection of configurations for built-in LSP client
+		version = "v1.0.0",
 		dependencies = {
 			-- Automatically install LSPs and tools to stdpath for neovim
 			{ "williamboman/mason.nvim", config = true },
