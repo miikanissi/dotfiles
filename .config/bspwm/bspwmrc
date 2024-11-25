@@ -41,7 +41,7 @@ bspc rule -a Onboard state=floating
 bspc rule -a Emacs state=tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a Alacritty:Alacritty:ncmpcpp state=floating
-bspc rule -a Alacritty:Alacritty:odoo-logs state=floating rectangle=1020x720+0+0 center=on
+bspc rule -a Alacritty:Alacritty:odoo-logs state=floating rectangle=1600x900+0+0 center=on
 bspc rule -a Pavucontrol state=floating rectangle=640x480+0+0 center=on
 bspc rule -a *:net-runelite-launcher-Launcher state=floating rectangle=1148*754+0+0 layer=above split_dir=north
 

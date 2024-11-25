@@ -1,15 +1,15 @@
 #!/bin/bash
 
-version=16
+container_name="odoo"
 
 usage() {
-	printf "usage: odoo-logs [options]\\n  --: Run Odoo in Docker\\n  -V: <VERSION>: Run a specific version of Odoo\\n  -h: Show help message\\n"
+	printf "usage: odoo-logs [options]\\n  --: view logs for odoo docker container\\n  -C: <CONTAINER_NAME>: Specify the container name for logs\\n  -h: Show help message\\n"
 }
 
-while getopts "V:h" o; do case "${o}" in
+while getopts "C:h" o; do case "${o}" in
 	h) usage && exit 1 ;;
-	V) version=${OPTARG} ;;
+	C) container_name=${OPTARG} ;;
 	*) printf "Invalid option: -%s\\n -h: To show help\\n" "$OPTARG" && exit 1 ;;
 	esac done
 
-sudo docker logs -f --tail=500 odoo"$version" 2>&1 | multitail -cS python-log -j -f
+sudo docker logs -f --tail=500 "$container_name" 2>&1 | multitail -cS python-log -j -f

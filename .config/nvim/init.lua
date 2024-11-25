@@ -459,7 +459,6 @@ require("lazy").setup({
 
 	{
 		"neovim/nvim-lspconfig", -- Collection of configurations for built-in LSP client
-		version = "v1.0.0",
 		dependencies = {
 			-- Automatically install LSPs and tools to stdpath for neovim
 			{ "williamboman/mason.nvim", config = true },
@@ -596,13 +595,13 @@ require("lazy").setup({
 						diagnostics = { enable = false },
 					},
 				},
-				ruff_lsp = {},
+				ruff = {},
 			}
 
 			local tools = {
 				{ "stylua" },
 				{ "shfmt" },
-				{ "prettier", version = "2.7.1" },
+				{ "prettier" },
 				{ "djlint" },
 				{ "pylint" },
 				{ "rstcheck" },
@@ -640,7 +639,7 @@ require("lazy").setup({
 					require("plenary.job")
 						:new({
 							command = "npm",
-							args = { "install", "@prettier/plugin-xml@2.2.0" },
+							args = { "install", "--save-dev", "@prettier/plugin-xml" },
 							cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/prettier"),
 							on_exit = function(_, return_val)
 								if return_val == 0 then
@@ -794,9 +793,9 @@ require("lazy").setup({
 				panel = { enabled = false },
 			})
 			require("copilot_cmp").setup()
-			require("CopilotChat.integrations.cmp").setup()
 			require("CopilotChat").setup({
 				question_header = "## Miika",
+				chat_autocomplete = true,
 				context = "buffers",
 				-- default mappings
 				mappings = {
