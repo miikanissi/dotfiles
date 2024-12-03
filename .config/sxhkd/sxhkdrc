@@ -17,8 +17,8 @@ super + x
 # launch rofi_mount.sh
 super + z
     ~/.local/bin/rofi_dman.sh
-super + o   
-    alacritty -t odoo-logs -e odoo-logs
+super + o
+    alacritty -t odoo-logs -e odoo-logs -C wildpack-odoo18
 
 ### BSPC HOTKEYS ###
 # restart bspwm
