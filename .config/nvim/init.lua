@@ -17,7 +17,6 @@ vim.opt.signcolumn = "yes" -- Always show signcolumn
 vim.opt.relativenumber = true -- Hybrid line numbers
 vim.opt.number = true -- Hybrid line numbers
 vim.opt.scrolloff = 8 -- Shows 8 lines under mouse when moving the file
-
 -- Tabs and indent
 vim.opt.tabstop = 4 -- Tab stops at 4 spaces
 vim.opt.softtabstop = 4 -- Tab stops at 4 spaces
@@ -31,7 +30,7 @@ vim.opt.incsearch = true -- Search incrementally
 vim.opt.magic = true -- Magic for regex
 vim.opt.wildmenu = true -- Use wildmenu
 vim.opt.wildmode = "longest:full,full" -- First tab completes longest common string
-vim.opt.completeopt = "menuone,noselect,popup" -- Completion menu options
+vim.opt.completeopt = "menuone,noselect,noinsert,popup" -- Completion menu options
 -- Misc
 vim.opt.foldmethod = "expr" -- Use folding expression
 vim.opt.foldlevel = 99 -- Never fold by default
@@ -46,7 +45,6 @@ vim.opt.timeoutlen = 300 -- Default is 1000 - faster
 vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add" -- location of spellfile
 vim.opt.splitbelow = true -- Split opened below instead of above
 vim.opt.splitright = true -- Split opened to the right instead of left
-
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -605,6 +603,7 @@ require("lazy").setup({
 				{ "djlint" },
 				{ "pylint" },
 				{ "rstcheck" },
+				{ "sqlfluff" },
 			}
 
 			-- MASON.NVIM
@@ -629,23 +628,6 @@ require("lazy").setup({
 									vim.print("pylint-odoo was successfully installed")
 								else
 									vim.print("failed to install pylint-odoo")
-								end
-							end,
-						})
-						:start()
-				end
-				-- Install additional tool for prettier
-				if pkg.name == "prettier" then
-					require("plenary.job")
-						:new({
-							command = "npm",
-							args = { "install", "--save-dev", "@prettier/plugin-xml" },
-							cwd = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/prettier"),
-							on_exit = function(_, return_val)
-								if return_val == 0 then
-									vim.print("@prettier/plugin-xml was successfully installed")
-								else
-									vim.print("failed to install @prettier/plugin-xml")
 								end
 							end,
 						})
@@ -710,6 +692,8 @@ require("lazy").setup({
 				python = { "pylint" },
 				htmldjango = { "djlint" },
 				rst = { "rstcheck" },
+				sql = { "sqlfluff" },
+				psql = { "sqlfluff" },
 			},
 		},
 		config = function(_, opts)
@@ -747,6 +731,9 @@ require("lazy").setup({
 				injected = {
 					options = { ignore_errors = true },
 				},
+				sqlfluff = {
+					args = { "fix", "--dialect", "postgres", "-" },
+				},
 			},
 			formatters_by_ft = {
 				lua = { "stylua" },
@@ -760,7 +747,10 @@ require("lazy").setup({
 				json = { "prettier" },
 				yaml = { "prettier" },
 				sh = { "shfmt" },
+				sql = { "sqlfluff" },
+				psql = { "sqlfluff" },
 				markdown = { "prettier", "injected" },
+				["*"] = { "injected" },
 				-- Use the "_" filetype to run formatters on filetypes that don't
 				-- have other formatters configured.
 				["_"] = { "trim_whitespace" },
@@ -770,7 +760,7 @@ require("lazy").setup({
 
 	{
 		"hrsh7th/nvim-cmp", -- Autocompletion plugin
-		event = { "InsertEnter", "CmdlineEnter" },
+		event = "VimEnter",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp", -- Autocompletion with LSPs
 			"hrsh7th/cmp-buffer", -- Autocompletion from words in buffer
@@ -781,7 +771,7 @@ require("lazy").setup({
 			"windwp/nvim-autopairs", -- Automatically close pairs
 			"zbirenbaum/copilot.lua", -- GitHub Copilot integration
 			"zbirenbaum/copilot-cmp", -- GitHub Copilot as a completion source
-			{ "CopilotC-Nvim/CopilotChat.nvim", branch = "canary" }, -- GitHub Copilot chat
+			{ "CopilotC-Nvim/CopilotChat.nvim", branch = "main", build = "make tiktoken" }, -- GitHub Copilot chat
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
@@ -794,6 +784,7 @@ require("lazy").setup({
 			})
 			require("copilot_cmp").setup()
 			require("CopilotChat").setup({
+				model = "claude-3.5-sonnet",
 				question_header = "## Miika",
 				chat_autocomplete = true,
 				context = "buffers",
@@ -824,10 +815,10 @@ require("lazy").setup({
 					show_diff = {
 						normal = "gd",
 					},
-					show_system_prompt = {
-						normal = "gp",
+					show_info = {
+						normal = "gi",
 					},
-					show_user_selection = {
+					show_context = {
 						normal = "gs",
 					},
 				},
@@ -844,6 +835,9 @@ require("lazy").setup({
 			copilot_map("<leader>hi", ":CopilotChatOptimize<CR>", "[I]mprove / Optimize Selection")
 			copilot_map("<leader>hd", ":CopilotChatDocs<CR>", "Create [D]ocumentation for Selection")
 			copilot_map("<leader>ht", ":CopilotChatTests<CR>", "Create [T]ests for Selection")
+			copilot_map("<leader>hc", ":CopilotChatStop<CR>", "[C]cancel Current Output")
+			copilot_map("<leader>hs", ":CopilotChatSave ", "[S]ave Chat History")
+			copilot_map("<leader>hl", ":CopilotChatLoad ", "[L]oad Chat History")
 
 			-- LuaSnip setup
 			local luasnip = require("luasnip")
