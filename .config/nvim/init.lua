@@ -107,6 +107,8 @@ require("lazy").setup({
 		config = function()
 			require("modus-themes").setup({
 				hide_inactive_statusline = true,
+				line_nr_column_background = false,
+				sign_column_background = false,
 			})
 			vim.cmd.colorscheme("modus")
 		end,

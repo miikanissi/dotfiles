@@ -2,7 +2,7 @@
   "Miika Odoo Python File": {
     "prefix": "mpy",
     "body": [
-      "# Copyright 2024 Miika Nissi (https://miikanissi.com)",
+      "# Copyright 2025 Miika Nissi (https://miikanissi.com)",
       "# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).",
       "",
       "from odoo import api, fields, models",
@@ -16,7 +16,7 @@
   "Miika Odoo Manifest": {
     "prefix": "mman",
     "body": [
-      "# Copyright 2024 Miika Nissi (https://miikanissi.com)",
+      "# Copyright 2025 Miika Nissi (https://miikanissi.com)",
       "# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).",
       "",
       "{",
@@ -39,7 +39,7 @@
   "Miika Odoo Migrate Script": {
     "prefix": "mmig",
     "body": [
-      "# Copyright 2024 Miika Nissi (https://miikanissi.com)",
+      "# Copyright 2025 Miika Nissi (https://miikanissi.com)",
       "# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).",
       "",
       "from odoo.upgrade import util",
@@ -57,7 +57,7 @@
       "##############################################################################",
       "#",
       "#    Author: Wildpack Beverage Inc.",
-      "#    Copyright 2024- Wildpack Beverage Inc. (https://wildpackbev.com)",
+      "#    Copyright 2025- Wildpack Beverage Inc. (https://wildpackbev.com)",
       "#    All Rights Reserved.",
       "#",
       "#    This program is copyright property of the author mentioned above.",
@@ -105,7 +105,7 @@
       "##############################################################################",
       "#",
       "#    Author: Wildpack Beverage Inc.",
-      "#    Copyright 2024- Wildpack Beverage Inc. (https://wildpackbev.com)",
+      "#    Copyright 2025- Wildpack Beverage Inc. (https://wildpackbev.com)",
       "#    All Rights Reserved.",
       "#",
       "#    This program is copyright property of the author mentioned above.",
@@ -136,7 +136,7 @@
       "##############################################################################",
       "#",
       "#    Author: Wildpack Beverage Inc.",
-      "#    Copyright 2024- Wildpack Beverage Inc. (https://wildpackbev.com)",
+      "#    Copyright 2025- Wildpack Beverage Inc. (https://wildpackbev.com)",
       "#    All Rights Reserved.",
       "#",
       "#    This program is copyright property of the author mentioned above.",
