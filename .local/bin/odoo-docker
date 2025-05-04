@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ODOO_VERSION=16
+ODOO_VERSION=18
 
 usage() {
 	printf "usage: odoo-docker [options]\\n  --: Run Odoo in Docker\\n  -u: <MODULE>: Run with module update\\n  -d: <DEV OPTIONS>: Run with dev options\\n  -V: <VERSION>: Run a specific version of Odoo\\n  -t: Run with tests\\n  -h: Show help message\\n  -v: Show current odoo-docker version\\n"
