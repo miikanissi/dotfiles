@@ -1,0 +1,250 @@
+@define-color sway_background alpha(@theme_base_color, 0.9);
+@define-color sway_background_darker shade(@sway_background, 0.6);
+@define-color sway_background_highlight @theme_bg_color;
+@define-color sway_borders @borders;
+@define-color sway_text @theme_text_color;
+@define-color sway_error @error_color;
+@define-color sway_success @success_color;
+@define-color sway_warning @warning_color;
+@define-color sway_accent @theme_selected_bg_color;
+
+* {
+    font-family: "UbuntuMonoNerdFont", FontAwesome, Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    transition:
+        background-color 0.3s,
+        box-shadow 0.3s,
+        border-radius 0.3s;
+}
+
+.control-center .notification-row:focus,
+.control-center .notification-row:hover {
+    border-radius: 0;
+}
+
+.notification-default-action {
+    background: transparent;
+    border-radius: 0;
+    border: 0px;
+}
+
+.notification-row {
+    outline: none;
+    margin: 20px;
+    border: 0px;
+    background: transparent;
+    border-radius: 0;
+}
+
+.notification {
+    background: transparent;
+    margin: 0px;
+    padding: 0;
+    border-radius: 0;
+    border: 0px;
+}
+
+.notification-content {
+    background: @sway_background_darker;
+    padding: 7px;
+    border-radius: 0px;
+    border: 1px solid @sway_accent;
+    margin: 0;
+}
+
+.close-button {
+    background: @sway_error;
+    color: @sway_background;
+    text-shadow: none;
+    border-radius: 0px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.close-button:hover {
+    box-shadow: none;
+    background: @sway_error;
+    transition: all 0.15s ease-in-out;
+    border: none;
+}
+
+.notification-action {
+    color: @sway_text;
+    border: 1px solid @sway_borders;
+    border-top: none;
+    border-radius: 0px;
+    background: @sway_background;
+}
+
+.summary {
+    padding-top: 7px;
+    font-size: 13px;
+    color: @sway_text;
+}
+
+.time {
+    font-size: 11px;
+    color: @sway_accent;
+    margin-right: 18px;
+}
+
+.body {
+    font-size: 12px;
+    color: @sway_text;
+}
+
+.control-center {
+    background: @sway_background;
+    border: 1px solid @sway_accent;
+    border-radius: 0px;
+}
+
+.control-center-list {
+    background: transparent;
+}
+
+.control-center-list-placeholder {
+    opacity: 0.5;
+}
+
+.floating-notifications {
+    background: transparent;
+}
+
+.blank-window {
+    background: alpha(black, 0.1);
+}
+
+.widget-title {
+    color: @sway_text;
+    background: @sway_background_darker;
+    padding: 5px 10px;
+    margin: 10px 10px 5px 10px;
+    font-size: 1.5rem;
+    border-radius: 5px;
+}
+
+.widget-title>button {
+    font-size: 1rem;
+    color: @sway_text;
+    text-shadow: none;
+    background: @sway_background_darker;
+    box-shadow: none;
+    border-radius: 5px;
+}
+
+.widget-title>button:hover {
+    background: @sway_error;
+    color: @sway_background;
+}
+
+.widget-dnd {
+    background: @sway_background_darker;
+    padding: 5px 10px;
+    margin: 5px 10px 10px 10px;
+    border-radius: 5px;
+    font-size: large;
+    color: @sway_text;
+}
+
+.widget-dnd>switch {
+    border-radius: 4px;
+    background: @sway_background;
+    color: @sway_text;
+}
+
+.widget-dnd>switch:checked {
+    background: @sway_error;
+    color: @sway_background_highlight;
+    border: 1px solid @sway_error;
+}
+
+.widget-dnd>switch slider {
+    background: @sway_background_highlight;
+    border-radius: 5px;
+    color: @sway_text;
+}
+
+.widget-dnd>switch:checked slider {
+    background: @sway_background_highlight;
+    border-radius: 5px;
+    color: @sway_text;
+}
+
+.widget-label {
+    margin: 10px 10px 5px 10px;
+}
+
+.widget-label>label {
+    font-size: 1rem;
+    color: @sway_text;
+}
+
+.widget-mpris {
+    color: @sway_text;
+    background: @sway_background_darker;
+    padding: 5px 10px 0px 0px;
+    margin: 5px 10px 5px 10px;
+    border-radius: 5px;
+}
+
+.widget-mpris>box>button {
+    border-radius: 5px;
+}
+
+.widget-mpris-player {
+    padding: 5px 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.widget-mpris-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.widget-mpris-subtitle {
+    font-size: 1.1rem;
+}
+
+.widget-buttons-grid {
+    font-size: x-large;
+    padding: 5px;
+    margin: 5px 10px 10px 10px;
+    border-radius: 5px;
+    background: @sway_background_darker;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button {
+    margin: 3px;
+    background: @sway_background;
+    border-radius: 5px;
+    color: @sway_text;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+    background: @sway_accent;
+    color: @sway_background;
+}
+
+.widget-menubar>box>.menu-button-bar>button {
+    border: none;
+    background: transparent;
+}
+
+.topbar-buttons>button {
+    border: none;
+    background: transparent;
+}
+
+.widget-volume {
+    color: @sway_text;
+    background: @sway_background_darker;
+    border-radius: 5px;
+    margin: 5px 10px 15px 10px;
+}
+
+.widget-volume>box>label {
+    padding: 5px 10px 5px 5px;
+}

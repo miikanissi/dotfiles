@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Toggles theme from dark mode to light mode
 
-ALACRITTY_DARK=(sed -i 's/modus-operandi.yml/modus-vivendi.yml/g' ~/.config/alacritty/theme.yml)
-ALACRITTY_LIGHT=(sed -i 's/modus-vivendi.yml/modus-operandi.yml/g' ~/.config/alacritty/theme.yml)
+ALACRITTY_DARK=(sed -i 's/modus-operandi.toml/modus-vivendi.toml/g' ~/.config/alacritty/theme.toml)
+ALACRITTY_LIGHT=(sed -i 's/modus-vivendi.toml/modus-operandi.toml/g' ~/.config/alacritty/theme.toml)
 DUNST_DARK_COMMENT=(sed -i '/^# BEGIN DARK$/,/^# END DARK$/ s/^/#/' ~/.config/dunst/dunstrc)
 DUNST_DARK_UNCOMMENT=(sed -i '/^## BEGIN DARK$/,/^## END DARK$/ s/^#//' ~/.config/dunst/dunstrc)
 DUNST_LIGHT_COMMENT=(sed -i '/^# BEGIN LIGHT$/,/^# END LIGHT$/ s/^/#/' ~/.config/dunst/dunstrc)
@@ -31,6 +31,14 @@ ROFI_DARK=(sed -i 's/"modus-operandi"/"modus-vivendi"/g' ~/.config/rofi/config.r
 ROFI_LIGHT=(sed -i 's/"modus-vivendi"/"modus-operandi"/g' ~/.config/rofi/config.rasi)
 NVIM_LIGHT=(sed -i 's/"dark"/"light"/g' ~/.config/nvim/init.lua)
 NVIM_DARK=(sed -i 's/"light"/"dark"/g' ~/.config/nvim/init.lua)
+SWAY_DARK_COMMENT=(sed -i '/^# BEGIN DARK$/,/^# END DARK$/ s/^/#/' ~/.config/sway/config)
+SWAY_DARK_UNCOMMENT=(sed -i '/^## BEGIN DARK$/,/^## END DARK$/ s/^#//' ~/.config/sway/config)
+SWAY_LIGHT_COMMENT=(sed -i '/^# BEGIN LIGHT$/,/^# END LIGHT$/ s/^/#/' ~/.config/sway/config)
+SWAY_LIGHT_UNCOMMENT=(sed -i '/^## BEGIN LIGHT$/,/^## END LIGHT$/ s/^#//' ~/.config/sway/config)
+SWAYNAG_DARK_COMMENT=(sed -i '/^# BEGIN DARK$/,/^# END DARK$/ s/^/#/' ~/.config/swaynag/config)
+SWAYNAG_DARK_UNCOMMENT=(sed -i '/^## BEGIN DARK$/,/^## END DARK$/ s/^#//' ~/.config/swaynag/config)
+SWAYNAG_LIGHT_COMMENT=(sed -i '/^# BEGIN LIGHT$/,/^# END LIGHT$/ s/^/#/' ~/.config/swaynag/config)
+SWAYNAG_LIGHT_UNCOMMENT=(sed -i '/^## BEGIN LIGHT$/,/^## END LIGHT$/ s/^#//' ~/.config/swaynag/config)
 
 usage() {
 	printf "Usage: toggle-theme.sh [OPTION]\nOptions:\n  -d     Turn dark mode on\n  -l     Turn light mode on\n  -t     Toggles dark/light mode\n  -q     Query the current mode\n"
@@ -44,11 +52,16 @@ query() {
 }
 refresh() {
 	xrdb ~/.Xresources
-	killall -q dunst && dunst --config ~/.config/dunst/dunstrc >/dev/null 2>&1 &
+	if pgrep -x dunst >/dev/null; then
+		killall -q dunst && dunst --config ~/.config/dunst/dunstrc >/dev/null 2>&1 &
+	fi
 	killall -q pcmanfm
-	bat cache --build
+	/usr/bin/batcat cache --build >/dev/null
 	if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "LG3D" ]]; then
 		bspc wm -r >/dev/null 2>&1
+	fi
+	if [[ "$(wmctrl -m | grep Name | awk '{print $2}')" == "wlroots" ]]; then
+        pkill waybar && swaymsg reload
 	fi
 }
 dark() {
@@ -68,6 +81,10 @@ dark() {
 		"${ROFI_DARK[@]}"
 		"${NVIM_DARK[@]}"
 		"${ALACRITTY_DARK[@]}"
+		"${SWAY_DARK_UNCOMMENT[@]}"
+		"${SWAY_LIGHT_COMMENT[@]}"
+		"${SWAYNAG_DARK_UNCOMMENT[@]}"
+		"${SWAYNAG_LIGHT_COMMENT[@]}"
 		refresh
 	fi
 	echo ""
@@ -89,6 +106,10 @@ light() {
 		"${ROFI_LIGHT[@]}"
 		"${NVIM_LIGHT[@]}"
 		"${ALACRITTY_LIGHT[@]}"
+		"${SWAY_LIGHT_UNCOMMENT[@]}"
+		"${SWAY_DARK_COMMENT[@]}"
+		"${SWAYNAG_LIGHT_UNCOMMENT[@]}"
+		"${SWAYNAG_DARK_COMMENT[@]}"
 		refresh
 	fi
 	echo ""

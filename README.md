@@ -103,12 +103,6 @@ chmod +x ~/.local/bin/install_nerd_fonts_ubuntu_mono.sh
 ~/.local/bin/install_nerd_fonts_ubuntu_mono.sh
 ```
 
-Elementary cursor theme requires moving icons to their correct location:
-
-```bash
-cp -R ~/.icons/elementary-cursors/elementary/ ~/.icons/
-```
-
 Suckless program installation:
 
 ```bash
@@ -118,7 +112,7 @@ Name=dwm
 Comment=Dynamic window manager
 Exec=dwm
 Icon=dwm
-Type=XSession" > /usr/share/xsessions/dwm.desktop
+Type=XSession" >/usr/share/xsessions/dwm.desktop
 cd .local/src/suckless/dwm && sudo make clean install
 cd .local/src/suckless/dmenu && sudo make clean install
 cd .local/src/suckless/dwmblocks && sudo make clean install

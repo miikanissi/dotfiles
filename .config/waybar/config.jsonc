@@ -1,0 +1,31 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top", 
+    "position": "top", 
+    "height": 42,
+    "reload_style_on_change": true,
+    "spacing": 4, 
+    "modules-left": [
+        "sway/workspaces"
+    ],
+    "modules-center": [
+        "clock",
+        "privacy",
+        "mpd"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "custom/microphone",
+        "custom/theme",
+        "idle_inhibitor",
+        "network",
+        "bluetooth",
+        "battery",
+        "custom/notification",
+        "tray",
+        "group/group-power"
+    ],
+    "include": [
+        "~/.config/waybar/modules.json"
+    ]
+}

@@ -1,0 +1,218 @@
+{
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "warp-on-scroll": false,
+    "format": "{name}"
+  },
+  "idle_inhibitor": {
+    "format": "{icon} ",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    "start-activated": true
+  },
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-bluetooth": "{icon} {volume}%  {format_source}",
+    "format-bluetooth-muted": "{icon} {format_source}",
+    "format-muted": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pavucontrol"
+  },
+  "network": {
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "on-click": "nm-connection-editor",
+    "max-length": 50
+  },
+  "battery": {
+    "states": {
+      "success": 100,
+      "warning": 30,
+      "critical": 15
+    },
+    "full_at": 75,
+    "format": "{icon}  {capacity}%",
+    "format-full": "{icon}  {capacity}%",
+    "format-charging": "  {capacity}%",
+    "format-plugged": "  {capacity}%",
+    "format-alt": "{time}  {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "battery#bat2": {
+    "bat": "BAT2"
+  },
+  "clock": {
+    "format": "{:%I:%M %p | %B, %d}",
+    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "{:%m/%d/%Y}",
+    "on-click-right": "gsimplecal"
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10
+  },
+  "sway/language": {
+    "format": "{}",
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+  },
+  "bluetooth": {
+    "on-click": "blueman-manager",
+    "format": " {status}",
+    "format-connected": " {num_connections} connected",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+  },
+  "mpd": {
+    "format": "{stateIcon}  {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}  {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+    "format-disconnected": "",
+    "format-stopped": "",
+    "interval": 10,
+    "consume-icons": {
+      "on": " "
+    },
+    "random-icons": {
+      "on": " "
+    },
+    "repeat-icons": {
+      "on": " "
+    },
+    "single-icons": {
+      "on": "1 "
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  },
+  "custom/microphone": {
+    "exec": "~/.config/waybar/microphone_toggle.sh",
+    "interval": 2,
+    "on-click": "~/.config/waybar/microphone_toggle.sh --toggle; pkill -SIGRTMIN+1 waybar",
+    "on-click-right": "~/.config/waybar/microphone_toggle.sh --off; pkill -SIGRTMIN+1 waybar",
+    "signal": 1,
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "on": "",
+      "muted": ""
+    }
+  },
+  "custom/theme": {
+    "exec": "~/.config/waybar/theme_toggle.sh -q",
+    "interval": 2,
+    "on-click": "~/.config/waybar/theme_toggle.sh -t",
+    "signal": 2,
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "dark": "",
+      "light": "󰖨"
+    }
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='#ff5f5f'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='#ff5f5f'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='#ff5f5f'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='#ff5f5f'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+  "privacy": {
+    "icon-spacing": 6,
+    "icon-size": 16,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 18
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 18
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 18
+      }
+    ]
+  },
+  "group/group-power": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/power",
+      "custom/quit",
+      "custom/lock",
+      "custom/reboot"
+    ]
+  },
+  "custom/quit": {
+    "format": "󰗼",
+    "tooltip": false,
+    "on-click": "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'"
+  },
+  "custom/lock": {
+    "format": "󰍁",
+    "tooltip": false,
+    "on-click": "swaylock"
+  },
+  "custom/reboot": {
+    "format": "󰜉",
+    "tooltip": false,
+    "on-click": "swaynag -t warning -m 'You pressed the reboot button. Do you really want to reboot the system?' -B 'Yes, reboot' 'sudo reboot'"
+  },
+  "custom/power": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "swaynag -t warning -m 'You pressed the shutdown button. Do you really want to shutdown the system?' -B 'Yes, shutdown' 'sudo shutdown now'"
+  }
+}

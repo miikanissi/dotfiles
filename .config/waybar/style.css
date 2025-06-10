@@ -1,0 +1,149 @@
+@define-color sway_background alpha(@theme_bg_color, 0.9);
+@define-color sway_text @theme_text_color;
+@define-color sway_text_inverse @theme_bg_color;
+@define-color sway_accent @theme_selected_bg_color;
+@define-color sway_warning @warning_color;
+@define-color sway_error @error_color;
+@define-color sway_success @success_color;
+
+* {
+    font-family: "UbuntuMonoNerdFont", FontAwesome, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    transition:
+        background-color 0.3s,
+        box-shadow 0.3s,
+        border-radius 0.3s;
+}
+
+window#waybar {
+    background: @sway_background;
+    color: @sway_text;
+    font-family:
+        UbuntuMono Nerd Font,
+        feather;
+    transition: background-color 0.5s;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 0 8px;
+}
+
+.modules-left {
+    margin: 0;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#bluetooth,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#custom-microphone,
+#custom-notification,
+#custom-theme,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#language,
+#privacy,
+#custom-quit,
+#custom-lock,
+#custom-reboot,
+#custom-power,
+#mpd {
+    padding: 0 10px;
+}
+
+#mpd.disconnected,
+#mpd.stopped {
+    color: @sway_error;
+}
+
+#mpd.paused {
+    color: @sway_warning;
+}
+
+#network.disabled,
+#network.disconnected {
+    color: @sway_error;
+}
+
+#bluetooth.disabled {
+    color: @sway_error;
+}
+
+#bluetooth.off {
+    color: @sway_warning;
+}
+
+#bluetooth.connected {
+    color: @sway_success;
+}
+
+#pulseaudio.muted {
+    color: @sway_error;
+    font-size: 22px;
+}
+
+#battery.success {
+    color: @sway_success;
+}
+
+#battery.warning:not(.charging) {
+    color: @sway_warning;
+}
+
+#battery.critical:not(.charging) {
+    color: @sway_error;
+}
+
+#workspaces button {
+    font-weight: 900;
+    color: @sway_accent;
+    padding: 0 10px;
+}
+
+#workspaces button:hover {
+    background: @sway_accent;
+    color: @sway_text_inverse;
+}
+
+#workspaces button.focused {
+    background: @sway_accent;
+    color: @sway_text_inverse;
+}
+
+#workspaces button.urgent {
+    background: @sway_error;
+    color: @sway_text_inverse;
+}
+
+#custom-microphone {
+    font-size: 20px;
+}
+
+#custom-microphone.muted {
+    color: @sway_error;
+}
+
+#custom-microphone.on {
+    color: @sway_success;
+}
+
+#privacy-item {
+    color: @sway_warning;
+}
+
+#custom-power {
+    color: @sway_error;
+}

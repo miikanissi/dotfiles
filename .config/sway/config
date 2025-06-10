@@ -1,0 +1,254 @@
+# config for sway
+# Miika Nissi, https://miikanissi.com, https://github.com/miikanissi
+
+### VARIABLES
+# modifier key
+set $mod Mod4
+# home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# terminal emulator
+set $term "alacritty"
+# application launcher
+set $menu "rofi -show run"
+set $menu2 "rofi -show drun"
+# browser
+set $browser "brave-browser --enable-features=UseOzonePlatform --ozone-platform=wayland"
+# file manager
+set $filemanager "pcmanfm"
+
+
+### OUTPUT CONFIGURATION
+# wallpaper
+output * bg ~/.local/share/wall.jpg fill
+
+### INPUT CONFIGURATION
+input "*" {
+    xkb_layout us_custom
+    xkb_variant basic
+    xkb_options caps:ctrl_modifier
+    repeat_delay 200
+    repeat_rate 80
+}
+
+### IDLE CONFIGURATION
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+
+### APPEARANCE
+for_window [floating] move position center
+for_window [floating] resize set 800 500
+
+for_window [class=".*"] title_format "*%title"
+
+# remove borders from windows
+# for_window [app_id="^.*"] border pixel 2
+
+# custom window rules
+for_window [title="ncmpcpp"] floating enable
+for_window [title="odoo-logs"] floating enable
+for_window [title="odoo-logs"] resize set 1400 900
+
+# title bar
+font pango: UbuntuMono Nerd Font Mono Bold 12
+titlebar_padding 3
+titlebar_border_thickness 1
+title_align center
+
+# borders
+default_floating_border normal
+
+# gaps
+gaps inner 6
+gaps outer 0
+gaps bottom 0
+
+# colors
+
+# BEGIN LIGHT
+set $bg_color     #f2f2f2
+set $fg_color     #000000
+set $accent       #3548cf
+set $error        #d00000
+# END LIGHT
+
+## BEGIN DARK
+# set $bg_color     #1e1e1e
+# set $fg_color     #ffffff
+# set $accent       #79a8ff
+# set $error        #ff5f5f
+## END DARK
+
+#app_id                      border          bground         text            indicator      child_border
+client.focused               $accent         $accent         $bg_color       $accent        $accent
+client.unfocused             $accent         $bg_color       $fg_color       $bg_color      $bg_color
+client.focused_inactive      $accent         $bg_color       $accent         $bg_color      $bg_color
+client.urgent                $accent         $error          $bg_color       $accent        $bg_color
+
+### KEY BINDINGS
+
+# terminal
+bindsym $mod+Return exec $term
+
+# kill focused window
+bindsym $mod+q kill
+
+# start application menu
+bindsym $mod+d exec "$menu"
+bindsym $mod+Ctrl+d exec "$menu2"
+
+# start browser
+bindsym $mod+w exec "$browser"
+
+# start file manager
+bindsym $mod+b exec "$filemanager"
+
+# print screen
+bindsym $mod+Print exec "flameshot gui"
+
+# screencapture screen
+bindsym $mod+Shift+Print exec "~/.local/bin/wf-recorder.sh"
+
+# start miscellaneous applications
+bindsym $mod+s exec "signal-desktop --start-in-tray --use-tray-icon"
+bindsym $mod+m exec "alacritty -t ncmpcpp -e ncmpcpp"
+bindsym $mod+o exec "alacritty -t odoo-logs -e odoo-logs -C wildpack-odoo18"
+
+# drag floating windows by holding down $mod and left mouse button.
+# resize them with right mouse button + $mod.
+floating_modifier $mod normal
+
+# reload sway
+bindsym $mod+Grave reload
+
+# exit sway
+bindsym $mod+Shift+Grave exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'"
+
+# move focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# Or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move the focused window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# switch the current container between different layout styles
+bindsym $mod+Tab layout toggle tabbed split
+# rotate split layout
+bindsym $mod+r layout toggle split
+
+# make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+f floating toggle
+
+# resize containers
+bindsym $mod+Ctrl+$left resize shrink width 10px
+bindsym $mod+Ctrl+$down resize grow height 10px
+bindsym $mod+Ctrl+$up resize shrink height 10px
+bindsym $mod+Ctrl+$right resize grow width 10px
+
+bindsym $mod+Ctrl+Left resize shrink width 10px
+bindsym $mod+Ctrl+Down resize grow height 10px
+bindsym $mod+Ctrl+Up resize shrink height 10px
+bindsym $mod+Ctrl+Right resize grow width 10px
+
+# function keys
+bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+bindsym XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+bindsym XF86AudioMute exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+bindsym XF86AudioMicMute exec "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+bindsym XF86MonBrightnessDown exec "brightnessctl set 5%-"
+bindsym XF86MonBrightnessUp exec "brightnessctl set 5%+"
+
+# status bar
+bar {
+  swaybar_command waybar
+}
+
+# default workspace layout
+workspace_layout tabbed
+
+### AUTOSTART
+# environment variables
+exec "XDG_CURRENT_DESKTOP=sway"
+exec "export XDG_CURRENT_DESKTOP=sway; export QT_QPA_PLATFORM=wayland; export QT_QPA_PLATFORMTHEME=qt5ct"
+exec "dbus-update-activation-environment --systemd --all "
+exec "dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP=sway "
+exec "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK"
+exec "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
+
+# refresh font cache
+exec "fc-cache -fv"
+
+# theme stuff
+exec_always "~/.config/sway/gsettings.sh"
+exec_always "--no-startup-id xrdb -merge ~/.Xresources"
+
+# launch notification daemon
+exec_always "pgrep -x swaync || swaync"
+exec_always "swaync-client --reload-config"
+
+# run keyboard and audio scripts
+exec_always "~/.config/sway/keyboard.sh"
+exec_always "~/.config/sway/audio.sh"
+
+# launch wlsunset for brightness and color temperature control
+exec_always "~/.config/sway/wlsunset.sh"
+
+# launch kanshi for display management
+exec_always "pgrep -x kanshi || kanshi"
+exec_always "kill -1 $(pidof kanshi)"
+
+# launch file manager as daemon
+exec_always "pgrep -x pcmanfm || pcmanfm -d"
+
+# launch miscellaneous applications
+exec_always "pgrep -x signal-desktop || signal-desktop --start-in-tray --use-tray-icon"
+

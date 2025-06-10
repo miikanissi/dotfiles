@@ -1,9 +1,15 @@
+---@diagnostic disable-next-line: lowercase-global
+_G.vim = vim
+
 --Remap space as leader key
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.opt.title = true
 -- SETTINGS
+-- Debug log level
+-- vim.lsp.set_log_level("INFO") -- Set to "DEBUG", "WARN", "INFO", "ERROR", or "OFF"
 vim.opt.termguicolors = true -- Use full colors
 vim.opt.background = "light" -- Background color
 vim.o.hlsearch = true -- Highlight on search
@@ -342,6 +348,7 @@ require("lazy").setup({
 					["gutter"] = "-1",
 				},
 			})
+			require("fzf-lua").register_ui_select()
 			--Add leader shortcuts
 			vim.keymap.set("n", "<leader>sb", require("fzf-lua").buffers, { desc = "Fzf: [B]uffers" })
 			vim.keymap.set("n", "<leader>sf", require("fzf-lua").files, { desc = "Fzf: [F]iles" })
@@ -369,24 +376,28 @@ require("lazy").setup({
 					"css",
 					"csv",
 					"diff",
-					"go",
-					"gomod",
+					"dockerfile",
 					"git_config",
 					"git_rebase",
 					"gitcommit",
 					"gitignore",
+					"go",
+					"gomod",
 					"html",
 					"htmldjango",
 					"javascript",
+					"jsdoc",
 					"json",
 					"lua",
 					"luadoc",
 					"markdown",
 					"markdown_inline",
 					"python",
+					"regex",
 					"rst",
 					"scss",
 					"sql",
+					"typescript",
 					"vim",
 					"vimdoc",
 					"xml",
@@ -461,8 +472,8 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig", -- Collection of configurations for built-in LSP client
 		dependencies = {
 			-- Automatically install LSPs and tools to stdpath for neovim
-			{ "williamboman/mason.nvim", config = true },
-			"williamboman/mason-lspconfig.nvim",
+			{ "mason-org/mason.nvim", config = true },
+			"mason-org/mason-lspconfig.nvim",
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
@@ -526,78 +537,101 @@ require("lazy").setup({
 				end,
 			})
 
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
+			-- Configure LSP servers
 			local words = {}
 			for word in io.open(vim.fn.stdpath("config") .. "/spell/en.utf-8.add", "r"):lines() do
 				table.insert(words, word)
 			end
 
-			local servers = {
-				eslint = {
-					settings = {
-						codeAction = {
-							disableRuleComment = {
-								enable = true,
-								location = "separateLine",
-							},
-							showDocumentation = {
-								enable = true,
-							},
-						},
-						codeActionOnSave = {
+			vim.lsp.config("*", {
+				capabilities = vim.tbl_deep_extend(
+					"force",
+					vim.lsp.protocol.make_client_capabilities(),
+					require("cmp_nvim_lsp").default_capabilities()
+				),
+			})
+			vim.lsp.config("jedi_language_server", {
+				settings = {
+					jedi = {
+						autoImportCompletion = true,
+						diagnostics = {
 							enable = false,
-							mode = "all",
-						},
-						format = false,
-						nodePath = "",
-						onIgnoredFiles = "off",
-						packageManager = "npm",
-						quiet = false,
-						rulesCustomizations = {},
-						run = "onType",
-						useESLintClass = false,
-						validate = "on",
-						workingDirectory = {
-							mode = "location",
 						},
 					},
 				},
-				bashls = {},
-				cssls = {},
-				html = {},
-				jsonls = {},
-				ltex = {
-					settings = {
-						ltex = {
-							dictionary = {
-								["en-US"] = words,
-							},
+			})
+			vim.lsp.config("eslint", {
+				settings = {
+					codeAction = {
+						disableRuleComment = {
+							enable = true,
+							location = "separateLine",
+						},
+						showDocumentation = {
+							enable = true,
+						},
+					},
+					codeActionOnSave = {
+						enable = false,
+						mode = "all",
+					},
+					format = false,
+					nodePath = "",
+					onIgnoredFiles = "off",
+					packageManager = "npm",
+					quiet = false,
+					rulesCustomizations = {},
+					run = "onType",
+					useESLintClass = false,
+					validate = "on",
+					workingDirectory = {
+						mode = "location",
+					},
+				},
+			})
+			vim.lsp.config("ltex", {
+				settings = {
+					ltex = {
+						dictionary = {
+							["en-US"] = words,
 						},
 					},
 				},
-				gopls = {},
-				lua_ls = {
-					settings = {
-						Lua = {
-							workspace = { checkThirdParty = false },
-							telemetry = { enable = false },
-							diagnostics = {
-								globals = { "vim", "awesome" },
-							},
-							hint = { enable = true },
+			})
+			vim.lsp.config("lua_ls", {
+				settings = {
+					Lua = {
+						workspace = { checkThirdParty = false },
+						telemetry = { enable = false },
+						diagnostics = {
+							globals = { "vim", "awesome" },
 						},
+						hint = { enable = true },
 					},
 				},
-				jedi_language_server = {
-					init_options = {
-						diagnostics = { enable = false },
-					},
-				},
-				ruff = {},
-			}
+			})
 
+			-- Install LSP servers
+			require("mason").setup({
+				max_concurrent_installers = 10,
+			})
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"bashls",
+					"cssls",
+					"eslint",
+					"gopls",
+					"html",
+					"jedi_language_server",
+					"jsonls",
+					"ltex",
+					"lua_ls",
+					"ruff",
+				},
+			})
+
+			-- Install tools
+			local mason_registry = require("mason-registry")
 			local tools = {
 				{ "stylua" },
 				{ "shfmt" },
@@ -607,16 +641,26 @@ require("lazy").setup({
 				{ "rstcheck" },
 				{ "sqlfluff" },
 			}
+			mason_registry.refresh(function()
+				for _, tool in ipairs(tools) do
+					local pkg_name = tool[1]
+					local version = tool.version
+					local pkg = mason_registry.get_package(pkg_name)
 
-			-- MASON.NVIM
-			require("mason").setup({
-				ensure_installed = tools, -- not an option from mason.nvim, we install these manually below
-				max_concurrent_installers = 10,
-			})
+					-- Check if the package is installed and ensure it is the correct version
+					if pkg:is_installed() then
+						local installed_version_or_err = pkg:get_installed_version()
+						if version and installed_version_or_err ~= version then
+							pkg:install({ version = version })
+						end
+					-- If the package is not installed, install it
+					else
+						pkg:install({ version = version })
+					end
+				end
+			end)
 
-			local mason_registry = require("mason-registry")
-
-			-- Install additional tools not provided by mason-registry after installing the main tools
+			-- Manually install additional tools not provided by mason-registry after installing the main tools
 			mason_registry:on("package:install:success", function(pkg)
 				-- Install additional tool for pylint
 				if pkg.name == "pylint" then
@@ -636,49 +680,6 @@ require("lazy").setup({
 						:start()
 				end
 			end)
-
-			-- Install tools
-			mason_registry.refresh(function()
-				for _, tool in ipairs(tools) do
-					local pkg_name = tool[1]
-					local version = tool.version
-					local pkg = require("mason-registry").get_package(pkg_name)
-
-					-- Define a callback function to handle the result of get_installed_version
-					local function ensure_installed_version(success, installed_version_or_err)
-						if success then
-							-- If the installed version is different from the desired version, install the package with the desired version
-							if version and installed_version_or_err ~= version then
-								pkg:install({ version = version })
-							end
-						else
-							print(
-								"Error getting installed version for " .. pkg_name .. ": " .. installed_version_or_err
-							)
-						end
-					end
-
-					-- Check if the package is installed and ensure it is the correct version
-					if pkg:is_installed() then
-						pkg:get_installed_version(ensure_installed_version)
-					-- If the package is not installed, install it
-					else
-						pkg:install({ version = version })
-					end
-				end
-			end)
-
-			-- MASON-LSPCONFIG.NVIM
-			require("mason-lspconfig").setup({
-				ensure_installed = vim.tbl_keys(servers or {}),
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
-			})
 		end,
 	},
 
@@ -721,7 +722,7 @@ require("lazy").setup({
 			{
 				"<leader>f",
 				function()
-					require("conform").format({ async = true, lsp_format = "last" })
+					require("conform").format({ async = true })
 				end,
 				mode = "",
 				desc = "[F]ormat Current Buffer",
@@ -738,24 +739,24 @@ require("lazy").setup({
 				},
 			},
 			formatters_by_ft = {
-				lua = { "stylua" },
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				html = { "prettier" },
-				htmldjango = { "djlint" },
-				xml = { "prettier" },
-				css = { "prettier" },
-				scss = { "prettier" },
-				json = { "prettier" },
-				yaml = { "prettier" },
-				sh = { "shfmt" },
-				sql = { "sqlfluff" },
-				psql = { "sqlfluff" },
-				markdown = { "prettier", "injected" },
+				lua = { "stylua", lsp_format = "fallback" },
+				javascript = { "prettier", lsp_format = "last" },
+				typescript = { "prettier", lsp_format = "last" },
+				html = { "prettier", lsp_format = "last" },
+				htmldjango = { "djlint", lsp_format = "last" },
+				xml = { "prettier", lsp_format = "last" },
+				css = { "prettier", lsp_format = "last" },
+				scss = { "prettier", lsp_format = "last" },
+				json = { "prettier", lsp_format = "last" },
+				yaml = { "prettier", lsp_format = "last" },
+				sh = { "shfmt", lsp_format = "last" },
+				sql = { "sqlfluff", lsp_format = "last" },
+				psql = { "sqlfluff", lsp_format = "last" },
+				markdown = { "prettier", "injected", lsp_format = "last" },
 				["*"] = { "injected" },
 				-- Use the "_" filetype to run formatters on filetypes that don't
 				-- have other formatters configured.
-				["_"] = { "trim_whitespace" },
+				["_"] = { "trim_whitespace", lsp_format = "last" },
 			},
 		},
 	},
@@ -783,13 +784,15 @@ require("lazy").setup({
 			require("copilot").setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
+				auto_refresh = true,
 			})
 			require("copilot_cmp").setup()
 			require("CopilotChat").setup({
-				model = "claude-3.5-sonnet",
+				model = "gpt-4.1",
 				question_header = "## Miika",
 				chat_autocomplete = true,
 				context = "buffers",
+				sticky = "#buffers",
 				-- default mappings
 				mappings = {
 					complete = {
@@ -824,6 +827,66 @@ require("lazy").setup({
 						normal = "gs",
 					},
 				},
+				prompts = {
+					Odoo = {
+						system_prompt = [[
+                        You are an expert AI assistant specializing in Python development for Odoo 18 framework.
+
+                        Key areas of expertise:
+                        - Deep knowledge of the entire Odoo 18 codebase, architecture, and APIs
+                        - Odoo ORM model creation, fields, methods, and inheritance patterns
+                        - Odoo views (form, list, kanban, etc.) and their XML structure
+                        - Odoo security (access rights, record rules, etc.)
+                        - Odoo business logic implementation best practices
+                        - Odoo module structure and development workflow
+                        - Python coding standards specific to Odoo
+                        - Efficient database operations and query optimization in Odoo
+                        - Odoo Javascript framework and QWeb templates
+                        - Debugging and testing Odoo applications
+
+                        When providing guidance:
+                        - Suggest the most maintainable, performant and Odoo-idiomatic solution
+                        - Follow Odoo's official coding style and conventions
+                        - Explain how your solution integrates with Odoo's architecture
+                        - Provide complete, working code examples with proper imports
+                        - Include docstrings and comments for complex logic
+                        - Warn about potential pitfalls or compatibility issues
+
+                        Focus on delivering practical, production-ready code while explaining Odoo-specific concepts and best practices.
+                        ]]
+							.. require("CopilotChat.config.prompts").COPILOT_BASE.system_prompt,
+					},
+					Django = {
+						system_prompt = [[
+                        You are an expert AI assistant specializing in Python development with Django web framework.
+
+                        Key areas of expertise:
+                        - Deep knowledge of the entire Django framework, architecture, and APIs
+                        - Django model design, fields, methods, and relationships
+                        - Django views (function-based and class-based) and URL routing
+                        - Django templates, template tags, and filters
+                        - Django ORM queries, optimizations, and database operations
+                        - Django forms, model forms, and form validation
+                        - Django REST framework for API development
+                        - Django security best practices (auth, CSRF, XSS protection, etc.)
+                        - Django middleware, signals, and custom management commands
+                        - Django testing and debugging techniques
+                        - Deployment configurations for Django applications
+
+                        When providing guidance:
+                        - Suggest the most maintainable, secure and Django-idiomatic solution
+                        - Follow Django's official coding style and conventions
+                        - Explain how your solution integrates with Django's architecture
+                        - Provide complete, working code examples with proper imports
+                        - Include docstrings and comments for complex logic
+                        - Warn about potential pitfalls or security considerations
+                        - Consider performance implications of database queries
+
+                        Focus on delivering practical, production-ready code while explaining Django-specific concepts and best practices.
+                        ]]
+							.. require("CopilotChat.config.prompts").COPILOT_BASE.system_prompt,
+					},
+				},
 			})
 
 			local copilot_map = function(keys, func, desc)
@@ -840,6 +903,18 @@ require("lazy").setup({
 			copilot_map("<leader>hc", ":CopilotChatStop<CR>", "[C]cancel Current Output")
 			copilot_map("<leader>hs", ":CopilotChatSave ", "[S]ave Chat History")
 			copilot_map("<leader>hl", ":CopilotChatLoad ", "[L]oad Chat History")
+			copilot_map("<leader>hho", function()
+				require("CopilotChat").open()
+				local chat = require("CopilotChat").chat
+				chat:add_sticky("/Odoo")
+				chat:add_sticky("#buffers")
+			end, "[O]doo Expert Copilot")
+			copilot_map("<leader>hhd", function()
+				require("CopilotChat").open()
+				local chat = require("CopilotChat").chat
+				chat:add_sticky("/Django")
+				chat:add_sticky("#buffers")
+			end, "[O]doo Expert Copilot")
 
 			-- LuaSnip setup
 			local luasnip = require("luasnip")

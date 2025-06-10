@@ -1,0 +1,26 @@
+font=UbuntuMono Nerd Font Mono Bold 12
+edge=top
+[warning]
+edge=top
+message-padding=12
+button-padding=7
+button-margin-right=10
+button-margin=10
+button-gap=10
+button-dismiss-gap=0
+border-bottom-size=0
+
+# BEGIN LIGHT
+background=7a4f2f
+text=ffffff
+border=7a4f2f
+button-background=fff3da
+button-text=000000
+# END LIGHT
+## BEGIN DARK
+#background=dfaf7a
+#text=000000
+#border=dfaf7a
+#button-background=222000
+#button-text=ffffff
+### END DARK

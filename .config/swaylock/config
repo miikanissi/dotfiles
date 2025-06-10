@@ -1,0 +1,35 @@
+ignore-empty-password
+font=UbuntuMono Nerd Font Mono Bold 12
+indicator-radius=100
+indicator-thickness=15
+
+color=1e1e1e
+bs-hl-color=79a8ff
+caps-lock-bs-hl-color=79a8ff
+caps-lock-key-hl-color=a6d189
+inside-color=00000000
+inside-clear-color=00000000
+inside-caps-lock-color=00000000
+inside-ver-color=00000000
+inside-wrong-color=00000000
+key-hl-color=a6d189
+layout-bg-color=00000000
+layout-border-color=00000000
+layout-text-color=c6d0f5
+line-color=00000000
+line-clear-color=00000000
+line-caps-lock-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+ring-color=2f447f
+ring-clear-color=79a8ff
+ring-caps-lock-color=ef9f76
+ring-ver-color=88ca9f
+ring-wrong-color=ff7f9f
+separator-color=00000000
+text-color=c6d0f5
+text-clear-color=79a8ff
+text-caps-lock-color=ef9f76
+text-ver-color=88ca9f
+text-wrong-color=ff7f9f
+## END LIGHT

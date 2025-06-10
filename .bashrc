@@ -6,7 +6,7 @@
 [[ $- == *i* ]] && stty -ixon
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-	. /etc/bash_completion
+    . /etc/bash_completion
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -37,15 +37,15 @@ bind 'set bell-style none'
 
 # color man pages
 man() {
-	env \
-		LESS_TERMCAP_mb="$(printf "\e[1;31m")" \
-		LESS_TERMCAP_md="$(printf "\e[1;31m")" \
-		LESS_TERMCAP_me="$(printf "\e[0m")" \
-		LESS_TERMCAP_se="$(printf "\e[0m")" \
-		LESS_TERMCAP_so="$(printf "\e[1;44;30m")" \
-		LESS_TERMCAP_ue="$(printf "\e[0m")" \
-		LESS_TERMCAP_us="$(printf "\e[1;32m")" \
-		man "$@"
+    env \
+        LESS_TERMCAP_mb="$(printf "\e[1;31m")" \
+        LESS_TERMCAP_md="$(printf "\e[1;31m")" \
+        LESS_TERMCAP_me="$(printf "\e[0m")" \
+        LESS_TERMCAP_se="$(printf "\e[0m")" \
+        LESS_TERMCAP_so="$(printf "\e[1;44;30m")" \
+        LESS_TERMCAP_ue="$(printf "\e[0m")" \
+        LESS_TERMCAP_us="$(printf "\e[1;32m")" \
+        man "$@"
 }
 
 ### aliases ###
@@ -95,50 +95,56 @@ alias docker='sudo docker' # always run docker in sudo, cba with docker permissi
 alias odoo-addons='cd ~/Documents/odoo/addons'
 
 branchall() {
-	for i in */; do
-		(cd "$i" && echo -n "${i}: " && git rev-parse --abbrev-ref HEAD)
-	done
+    for i in */; do
+        (cd "$i" && echo -n "${i}: " && git rev-parse --abbrev-ref HEAD)
+    done
 }
 
 # Generate a pdf from markdown file
 md2pdf() {
-	pandoc -s --highlight-style=tango -V colorlinks=true -V linkcolor=blue -V urlcolor=red -V toccolor=gray -o "${1%.md}.pdf" "$1"
+    pandoc --from markdown \
+        --template eisvogel \
+        --pdf-engine=xelatex \
+        -o "${1%.md}.pdf" "$1"
+}
+md2html() {
+    pandoc -s --highlight-style=tango -V colorlinks=true -V linkcolor=blue -V urlcolor=blue -V toccolor=gray -o "${1%.md}.html" "$1"
 }
 # view markdown file in terminal via lynx and pandoc
 md() {
-	pandoc "$1" | lynx -stdin
+    pandoc "$1" | lynx -stdin
 }
 # delete all compiled python files
 pyclean() {
-	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+    find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 }
 
 # run fzf script
 alias ff='~/.local/bin/ff.sh'
 # run fzf for all non hidden dirs
 fd() {
-	local dir
-	dir=$(find "${1:-.}" -type d -not -path '*/[@.]*' 2>/dev/null | fzf +m) && cd "$dir" || exit
+    local dir
+    dir=$(find "${1:-.}" -type d -not -path '*/[@.]*' 2>/dev/null | fzf +m) && cd "$dir" || exit
 }
 
 # completion aliases
 if [ -f "$HOME"/.local/bin/complete_alias ] && ! shopt -oq posix; then
-	. "$HOME"/.local/bin/complete_alias
+    . "$HOME"/.local/bin/complete_alias
 
-	complete -F _complete_alias gps
-	complete -F _complete_alias gpl
-	complete -F _complete_alias gc
-	complete -F _complete_alias ga
-	complete -F _complete_alias gs
-	complete -F _complete_alias gd
-	complete -F _complete_alias gl
-	complete -F _complete_alias dotfiles
+    complete -F _complete_alias gps
+    complete -F _complete_alias gpl
+    complete -F _complete_alias gc
+    complete -F _complete_alias ga
+    complete -F _complete_alias gs
+    complete -F _complete_alias gd
+    complete -F _complete_alias gl
+    complete -F _complete_alias dotfiles
 fi
 
 # exports
 export BROWSER=/usr/bin/brave-browser
 export TERMINAL="/usr/bin/alacritty"
-export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/local/bin/nvim
 export ZK_NOTEBOOK_DIR=~/Documents/notes/
 export LOCATION="Queens"
 export QT_QPA_PLATFORMTHEME=gtk2
