@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=PDF reader
-Exec=/usr/bin/zathura %u
+Exec=/usr/bin/evince %u

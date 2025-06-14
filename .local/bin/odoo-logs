@@ -12,4 +12,5 @@ while getopts "C:h" o; do case "${o}" in
 	*) printf "Invalid option: -%s\\n -h: To show help\\n" "$OPTARG" && exit 1 ;;
 	esac done
 
+sleep 0.1
 sudo docker logs -f --tail=500 "$container_name" 2>&1 | multitail -cS python-log -j -f

@@ -109,7 +109,8 @@ bindsym $mod+w exec "$browser"
 bindsym $mod+b exec "$filemanager"
 
 # print screen
-bindsym $mod+Print exec "flameshot gui"
+# workaround to image copy corruption: https://github.com/flameshot-org/flameshot/issues/3329
+bindsym $mod+Print exec 'flameshot gui --raw > /tmp/screenshot.png && wl-copy < /tmp/screenshot.png && mv /tmp/screenshot.png ~/Pictures/Screenshots/$(date "+%Y-%m-%d_%H-%M-%S").png'
 
 # screencapture screen
 bindsym $mod+Shift+Print exec "~/.local/bin/wf-recorder.sh"
@@ -117,7 +118,7 @@ bindsym $mod+Shift+Print exec "~/.local/bin/wf-recorder.sh"
 # start miscellaneous applications
 bindsym $mod+s exec "signal-desktop --start-in-tray --use-tray-icon"
 bindsym $mod+m exec "alacritty -t ncmpcpp -e ncmpcpp"
-bindsym $mod+o exec "alacritty -t odoo-logs -e odoo-logs -C wildpack-odoo18"
+bindsym $mod+o exec "alacritty -t odoo-logs -e ~/.local/bin/odoo-logs -C wildpack-odoo18"
 
 # drag floating windows by holding down $mod and left mouse button.
 # resize them with right mouse button + $mod.
